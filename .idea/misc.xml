@@ -3,8 +3,9 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Nutan/projects/Pepdeal/app/src/main/res/drawable/ic_login_bottom_bg_shade_layout.xml" value="0.22552083333333334" />
         <entry key="..\:/Nutan/projects/Pepdeal/app/src/main/res/layout/activity_home.xml" value="0.209375" />
-        <entry key="..\:/Nutan/projects/Pepdeal/app/src/main/res/layout/activity_login.xml" value="0.16" />
+        <entry key="..\:/Nutan/projects/Pepdeal/app/src/main/res/layout/activity_login.xml" value="0.18" />
         <entry key="..\:/Nutan/projects/Pepdeal/app/src/main/res/layout/activity_splash.xml" value="0.1" />
         <entry key="..\:/Nutan/projects/Pepdeal/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.22205128205128205" />
       </map>
