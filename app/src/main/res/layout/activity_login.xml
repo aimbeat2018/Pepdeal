@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout>
+    <data>
+        <variable
+            name="handler"
+            type="com.pepdeal.in.activity.LoginActivity.ClickHandler" />
+    </data>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,8 +13,13 @@
     tools:context=".activity.LoginActivity">
 
     <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/linLoginUpper"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/iv"
         android:orientation="vertical">
 
         <ImageView
@@ -26,7 +37,7 @@
             android:gravity="center"
             android:text="@string/login"
             android:textColor="@color/black"
-            android:textSize="@dimen/text_19" />
+            android:textSize="@dimen/text_22" />
 
 
         <com.loopeer.shadow.ShadowView
@@ -61,7 +72,7 @@
                     android:background="@color/gray" />
 
                 <EditText
-                    android:id="@+id/edt_firstname"
+                    android:id="@+id/edt_mobileNo"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/margin_33"
                     android:layout_marginHorizontal="@dimen/margin_5"
@@ -131,10 +142,10 @@
             android:layout_gravity="right"
             android:layout_marginHorizontal="@dimen/margin_30"
             android:layout_marginVertical="5dp"
-            android:fontFamily="@font/roboto_regular"
+            android:fontFamily="@font/roboto_bold"
             android:padding="@dimen/margin_5"
             android:text="@string/forgotPassword"
-            android:textColor="@color/darkGray"
+            android:textColor="@color/black"
             android:textSize="@dimen/text_15" />
 
         <androidx.cardview.widget.CardView
@@ -151,17 +162,54 @@
                 android:fontFamily="@font/roboto_regular"
                 android:gravity="center"
                 android:padding="@dimen/margin_10"
+                android:onClick="@{handler::onLogin}"
                 android:text="@string/login"
                 android:textColor="@color/white" />
         </androidx.cardview.widget.CardView>
 
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:layout_marginVertical="5dp"
+                android:fontFamily="@font/roboto_bold"
+                android:padding="@dimen/margin_7"
+                android:text="Don't have an account?"
+                android:textSize="@dimen/text_15" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/txtRegister"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:layout_marginVertical="5dp"
+                android:fontFamily="@font/roboto_bold"
+                android:padding="@dimen/margin_7"
+                android:text="Register"
+                android:onClick="@{handler::registerClick}"
+                android:textColor="@color/purple_500"
+                android:textSize="@dimen/text_15" />
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
     </androidx.appcompat.widget.LinearLayoutCompat>
 
     <ImageView
+        android:id="@+id/iv"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/margin_100"
+        android:scaleType="fitXY"
+        android:paddingTop="@dimen/margin_30"
         android:layout_alignParentBottom="true"
 
+        app:layout_constraintBottom_toBottomOf="parent"
         android:src="@drawable/ic_login_bottom_bg_shade_layout" />
 
-</RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

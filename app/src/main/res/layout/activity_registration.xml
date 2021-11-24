@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+
+        <variable
+            name="handler"
+            type="com.pepdeal.in.activity.RegistrationActivity.ClickHandler" />
+    </data>
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".activity.LoginActivity">
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true"
+            android:scrollbars="none">
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/linRegistration"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="@dimen/margin_150"
+                    android:layout_height="@dimen/margin_150"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/margin_40"
+                    android:src="@drawable/img_round_logo_with_bg" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="15dp"
+                    android:fontFamily="@font/roboto_bold"
+                    android:gravity="center"
+                    android:text="@string/register"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text_22" />
+
+
+                <com.loopeer.shadow.ShadowView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/margin_25"
+                    android:layout_marginVertical="@dimen/margin_5"
+                    app:cornerRadius="@dimen/margin_20"
+                    app:shadowColor="@color/colorPrimaryDarkTrans"
+                    app:shadowMargin="@dimen/margin_6"
+                    app:shadowRadius="@dimen/margin_15">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/margin_5"
+                        android:layout_marginVertical="@dimen/margin_6"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        app:layout_gravity="center">
+
+                        <ImageView
+                            android:layout_width="@dimen/margin_22"
+                            android:layout_height="@dimen/margin_20"
+                            android:layout_marginLeft="@dimen/margin_5"
+                            android:padding="@dimen/margin_2"
+                            android:src="@drawable/user"
+                            app:tint="@color/darkGray" />
+
+                        <View
+                            android:layout_width="0.5dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="@dimen/margin_5"
+                            android:background="@color/gray" />
+
+                        <EditText
+                            android:id="@+id/edtName"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/margin_33"
+                            android:layout_marginHorizontal="@dimen/margin_5"
+                            android:background="@null"
+                            android:fontFamily="@font/roboto_regular"
+                            android:hint="@string/your_name"
+                            android:inputType="number"
+                            android:paddingStart="@dimen/margin_5"
+                            android:textColor="@color/black"
+                            android:textColorHint="@color/lightGrayColor"
+                            android:textSize="@dimen/text_14" />
+                    </LinearLayout>
+                </com.loopeer.shadow.ShadowView>
+
+
+                <com.loopeer.shadow.ShadowView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/margin_25"
+                    android:layout_marginVertical="@dimen/margin_5"
+                    app:cornerRadius="@dimen/margin_20"
+                    app:shadowColor="@color/colorPrimaryDarkTrans"
+                    app:shadowMargin="@dimen/margin_6"
+                    app:shadowRadius="@dimen/margin_15">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/margin_5"
+                        android:layout_marginVertical="@dimen/margin_6"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        app:layout_gravity="center">
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/margin_5"
+                            android:text="+91" />
+
+                        <View
+                            android:layout_width="0.5dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="@dimen/margin_5"
+                            android:background="@color/gray" />
+
+                        <EditText
+                            android:id="@+id/edtMobileNo"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/margin_33"
+                            android:layout_marginHorizontal="@dimen/margin_5"
+                            android:background="@null"
+                            android:fontFamily="@font/roboto_regular"
+                            android:hint="@string/mobile_number"
+                            android:inputType="textPersonName"
+                            android:paddingStart="@dimen/margin_5"
+                            android:textColor="@color/black"
+                            android:textColorHint="@color/lightGrayColor"
+                            android:textSize="@dimen/text_14" />
+                    </LinearLayout>
+                </com.loopeer.shadow.ShadowView>
+
+
+                <com.loopeer.shadow.ShadowView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/margin_25"
+                    android:layout_marginVertical="@dimen/margin_5"
+                    app:cornerRadius="@dimen/margin_20"
+                    app:shadowColor="@color/colorPrimaryDarkTrans"
+                    app:shadowMargin="@dimen/margin_6"
+                    app:shadowRadius="@dimen/margin_15">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/margin_5"
+                        android:layout_marginVertical="@dimen/margin_6"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        app:layout_gravity="center">
+
+                        <ImageView
+                            android:layout_width="@dimen/margin_22"
+                            android:layout_height="@dimen/margin_20"
+                            android:layout_marginLeft="@dimen/margin_5"
+                            android:src="@drawable/eye_icon"
+                            app:tint="@color/darkGray" />
+
+                        <View
+                            android:layout_width="0.5dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="@dimen/margin_5"
+                            android:background="@color/gray" />
+
+                        <EditText
+                            android:id="@+id/edtPassword"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/margin_33"
+                            android:layout_marginHorizontal="@dimen/margin_5"
+                            android:background="@null"
+                            android:fontFamily="@font/roboto_regular"
+                            android:hint="Password"
+                            android:inputType="textPassword"
+                            android:paddingStart="@dimen/margin_5"
+                            android:textColor="@color/black"
+                            android:textColorHint="@color/lightGrayColor"
+                            android:textSize="@dimen/text_14" />
+                    </LinearLayout>
+                </com.loopeer.shadow.ShadowView>
+
+                <com.loopeer.shadow.ShadowView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/margin_25"
+                    android:layout_marginVertical="@dimen/margin_5"
+                    app:cornerRadius="@dimen/margin_20"
+                    app:shadowColor="@color/colorPrimaryDarkTrans"
+                    app:shadowMargin="@dimen/margin_6"
+                    app:shadowRadius="@dimen/margin_15">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/margin_5"
+                        android:layout_marginVertical="@dimen/margin_6"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        app:layout_gravity="center">
+
+                        <ImageView
+                            android:layout_width="@dimen/margin_22"
+                            android:layout_height="@dimen/margin_20"
+                            android:layout_marginLeft="@dimen/margin_5"
+                            android:src="@drawable/eye_icon"
+                            app:tint="@color/darkGray" />
+
+                        <View
+                            android:layout_width="0.5dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="@dimen/margin_5"
+                            android:background="@color/gray" />
+
+                        <EditText
+                            android:id="@+id/edtConfirmPassword"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/margin_33"
+                            android:layout_marginHorizontal="@dimen/margin_5"
+                            android:background="@null"
+                            android:fontFamily="@font/roboto_regular"
+                            android:hint="Confirm Password"
+                            android:inputType="textPassword"
+                            android:paddingStart="@dimen/margin_5"
+                            android:textColor="@color/black"
+                            android:textColorHint="@color/lightGrayColor"
+                            android:textSize="@dimen/text_14" />
+                    </LinearLayout>
+                </com.loopeer.shadow.ShadowView>
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/margin_55"
+                    android:layout_marginVertical="@dimen/margin_10"
+                    app:cardBackgroundColor="@color/purple_500"
+                    app:cardCornerRadius="@dimen/margin_20">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/roboto_regular"
+                        android:gravity="center"
+                        android:onClick="@{handler::onRegistration}"
+                        android:padding="@dimen/margin_10"
+                        android:text="@string/register"
+                        android:textColor="@color/white" />
+                </androidx.cardview.widget.CardView>
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right"
+                        android:layout_marginVertical="5dp"
+                        android:fontFamily="@font/roboto_bold"
+                        android:padding="@dimen/margin_7"
+                        android:text="Don't have an account?"
+                        android:textSize="@dimen/text_15" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/txtRegister"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right"
+                        android:layout_marginVertical="5dp"
+                        android:fontFamily="@font/roboto_bold"
+                        android:padding="@dimen/margin_7"
+                        android:text="Register"
+                        android:textColor="@color/purple_500"
+                        android:textSize="@dimen/text_15" />
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/margin_100"
+                    android:layout_gravity="bottom"
+                    android:layout_marginTop="@dimen/margin_20"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/ic_login_bottom_bg_shade_layout" />
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+        </androidx.core.widget.NestedScrollView>
+    </RelativeLayout>
+</layout>
