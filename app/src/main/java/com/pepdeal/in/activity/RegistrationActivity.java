@@ -23,7 +23,6 @@ public class RegistrationActivity extends AppCompatActivity {
 
     }
 
-
     public class ClickHandler {
         public ClickHandler() {
         }
