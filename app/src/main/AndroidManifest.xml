@@ -10,6 +10,18 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Pepdeal">
         <activity
+            android:name=".activity.ShopDetailsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.TicketListActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.ResetPasswordActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.ForgotPasswordActivity"
+            android:exported="false" />
+        <activity
             android:name=".activity.OtpVerificationActivity"
             android:exported="false" />
         <activity

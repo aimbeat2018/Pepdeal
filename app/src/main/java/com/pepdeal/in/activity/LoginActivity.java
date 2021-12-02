@@ -24,15 +24,16 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public class ClickHandler {
-        public ClickHandler() {
-        }
-
         public void registerClick(View view) {
             startActivity(new Intent(LoginActivity.this, RegistrationActivity.class));
         }
 
+        public void ForgotPasswordClick(View view) {
+            startActivity(new Intent(LoginActivity.this, ForgotPasswordActivity.class));
+        }
+
         public void onLogin(View view) {
-            if (binding.edtMobileNo.getText().toString().equals("")||binding.edtMobileNo.getText().length()!=10) {
+            if (binding.edtMobileNo.getText().toString().equals("") || binding.edtMobileNo.getText().length() != 10) {
                 Toasty.info(LoginActivity.this, "Enter valid mobile number", Toasty.LENGTH_SHORT, true).show();
             } else if (binding.edtPassword.getText().toString().equals("")) {
                 Toasty.info(LoginActivity.this, "Enter valid password", Toasty.LENGTH_SHORT, true).show();

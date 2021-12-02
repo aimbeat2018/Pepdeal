@@ -20,13 +20,15 @@ public class SplashActivity extends AppCompatActivity {
         new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
             @Override
             public void run() {
-                if (SharedPref.getBol(SplashActivity.this, SharedPref.isLogin)) {
+               /* if (SharedPref.getBol(SplashActivity.this, SharedPref.isLogin)) {
                     startActivity(new Intent(SplashActivity.this, HomeActivity.class));
                     finish();
                 } else {
                     startActivity(new Intent(SplashActivity.this, LoginActivity.class));
                     finish();
-                }
+                }*/
+                startActivity(new Intent(SplashActivity.this, HomeActivity.class));
+                finish();
             }
         }, 2000);
     }

@@ -3,7 +3,40 @@
 
     <string name="login">Login</string>
     <string name="register">Register</string>
+    <string name="reset_password">Reset Password</string>
     <string name="mobile_number">Mobile Number</string>
     <string name="your_name">Your Name</string>
     <string name="forgotPassword">Forgot Password?</string>
+    <string name="enter_password">Enter Password</string>
+    <string name="re_enter_password">Re-Enter Password</string>
+    <string name="already_have_account">Already have an account?</string>
+    <string name="not_have_account">Don\'t have an account?</string>
+    <string name="otp_verification">OTP Verification</string>
+    <string name="enter_otp_sent_to">Enter the OTP sent to</string>
+    <string name="not_receive">Didn\'t receive OTP?</string>
+    <string name="resend">RESEND</string>
+    <string name="sendotp">Send OTP</string>
+    <string name="verify">Verify</string>
+    <string name="ticket">Ticket</string>
+    <string name="super_shop">Super Shop</string>
+    <string name="favorite">Favorite</string>
+    <string name="help">Help</string>
+    <string name="message">Message</string>
+    <string name="customer">CUSTOMER</string>
+    <string name="seller">SELLER</string>
+    <string name="shop_sign_board">Shop Sign Board</string>
+    <string name="about_shop">About shop</string>
+    <string name="list_product">List product</string>
+    <string name="setting">Setting</string>
+    <string name="logout">Log Out</string>
+    <string name="home">Home</string>
+    <string name="category">Category</string>
+    <string name="start_your_shop">Start your Shop</string>
+    <string name="notification">Notification</string>
+    <string name="contact_us">Contact us</string>
+    <string name="about_us">About us</string>
+    <string name="faq">FAQ</string>
+    <string name="legal">Legal</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
