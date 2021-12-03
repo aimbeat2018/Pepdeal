@@ -27,6 +27,7 @@
     <string name="shop_sign_board">Shop Sign Board</string>
     <string name="about_shop">About shop</string>
     <string name="list_product">List product</string>
+    <string name="update_listing">Update listing</string>
     <string name="setting">Setting</string>
     <string name="logout">Log Out</string>
     <string name="home">Home</string>
@@ -37,6 +38,49 @@
     <string name="about_us">About us</string>
     <string name="faq">FAQ</string>
     <string name="legal">Legal</string>
+    <string name="product_details">Product Description</string>
+    <string name="add_to_fav">Add To Favorite</string>
+    <string name="product_list_form">Product List Form</string>
+    <string name="product_name">Product Name</string>
+    <string name="enter_product_name">Enter Product Name</string>
+    <string name="brand_name">Brand Name</string>
+    <string name="select_brand_name">Select Brand Name</string>
+    <string name="description">Description</string>
+    <string name="enter_text">Enter text</string>
+    <string name="select_category">Select Category</string>
+    <string name="warranty">Warranty</string>
+    <string name="enter_warranty">Enter warranty</string>
+    <string name="enter_size">Enter size</string>
+    <string name="size">Size</string>
+    <string name="colour">Colour</string>
+    <string name="search_tag">Search Tag</string>
+    <string name="price">Price</string>
+    <string name="mrp">MRP</string>
+    <string name="discount">Discount</string>
+    <string name="sale">Sale</string>
+    <string name="upload_product_image">Upload Product image</string>
+    <string name="save">SAVE</string>
+    <string name="delete">Delete</string>
+    <string name="update">Update</string>
+    <string name="save_live">SAVE &amp; LIVE</string>
+    <string name="add_shop">Add Shop</string>
+    <string name="shop_name">Shop Name</string>
+    <string name="shop_address">Shop Address</string>
+    <string name="enter_shop_name">Enter Shop Name</string>
+    <string name="enter_shop_address">Enter Shop Address</string>
+    <string name="enter_mobile_number">Enter Mobile Number</string>
+    <string name="board_sign_color">Shop Board Background</string>
+    <string name="product_details1">This metal planter with a foliage pattern is perfect to add a
+tropical feel to your home. The piece is hand-crafted with a
+lacquered finish on the outside and an elegant gold
+inside.The design is ideal for centre tables &amp; corner tables
+and can also be used as a vase for flowers. No Drainage
+Hole.\n\nThis metal planter with a foliage pattern is perfect to add a
+tropical feel to your home. The piece is hand-crafted with a
+lacquered finish on the outside and an elegant gold
+inside.The design is ideal for centre tables &amp; corner tables
+and can also be used as a vase for flowers. No Drainage
+Hole.</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

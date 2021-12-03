@@ -9,6 +9,7 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
@@ -69,6 +70,26 @@ public class HomeActivity extends AppCompatActivity {
 
         public void onHomeClick(View view) {
             binding.drawerLayout.closeDrawers();
+        }
+
+        public void onAddProductClick(View view) {
+            binding.drawerLayout.closeDrawers();
+            startActivity(new Intent(HomeActivity.this, AddProductActivity.class));
+        }
+
+        public void onUpdateProductListClick(View view) {
+            binding.drawerLayout.closeDrawers();
+            startActivity(new Intent(HomeActivity.this, SellerProductListingActivity.class));
+        }
+
+        public void onStartShopClick(View view) {
+            binding.drawerLayout.closeDrawers();
+            startActivity(new Intent(HomeActivity.this, AddShopActivity.class));
+        }
+
+        public void onAboutShopClick(View view) {
+            binding.drawerLayout.closeDrawers();
+            startActivity(new Intent(HomeActivity.this, AddShopActivity.class));
         }
     }
 

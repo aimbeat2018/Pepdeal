@@ -1,6 +1,7 @@
 package com.pepdeal.in.fragment;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -14,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.pepdeal.in.R;
+import com.pepdeal.in.activity.ShopDetailsActivity;
 import com.pepdeal.in.databinding.FragmentSuperShopBinding;
 import com.pepdeal.in.databinding.FragmentTicketBinding;
 import com.pepdeal.in.databinding.ItemHomeShopsListBinding;
@@ -72,6 +74,9 @@ public class SuperShopFragment extends Fragment {
             }
 
             public void bind() {
+                layoutBinding.txtName.setOnClickListener(view -> {
+                    startActivity(new Intent(activity, ShopDetailsActivity.class));
+                });
             }
         }
     }

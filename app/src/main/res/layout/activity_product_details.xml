@@ -1,0 +1,374 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+
+        <variable
+            name="handler"
+            type="com.pepdeal.in.activity.ProductDetailsActivity.ClickHandler" />
+    </data>
+
+    <androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".activity.ProductDetailsActivity">
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="?actionBarSize"
+                android:background="@color/purple_500"
+                android:paddingHorizontal="@dimen/margin_10">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/iv_menu"
+                    android:layout_width="@dimen/margin_35"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="@dimen/margin_10"
+                    android:adjustViewBounds="true"
+                    android:onClick="@{handler::onBackClick}"
+                    android:padding="@dimen/margin_5"
+                    android:src="@drawable/ic_baseline_arrow_back_24"
+                    app:tint="@color/white" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="@dimen/margin_100"
+                    android:layout_height="match_parent"
+                    android:layout_toRightOf="@+id/iv_menu"
+                    android:adjustViewBounds="true"
+                    android:src="@drawable/ic_white_logo" />
+
+                <RelativeLayout
+                    android:layout_width="@dimen/margin_30"
+                    android:layout_height="@dimen/margin_30"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:adjustViewBounds="true"
+                        android:src="@drawable/ic_home_notification" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="@dimen/margin_15"
+                        android:layout_height="@dimen/margin_15"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginRight="@dimen/margin_1"
+                        android:fontFamily="@font/roboto_regular"
+                        android:gravity="center"
+                        android:text="5"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/text_8"
+                        android:textStyle="bold" />
+                </RelativeLayout>
+
+            </RelativeLayout>
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <androidx.core.widget.NestedScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fillViewport="true"
+                android:scrollbars="none">
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="#FCCFD6"
+                        android:orientation="vertical"
+                        android:padding="@dimen/margin_8">
+
+                        <androidx.appcompat.widget.LinearLayoutCompat
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:orientation="horizontal">
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginTop="@dimen/margin_3"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/roboto_bold"
+                                android:gravity="center"
+                                android:text="SIDDHIVINAYAK STORE"
+                                android:textColor="#C12222"
+                                android:textSize="@dimen/text_17"
+                                android:textStyle="bold" />
+
+                        </androidx.appcompat.widget.LinearLayoutCompat>
+
+                        <androidx.appcompat.widget.LinearLayoutCompat
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginVertical="@dimen/margin_8"
+                            android:orientation="horizontal">
+
+                            <androidx.appcompat.widget.LinearLayoutCompat
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_weight="1"
+                                android:gravity="start"
+                                android:orientation="horizontal">
+
+                                <androidx.appcompat.widget.AppCompatImageView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="@dimen/margin_20"
+                                    android:layout_gravity="center"
+                                    android:src="@drawable/ic_location"
+                                    app:tint="@color/black" />
+
+                                <androidx.appcompat.widget.AppCompatTextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:layout_marginHorizontal="@dimen/margin_5"
+                                    android:fontFamily="@font/roboto_medium"
+                                    android:gravity="center"
+                                    android:text="Andheri Mumbai"
+                                    android:textColor="@color/black"
+                                    android:textSize="@dimen/text_13" />
+                            </androidx.appcompat.widget.LinearLayoutCompat>
+
+                            <androidx.appcompat.widget.LinearLayoutCompat
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_weight="1"
+                                android:gravity="end"
+                                android:orientation="horizontal">
+
+                                <androidx.appcompat.widget.AppCompatImageView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="@dimen/margin_20"
+                                    android:layout_gravity="center"
+                                    android:src="@drawable/ic_call"
+                                    app:tint="@color/black" />
+
+                                <androidx.appcompat.widget.AppCompatTextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:layout_marginHorizontal="@dimen/margin_5"
+                                    android:fontFamily="@font/roboto_medium"
+                                    android:gravity="center"
+                                    android:text="77759898989"
+                                    android:textColor="@color/black"
+                                    android:textSize="@dimen/text_13" />
+                            </androidx.appcompat.widget.LinearLayoutCompat>
+
+                            <androidx.appcompat.widget.LinearLayoutCompat
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="end">
+
+                                <androidx.appcompat.widget.AppCompatImageView
+                                    android:id="@+id/img_super_shop"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_marginEnd="@dimen/margin_5"
+                                    android:adjustViewBounds="true"
+                                    android:src="@drawable/ic_add_super_shop" />
+
+                                <androidx.appcompat.widget.AppCompatImageView
+                                    android:id="@+id/img_message"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:adjustViewBounds="true"
+                                    android:src="@drawable/ic_send_message" />
+                            </androidx.appcompat.widget.LinearLayoutCompat>
+
+                        </androidx.appcompat.widget.LinearLayoutCompat>
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <androidx.appcompat.widget.AppCompatImageView
+                                android:id="@+id/img_fav"
+                                android:layout_width="@dimen/margin_35"
+                                android:layout_height="@dimen/margin_35"
+                                android:layout_alignParentEnd="true"
+                                android:layout_marginHorizontal="@dimen/margin_10"
+                                android:layout_marginVertical="@dimen/margin_10"
+                                android:adjustViewBounds="true"
+                                android:padding="@dimen/margin_3"
+                                android:src="@drawable/ic_details_fav" />
+
+                            <androidx.appcompat.widget.AppCompatImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/margin_220"
+                                android:padding="@dimen/margin_8"
+                                android:src="@drawable/ic_logo" />
+                        </RelativeLayout>
+
+                        <androidx.appcompat.widget.LinearLayoutCompat
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="@dimen/margin_15"
+                            android:layout_marginVertical="@dimen/margin_15"
+                            android:orientation="vertical">
+
+                            <androidx.appcompat.widget.LinearLayoutCompat
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+
+                                <androidx.appcompat.widget.LinearLayoutCompat
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:orientation="vertical">
+
+                                    <androidx.appcompat.widget.AppCompatTextView
+                                        android:id="@+id/txt_product_name"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_centerVertical="true"
+                                        android:fontFamily="@font/roboto_bold"
+                                        android:gravity="center"
+                                        android:text="Flower Pot "
+                                        android:textColor="@color/black"
+                                        android:textSize="@dimen/text_15" />
+
+                                    <androidx.appcompat.widget.LinearLayoutCompat
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="@dimen/margin_3"
+                                        android:orientation="horizontal">
+
+                                        <androidx.appcompat.widget.AppCompatTextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:fontFamily="@font/roboto_medium"
+                                            android:gravity="center"
+                                            android:text="₹ 4,000"
+                                            android:textColor="@color/purple_200"
+                                            android:textSize="@dimen/text_13" />
+
+                                        <androidx.appcompat.widget.AppCompatTextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginHorizontal="@dimen/margin_10"
+                                            android:fontFamily="@font/roboto_medium"
+                                            android:gravity="center"
+                                            android:text="₹ 5,000 "
+                                            android:textColor="@color/darkGray"
+                                            android:textSize="@dimen/text_13" />
+                                    </androidx.appcompat.widget.LinearLayoutCompat>
+                                </androidx.appcompat.widget.LinearLayoutCompat>
+
+                                <androidx.appcompat.widget.AppCompatTextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/roboto_medium"
+                                    android:gravity="center"
+                                    android:padding="@dimen/margin_3"
+                                    android:text="10% Off"
+                                    android:textColor="@color/teal_200"
+                                    android:textSize="@dimen/text_14" />
+
+                            </androidx.appcompat.widget.LinearLayoutCompat>
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:layout_marginTop="@dimen/margin_15"
+                                android:fontFamily="@font/roboto_bold"
+                                android:gravity="center"
+                                android:text="@string/product_details"
+                                android:textColor="@color/darkGray"
+                                android:textSize="@dimen/text_15" />
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:layout_marginTop="@dimen/margin_2"
+                                android:fontFamily="@font/roboto_medium"
+                                android:text="@string/product_details1"
+                                android:textColor="@color/darkGray"
+                                android:textSize="@dimen/text_13" />
+
+                        </androidx.appcompat.widget.LinearLayoutCompat>
+
+                        <androidx.appcompat.widget.LinearLayoutCompat
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <androidx.cardview.widget.CardView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginHorizontal="@dimen/margin_10"
+                                android:layout_marginVertical="@dimen/margin_10"
+                                android:layout_weight="1"
+                                app:cardBackgroundColor="@color/bluelight"
+                                app:cardCornerRadius="@dimen/margin_20">
+
+                                <androidx.appcompat.widget.AppCompatTextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/roboto_medium"
+                                    android:gravity="center"
+                                    android:padding="@dimen/margin_10"
+                                    android:text="@string/ticket"
+                                    android:textColor="@color/white" />
+                            </androidx.cardview.widget.CardView>
+
+                            <androidx.cardview.widget.CardView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginHorizontal="@dimen/margin_10"
+                                android:layout_marginVertical="@dimen/margin_10"
+                                android:layout_weight="1"
+                                app:cardBackgroundColor="@color/blue"
+                                app:cardCornerRadius="@dimen/margin_20">
+
+                                <androidx.appcompat.widget.AppCompatTextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/roboto_medium"
+                                    android:gravity="center"
+                                    android:padding="@dimen/margin_10"
+                                    android:text="@string/add_to_fav"
+                                    android:textColor="@color/white" />
+                            </androidx.cardview.widget.CardView>
+                        </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+            </androidx.core.widget.NestedScrollView>
+        </androidx.appcompat.widget.LinearLayoutCompat>
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</layout>

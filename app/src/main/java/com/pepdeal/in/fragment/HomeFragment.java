@@ -1,12 +1,14 @@
 package com.pepdeal.in.fragment;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -16,6 +18,8 @@ import android.view.ViewGroup;
 
 import com.pepdeal.in.R;
 import com.pepdeal.in.activity.HomeActivity;
+import com.pepdeal.in.activity.ShopDetailsActivity;
+import com.pepdeal.in.adapter.ProductAdapter;
 import com.pepdeal.in.databinding.FragmentHomeBinding;
 import com.pepdeal.in.databinding.ItemCategoryHomeLayoutBinding;
 import com.pepdeal.in.databinding.ItemHomeShopsListBinding;
@@ -75,44 +79,13 @@ public class HomeFragment extends Fragment {
             }
 
             public void bind() {
-                layoutBinding.recProduct.setLayoutManager(new LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false));
-                layoutBinding.recProduct.setAdapter(new ProductAdapter());
+                layoutBinding.txtName.setOnClickListener(view -> {
+                    startActivity(new Intent(activity, ShopDetailsActivity.class));
+                });
+                layoutBinding.recProduct.setLayoutManager(new GridLayoutManager(activity, 3));
+                layoutBinding.recProduct.setAdapter(new ProductAdapter(activity));
             }
         }
     }
 
-    public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHolder> {
-
-        @NonNull
-        @Override
-        public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            ItemProductListLayoutBinding layoutBinding = DataBindingUtil.inflate(LayoutInflater.from(activity), R.layout.item_product_list_layout, parent, false);
-            return new ViewHolder(layoutBinding);
-        }
-
-        @Override
-        public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-          /*  UsersHomeTabModel model = homeTabModelArrayList.get(position);
-            holder.bind(model, position);*/
-        }
-
-        @Override
-        public int getItemCount() {
-            return 3;
-        }
-
-        public class ViewHolder extends RecyclerView.ViewHolder {
-            ItemProductListLayoutBinding layoutBinding;
-
-            public ViewHolder(@NonNull ItemProductListLayoutBinding itemView) {
-                super(itemView.getRoot());
-                this.layoutBinding = itemView;
-            }
-
-            public void bind(UsersHomeTabModel model, int position) {
-                /*layoutBinding.setModel(model);
-                layoutBinding.lnrBack.setBackgroundColor(model.getColor());*/
-            }
-        }
-    }
 }

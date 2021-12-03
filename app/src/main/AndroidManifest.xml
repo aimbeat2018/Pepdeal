@@ -10,6 +10,18 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Pepdeal">
         <activity
+            android:name=".activity.AddShopActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.SellerProductListingActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.AddProductActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.ProductDetailsActivity"
+            android:exported="false" />
+        <activity
             android:name=".activity.ShopDetailsActivity"
             android:exported="false" />
         <activity
