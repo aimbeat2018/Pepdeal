@@ -1,15 +1,7 @@
 package com.pepdeal.in.activity;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.view.GravityCompat;
-import androidx.databinding.DataBindingUtil;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
@@ -19,18 +11,42 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.GravityCompat;
+import androidx.databinding.DataBindingUtil;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.pepdeal.in.R;
+import com.pepdeal.in.constants.ApiClient;
+import com.pepdeal.in.constants.ApiInterface;
+import com.pepdeal.in.constants.SharedPref;
 import com.pepdeal.in.databinding.ActivityHomeBinding;
 import com.pepdeal.in.databinding.ItemCategoryHomeLayoutBinding;
-import com.pepdeal.in.databinding.ItemHomeShopsListBinding;
-import com.pepdeal.in.databinding.ItemProductListLayoutBinding;
 import com.pepdeal.in.fragment.FavoriteFragment;
 import com.pepdeal.in.fragment.HomeFragment;
 import com.pepdeal.in.fragment.SuperShopFragment;
 import com.pepdeal.in.fragment.TicketFragment;
 import com.pepdeal.in.model.UsersHomeTabModel;
+import com.pepdeal.in.model.requestModel.UserProfileRequestModel;
+import com.pepdeal.in.model.requestModel.UserRegisterModel;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.util.ArrayList;
+
+import javax.net.ssl.HttpsURLConnection;
+
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.HttpException;
+import retrofit2.Response;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -38,34 +54,160 @@ public class HomeActivity extends AppCompatActivity {
     ArrayList<UsersHomeTabModel> homeTabModelArrayList = new ArrayList<>();
     public static int pos = 1;
 
-    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_home);
         binding.includeLayout.setHandler(new NavigationClick());
         setHomeTabData();
         navigationDrawer();
+        // binding.setHandler(new HomeActivity.ClickHandler(this));
+
+        SharedPref.putBol(HomeActivity.this, SharedPref.isLogin, true);
+        SharedPreferences sharedPreferences = getSharedPreferences("userdata", MODE_PRIVATE);
+        String user_id = sharedPreferences.getString("user_id", "");
+        String usermobile = sharedPreferences.getString("mobile_no", "");
+        String username = sharedPreferences.getString("username", "");
+
+        binding.userid.setText(user_id);
+        binding.usermobile.setText(usermobile);
+
+        //used in user profile
+       // binding.includeLayout.txtmobile.setText(username);
+        //binding.includeLayout.txtname.setText(username);
+
+       // requestUsersProfileParams();
 
         /*By Default Home fragment load*/
         pos = 1;
         loadFragment(new HomeFragment(HomeActivity.this));
     }
 
+    @Override
+    protected void onResume() {
+        requestUsersProfileParams();
+
+
+        super.onResume();
+    }
+
+    private void requestUsersProfileParams() {
+
+        SharedPreferences sharedPreferences = getSharedPreferences("userdata", MODE_PRIVATE);
+        String user_id = sharedPreferences.getString("user_id", "");
+        String usermobile = sharedPreferences.getString("mobile_no", "");
+       // String username = sharedPreferences.getString("username", "");
+
+        UserProfileRequestModel requestModel = new UserProfileRequestModel();
+        requestModel.setUserId(user_id);
+      //  requestModel.setUser_id(SharedPref.getVal(activity, SharedPref.user_id));
+
+        userProfile(requestModel);
+
+    }
+
+    /* private void dismissDialog() {
+            if (dialog != null && dialog.isShowing()) ;
+            dialog.dismiss();
+        }
+    */
+    private void userProfile(UserProfileRequestModel model) {
+        //dialog.show();
+
+        ApiInterface apiInterface = ApiClient.createService(ApiInterface.class, "", "");
+
+        apiInterface.user_detail(model).enqueue(new Callback<ResponseBody>() {
+
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                try {
+                    JSONObject jsonObject = new JSONObject(response.body().string());
+
+                    String status = jsonObject.getString("status");
+
+                    if (status.equals("1")) {
+
+                        JSONObject jsonObject1 = jsonObject.getJSONObject("body");
+
+                        String username = jsonObject1.getString("first_name");
+                        String mobile = jsonObject1.getString("mobile_no");
+
+                        binding.includeLayout.txtname.setText(username);
+                        binding.includeLayout.txtmobile.setText(mobile);
+
+
+                        Toast.makeText(HomeActivity.this, jsonObject.getString("msg"), Toast.LENGTH_SHORT).show();
+                        // String otp = jsonObject.getString("otp");
+
+                        //Intent intent = new Intent(HomeActivity.this, LoginActivity.class);
+
+                     //   startActivity(intent);
+                    } else {
+                        Toast.makeText(HomeActivity.this, jsonObject.getString("msg"), Toast.LENGTH_SHORT).show();
+                    }
+
+                } catch (JSONException | NumberFormatException | IOException e) {
+                    e.printStackTrace();
+                }
+                //dismissDialog();
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable error) {
+               // dismissDialog();
+                error.printStackTrace();
+                if (error instanceof HttpException) {
+                    switch (((HttpException) error).code()) {
+                        case HttpsURLConnection.HTTP_UNAUTHORIZED:
+                            Toast.makeText(HomeActivity.this, getString(R.string.unauthorised_user), Toast.LENGTH_SHORT).show();
+                            break;
+                        case HttpsURLConnection.HTTP_FORBIDDEN:
+                            Toast.makeText(HomeActivity.this, getString(R.string.forbidden), Toast.LENGTH_SHORT).show();
+                            break;
+                        case HttpsURLConnection.HTTP_INTERNAL_ERROR:
+                            Toast.makeText(HomeActivity.this, getString(R.string.internal_server_error), Toast.LENGTH_SHORT).show();
+                            break;
+                        case HttpsURLConnection.HTTP_BAD_REQUEST:
+                            Toast.makeText(HomeActivity.this, getString(R.string.bad_request), Toast.LENGTH_SHORT).show();
+                            break;
+                        default:
+                            Toast.makeText(HomeActivity.this, error.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    Toast.makeText(HomeActivity.this, getString(R.string.something_went_wrong), Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+    }
+
+
     public class NavigationClick {
+
         public void onCustomerClick(View view) {
             binding.includeLayout.lnrCustomerNavigation.setVisibility(View.VISIBLE);
             binding.includeLayout.lnrSellerNavigation.setVisibility(View.GONE);
-
             binding.includeLayout.lnrCustomerBackground.setBackgroundColor(Color.parseColor("#FFFFFF"));
             binding.includeLayout.lnrSellerBackground.setBackgroundColor(Color.parseColor("#F6B394"));
+        }
+
+
+        public void onUpdateClick(View view) {
+
+            startActivity(new Intent(HomeActivity.this, EditProfileActivity.class));
+
         }
 
         public void onSellerClick(View view) {
             binding.includeLayout.lnrCustomerNavigation.setVisibility(View.GONE);
             binding.includeLayout.lnrSellerNavigation.setVisibility(View.VISIBLE);
-
             binding.includeLayout.lnrSellerBackground.setBackgroundColor(Color.parseColor("#FFFFFF"));
             binding.includeLayout.lnrCustomerBackground.setBackgroundColor(Color.parseColor("#F6B394"));
+        }
+
+        public void onLogout(View view) {
+
+            startActivity(new Intent(HomeActivity.this, LoginActivity.class));
+
         }
 
         public void onHomeClick(View view) {
@@ -95,12 +237,15 @@ public class HomeActivity extends AppCompatActivity {
 
     private void navigationDrawer() {
 
+
         //Navigation Drawer
         binding.navView.bringToFront();
 
         binding.ivMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+
                 if (binding.drawerLayout.isDrawerVisible(GravityCompat.START))
                     binding.drawerLayout.closeDrawer(GravityCompat.START);
                 else binding.drawerLayout.openDrawer(GravityCompat.START);
@@ -166,6 +311,7 @@ public class HomeActivity extends AppCompatActivity {
             UsersHomeTabModel model = homeTabModelArrayList.get(position);
             holder.bind(model, position);
         }
+
 
         @Override
         public int getItemCount() {

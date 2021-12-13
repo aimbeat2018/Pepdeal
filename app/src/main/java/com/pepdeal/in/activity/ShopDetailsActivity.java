@@ -36,7 +36,6 @@ public class ShopDetailsActivity extends AppCompatActivity {
         binding.setHandler(new ClickHandler());
         binding.recTab.setLayoutManager(new LinearLayoutManager(ShopDetailsActivity.this, LinearLayoutManager.HORIZONTAL, false));
         binding.recTab.setAdapter(new ServiceAdapter());
-
         binding.recList.setLayoutManager(new GridLayoutManager(ShopDetailsActivity.this, 3));
         binding.recList.setAdapter(new ProductAdapter(ShopDetailsActivity.this));
     }

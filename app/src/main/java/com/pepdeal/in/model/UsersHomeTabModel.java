@@ -1,9 +1,9 @@
 package com.pepdeal.in.model;
 
-import android.content.Intent;
 import android.widget.ImageView;
 
 import androidx.databinding.BindingAdapter;
+
 
 public class UsersHomeTabModel {
     Integer color;

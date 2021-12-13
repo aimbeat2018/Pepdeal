@@ -15,7 +15,9 @@
     <color name="gray_light">#E1E1E1</color>
     <color name="off_white">#EDF2F6</color>
     <color name="colorGrayLight">#F5F5F8</color>
+    <color name="colorOrange">#F03E3B</color>
 
+    <color name="grayTextColor">#7E7E7E</color>
 
     <color name="colorPrimaryDarkTrans">#50EC5F1F</color>
     <color name="inactiveColor">#F6B394</color>

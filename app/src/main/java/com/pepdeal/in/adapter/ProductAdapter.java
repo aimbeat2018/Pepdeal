@@ -57,6 +57,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
             layoutBinding.relImage.setOnClickListener(view -> {
                 activity.startActivity(new Intent(activity, ProductDetailsActivity.class));
             });
+
         }
     }
 }

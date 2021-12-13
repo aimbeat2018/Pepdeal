@@ -1,0 +1,474 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="handler"
+            type="com.pepdeal.in.activity.EditProfileActivity.ClickHandler" />
+
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".activity.EditProfileActivity">
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="?actionBarSize"
+                android:background="@color/colorOrange"
+                android:orientation="horizontal"
+                android:paddingHorizontal="@dimen/margin_15">
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="@dimen/margin_35"
+                    android:layout_height="@dimen/margin_35"
+                    android:layout_gravity="center_vertical"
+
+                    android:gravity="center"
+                    android:onClick="@{handler::onBackClick}">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:layout_width="@dimen/margin_30"
+                        android:layout_height="@dimen/margin_30"
+                        android:layout_gravity="center"
+                        android:src="@drawable/ic_baseline_keyboard_arrow_left_24"
+                        app:tint="@color/white" />
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginHorizontal="@dimen/margin_15"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/roboto_bold"
+                    android:gravity="center_vertical"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:text="@string/edit_profile"
+                    android:textAllCaps="true"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_16"
+                    android:textStyle="bold" />
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <androidx.core.widget.NestedScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scrollbars="none">
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="@dimen/margin_10"
+                    android:orientation="vertical">
+
+                    <RelativeLayout
+                        android:id="@+id/img_profile_layout"
+                        android:layout_width="@dimen/margin_100"
+                        android:layout_height="match_parent"
+                        android:layout_centerHorizontal="true"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:onClick="@{handler::onProfileClick}">
+
+                        <de.hdodenhof.circleimageview.CircleImageView
+
+                            android:id="@+id/img_profile"
+                            android:visibility="gone"
+                            android:layout_width="@dimen/margin_100"
+                            android:layout_height="@dimen/margin_100"
+                            android:layout_centerHorizontal="true"
+                            android:layout_gravity="top|center"
+                            android:padding="5dp"
+
+                            android:src="@drawable/user"
+                            app:civ_border_color="@color/white"
+                            app:civ_border_width="@dimen/margin_1" />
+
+                        <LinearLayout
+                            android:id="@+id/add_btn_layout"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_alignParentBottom="true"
+                            android:layout_centerHorizontal="true">
+
+                            <androidx.cardview.widget.CardView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginRight="@dimen/margin_5"
+                                android:layout_marginBottom="@dimen/margin_5"
+                                app:cardBackgroundColor="@color/white"
+                                app:cardCornerRadius="@dimen/margin_25"
+                                app:cardElevation="@dimen/margin_10">
+
+                                <ImageView
+                                    android:visibility="gone"
+
+                                    android:layout_width="@dimen/margin_30"
+                                    android:layout_height="@dimen/margin_30"
+                                    android:src="@drawable/ic_add_circle"
+                                    app:tint="@color/colorOrange" />
+                            </androidx.cardview.widget.CardView>
+                        </LinearLayout>
+
+                    </RelativeLayout>
+
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/margin_15"
+                        android:orientation="vertical">
+
+                        <androidx.appcompat.widget.LinearLayoutCompat
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginHorizontal="@dimen/margin_5"
+                                android:fontFamily="@font/roboto_medium"
+                                android:padding="@dimen/margin_5"
+                                android:text="@string/name"
+                                android:textColor="@color/grayTextColor"
+                                android:textSize="@dimen/text_14" />
+
+                            <androidx.cardview.widget.CardView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="@dimen/margin_5"
+                                app:cardCornerRadius="@dimen/margin_15"
+                                app:cardElevation="@dimen/margin_5">
+
+                                <androidx.appcompat.widget.LinearLayoutCompat
+                                    android:layout_width="match_parent"
+                                    android:layout_height="@dimen/margin_45"
+                                    android:layout_marginHorizontal="@dimen/margin_5"
+                                    android:gravity="center"
+                                    android:orientation="horizontal">
+
+                                    <androidx.appcompat.widget.AppCompatEditText
+                                        android:id="@+id/edt_name"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="@dimen/margin_50"
+                                        android:layout_marginVertical="@dimen/margin_8"
+                                        android:layout_marginLeft="@dimen/margin_5"
+                                        android:background="@null"
+                                        android:fontFamily="@font/roboto_medium"
+                                        android:hint="@string/name"
+                                        android:inputType="textPersonName"
+                                        android:textColor="@color/black"
+                                        android:textSize="@dimen/text_15" />
+
+                                </androidx.appcompat.widget.LinearLayoutCompat>
+                            </androidx.cardview.widget.CardView>
+
+                            <TextView
+                                android:id="@+id/txt_name_error"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/roboto_medium"
+                                android:paddingHorizontal="@dimen/margin_10"
+                                android:paddingVertical="@dimen/margin_5"
+                                android:text="@string/enter_mobile"
+                                android:textColor="@color/design_default_color_error"
+                                android:textSize="@dimen/text_10"
+                                android:visibility="gone" />
+
+
+                        </androidx.appcompat.widget.LinearLayoutCompat>
+
+                        <androidx.appcompat.widget.LinearLayoutCompat
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/margin_15"
+                            android:orientation="vertical"
+                            android:visibility="gone">
+
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginHorizontal="@dimen/margin_5"
+                                android:fontFamily="@font/roboto_medium"
+                                android:padding="@dimen/margin_5"
+                                android:text="@string/email_address"
+                                android:textColor="@color/grayTextColor"
+                                android:textSize="@dimen/text_14" />
+
+                            <androidx.cardview.widget.CardView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="@dimen/margin_5"
+                                app:cardCornerRadius="@dimen/margin_15"
+                                app:cardElevation="@dimen/margin_5">
+
+                                <androidx.appcompat.widget.LinearLayoutCompat
+                                    android:layout_width="match_parent"
+                                    android:layout_height="@dimen/margin_45"
+                                    android:layout_marginHorizontal="@dimen/margin_5"
+                                    android:gravity="center"
+                                    android:orientation="horizontal">
+
+                                    <androidx.appcompat.widget.AppCompatEditText
+                                        android:id="@+id/edt_email"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="@dimen/margin_50"
+                                        android:layout_marginVertical="@dimen/margin_8"
+                                        android:layout_marginLeft="@dimen/margin_5"
+                                        android:background="@null"
+                                        android:fontFamily="@font/roboto_medium"
+                                        android:hint="@string/email_address"
+                                        android:inputType="textEmailAddress"
+                                        android:textColor="@color/black"
+                                        android:textSize="@dimen/text_15" />
+
+                                </androidx.appcompat.widget.LinearLayoutCompat>
+                            </androidx.cardview.widget.CardView>
+
+                            <TextView
+                                android:id="@+id/txt_email_error"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/roboto_medium"
+                                android:paddingHorizontal="@dimen/margin_10"
+                                android:paddingVertical="@dimen/margin_5"
+                                android:text="@string/enter_mobile"
+                                android:textColor="@color/design_default_color_error"
+                                android:textSize="@dimen/text_10"
+                                android:visibility="gone" />
+
+                        </androidx.appcompat.widget.LinearLayoutCompat>
+
+                        <androidx.appcompat.widget.LinearLayoutCompat
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/margin_15"
+                            android:orientation="vertical">
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginHorizontal="@dimen/margin_5"
+                                android:fontFamily="@font/roboto_medium"
+                                android:padding="@dimen/margin_5"
+                                android:text="@string/mobile_no"
+                                android:textColor="@color/grayTextColor"
+                                android:textSize="@dimen/text_14" />
+
+                            <androidx.cardview.widget.CardView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="@dimen/margin_5"
+                                app:cardCornerRadius="@dimen/margin_15"
+                                app:cardElevation="@dimen/margin_5">
+
+                                <androidx.appcompat.widget.LinearLayoutCompat
+                                    android:layout_width="match_parent"
+                                    android:layout_height="@dimen/margin_45"
+                                    android:layout_marginHorizontal="@dimen/margin_5"
+                                    android:gravity="center"
+                                    android:orientation="horizontal">
+
+                                    <androidx.appcompat.widget.AppCompatTextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:fontFamily="@font/roboto_medium"
+                                        android:padding="@dimen/margin_5"
+                                        android:text="+91"
+                                        android:textColor="@color/grayTextColor"
+                                        android:textSize="@dimen/text_14" />
+
+                                    <View
+                                        android:layout_width="@dimen/margin_1"
+                                        android:layout_height="match_parent"
+                                        android:layout_marginVertical="@dimen/margin_10"
+                                        android:layout_marginLeft="@dimen/margin_7"
+                                        android:background="@color/grayTextColor" />
+
+                                    <androidx.appcompat.widget.AppCompatEditText
+                                        android:id="@+id/edtmobile"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="@dimen/margin_50"
+                                        android:focusable="false"
+                                        android:layout_marginVertical="@dimen/margin_8"
+                                        android:layout_marginLeft="@dimen/margin_5"
+                                        android:background="@null"
+                                        android:fontFamily="@font/roboto_medium"
+                                        android:hint="@string/mobile_no"
+                                        android:inputType="number"
+                                        android:maxLength="10"
+                                        android:textColor="@color/black"
+                                        android:textSize="@dimen/text_15" />
+
+                                </androidx.appcompat.widget.LinearLayoutCompat>
+                            </androidx.cardview.widget.CardView>
+
+                        </androidx.appcompat.widget.LinearLayoutCompat>
+
+                        <androidx.appcompat.widget.LinearLayoutCompat
+                            android:id="@+id/lnr_business_details"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:visibility="gone">
+
+                            <androidx.appcompat.widget.LinearLayoutCompat
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/margin_15"
+                                android:orientation="vertical">
+
+                                <androidx.appcompat.widget.AppCompatTextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginHorizontal="@dimen/margin_5"
+                                    android:fontFamily="@font/roboto_medium"
+                                    android:padding="@dimen/margin_5"
+                                    android:text="@string/shipping_address"
+                                    android:textColor="@color/grayTextColor"
+                                    android:textSize="@dimen/text_14" />
+
+                                <androidx.cardview.widget.CardView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_margin="@dimen/margin_5"
+                                    app:cardCornerRadius="@dimen/margin_15"
+                                    app:cardElevation="@dimen/margin_5">
+
+                                    <androidx.appcompat.widget.LinearLayoutCompat
+                                        android:layout_width="match_parent"
+                                        android:layout_height="@dimen/margin_45"
+                                        android:layout_marginHorizontal="@dimen/margin_5"
+                                        android:gravity="center"
+                                        android:orientation="horizontal">
+
+
+                                        <androidx.appcompat.widget.AppCompatEditText
+                                            android:id="@+id/edt_address"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="@dimen/margin_50"
+                                            android:layout_marginVertical="@dimen/margin_8"
+                                            android:layout_marginLeft="@dimen/margin_5"
+                                            android:background="@null"
+                                            android:fontFamily="@font/roboto_medium"
+                                            android:hint="@string/shipping_address"
+                                            android:inputType="textCapSentences"
+                                            android:textColor="@color/black"
+                                            android:textSize="@dimen/text_15" />
+
+                                    </androidx.appcompat.widget.LinearLayoutCompat>
+                                </androidx.cardview.widget.CardView>
+
+                            </androidx.appcompat.widget.LinearLayoutCompat>
+
+                            <androidx.appcompat.widget.LinearLayoutCompat
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/margin_15"
+                                android:orientation="vertical">
+
+                                <androidx.appcompat.widget.AppCompatTextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginHorizontal="@dimen/margin_5"
+                                    android:fontFamily="@font/roboto_medium"
+                                    android:padding="@dimen/margin_5"
+                                    android:text="@string/gst_no"
+                                    android:textColor="@color/grayTextColor"
+                                    android:textSize="@dimen/text_14" />
+
+                                <androidx.cardview.widget.CardView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_margin="@dimen/margin_5"
+                                    app:cardCornerRadius="@dimen/margin_15"
+                                    app:cardElevation="@dimen/margin_5">
+
+                                    <androidx.appcompat.widget.LinearLayoutCompat
+                                        android:layout_width="match_parent"
+                                        android:layout_height="@dimen/margin_45"
+                                        android:layout_marginHorizontal="@dimen/margin_5"
+                                        android:gravity="center"
+                                        android:orientation="horizontal">
+
+
+                                        <androidx.appcompat.widget.AppCompatEditText
+                                            android:id="@+id/edt_city"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="@dimen/margin_50"
+                                            android:layout_marginVertical="@dimen/margin_8"
+                                            android:layout_marginLeft="@dimen/margin_5"
+                                            android:background="@null"
+                                            android:fontFamily="@font/roboto_medium"
+                                            android:hint="@string/gst_no"
+                                            android:inputType="textCapSentences"
+                                            android:textColor="@color/black"
+                                            android:textSize="@dimen/text_15" />
+
+                                    </androidx.appcompat.widget.LinearLayoutCompat>
+                                </androidx.cardview.widget.CardView>
+
+                            </androidx.appcompat.widget.LinearLayoutCompat>
+                        </androidx.appcompat.widget.LinearLayoutCompat>
+
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/txt_update"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/margin_25"
+                        android:layout_marginVertical="@dimen/margin_20"
+                        android:background="@drawable/button_background_layout"
+                        android:gravity="center"
+                        android:onClick="@{handler::onSaveDetailsClick}"
+                        android:paddingVertical="@dimen/margin_12"
+                        android:text="@string/save_details"
+                        android:textColor="@color/white"
+                        android:textStyle="bold"
+                        app:fontFamily="@font/roboto_bold" />
+
+                    <ProgressBar
+                        android:id="@+id/progressBar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginHorizontal="@dimen/margin_10"
+                        android:layout_marginVertical="@dimen/margin_30"
+                        android:theme="@style/ProgressTheme"
+                        android:visibility="gone" />
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+            </androidx.core.widget.NestedScrollView>
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/lnr_loader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <include
+                android:id="@+id/include_loader"
+                layout="@layout/loader_layout" />
+        </androidx.appcompat.widget.LinearLayoutCompat>
+    </RelativeLayout>
+</layout>

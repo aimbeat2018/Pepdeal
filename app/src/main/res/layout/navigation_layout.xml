@@ -58,9 +58,12 @@
                     android:layout_marginBottom="@dimen/margin_10"
                     android:background="@drawable/white_with_border_circle_background">
 
+
                     <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/update_profile"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:onClick="@{handler::onUpdateClick}"
                         android:padding="@dimen/margin_5"
                         android:src="@drawable/ic_baseline_edit_24" />
                 </RelativeLayout>
@@ -75,7 +78,7 @@
                 android:orientation="vertical">
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/txt_name"
+                    android:id="@+id/txtname"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/roboto_bold"
@@ -87,7 +90,7 @@
                     android:textSize="@dimen/text_16" />
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/txt_mobile"
+                    android:id="@+id/txtmobile"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/roboto_medium"
@@ -95,8 +98,9 @@
                     android:paddingHorizontal="@dimen/margin_3"
                     android:singleLine="true"
                     android:text=""
-                    android:textColor="@color/gray"
-                    android:textSize="@dimen/text_13" />
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_16"
+                    />
 
             </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -125,6 +129,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical">
+
 
                     <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/txt_customer"
@@ -519,11 +524,14 @@
                                 android:src="@drawable/ic_log_out" />
 
                             <androidx.appcompat.widget.AppCompatTextView
+                                android:id="@+id/log_out"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginHorizontal="@dimen/margin_15"
                                 android:layout_marginVertical="@dimen/margin_5"
                                 android:layout_weight="1"
+                                android:onClick="@{handler::onLogout}"
+
                                 android:fontFamily="@font/roboto_bold"
                                 android:paddingHorizontal="@dimen/margin_3"
                                 android:singleLine="true"

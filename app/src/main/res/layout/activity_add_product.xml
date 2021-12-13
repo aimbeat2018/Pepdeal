@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
 
     <data>
-
         <variable
             name="handler"
             type="com.pepdeal.in.activity.AddProductActivity.ClickHandler" />
     </data>
 
-    <androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+
+
+    <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
@@ -130,7 +132,7 @@
                             app:layout_gravity="center">
 
                             <androidx.appcompat.widget.AppCompatEditText
-                                android:id="@+id/edt_productName"
+                                android:id="@+id/entproductName"
                                 android:layout_width="match_parent"
                                 android:layout_height="@dimen/margin_35"
                                 android:layout_marginHorizontal="@dimen/margin_5"
@@ -180,8 +182,8 @@
                             android:orientation="horizontal"
                             app:layout_gravity="center">
 
-                            <androidx.appcompat.widget.AppCompatSpinner
-                                android:id="@+id/spin_brand"
+                            <androidx.appcompat.widget.AppCompatEditText
+                                android:id="@+id/entbrand"
                                 android:layout_width="match_parent"
                                 android:layout_height="@dimen/margin_35"
                                 android:layout_marginHorizontal="@dimen/margin_5"
@@ -226,7 +228,7 @@
                             app:layout_gravity="center">
 
                             <androidx.appcompat.widget.AppCompatSpinner
-                                android:id="@+id/spin_category"
+                                android:id="@+id/spinproductcategory"
                                 android:layout_width="match_parent"
                                 android:layout_height="@dimen/margin_35"
                                 android:layout_marginHorizontal="@dimen/margin_5"
@@ -271,7 +273,7 @@
                             app:layout_gravity="center">
 
                             <androidx.appcompat.widget.AppCompatEditText
-                                android:id="@+id/edt_description"
+                                android:id="@+id/edtdescription"
                                 android:layout_width="match_parent"
                                 android:layout_height="@dimen/margin_120"
                                 android:layout_marginHorizontal="@dimen/margin_5"
@@ -324,7 +326,7 @@
                             app:layout_gravity="center">
 
                             <androidx.appcompat.widget.AppCompatEditText
-                                android:id="@+id/edt_warranty"
+                                android:id="@+id/entwarranty"
                                 android:layout_width="match_parent"
                                 android:layout_height="@dimen/margin_35"
                                 android:layout_marginHorizontal="@dimen/margin_5"
@@ -374,8 +376,8 @@
                             android:orientation="horizontal"
                             app:layout_gravity="center">
 
-                            <androidx.appcompat.widget.AppCompatSpinner
-                                android:id="@+id/spin_size"
+                            <androidx.appcompat.widget.AppCompatEditText
+                                android:id="@+id/entmrp"
                                 android:layout_width="match_parent"
                                 android:layout_height="@dimen/margin_35"
                                 android:layout_marginHorizontal="@dimen/margin_5"
@@ -471,7 +473,7 @@
                             app:layout_gravity="center">
 
                             <androidx.appcompat.widget.AppCompatEditText
-                                android:id="@+id/edt_search_tag"
+                                android:id="@+id/edtsearchtag"
                                 android:layout_width="match_parent"
                                 android:layout_height="@dimen/margin_35"
                                 android:layout_marginHorizontal="@dimen/margin_5"
@@ -485,6 +487,7 @@
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
                 </androidx.appcompat.widget.LinearLayoutCompat>
+
 
                 <androidx.appcompat.widget.LinearLayoutCompat
                     android:layout_width="match_parent"
@@ -545,7 +548,7 @@
                                     app:layout_gravity="center">
 
                                     <androidx.appcompat.widget.AppCompatEditText
-                                        android:id="@+id/edt_mrp"
+                                        android:id="@+id/edtmrp"
                                         android:layout_width="match_parent"
                                         android:layout_height="@dimen/margin_35"
                                         android:layout_marginHorizontal="@dimen/margin_5"
@@ -597,7 +600,7 @@
                                     app:layout_gravity="center">
 
                                     <androidx.appcompat.widget.AppCompatEditText
-                                        android:id="@+id/edt_discount"
+                                        android:id="@+id/edtdiscount"
                                         android:layout_width="match_parent"
                                         android:layout_height="@dimen/margin_35"
                                         android:layout_marginHorizontal="@dimen/margin_5"
@@ -649,7 +652,7 @@
                                     app:layout_gravity="center">
 
                                     <androidx.appcompat.widget.AppCompatEditText
-                                        android:id="@+id/edt_sale"
+                                        android:id="@+id/edtsale"
                                         android:layout_width="match_parent"
                                         android:layout_height="@dimen/margin_35"
                                         android:layout_marginHorizontal="@dimen/margin_5"
@@ -808,6 +811,7 @@
                         android:layout_marginHorizontal="@dimen/margin_10"
                         android:layout_marginVertical="@dimen/margin_10"
                         android:layout_weight="1"
+                        android:onClick="@{handler::AddProductClick}"
                         app:cardBackgroundColor="@color/blue"
                         app:cardCornerRadius="@dimen/margin_20">
 

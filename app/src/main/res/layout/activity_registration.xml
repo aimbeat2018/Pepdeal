@@ -45,7 +45,6 @@
                     android:textColor="@color/black"
                     android:textSize="@dimen/text_22" />
 
-
                 <com.loopeer.shadow.ShadowView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -88,7 +87,7 @@
                             android:background="@null"
                             android:fontFamily="@font/roboto_regular"
                             android:hint="@string/your_name"
-                            android:inputType="number"
+
                             android:paddingStart="@dimen/margin_5"
                             android:textColor="@color/black"
                             android:textColorHint="@color/lightGrayColor"
@@ -137,7 +136,8 @@
                             android:background="@null"
                             android:fontFamily="@font/roboto_regular"
                             android:hint="@string/mobile_number"
-                            android:inputType="textPersonName"
+                            android:inputType="number"
+                            android:maxLength="10"
                             android:paddingStart="@dimen/margin_5"
                             android:textColor="@color/black"
                             android:textColorHint="@color/lightGrayColor"

@@ -24,6 +24,7 @@ public class ProductDetailsActivity extends AppCompatActivity {
         binding.setHandler(new ClickHandler());
     }
 
+
     public class ClickHandler {
         public void onBackClick(View view) {
             onBackPressed();
