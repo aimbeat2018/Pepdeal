@@ -290,9 +290,8 @@
                                 android:id="@+id/spinbackcolor"
                                 android:layout_width="match_parent"
                                 android:layout_height="@dimen/margin_35"
-                                android:gravity="center"
                                 android:layout_marginHorizontal="@dimen/margin_5"
-                                android:layout_marginLeft="20dp" />
+                                android:gravity="center" />
 
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
@@ -337,10 +336,51 @@
                                 android:id="@+id/spinfont"
                                 android:layout_width="match_parent"
                                 android:layout_height="@dimen/margin_35"
-                                android:layout_marginHorizontal="@dimen/margin_5"
+                                android:layout_marginHorizontal="@dimen/margin_5"/>
+                        </LinearLayout>
+                    </androidx.cardview.widget.CardView>
+                </androidx.appcompat.widget.LinearLayoutCompat>
 
-                                android:layout_marginLeft="20dp"
-                                android:background="@null" />
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/margin_13"
+                    android:layout_marginTop="@dimen/margin_10"
+                    android:orientation="vertical">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/margin_10"
+                        android:fontFamily="@font/roboto_regular"
+                        android:gravity="center"
+                        android:text="@string/board_sign_font_size"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/text_15" />
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/margin_5"
+                        android:layout_marginTop="@dimen/margin_7"
+                        android:layout_marginBottom="@dimen/margin_5"
+                        app:cardCornerRadius="@dimen/margin_20"
+                        app:cardElevation="@dimen/margin_5">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="@dimen/margin_5"
+                            android:layout_marginVertical="@dimen/margin_6"
+                            android:gravity="center"
+                            android:orientation="horizontal"
+                            app:layout_gravity="center">
+
+                            <androidx.appcompat.widget.AppCompatSpinner
+                                android:id="@+id/spin_board_sign_font_size"
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/margin_35"
+                                android:layout_marginHorizontal="@dimen/margin_5" />
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
                 </androidx.appcompat.widget.LinearLayoutCompat>
@@ -363,18 +403,16 @@
                         app:cardCornerRadius="@dimen/margin_20">
 
                         <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/save_shop"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/roboto_medium"
                             android:gravity="center"
-                            android:id="@+id/save_shop"
+                            android:onClick="@{handler::onAddShop}"
                             android:padding="@dimen/margin_15"
                             android:text="@string/save"
-                            android:onClick="@{handler::onAddShop}"
                             android:textColor="@color/white" />
                     </androidx.cardview.widget.CardView>
-
-
 
 
                 </androidx.appcompat.widget.LinearLayoutCompat>

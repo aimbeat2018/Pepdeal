@@ -24,6 +24,7 @@ import com.pepdeal.in.R;
 import com.pepdeal.in.constants.ApiClient;
 import com.pepdeal.in.constants.ApiInterface;
 import com.pepdeal.in.constants.SharedPref;
+import com.pepdeal.in.constants.Utils;
 import com.pepdeal.in.databinding.ActivityHomeBinding;
 import com.pepdeal.in.databinding.ItemCategoryHomeLayoutBinding;
 import com.pepdeal.in.fragment.FavoriteFragment;
@@ -53,6 +54,7 @@ public class HomeActivity extends AppCompatActivity {
     ActivityHomeBinding binding;
     ArrayList<UsersHomeTabModel> homeTabModelArrayList = new ArrayList<>();
     public static int pos = 1;
+    String user_status = "";
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,53 +65,31 @@ public class HomeActivity extends AppCompatActivity {
         // binding.setHandler(new HomeActivity.ClickHandler(this));
 
         SharedPref.putBol(HomeActivity.this, SharedPref.isLogin, true);
-        SharedPreferences sharedPreferences = getSharedPreferences("userdata", MODE_PRIVATE);
-        String user_id = sharedPreferences.getString("user_id", "");
-        String usermobile = sharedPreferences.getString("mobile_no", "");
-        String username = sharedPreferences.getString("username", "");
-
-        binding.userid.setText(user_id);
-        binding.usermobile.setText(usermobile);
-
-        //used in user profile
-       // binding.includeLayout.txtmobile.setText(username);
-        //binding.includeLayout.txtname.setText(username);
-
-       // requestUsersProfileParams();
 
         /*By Default Home fragment load*/
         pos = 1;
-        loadFragment(new HomeFragment(HomeActivity.this));
+        loadFragment(new HomeFragment());
     }
 
     @Override
     protected void onResume() {
-        requestUsersProfileParams();
-
-
         super.onResume();
+        if (Utils.isNetwork(HomeActivity.this)) {
+            requestUsersProfileParams();
+        } else {
+            Utils.InternetAlertDialog(HomeActivity.this, getString(R.string.no_internet_title), getString(R.string.no_internet_desc));
+        }
     }
 
     private void requestUsersProfileParams() {
 
-        SharedPreferences sharedPreferences = getSharedPreferences("userdata", MODE_PRIVATE);
-        String user_id = sharedPreferences.getString("user_id", "");
-        String usermobile = sharedPreferences.getString("mobile_no", "");
-       // String username = sharedPreferences.getString("username", "");
-
         UserProfileRequestModel requestModel = new UserProfileRequestModel();
-        requestModel.setUserId(user_id);
-      //  requestModel.setUser_id(SharedPref.getVal(activity, SharedPref.user_id));
+        requestModel.setUserId(SharedPref.getVal(HomeActivity.this, SharedPref.user_id));
 
         userProfile(requestModel);
 
     }
 
-    /* private void dismissDialog() {
-            if (dialog != null && dialog.isShowing()) ;
-            dialog.dismiss();
-        }
-    */
     private void userProfile(UserProfileRequestModel model) {
         //dialog.show();
 
@@ -130,19 +110,13 @@ public class HomeActivity extends AppCompatActivity {
 
                         String username = jsonObject1.getString("first_name");
                         String mobile = jsonObject1.getString("mobile_no");
-
+                        user_status = jsonObject1.getString("user_status");
                         binding.includeLayout.txtname.setText(username);
                         binding.includeLayout.txtmobile.setText(mobile);
 
-
-                        Toast.makeText(HomeActivity.this, jsonObject.getString("msg"), Toast.LENGTH_SHORT).show();
-                        // String otp = jsonObject.getString("otp");
-
-                        //Intent intent = new Intent(HomeActivity.this, LoginActivity.class);
-
-                     //   startActivity(intent);
                     } else {
-                        Toast.makeText(HomeActivity.this, jsonObject.getString("msg"), Toast.LENGTH_SHORT).show();
+                        binding.includeLayout.txtname.setText("username");
+                        binding.includeLayout.txtmobile.setText("mobile");
                     }
 
                 } catch (JSONException | NumberFormatException | IOException e) {
@@ -153,7 +127,7 @@ public class HomeActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable error) {
-               // dismissDialog();
+                // dismissDialog();
                 error.printStackTrace();
                 if (error instanceof HttpException) {
                     switch (((HttpException) error).code()) {
@@ -194,20 +168,23 @@ public class HomeActivity extends AppCompatActivity {
         public void onUpdateClick(View view) {
 
             startActivity(new Intent(HomeActivity.this, EditProfileActivity.class));
+            binding.drawerLayout.closeDrawers();
 
         }
 
         public void onSellerClick(View view) {
-            binding.includeLayout.lnrCustomerNavigation.setVisibility(View.GONE);
-            binding.includeLayout.lnrSellerNavigation.setVisibility(View.VISIBLE);
-            binding.includeLayout.lnrSellerBackground.setBackgroundColor(Color.parseColor("#FFFFFF"));
-            binding.includeLayout.lnrCustomerBackground.setBackgroundColor(Color.parseColor("#F6B394"));
+            if (user_status.equals("1")) {
+                binding.includeLayout.lnrCustomerNavigation.setVisibility(View.GONE);
+                binding.includeLayout.lnrSellerNavigation.setVisibility(View.VISIBLE);
+                binding.includeLayout.lnrSellerBackground.setBackgroundColor(Color.parseColor("#FFFFFF"));
+                binding.includeLayout.lnrCustomerBackground.setBackgroundColor(Color.parseColor("#F6B394"));
+            } else {
+                Toast.makeText(HomeActivity.this, "First Add Your Shop", Toast.LENGTH_SHORT).show();
+            }
         }
 
         public void onLogout(View view) {
-
             startActivity(new Intent(HomeActivity.this, LoginActivity.class));
-
         }
 
         public void onHomeClick(View view) {
@@ -215,23 +192,28 @@ public class HomeActivity extends AppCompatActivity {
         }
 
         public void onAddProductClick(View view) {
-            binding.drawerLayout.closeDrawers();
             startActivity(new Intent(HomeActivity.this, AddProductActivity.class));
+            binding.drawerLayout.closeDrawers();
         }
 
         public void onUpdateProductListClick(View view) {
-            binding.drawerLayout.closeDrawers();
             startActivity(new Intent(HomeActivity.this, SellerProductListingActivity.class));
+            binding.drawerLayout.closeDrawers();
         }
 
         public void onStartShopClick(View view) {
-            binding.drawerLayout.closeDrawers();
-            startActivity(new Intent(HomeActivity.this, AddShopActivity.class));
+//            binding.drawerLayout.closeDrawers();
+            if (user_status.equals("0")) {
+                startActivity(new Intent(HomeActivity.this, AddShopActivity.class));
+                binding.drawerLayout.closeDrawers();
+            } else {
+                Toast.makeText(HomeActivity.this, "Shop already Added", Toast.LENGTH_SHORT).show();
+            }
         }
 
         public void onAboutShopClick(View view) {
-            binding.drawerLayout.closeDrawers();
             startActivity(new Intent(HomeActivity.this, AddShopActivity.class));
+            binding.drawerLayout.closeDrawers();
         }
     }
 
@@ -244,8 +226,6 @@ public class HomeActivity extends AppCompatActivity {
         binding.ivMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-
                 if (binding.drawerLayout.isDrawerVisible(GravityCompat.START))
                     binding.drawerLayout.closeDrawer(GravityCompat.START);
                 else binding.drawerLayout.openDrawer(GravityCompat.START);
@@ -367,7 +347,7 @@ public class HomeActivity extends AppCompatActivity {
                 }
             }, 2000);
         } else {
-            loadFragment(new HomeFragment(HomeActivity.this));
+            loadFragment(new HomeFragment());
         }
     }
 }

@@ -1,27 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal">
+    android:orientation="vertical">
 
-    <TextView
-        android:visibility="gone"
-        android:id="@+id/shopfont"
-        android:layout_width="10dp"
-        android:layout_height="10dp"
-        android:layout_marginTop="10dp"
-        android:padding="5dp"
-        android:textColor="@color/black"
-        /><!--Make sure image is present in Drawable folder-->
-
-    <TextView
-        android:id="@+id/fontname"
-        android:layout_width="fill_parent"
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:padding="5dp"
-        android:layout_marginLeft="@dimen/margin_10"
-        android:textStyle="bold"
-        android:text="Font Style name"
-        android:textColor="#000" />
-</LinearLayout>
+        android:layout_marginHorizontal="@dimen/margin_10"
+        android:layout_marginVertical="@dimen/margin_5"
+        android:orientation="horizontal">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/fontname"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textSize="@dimen/text_13"
+            android:text=""
+            android:textColor="@color/grayTextColor" />
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</androidx.appcompat.widget.LinearLayoutCompat>

@@ -46,8 +46,8 @@ public class OtpVerificationActivity extends AppCompatActivity {
         mobileNo = getIntent().getStringExtra("mobile_no");
         from = getIntent().getStringExtra("from");
         Intentotp = getIntent().getStringExtra("otp");
-        name = getIntent().getStringExtra("name");
-        password = getIntent().getStringExtra("password");
+      /*  name = getIntent().getStringExtra("name");
+        password = getIntent().getStringExtra("password");*/
 
         dialog = new ProgressDialog(this);
         dialog.setTitle("Loading");
@@ -75,11 +75,12 @@ public class OtpVerificationActivity extends AppCompatActivity {
 
     public class ClickHandler {
         public void onEditClick(View view) {
-            if (from.equals("forgot")) {
+           /* if (from.equals("forgot")) {
                 startActivity(new Intent(OtpVerificationActivity.this, ForgotPasswordActivity.class));
             } else {
                 startActivity(new Intent(OtpVerificationActivity.this, RegistrationActivity.class));
-            }
+            }*/
+            onBackPressed();
         }
 
         public void onVerifyClick(View view) {
@@ -92,7 +93,6 @@ public class OtpVerificationActivity extends AppCompatActivity {
 
                     if (Utils.isNetwork(OtpVerificationActivity.this)) {
 
-
                         UserRegisterModel model = new UserRegisterModel();
                         model.setUsername(name);
                         model.setMobileNo(mobileNo);
@@ -100,29 +100,32 @@ public class OtpVerificationActivity extends AppCompatActivity {
                         model.setDeviceToken(devicetoken);
 
                         // sendOtp(model);
-                        saveuserdata(model);
+                        saveUserData(model);
 
                         //saveuserdata(name,mobileNo,password,devicetoken);
                     } else {
-                        Toast.makeText(OtpVerificationActivity.this, getString(R.string.no_internet), Toast.LENGTH_SHORT).show();
+                        Utils.InternetAlertDialog(OtpVerificationActivity.this, getString(R.string.no_internet_title), getString(R.string.no_internet_desc));
                     }
 
                     // startActivity(new Intent(OtpVerificationActivity.this, HomeActivity.class));
                 } else {
-                    startActivity(new Intent(OtpVerificationActivity.this, ResetPasswordActivity.class));
+                    Intent intent = new Intent(OtpVerificationActivity.this, ResetPasswordActivity.class);
+                    intent.putExtra("mobile_no", mobileNo);
+                    startActivity(intent);
+                    finish();
                 }
             }
         }
 
 
         private void dismissDialog() {
-            if (dialog != null && dialog.isShowing()) ;
-            dialog.dismiss();
+            if (dialog != null && dialog.isShowing())
+                dialog.dismiss();
         }
 
 
         // private void saveuserdata(String name, String mobileNo, String password,String devicetoken)
-        private void saveuserdata(UserRegisterModel model) {
+        private void saveUserData(UserRegisterModel model) {
             dialog.show();
 
             ApiInterface apiInterface = ApiClient.createService(ApiInterface.class, "", "");
@@ -136,20 +139,13 @@ public class OtpVerificationActivity extends AppCompatActivity {
 
                         String status = jsonObject.getString("code");
 
-                       /* String username=jsonObject.getString("username");
-                        String password=jsonObject.getString("password");
-                        String device_token=jsonObject.getString("device_token");
-                        String mobile_no=jsonObject.getString("mobile_no");
-*/
-
-
                         if (status.equals("200")) {
                             Toast.makeText(OtpVerificationActivity.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
-                            // String otp = jsonObject.getString("otp");
 
                             Intent intent = new Intent(OtpVerificationActivity.this, LoginActivity.class);
-
                             startActivity(intent);
+                            finishAffinity();
+
                         } else {
                             Toast.makeText(OtpVerificationActivity.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
                         }

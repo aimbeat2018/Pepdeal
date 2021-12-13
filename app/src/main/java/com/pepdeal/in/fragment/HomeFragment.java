@@ -29,21 +29,21 @@ import com.pepdeal.in.model.UsersHomeTabModel;
 import java.util.ArrayList;
 
 public class HomeFragment extends Fragment {
-    Activity activity;
+    HomeActivity activity;
     ArrayList<UsersHomeTabModel> homeTabModelArrayList = new ArrayList<>();
     FragmentHomeBinding binding;
 
-    public HomeFragment(Activity activity) {
+   /* public HomeFragment(Activity activity) {
         // Required empty public constructor
         this.activity = activity;
-    }
+    }*/
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false);
-
+        activity = (HomeActivity) getActivity();
         binding.recList.setLayoutManager(new LinearLayoutManager(activity));
         binding.recList.setAdapter(new ShopAdapter());
 

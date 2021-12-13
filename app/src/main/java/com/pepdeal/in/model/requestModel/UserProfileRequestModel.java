@@ -5,8 +5,6 @@ import com.google.gson.annotations.SerializedName;
 
 public class UserProfileRequestModel {
 
-
-
     @SerializedName("user_id")
     @Expose
     private String userId;

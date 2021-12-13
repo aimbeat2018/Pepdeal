@@ -79,7 +79,7 @@ public class RegistrationActivity extends AppCompatActivity {
     }
 
     private void dismissDialog() {
-        if (dialog != null && dialog.isShowing()) ;
+        if (dialog != null && dialog.isShowing())
         dialog.dismiss();
     }
 
@@ -91,7 +91,7 @@ public class RegistrationActivity extends AppCompatActivity {
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 try {
 
-                  JSONObject  jsonObject = new JSONObject(response.body().string());
+                    JSONObject jsonObject = new JSONObject(response.body().string());
 
                     String status = jsonObject.getString("status");
                     if (status.equals("1")) {
@@ -104,6 +104,7 @@ public class RegistrationActivity extends AppCompatActivity {
                         intent.putExtra("password", binding.edtPassword.getText().toString());
                         intent.putExtra("from", "register");
                         startActivity(intent);
+//                        finish();
                     } else {
                         Toast.makeText(RegistrationActivity.this, jsonObject.getString("msg"), Toast.LENGTH_SHORT).show();
                     }
@@ -113,7 +114,7 @@ public class RegistrationActivity extends AppCompatActivity {
                 }
 
 
-            dismissDialog();
+                dismissDialog();
 
             }
 
@@ -145,11 +146,8 @@ public class RegistrationActivity extends AppCompatActivity {
                 }
 
 
-
             }
         });
-
-
 
 
     }

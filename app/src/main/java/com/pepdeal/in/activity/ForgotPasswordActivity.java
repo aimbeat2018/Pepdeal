@@ -11,6 +11,7 @@ import androidx.databinding.DataBindingUtil;
 import com.pepdeal.in.R;
 import com.pepdeal.in.constants.ApiClient;
 import com.pepdeal.in.constants.ApiInterface;
+import com.pepdeal.in.constants.Utils;
 import com.pepdeal.in.databinding.ActivityForgotPasswordBinding;
 import com.pepdeal.in.model.ForgotPasswordOTPRequestModel;
 
@@ -33,13 +34,11 @@ public class ForgotPasswordActivity extends AppCompatActivity {
     ActivityForgotPasswordBinding binding;
     String from = "";
 
-
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_forgot_password);
         binding.setHandler(new ClickHandler());
         from = getIntent().getStringExtra("from");
-
     }
 
     public class ClickHandler {
@@ -48,21 +47,18 @@ public class ForgotPasswordActivity extends AppCompatActivity {
         }
 
         public void onSendOtp(View view) {
-
             if (binding.edtMobileNo.getText().toString().equals("") || binding.edtMobileNo.getText().length() != 10) {
                 Toasty.info(ForgotPasswordActivity.this, "Enter valid mobile number", Toasty.LENGTH_SHORT, true).show();
             } else {
 
-              // validation();
-                ForgotPasswordOTPRequestModel model = new ForgotPasswordOTPRequestModel();
-                model.setMobileNo(binding.edtMobileNo.getText().toString().trim());
-                sendOtp(model);
-
-/*
-                Intent intent = new Intent(ForgotPasswordActivity.this, OtpVerificationActivity.class);
-                intent.putExtra("mobile_no", binding.edtMobileNo.getText().toString());
-                intent.putExtra("from", "forgot");
-                startActivity(intent);*/
+                // validation();
+                if (Utils.isNetwork(ForgotPasswordActivity.this)) {
+                    ForgotPasswordOTPRequestModel model = new ForgotPasswordOTPRequestModel();
+                    model.setMobileNo(binding.edtMobileNo.getText().toString().trim());
+                    sendOtp(model);
+                } else {
+                    Utils.InternetAlertDialog(ForgotPasswordActivity.this, getString(R.string.no_internet_title), getString(R.string.no_internet_desc));
+                }
             }
         }
 
@@ -80,18 +76,12 @@ public class ForgotPasswordActivity extends AppCompatActivity {
                         if (status.equals("1")) {
                             Toast.makeText(ForgotPasswordActivity.this, jsonObject.getString("msg"), Toast.LENGTH_SHORT).show();
                             String otp = jsonObject.getString("otp");
-
-                            Intent intent = new Intent(ForgotPasswordActivity.this, ForgotOtpVerifyActivity.class);
+                            Intent intent = new Intent(ForgotPasswordActivity.this, OtpVerificationActivity.class);
                             intent.putExtra("otp", otp);
-                            intent.putExtra("from", "forgot");
-
-
-                            /*intent.putExtra("name", binding.edtName.getText().toString());
                             intent.putExtra("mobile_no", binding.edtMobileNo.getText().toString());
-                            intent.putExtra("otp", otp);
-                            intent.putExtra("password", binding.edtPassword.getText().toString());
-                            intent.putExtra("from", "register");*/
+                            intent.putExtra("from", "forgot");
                             startActivity(intent);
+                            finish();
                         } else {
                             Toast.makeText(ForgotPasswordActivity.this, jsonObject.getString("msg"), Toast.LENGTH_SHORT).show();
                         }
@@ -101,7 +91,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
                     }
 
 
-                   // dismissDialog();
+                    // dismissDialog();
 
                 }
 
@@ -109,7 +99,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
                 @Override
                 public void onFailure(Call<ResponseBody> call, Throwable error) {
 
-                  //  dismissDialog();
+                    //  dismissDialog();
                     error.printStackTrace();
                     if (error instanceof HttpException) {
                         switch (((HttpException) error).code()) {
@@ -133,11 +123,8 @@ public class ForgotPasswordActivity extends AppCompatActivity {
                     }
 
 
-
                 }
             });
-
-
 
 
         }

@@ -2,19 +2,19 @@
 <androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal">
+    android:orientation="vertical">
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/margin_10"
         android:layout_marginVertical="@dimen/margin_5"
-        android:layout_height="wrap_content"
         android:orientation="horizontal">
 
         <View
             android:id="@+id/bacKcolor"
-            android:layout_width="@dimen/margin_15"
-            android:layout_height="@dimen/margin_15"
+            android:layout_width="@dimen/margin_20"
+            android:layout_height="@dimen/margin_20"
             android:layout_gravity="center"
             android:layout_marginStart="@dimen/margin_10"
             android:padding="5dp" /><!--Make sure image is present in Drawable folder-->
@@ -23,10 +23,17 @@
             android:id="@+id/colorname"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/margin_10"
             android:layout_gravity="center"
+            android:layout_marginHorizontal="@dimen/margin_10"
             android:textSize="@dimen/text_13"
             android:text=""
             android:textColor="@color/grayTextColor" />
     </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/margin_1"
+        android:layout_marginVertical="@dimen/margin_5"
+        android:layout_marginHorizontal="@dimen/margin_10"
+        android:background="@color/lightGrayColor" />
 </androidx.appcompat.widget.LinearLayoutCompat>

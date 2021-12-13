@@ -1,5 +1,6 @@
 plugins {
     id 'com.android.application'
+    id 'com.google.gms.google-services'
 }
 
 android {
@@ -49,6 +50,11 @@ dependencies {
     implementation 'com.squareup.retrofit2:retrofit:2.7.2'
     annotationProcessor 'com.squareup.retrofit2:retrofit:2.7.2'
     implementation 'com.squareup.retrofit2:converter-gson:2.7.2'
-    implementation 'com.squareup.okhttp3:logging-interceptor:3.12.1'
+    implementation 'com.squareup.okhttp3:logging-interceptor:4.9.0'
+
+    implementation("com.google.firebase:firebase-iid")
+    implementation 'com.google.firebase:firebase-core:19.0.2'
+    implementation 'com.google.firebase:firebase-messaging:21.0.0'
+    implementation 'com.github.dhaval2404:imagepicker:1.8'
 
 }

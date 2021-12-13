@@ -16,9 +16,11 @@ import androidx.databinding.DataBindingUtil;
 import com.pepdeal.in.R;
 import com.pepdeal.in.constants.ApiClient;
 import com.pepdeal.in.constants.ApiInterface;
+import com.pepdeal.in.constants.SharedPref;
 import com.pepdeal.in.constants.Utils;
 import com.pepdeal.in.databinding.ActivityEditProfileBinding;
 import com.pepdeal.in.model.UserProfileUpdateModel;
+import com.pepdeal.in.model.requestModel.UserProfileRequestModel;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -43,32 +45,25 @@ public class EditProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_edit_profile);
 
-        binding.setHandler(new ClickHandler());
+        binding.setHandler(new ClickHandler(EditProfileActivity.this));
+
         dialog = new ProgressDialog(this);
         dialog.setTitle("Loading");
         dialog.setMessage("Please wait...");
 
-
-        SharedPreferences sharedPreferences = getSharedPreferences("userdata", MODE_PRIVATE);
-        String user_id = sharedPreferences.getString("user_id", "");
-        String mobile = sharedPreferences.getString("mobile_no", "");
-        //String username = sharedPreferences.getString("username", "");
-        binding.edtmobile.setText(mobile);
-       // binding.edtName.setText(username);
+        if (Utils.isNetwork(EditProfileActivity.this)) {
+            requestUsersProfileParams();
+        } else {
+            Utils.InternetAlertDialog(EditProfileActivity.this, getString(R.string.no_internet_title), getString(R.string.no_internet_desc));
+        }
 
     }
-
-
 
     public class ClickHandler {
         Context context;
 
         public ClickHandler(Context context) {
             this.context = context;
-        }
-
-        public ClickHandler() {
-
         }
 
         public void onBackClick(View view) {
@@ -86,15 +81,11 @@ public class EditProfileActivity extends AppCompatActivity {
 
         public void onSaveDetailsClick(View view) {
 
+
+
             if (Utils.isNetwork(EditProfileActivity.this)) {
 
-                SharedPreferences sharedPreferences = getSharedPreferences("userdata", MODE_PRIVATE);
-                String user_id = sharedPreferences.getString("user_id", "");
-               /* String usermobile = sharedPreferences.getString("mobile_no", "");
-                String username = sharedPreferences.getString("username", "");
-*/
-               // binding.userid.setText(user_id);
-
+                String user_id = SharedPref.getVal(EditProfileActivity.this,SharedPref.user_id);
                 UserProfileUpdateModel model = new UserProfileUpdateModel();
                 model.setId(user_id);
                 model.setUsername(binding.edtName.getText().toString());
@@ -108,8 +99,8 @@ public class EditProfileActivity extends AppCompatActivity {
         }
 
         private void dismissDialog() {
-            if (dialog != null && dialog.isShowing()) ;
-            dialog.dismiss();
+            if (dialog != null && dialog.isShowing())
+                dialog.dismiss();
         }
 
 
@@ -126,21 +117,10 @@ public class EditProfileActivity extends AppCompatActivity {
                         JSONObject jsonObject = new JSONObject(response.body().string());
 
                         String status = jsonObject.getString("status");
-                        String body = jsonObject.getString("body");
-
-                       /* String username=jsonObject.getString("username");
-                        String password=jsonObject.getString("password");
-                        String device_token=jsonObject.getString("device_token");
-                        String mobile_no=jsonObject.getString("mobile_no");
-*/
-
-                        if (status.equals("1") && body.equals("1")) {
+                        if (status.equals("1")) {
                             Toast.makeText(EditProfileActivity.this, jsonObject.getString("msg"), Toast.LENGTH_SHORT).show();
-                            // String otp = jsonObject.getString("otp");
 
-                            Intent intent = new Intent(EditProfileActivity.this, HomeActivity.class);
-
-                            startActivity(intent);
+                            requestUsersProfileParams();
                         } else {
                             Toast.makeText(EditProfileActivity.this, jsonObject.getString("msg"), Toast.LENGTH_SHORT).show();
                         }
@@ -180,6 +160,84 @@ public class EditProfileActivity extends AppCompatActivity {
             });
 
         }
+
+    }
+
+
+    private void dismissDialog() {
+        if (dialog != null && dialog.isShowing())
+            dialog.dismiss();
+    }
+
+    private void requestUsersProfileParams() {
+
+        UserProfileRequestModel requestModel = new UserProfileRequestModel();
+        requestModel.setUserId(SharedPref.getVal(EditProfileActivity.this, SharedPref.user_id));
+
+        userProfile(requestModel);
+
+    }
+
+    private void userProfile(UserProfileRequestModel model) {
+        dialog.show();
+
+        ApiInterface apiInterface = ApiClient.createService(ApiInterface.class, "", "");
+
+        apiInterface.user_detail(model).enqueue(new Callback<ResponseBody>() {
+
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                try {
+                    JSONObject jsonObject = new JSONObject(response.body().string());
+
+                    String status = jsonObject.getString("status");
+
+                    if (status.equals("1")) {
+
+                        JSONObject jsonObject1 = jsonObject.getJSONObject("body");
+
+                        String username = jsonObject1.getString("first_name");
+                        String mobile = jsonObject1.getString("mobile_no");
+                        binding.edtName.setText(username);
+                        binding.edtmobile.setText(mobile);
+
+                    } else {
+                        binding.edtName.setText("");
+                        binding.edtmobile.setText("");
+                    }
+
+                } catch (JSONException | NumberFormatException | IOException e) {
+                    e.printStackTrace();
+                }
+                dismissDialog();
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable error) {
+                dismissDialog();
+                error.printStackTrace();
+                if (error instanceof HttpException) {
+                    switch (((HttpException) error).code()) {
+                        case HttpsURLConnection.HTTP_UNAUTHORIZED:
+                            Toast.makeText(EditProfileActivity.this, getString(R.string.unauthorised_user), Toast.LENGTH_SHORT).show();
+                            break;
+                        case HttpsURLConnection.HTTP_FORBIDDEN:
+                            Toast.makeText(EditProfileActivity.this, getString(R.string.forbidden), Toast.LENGTH_SHORT).show();
+                            break;
+                        case HttpsURLConnection.HTTP_INTERNAL_ERROR:
+                            Toast.makeText(EditProfileActivity.this, getString(R.string.internal_server_error), Toast.LENGTH_SHORT).show();
+                            break;
+                        case HttpsURLConnection.HTTP_BAD_REQUEST:
+                            Toast.makeText(EditProfileActivity.this, getString(R.string.bad_request), Toast.LENGTH_SHORT).show();
+                            break;
+                        default:
+                            Toast.makeText(EditProfileActivity.this, error.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    Toast.makeText(EditProfileActivity.this, getString(R.string.something_went_wrong), Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
 
     }
 

@@ -99,8 +99,7 @@
                     android:singleLine="true"
                     android:text=""
                     android:textColor="@color/white"
-                    android:textSize="@dimen/text_16"
-                    />
+                    android:textSize="@dimen/text_16" />
 
             </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -530,9 +529,9 @@
                                 android:layout_marginHorizontal="@dimen/margin_15"
                                 android:layout_marginVertical="@dimen/margin_5"
                                 android:layout_weight="1"
-                                android:onClick="@{handler::onLogout}"
-
                                 android:fontFamily="@font/roboto_bold"
+
+                                android:onClick="@{handler::onLogout}"
                                 android:paddingHorizontal="@dimen/margin_3"
                                 android:singleLine="true"
                                 android:text="@string/logout"

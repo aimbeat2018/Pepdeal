@@ -3,6 +3,7 @@ package com.pepdeal.in.activity;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -13,6 +14,7 @@ import com.pepdeal.in.R;
 import com.pepdeal.in.constants.ApiClient;
 import com.pepdeal.in.constants.ApiInterface;
 import com.pepdeal.in.constants.SharedPref;
+import com.pepdeal.in.constants.Utils;
 import com.pepdeal.in.databinding.ActivityLoginBinding;
 import com.pepdeal.in.databinding.ActivityResetPasswordBinding;
 import com.pepdeal.in.model.requestModel.ResetPasswordRequestModel;
@@ -35,12 +37,20 @@ import retrofit2.Response;
 public class ResetPasswordActivity extends AppCompatActivity {
 
     ActivityResetPasswordBinding binding;
+    ProgressDialog dialog;
+    String mobile_no = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_reset_password);
         binding.setHandler(new ClickHandler());
+
+        dialog = new ProgressDialog(this);
+        dialog.setTitle("Loading");
+        dialog.setMessage("Please wait...");
+
+        mobile_no = getIntent().getStringExtra("mobile_no");
     }
 
     public class ClickHandler {
@@ -51,29 +61,27 @@ public class ResetPasswordActivity extends AppCompatActivity {
                 Toasty.info(ResetPasswordActivity.this, "Both password should match", Toasty.LENGTH_SHORT, true).show();
             } else {
 
+                if (Utils.isNetwork(ResetPasswordActivity.this)) {
+                    ResetPasswordRequestModel model = new ResetPasswordRequestModel();
+                    model.setPassword(binding.edtPassword.getText().toString());
+                    model.setMobileNo(mobile_no);
 
-                ResetPasswordRequestModel model = new ResetPasswordRequestModel();
-
-
-                SharedPref.putBol(ResetPasswordActivity.this, SharedPref.isLogin, true);
-                SharedPreferences sharedPreferences = getSharedPreferences("userdata", MODE_PRIVATE);
-                String usermobile = sharedPreferences.getString("mobile_no", "");
-
-                model.setPassword(binding.edtPassword.getText().toString());
-                model.setMobileNo(usermobile);
-
-              changePassword(model);
-                //Intent intent = new Intent(ResetPasswordActivity.this, LoginActivity.class);
-                //startActivity(intent);
+                    changePassword(model);
+                } else {
+                    Utils.InternetAlertDialog(ResetPasswordActivity.this, getString(R.string.no_internet_title), getString(R.string.no_internet_desc));
+                }
             }
+        }
+
+        private void dismissDialog() {
+            if (dialog != null && dialog.isShowing())
+                dialog.dismiss();
         }
 
         private void changePassword(ResetPasswordRequestModel model) {
 
             ApiInterface apiInterface = ApiClient.createService(ApiInterface.class, "", "");
-
             apiInterface.forgot_password(model).enqueue(new Callback<ResponseBody>() {
-
                 @Override
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                     try {
@@ -81,20 +89,11 @@ public class ResetPasswordActivity extends AppCompatActivity {
 
                         String status = jsonObject.getString("status");
 
-                       /* String username=jsonObject.getString("username");
-                        String password=jsonObject.getString("password");
-                        String device_token=jsonObject.getString("device_token");
-                        String mobile_no=jsonObject.getString("mobile_no");
-*/
-
-
                         if (status.equals("1")) {
                             Toast.makeText(ResetPasswordActivity.this, jsonObject.getString("msg"), Toast.LENGTH_SHORT).show();
-                            // String otp = jsonObject.getString("otp");
-
                             Intent intent = new Intent(ResetPasswordActivity.this, LoginActivity.class);
-
                             startActivity(intent);
+                            finish();
                         } else {
                             Toast.makeText(ResetPasswordActivity.this, jsonObject.getString("msg"), Toast.LENGTH_SHORT).show();
                         }
@@ -102,12 +101,12 @@ public class ResetPasswordActivity extends AppCompatActivity {
                     } catch (JSONException | NumberFormatException | IOException e) {
                         e.printStackTrace();
                     }
-                  //  dismissDialog();
+                    dismissDialog();
                 }
 
                 @Override
                 public void onFailure(Call<ResponseBody> call, Throwable error) {
-                //    dismissDialog();
+                    dismissDialog();
                     error.printStackTrace();
                     if (error instanceof HttpException) {
                         switch (((HttpException) error).code()) {

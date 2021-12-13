@@ -26,7 +26,7 @@
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="match_parent"
                 android:layout_height="?actionBarSize"
-                android:background="@color/colorOrange"
+                android:background="@color/purple_200"
                 android:orientation="horizontal"
                 android:paddingHorizontal="@dimen/margin_15">
 
@@ -34,7 +34,6 @@
                     android:layout_width="@dimen/margin_35"
                     android:layout_height="@dimen/margin_35"
                     android:layout_gravity="center_vertical"
-
                     android:gravity="center"
                     android:onClick="@{handler::onBackClick}">
 
@@ -86,14 +85,14 @@
                         <de.hdodenhof.circleimageview.CircleImageView
 
                             android:id="@+id/img_profile"
-                            android:visibility="gone"
                             android:layout_width="@dimen/margin_100"
                             android:layout_height="@dimen/margin_100"
                             android:layout_centerHorizontal="true"
                             android:layout_gravity="top|center"
                             android:padding="5dp"
-
                             android:src="@drawable/user"
+
+                            android:visibility="gone"
                             app:civ_border_color="@color/white"
                             app:civ_border_width="@dimen/margin_1" />
 
@@ -115,11 +114,11 @@
                                 app:cardElevation="@dimen/margin_10">
 
                                 <ImageView
-                                    android:visibility="gone"
-
                                     android:layout_width="@dimen/margin_30"
+
                                     android:layout_height="@dimen/margin_30"
                                     android:src="@drawable/ic_add_circle"
+                                    android:visibility="gone"
                                     app:tint="@color/colorOrange" />
                             </androidx.cardview.widget.CardView>
                         </LinearLayout>
@@ -304,10 +303,10 @@
                                         android:id="@+id/edtmobile"
                                         android:layout_width="match_parent"
                                         android:layout_height="@dimen/margin_50"
-                                        android:focusable="false"
                                         android:layout_marginVertical="@dimen/margin_8"
                                         android:layout_marginLeft="@dimen/margin_5"
                                         android:background="@null"
+                                        android:focusable="false"
                                         android:fontFamily="@font/roboto_medium"
                                         android:hint="@string/mobile_no"
                                         android:inputType="number"

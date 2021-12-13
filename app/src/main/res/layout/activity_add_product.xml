@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:tools="http://schemas.android.com/tools"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
 
     <data>
+
         <variable
             name="handler"
             type="com.pepdeal.in.activity.AddProductActivity.ClickHandler" />
     </data>
-
 
 
     <androidx.appcompat.widget.LinearLayoutCompat
@@ -182,12 +182,11 @@
                             android:orientation="horizontal"
                             app:layout_gravity="center">
 
-                            <androidx.appcompat.widget.AppCompatEditText
-                                android:id="@+id/entbrand"
+                            <androidx.appcompat.widget.AppCompatSpinner
+                                android:id="@+id/spinBrand"
                                 android:layout_width="match_parent"
                                 android:layout_height="@dimen/margin_35"
-                                android:layout_marginHorizontal="@dimen/margin_5"
-                                android:background="@null" />
+                                android:layout_marginHorizontal="@dimen/margin_5" />
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
                 </androidx.appcompat.widget.LinearLayoutCompat>
@@ -231,8 +230,7 @@
                                 android:id="@+id/spinproductcategory"
                                 android:layout_width="match_parent"
                                 android:layout_height="@dimen/margin_35"
-                                android:layout_marginHorizontal="@dimen/margin_5"
-                                android:background="@null" />
+                                android:layout_marginHorizontal="@dimen/margin_5" />
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
                 </androidx.appcompat.widget.LinearLayoutCompat>
@@ -354,7 +352,7 @@
                         android:layout_marginHorizontal="@dimen/margin_10"
                         android:fontFamily="@font/roboto_regular"
                         android:gravity="center"
-                        android:text="@string/mrp"
+                        android:text="@string/size"
                         android:textColor="@color/black"
                         android:textSize="@dimen/text_15" />
 
@@ -376,12 +374,11 @@
                             android:orientation="horizontal"
                             app:layout_gravity="center">
 
-                            <androidx.appcompat.widget.AppCompatEditText
-                                android:id="@+id/entmrp"
+                            <androidx.appcompat.widget.AppCompatSpinner
+                                android:id="@+id/spinSize"
                                 android:layout_width="match_parent"
                                 android:layout_height="@dimen/margin_35"
-                                android:layout_marginHorizontal="@dimen/margin_5"
-                                android:background="@null" />
+                                android:layout_marginHorizontal="@dimen/margin_5" />
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
                 </androidx.appcompat.widget.LinearLayoutCompat>
@@ -556,7 +553,6 @@
                                         android:fontFamily="@font/roboto_regular"
                                         android:gravity="center"
                                         android:hint="@string/mrp"
-                                        android:paddingStart="@dimen/margin_5"
                                         android:textColor="@color/black"
                                         android:textColorHint="@color/lightGrayColor"
                                         android:textSize="@dimen/text_14" />
@@ -608,7 +604,6 @@
                                         android:fontFamily="@font/roboto_regular"
                                         android:gravity="center"
                                         android:hint="@string/discount"
-                                        android:paddingStart="@dimen/margin_5"
                                         android:textColor="@color/black"
                                         android:textColorHint="@color/lightGrayColor"
                                         android:textSize="@dimen/text_14" />
@@ -657,10 +652,10 @@
                                         android:layout_height="@dimen/margin_35"
                                         android:layout_marginHorizontal="@dimen/margin_5"
                                         android:background="@null"
+                                        android:focusable="false"
                                         android:fontFamily="@font/roboto_regular"
                                         android:gravity="center"
                                         android:hint="@string/sale"
-                                        android:paddingStart="@dimen/margin_5"
                                         android:textColor="@color/black"
                                         android:textColorHint="@color/lightGrayColor"
                                         android:textSize="@dimen/text_14" />
@@ -715,10 +710,20 @@
                                     android:layout_marginHorizontal="@dimen/margin_5"
                                     android:layout_marginVertical="@dimen/margin_6"
                                     android:gravity="center"
+                                    android:onClick="@{handler::onImage1Click}"
                                     android:orientation="horizontal"
                                     app:layout_gravity="center">
 
                                     <androidx.appcompat.widget.AppCompatImageView
+                                        android:id="@+id/image1"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:padding="@dimen/margin_8"
+                                        android:src="@drawable/ic_baseline_camera_alt_24"
+                                        android:visibility="gone" />
+
+                                    <androidx.appcompat.widget.AppCompatImageView
+                                        android:id="@+id/img_cameraimage1"
                                         android:layout_width="match_parent"
                                         android:layout_height="match_parent"
                                         android:padding="@dimen/margin_8"
@@ -749,10 +754,20 @@
                                     android:layout_marginHorizontal="@dimen/margin_5"
                                     android:layout_marginVertical="@dimen/margin_6"
                                     android:gravity="center"
+                                    android:onClick="@{handler::onImage2Click}"
                                     android:orientation="horizontal"
                                     app:layout_gravity="center">
 
                                     <androidx.appcompat.widget.AppCompatImageView
+                                        android:id="@+id/image2"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:padding="@dimen/margin_8"
+                                        android:src="@drawable/ic_baseline_camera_alt_24"
+                                        android:visibility="gone" />
+
+                                    <androidx.appcompat.widget.AppCompatImageView
+                                        android:id="@+id/img_cameraimage2"
                                         android:layout_width="match_parent"
                                         android:layout_height="match_parent"
                                         android:padding="@dimen/margin_8"
@@ -783,10 +798,20 @@
                                     android:layout_marginHorizontal="@dimen/margin_5"
                                     android:layout_marginVertical="@dimen/margin_6"
                                     android:gravity="center"
+                                    android:onClick="@{handler::onImage3Click}"
                                     android:orientation="horizontal"
                                     app:layout_gravity="center">
 
                                     <androidx.appcompat.widget.AppCompatImageView
+                                        android:id="@+id/image3"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:padding="@dimen/margin_8"
+                                        android:src="@drawable/ic_baseline_camera_alt_24"
+                                        android:visibility="gone" />
+
+                                    <androidx.appcompat.widget.AppCompatImageView
+                                        android:id="@+id/img_cameraimage3"
                                         android:layout_width="match_parent"
                                         android:layout_height="match_parent"
                                         android:padding="@dimen/margin_8"
@@ -831,6 +856,7 @@
                         android:layout_marginHorizontal="@dimen/margin_10"
                         android:layout_marginVertical="@dimen/margin_10"
                         android:layout_weight="1"
+                        android:onClick="@{handler::AddProductLiveClick}"
                         app:cardBackgroundColor="@color/blue"
                         app:cardCornerRadius="@dimen/margin_20">
 
