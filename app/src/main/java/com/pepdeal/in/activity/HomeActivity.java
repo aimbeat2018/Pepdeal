@@ -1,5 +1,7 @@
 package com.pepdeal.in.activity;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -28,6 +30,7 @@ import com.pepdeal.in.constants.Utils;
 import com.pepdeal.in.databinding.ActivityHomeBinding;
 import com.pepdeal.in.databinding.ItemCategoryHomeLayoutBinding;
 import com.pepdeal.in.fragment.FavoriteFragment;
+import com.pepdeal.in.fragment.HelpFragment;
 import com.pepdeal.in.fragment.HomeFragment;
 import com.pepdeal.in.fragment.SuperShopFragment;
 import com.pepdeal.in.fragment.TicketFragment;
@@ -65,15 +68,16 @@ public class HomeActivity extends AppCompatActivity {
         // binding.setHandler(new HomeActivity.ClickHandler(this));
 
         SharedPref.putBol(HomeActivity.this, SharedPref.isLogin, true);
-
-        /*By Default Home fragment load*/
-        pos = 1;
-        loadFragment(new HomeFragment());
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+
+        /*By Default Home fragment load*/
+        pos = 1;
+        loadFragment(new HomeFragment());
+
         if (Utils.isNetwork(HomeActivity.this)) {
             requestUsersProfileParams();
         } else {
@@ -111,8 +115,11 @@ public class HomeActivity extends AppCompatActivity {
                         String username = jsonObject1.getString("first_name");
                         String mobile = jsonObject1.getString("mobile_no");
                         user_status = jsonObject1.getString("user_status");
+                        String shop_id = jsonObject1.getString("shop_id");
                         binding.includeLayout.txtname.setText(username);
                         binding.includeLayout.txtmobile.setText(mobile);
+
+                        SharedPref.putVal(HomeActivity.this, SharedPref.shop_id, shop_id);
 
                     } else {
                         binding.includeLayout.txtname.setText("username");
@@ -184,20 +191,44 @@ public class HomeActivity extends AppCompatActivity {
         }
 
         public void onLogout(View view) {
-            startActivity(new Intent(HomeActivity.this, LoginActivity.class));
+            new AlertDialog.Builder(HomeActivity.this)
+                    .setTitle("Logout")
+                    .setMessage("Are you sure you want to logout?")
+
+                    // Specifying a listener allows you to take an action before dismissing the dialog.
+                    // The dialog is automatically dismissed when a dialog button is clicked.
+                    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            // Continue with delete operation
+                            SharedPref.clearData(HomeActivity.this);
+                            startActivity(new Intent(HomeActivity.this, LoginActivity.class));
+                            finish();
+                        }
+                    })
+
+                    // A null listener allows the button to dismiss the dialog and take no further action.
+                    .setNegativeButton(android.R.string.no, null)
+                    .show();
         }
 
         public void onHomeClick(View view) {
             binding.drawerLayout.closeDrawers();
+            pos = 1;
+            loadFragment(new HomeFragment());
         }
 
         public void onAddProductClick(View view) {
-            startActivity(new Intent(HomeActivity.this, AddProductActivity.class));
+            startActivity(new Intent(HomeActivity.this, AddProductActivity.class).putExtra("from", "add"));
             binding.drawerLayout.closeDrawers();
         }
 
         public void onUpdateProductListClick(View view) {
             startActivity(new Intent(HomeActivity.this, SellerProductListingActivity.class));
+            binding.drawerLayout.closeDrawers();
+        }
+
+        public void onCategoryListClick(View view) {
+            startActivity(new Intent(HomeActivity.this, AllCategoryListActivity.class));
             binding.drawerLayout.closeDrawers();
         }
 
@@ -212,13 +243,27 @@ public class HomeActivity extends AppCompatActivity {
         }
 
         public void onAboutShopClick(View view) {
-            startActivity(new Intent(HomeActivity.this, AddShopActivity.class));
+            startActivity(new Intent(HomeActivity.this, ShopDetailsActivity.class).putExtra("shop_id", SharedPref.getVal(HomeActivity.this, SharedPref.shop_id)));
+            binding.drawerLayout.closeDrawers();
+        }
+
+        public void onSettingClick(View view) {
+            startActivity(new Intent(HomeActivity.this, SellerShopServicesListActivity.class));
+            binding.drawerLayout.closeDrawers();
+        }
+
+        public void onMessageClick(View view) {
+            startActivity(new Intent(HomeActivity.this, MessageUsersListActivity.class));
+            binding.drawerLayout.closeDrawers();
+        }
+
+        public void onSellerTicketClick(View view) {
+            startActivity(new Intent(HomeActivity.this, SellerTicketListActivity.class));
             binding.drawerLayout.closeDrawers();
         }
     }
 
     private void navigationDrawer() {
-
 
         //Navigation Drawer
         binding.navView.bringToFront();
@@ -313,13 +358,19 @@ public class HomeActivity extends AppCompatActivity {
                 layoutBinding.cardTab.setOnClickListener(view -> {
                     if (position == 0) {
                         pos = 2;
-                        loadFragment(new TicketFragment(HomeActivity.this));
+                        loadFragment(new TicketFragment());
                     } else if (position == 1) {
                         pos = 3;
-                        loadFragment(new SuperShopFragment(HomeActivity.this));
+                        loadFragment(new SuperShopFragment());
                     } else if (position == 2) {
                         pos = 4;
-                        loadFragment(new FavoriteFragment(HomeActivity.this));
+                        loadFragment(new FavoriteFragment());
+                    } else if (position == 3) {
+                        pos = 5;
+                        loadFragment(new HelpFragment());
+                    } else if (position == 4) {
+                        pos = 6;
+                        startActivity(new Intent(HomeActivity.this, MessageUsersListActivity.class));
                     }
                 });
             }

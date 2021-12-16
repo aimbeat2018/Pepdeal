@@ -102,23 +102,6 @@
 
                 </androidx.appcompat.widget.LinearLayoutCompat>
 
-
-
-                <androidx.appcompat.widget.AppCompatTextView
-
-                    android:id="@+id/userid"
-                    android:text="userid"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    />
-                <androidx.appcompat.widget.AppCompatTextView
-
-                    android:id="@+id/usermobile"
-                    android:text="userid"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:visibility="gone"
-                    />
             </androidx.appcompat.widget.LinearLayoutCompat>
 
             <androidx.core.widget.NestedScrollView

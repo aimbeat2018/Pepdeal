@@ -19,4 +19,10 @@
     <style name="ProgressTheme">
         <item name="colorAccent">@color/colorOrange</item> <!-- Whatever color you want-->
     </style>
+    <style name="Theme.Pepdeal.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+    <style name="Theme.Pepdeal.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="Theme.Pepdeal.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>

@@ -1,9 +1,6 @@
 package com.pepdeal.in.constants;
 
 import android.app.Application;
-import android.util.Log;
-
-import com.pepdeal.in.activity.ConnectivityReceiver;
 
 
 public class MyApplication extends Application {

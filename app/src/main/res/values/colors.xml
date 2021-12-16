@@ -13,6 +13,7 @@
     <color name="lightGrayColor">#BABABA</color>
     <color name="darkGray">#707070</color>
     <color name="gray_light">#E1E1E1</color>
+    <color name="gray_light_trans">#80E1E1E1</color>
     <color name="off_white">#EDF2F6</color>
     <color name="colorGrayLight">#F5F5F8</color>
     <color name="colorOrange">#F03E3B</color>
@@ -21,4 +22,10 @@
 
     <color name="colorPrimaryDarkTrans">#50EC5F1F</color>
     <color name="inactiveColor">#F6B394</color>
+
+    <color name="blue1">#0099CC</color>
+    <color name="purple">#9933CC</color>
+    <color name="green">#669900</color>
+    <color name="green_light">#A8DC80</color>
+    <color name="orange">#FF8800</color>
 </resources>

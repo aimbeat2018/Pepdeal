@@ -11,6 +11,7 @@ public class SharedPref {
     public static String user_id = "user_id";
     public static String mobile_no = "mobile_no";
     public static String password = "password";
+    public static String shop_id = "shop_id";
 
     public static void putBol(Context context, String key, boolean val) {
         SharedPreferences sharedPreferences = context.getSharedPreferences(SharedPref, Context.MODE_PRIVATE);

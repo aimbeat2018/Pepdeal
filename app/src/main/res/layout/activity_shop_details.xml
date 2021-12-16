@@ -48,6 +48,7 @@
                 <RelativeLayout
                     android:layout_width="@dimen/margin_30"
                     android:layout_height="@dimen/margin_30"
+                    android:visibility="gone"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true">
 
@@ -74,12 +75,23 @@
 
         </androidx.appcompat.widget.LinearLayoutCompat>
 
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/shimmer_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone">
+
+            <include layout="@layout/item_shimmer_shopdetails_layout" />
+        </com.facebook.shimmer.ShimmerFrameLayout>
+
         <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/lnr_main_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
 
             <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/lnr_back"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="#FCCFD6"
@@ -93,6 +105,7 @@
                     android:orientation="horizontal">
 
                     <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/txt_name"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -129,6 +142,7 @@
                             app:tint="@color/black" />
 
                         <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/txt_address"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
@@ -156,6 +170,7 @@
                             app:tint="@color/black" />
 
                         <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/txt_mobile"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
@@ -178,7 +193,7 @@
                             android:layout_height="match_parent"
                             android:layout_marginEnd="@dimen/margin_5"
                             android:adjustViewBounds="true"
-                            android:src="@drawable/ic_add_super_shop" />
+                            android:src="@drawable/ic_fav_selected" />
 
                         <androidx.appcompat.widget.AppCompatImageView
                             android:id="@+id/img_message"
@@ -207,11 +222,235 @@
                         android:layout_height="wrap_content"
                         android:background="#FFFFCC">
 
-                        <androidx.recyclerview.widget.RecyclerView
-                            android:id="@+id/rec_tab"
+                        <HorizontalScrollView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginVertical="@dimen/margin_8" />
+                            android:scrollbars="none">
+
+                            <androidx.appcompat.widget.LinearLayoutCompat
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginHorizontal="@dimen/margin_5"
+                                android:layout_gravity="center"
+                                android:orientation="horizontal">
+
+                                <androidx.cardview.widget.CardView
+                                    android:id="@+id/card_cod"
+                                    android:layout_width="@dimen/margin_55"
+                                    android:layout_height="@dimen/margin_55"
+                                    android:layout_marginVertical="@dimen/margin_10"
+                                    app:cardCornerRadius="@dimen/margin_35"
+                                    app:cardElevation="@dimen/margin_5">
+
+                                    <androidx.appcompat.widget.LinearLayoutCompat
+                                        android:id="@+id/lnr_cod"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:background="@color/purple_500">
+
+                                        <androidx.appcompat.widget.LinearLayoutCompat
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_gravity="center"
+                                            android:orientation="vertical">
+
+                                            <androidx.appcompat.widget.AppCompatTextView
+                                                android:id="@+id/txt_cod"
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:layout_gravity="center"
+                                                android:fontFamily="@font/roboto_medium"
+                                                android:gravity="center"
+                                                android:padding="@dimen/margin_3"
+                                                android:text="COD"
+                                                android:textColor="@color/white"
+                                                android:textSize="@dimen/text_10" />
+                                        </androidx.appcompat.widget.LinearLayoutCompat>
+                                    </androidx.appcompat.widget.LinearLayoutCompat>
+                                </androidx.cardview.widget.CardView>
+
+                                <androidx.cardview.widget.CardView
+                                    android:id="@+id/card_door_step"
+                                    android:layout_width="@dimen/margin_55"
+                                    android:layout_height="@dimen/margin_55"
+                                    android:layout_marginHorizontal="@dimen/margin_3"
+                                    android:layout_marginVertical="@dimen/margin_10"
+                                    app:cardCornerRadius="@dimen/margin_35"
+                                    app:cardElevation="@dimen/margin_5">
+
+                                    <androidx.appcompat.widget.LinearLayoutCompat
+                                        android:id="@+id/lnr_door_step"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:background="@color/purple_500">
+
+                                        <androidx.appcompat.widget.LinearLayoutCompat
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_gravity="center"
+                                            android:orientation="vertical">
+
+                                            <androidx.appcompat.widget.AppCompatTextView
+                                                android:id="@+id/txt_door_step"
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:layout_gravity="center"
+                                                android:fontFamily="@font/roboto_medium"
+                                                android:gravity="center"
+                                                android:padding="@dimen/margin_3"
+                                                android:text="DOOR\nSTEP"
+                                                android:textColor="@color/white"
+                                                android:textSize="@dimen/text_10" />
+                                        </androidx.appcompat.widget.LinearLayoutCompat>
+                                    </androidx.appcompat.widget.LinearLayoutCompat>
+                                </androidx.cardview.widget.CardView>
+
+                                <androidx.cardview.widget.CardView
+                                    android:id="@+id/card_home_delivery"
+                                    android:layout_width="@dimen/margin_55"
+                                    android:layout_height="@dimen/margin_55"
+                                    android:layout_marginHorizontal="@dimen/margin_3"
+                                    android:layout_marginVertical="@dimen/margin_10"
+                                    app:cardCornerRadius="@dimen/margin_35"
+                                    app:cardElevation="@dimen/margin_5">
+
+                                    <androidx.appcompat.widget.LinearLayoutCompat
+                                        android:id="@+id/lnr_home_delivery"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:background="@color/purple_500">
+
+                                        <androidx.appcompat.widget.LinearLayoutCompat
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_gravity="center"
+                                            android:orientation="vertical">
+
+                                            <androidx.appcompat.widget.AppCompatTextView
+                                                android:id="@+id/txt_home_delivery"
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:layout_gravity="center"
+                                                android:fontFamily="@font/roboto_medium"
+                                                android:gravity="center"
+                                                android:padding="@dimen/margin_3"
+                                                android:text="HOME\nDELIVERY"
+                                                android:textColor="@color/white"
+                                                android:textSize="@dimen/text_10" />
+                                        </androidx.appcompat.widget.LinearLayoutCompat>
+                                    </androidx.appcompat.widget.LinearLayoutCompat>
+                                </androidx.cardview.widget.CardView>
+
+                                <androidx.cardview.widget.CardView
+                                    android:id="@+id/card_live_demo"
+                                    android:layout_width="@dimen/margin_55"
+                                    android:layout_height="@dimen/margin_55"
+                                    android:layout_marginHorizontal="@dimen/margin_3"
+                                    android:layout_marginVertical="@dimen/margin_10"
+                                    app:cardCornerRadius="@dimen/margin_35"
+                                    app:cardElevation="@dimen/margin_5">
+
+                                    <androidx.appcompat.widget.LinearLayoutCompat
+                                        android:id="@+id/lnr_live_demo"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:background="@color/purple_500">
+
+                                        <androidx.appcompat.widget.LinearLayoutCompat
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_gravity="center"
+                                            android:orientation="vertical">
+
+                                            <androidx.appcompat.widget.AppCompatTextView
+                                                android:id="@+id/txt_live_demo"
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:layout_gravity="center"
+                                                android:fontFamily="@font/roboto_medium"
+                                                android:gravity="center"
+                                                android:padding="@dimen/margin_3"
+                                                android:text="LIVE\nDEMO"
+                                                android:textColor="@color/white"
+                                                android:textSize="@dimen/text_10" />
+                                        </androidx.appcompat.widget.LinearLayoutCompat>
+                                    </androidx.appcompat.widget.LinearLayoutCompat>
+                                </androidx.cardview.widget.CardView>
+
+                                <androidx.cardview.widget.CardView
+                                    android:id="@+id/card_offers"
+                                    android:layout_width="@dimen/margin_55"
+                                    android:layout_height="@dimen/margin_55"
+                                    android:layout_marginHorizontal="@dimen/margin_3"
+                                    android:layout_marginVertical="@dimen/margin_10"
+                                    app:cardCornerRadius="@dimen/margin_35"
+                                    app:cardElevation="@dimen/margin_5">
+
+                                    <androidx.appcompat.widget.LinearLayoutCompat
+                                        android:id="@+id/lnr_offers"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:background="@color/purple_500">
+
+                                        <androidx.appcompat.widget.LinearLayoutCompat
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_gravity="center"
+                                            android:orientation="vertical">
+
+                                            <androidx.appcompat.widget.AppCompatTextView
+                                                android:id="@+id/txt_offers"
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:layout_gravity="center"
+                                                android:fontFamily="@font/roboto_medium"
+                                                android:gravity="center"
+                                                android:padding="@dimen/margin_3"
+                                                android:text="OFFERS"
+                                                android:textColor="@color/white"
+                                                android:textSize="@dimen/text_10" />
+                                        </androidx.appcompat.widget.LinearLayoutCompat>
+                                    </androidx.appcompat.widget.LinearLayoutCompat>
+                                </androidx.cardview.widget.CardView>
+
+                                <androidx.cardview.widget.CardView
+                                    android:id="@+id/card_bargain"
+                                    android:layout_width="@dimen/margin_55"
+                                    android:layout_height="@dimen/margin_55"
+                                    android:layout_marginHorizontal="@dimen/margin_3"
+                                    android:layout_marginVertical="@dimen/margin_10"
+                                    app:cardCornerRadius="@dimen/margin_35"
+                                    app:cardElevation="@dimen/margin_5">
+
+                                    <androidx.appcompat.widget.LinearLayoutCompat
+                                        android:id="@+id/lnr_bargain"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:background="@color/purple_500">
+
+                                        <androidx.appcompat.widget.LinearLayoutCompat
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_gravity="center"
+                                            android:orientation="vertical">
+
+                                            <androidx.appcompat.widget.AppCompatTextView
+                                                android:id="@+id/txt_bargain"
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:layout_gravity="center"
+                                                android:fontFamily="@font/roboto_medium"
+                                                android:gravity="center"
+                                                android:padding="@dimen/margin_3"
+                                                android:text="BARGAIN"
+                                                android:textColor="@color/white"
+                                                android:textSize="@dimen/text_10" />
+                                        </androidx.appcompat.widget.LinearLayoutCompat>
+                                    </androidx.appcompat.widget.LinearLayoutCompat>
+                                </androidx.cardview.widget.CardView>
+
+                            </androidx.appcompat.widget.LinearLayoutCompat>
+                        </HorizontalScrollView>
                     </androidx.appcompat.widget.LinearLayoutCompat>
 
                     <androidx.recyclerview.widget.RecyclerView

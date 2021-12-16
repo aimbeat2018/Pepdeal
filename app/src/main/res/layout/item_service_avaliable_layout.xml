@@ -7,12 +7,12 @@
 
         <androidx.cardview.widget.CardView
             android:id="@+id/card_tab"
-            app:cardCornerRadius="@dimen/margin_35"
-            app:cardElevation="@dimen/margin_5"
             android:layout_width="@dimen/margin_55"
             android:layout_height="@dimen/margin_55"
             android:layout_marginHorizontal="@dimen/margin_3"
-            android:layout_marginVertical="@dimen/margin_10">
+            android:layout_marginVertical="@dimen/margin_10"
+            app:cardCornerRadius="@dimen/margin_35"
+            app:cardElevation="@dimen/margin_5">
 
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:id="@+id/lnr_back"
@@ -32,8 +32,8 @@
                         android:layout_gravity="center"
                         android:fontFamily="@font/roboto_medium"
                         android:gravity="center"
-                        android:text="COD"
                         android:padding="@dimen/margin_3"
+                        android:text="COD"
                         android:textColor="@color/white"
                         android:textSize="@dimen/text_13" />
                 </androidx.appcompat.widget.LinearLayoutCompat>

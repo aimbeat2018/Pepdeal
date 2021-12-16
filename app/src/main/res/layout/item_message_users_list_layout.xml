@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/lnr_main"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginHorizontal="@dimen/margin_5"
+            android:layout_marginTop="@dimen/margin_8"
+            android:orientation="horizontal">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="@dimen/margin_50"
+                android:layout_height="@dimen/margin_50"
+                android:layout_margin="@dimen/margin_5"
+                app:cardBackgroundColor="@color/gray_light"
+                app:cardCornerRadius="@dimen/margin_25"
+                app:cardElevation="@dimen/margin_5">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="@dimen/margin_5"
+                    android:src="@drawable/user_icon" />
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:orientation="horizontal">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/txt_user_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginHorizontal="@dimen/margin_10"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/roboto_medium"
+                    android:maxLines="2"
+                    android:padding="@dimen/margin_5"
+                    android:text=""
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text_15" />
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/card_count"
+                    android:layout_width="@dimen/margin_20"
+                    android:layout_height="@dimen/margin_20"
+                    android:layout_margin="@dimen/margin_5"
+                    app:cardBackgroundColor="@color/green"
+                    app:cardCornerRadius="@dimen/margin_25">
+
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/txt_count"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:fontFamily="@font/roboto_regular"
+                            android:maxLines="1"
+                            android:text="1"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/text_10" />
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+                </androidx.cardview.widget.CardView>
+            </androidx.appcompat.widget.LinearLayoutCompat>
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/margin_1"
+            android:layout_marginHorizontal="@dimen/margin_10"
+            android:layout_marginVertical="@dimen/margin_8"
+            android:background="@color/gray_light" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</layout>

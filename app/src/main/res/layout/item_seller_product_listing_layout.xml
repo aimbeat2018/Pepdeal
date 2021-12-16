@@ -21,6 +21,7 @@
                 android:orientation="horizontal">
 
                 <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/img_product_image"
                     android:layout_width="@dimen/margin_80"
                     android:layout_height="@dimen/margin_80"
                     android:layout_gravity="center"
@@ -111,6 +112,7 @@
                         android:layout_weight="1"
                         android:fontFamily="@font/roboto_medium"
                         android:gravity="start"
+                        android:visibility="gone"
                         android:text="Date : 27 Oct 2021"
                         android:textColor="@color/black"
                         android:textSize="@dimen/text_12" />

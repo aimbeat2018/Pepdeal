@@ -39,6 +39,8 @@
     <string name="faq">FAQ</string>
     <string name="legal">Legal</string>
     <string name="product_details">Product Description</string>
+    <string name="product_details11">Product Description 1</string>
+    <string name="product_specification">Product Specification</string>
     <string name="add_to_fav">Add To Favorite</string>
     <string name="product_list_form">Product List Form</string>
     <string name="product_name">Product Name</string>
@@ -46,6 +48,8 @@
     <string name="brand_name">Brand Name</string>
     <string name="select_brand_name">Select Brand Name</string>
     <string name="description">Description</string>
+    <string name="description1">Description 1</string>
+    <string name="specification">Specification</string>
     <string name="enter_text">Enter text</string>
     <string name="select_category">Select Category</string>
     <string name="warranty">Warranty</string>
@@ -61,9 +65,12 @@
     <string name="upload_product_image">Upload Product image</string>
     <string name="save">SAVE</string>
     <string name="delete">Delete</string>
+    <string name="reject">Reject</string>
+    <string name="confirm">Confirm</string>
     <string name="update">Update</string>
     <string name="save_live">SAVE &amp; LIVE</string>
     <string name="add_shop">Add Shop</string>
+    <string name="shop_services">Shop Services</string>
     <string name="shop_name">Shop Name</string>
     <string name="shop_address">Shop Address</string>
     <string name="enter_shop_name">Enter Shop Name</string>
@@ -106,6 +113,21 @@ Hole.</string>
     <string name="gst_no">GST No</string>
     <string name="mobile_no">Mobile  No</string>
     <string name="shipping_address">shipping address</string>
+    <string name="no_product_added">No Product Found</string>
+    <string name="no_category_added">No Category Found</string>
+    <string name="no_message_added">No Message Found</string>
+    <string name="no_data_found">No Data Found</string>
+    <string name="no_product_added_message">Looks like the seller not added any product yet.</string>
+    <string name="no_fav_added_message">Looks like the you have\'t added any product yet.</string>
+    <string name="no_message">Looks like the you have\'t send any message yet.</string>
+    <string name="title_activity_message_chat">MessageChatActivity</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
 
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
 
 </resources>

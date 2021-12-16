@@ -8,37 +8,135 @@
         android:orientation="vertical"
         tools:context=".fragment.TicketFragment">
 
-        <androidx.core.widget.NestedScrollView
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/lnr_main_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:fillViewport="true"
-            android:scrollbars="none">
+            android:orientation="vertical"
+            android:visibility="visible">
 
-            <androidx.appcompat.widget.LinearLayoutCompat
+            <com.facebook.shimmer.ShimmerFrameLayout
+                android:id="@+id/shimmer_layout"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginVertical="@dimen/margin_10"
-                android:orientation="vertical">
+                android:layout_height="match_parent">
 
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:fontFamily="@font/roboto_medium"
-                    android:gravity="center"
-                    android:padding="@dimen/margin_5"
-                    android:text="@string/ticket"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/text_17" />
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rec_list"
+                <androidx.appcompat.widget.LinearLayoutCompat
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:nestedScrollingEnabled="false" />
-            </androidx.appcompat.widget.LinearLayoutCompat>
+                    android:layout_marginTop="@dimen/margin_10"
+                    android:orientation="vertical">
 
-        </androidx.core.widget.NestedScrollView>
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="@dimen/margin_100"
+                        android:layout_height="@dimen/margin_15"
+                        android:layout_gravity="center"
+                        android:layout_marginBottom="@dimen/margin_10"
+                        android:background="@color/gray_light" />
+
+                    <include layout="@layout/item_shimmer_tickets_list_layout" />
+
+                    <include layout="@layout/item_shimmer_tickets_list_layout" />
+
+                    <include layout="@layout/item_shimmer_tickets_list_layout" />
+
+                    <include layout="@layout/item_shimmer_tickets_list_layout" />
+
+                    <include layout="@layout/item_shimmer_tickets_list_layout" />
+
+                    <include layout="@layout/item_shimmer_tickets_list_layout" />
+
+                    <include layout="@layout/item_shimmer_tickets_list_layout" />
+
+                    <include layout="@layout/item_shimmer_tickets_list_layout" />
+
+                    <include layout="@layout/item_shimmer_tickets_list_layout" />
+
+                    <include layout="@layout/item_shimmer_tickets_list_layout" />
+
+                    <include layout="@layout/item_shimmer_tickets_list_layout" />
+
+                    <include layout="@layout/item_shimmer_tickets_list_layout" />
+
+                    <include layout="@layout/item_shimmer_tickets_list_layout" />
+
+                    <include layout="@layout/item_shimmer_tickets_list_layout" />
+                </androidx.appcompat.widget.LinearLayoutCompat>
+            </com.facebook.shimmer.ShimmerFrameLayout>
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/lnr_data"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <androidx.core.widget.NestedScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:fillViewport="true"
+                    android:scrollbars="none">
+
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginVertical="@dimen/margin_10"
+                            android:fontFamily="@font/roboto_bold"
+                            android:gravity="center"
+                            android:padding="@dimen/margin_5"
+                            android:text="@string/ticket"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/text_15" />
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/rec_list"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+
+                </androidx.core.widget.NestedScrollView>
+            </androidx.appcompat.widget.LinearLayoutCompat>
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/lnr_no_data"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="@dimen/margin_100"
+                android:layout_height="@dimen/margin_100"
+                android:adjustViewBounds="true"
+                android:src="@drawable/no_data" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_10"
+                android:fontFamily="@font/roboto_bold"
+                android:maxLines="2"
+                android:text="@string/no_data_found"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_17" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_3"
+                android:fontFamily="@font/roboto_regular"
+                android:maxLines="2"
+                android:text="@string/no_fav_added_message"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_13" />
+        </androidx.appcompat.widget.LinearLayoutCompat>
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 </layout>

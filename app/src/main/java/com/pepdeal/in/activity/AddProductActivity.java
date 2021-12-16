@@ -9,6 +9,7 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Matrix;
+import android.graphics.Paint;
 import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.Build;
@@ -35,8 +36,11 @@ import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 import androidx.databinding.DataBindingUtil;
 
+import com.bumptech.glide.Glide;
 import com.github.dhaval2404.imagepicker.ImagePicker;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.pepdeal.in.R;
 import com.pepdeal.in.constants.ApiClient;
 import com.pepdeal.in.constants.ApiInterface;
@@ -44,6 +48,7 @@ import com.pepdeal.in.constants.FileUtils;
 import com.pepdeal.in.constants.SharedPref;
 import com.pepdeal.in.constants.Utils;
 import com.pepdeal.in.databinding.ActivityAddProductBinding;
+import com.pepdeal.in.model.productdetailsmodel.ProductDetailsDataModel;
 import com.pepdeal.in.model.requestModel.AddBackgroundColorResponseModel;
 import com.pepdeal.in.model.requestModel.AddProductCategoryResponseModel;
 import com.pepdeal.in.model.requestModel.AddProductListRequestModel;
@@ -61,6 +66,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -89,9 +95,11 @@ public class AddProductActivity extends AppCompatActivity {
     String tempImageName = "";
     public String IMAGE_FILE_PATH;
     String encodedImage;
-    File fileProfileImage;
+    File fileImage1, fileImage2, fileImage3;
     int var = 0;
     List<File> fileArrayList = new ArrayList<>();
+    String productId = "", from = "";
+    List<ProductDetailsDataModel> productDataModelList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -123,6 +131,8 @@ public class AddProductActivity extends AppCompatActivity {
             directory.mkdir();
         }
 
+        from = getIntent().getStringExtra("from");
+
         if (Utils.isNetwork(AddProductActivity.this)) {
             categoryList();
             brandList();
@@ -130,6 +140,17 @@ public class AddProductActivity extends AppCompatActivity {
             Utils.InternetAlertDialog(AddProductActivity.this, getString(R.string.no_internet_title), getString(R.string.no_internet_desc));
         }
 
+        if (from.equals("edit")) {
+            productId = getIntent().getStringExtra("product_id");
+
+            if (Utils.isNetwork(AddProductActivity.this)) {
+                getProductDetails(true);
+                binding.txtSave.setText("Update");
+                binding.txtSaveLive.setText("Update & Live");
+            } else {
+                Utils.InternetAlertDialog(AddProductActivity.this, getString(R.string.no_internet_title), getString(R.string.no_internet_desc));
+            }
+        }
         onSpinnerSelected();
 
         binding.edtdiscount.addTextChangedListener(new TextWatcher() {
@@ -143,14 +164,18 @@ public class AddProductActivity extends AppCompatActivity {
                 if (binding.edtmrp.getText().toString().equals("")) {
                     Toast.makeText(AddProductActivity.this, "Enter Mrp", Toast.LENGTH_SHORT).show();
                 } else {
-                    double mrp = Double.parseDouble(binding.edtmrp.getText().toString());
-                    double discount = Double.parseDouble(binding.edtdiscount.getText().toString());
+                    if (binding.edtdiscount.getText().toString().equals("")) {
+                        binding.edtsale.setText(binding.edtmrp.getText().toString());
+                    } else {
+                        double mrp = Double.parseDouble(binding.edtmrp.getText().toString());
+                        double discount = Double.parseDouble(binding.edtdiscount.getText().toString());
 
-                    double calculatedDiscount = mrp * discount / 100;
-                    double sellingPrice = mrp - calculatedDiscount;
-                    long displaySellingPrice = Math.round(sellingPrice);
+                        double calculatedDiscount = mrp * discount / 100;
+                        double sellingPrice = mrp - calculatedDiscount;
+                        long displaySellingPrice = Math.round(sellingPrice);
 
-                    binding.edtsale.setText(String.valueOf(displaySellingPrice));
+                        binding.edtsale.setText(String.valueOf(displaySellingPrice));
+                    }
                 }
             }
 
@@ -173,20 +198,35 @@ public class AddProductActivity extends AppCompatActivity {
         }
 
         public void AddProductClick(View view) {
-
-            if (binding.entproductName.getText().toString().equals("")) {
-                Toasty.info(AddProductActivity.this, "Enter Product Name ", Toasty.LENGTH_SHORT, true).show();
-            } else if (brandId.equals("")) {
-                Toasty.info(AddProductActivity.this, "Enter Brand Name ", Toasty.LENGTH_SHORT, true).show();
-            } else if (categoryId.equals("")) {
-                Toasty.info(AddProductActivity.this, "Enter Category ", Toasty.LENGTH_SHORT, true).show();
-            } else if (binding.edtdescription.getText().toString().equals("")) {
-                Toasty.info(AddProductActivity.this, "Enter description ", Toasty.LENGTH_SHORT, true).show();
-            } /*else if (binding.entwarranty.getText().toString().equals("")) {
+            if (from.equals("edit")) {
+                /*add image to array list*/
+                fileArrayList = new ArrayList<>();
+                if (fileImage1 != null) {
+                    fileArrayList.add(fileImage1);
+                }
+                if (fileImage2 != null) {
+                    fileArrayList.add(fileImage2);
+                }
+                if (fileImage3 != null) {
+                    fileArrayList.add(fileImage3);
+                }
+                if (binding.entproductName.getText().toString().equals("")) {
+                    Toasty.info(AddProductActivity.this, "Enter Product Name ", Toasty.LENGTH_SHORT, true).show();
+                } else if (brandId.equals("")) {
+                    Toasty.info(AddProductActivity.this, "Enter Brand Name ", Toasty.LENGTH_SHORT, true).show();
+                } else if (categoryId.equals("")) {
+                    Toasty.info(AddProductActivity.this, "Enter Category ", Toasty.LENGTH_SHORT, true).show();
+                } else if (binding.edtdescription.getText().toString().equals("")) {
+                    Toasty.info(AddProductActivity.this, "Enter description ", Toasty.LENGTH_SHORT, true).show();
+                } else if (binding.edtdescription1.getText().toString().equals("")) {
+                    Toasty.info(AddProductActivity.this, "Enter description 1", Toasty.LENGTH_SHORT, true).show();
+                } else if (binding.edtSpecification.getText().toString().equals("")) {
+                    Toasty.info(AddProductActivity.this, "Enter Specification", Toasty.LENGTH_SHORT, true).show();
+                } /*else if (binding.entwarranty.getText().toString().equals("")) {
                 Toasty.info(AddProductActivity.this, "Enter Warranty ", Toasty.LENGTH_SHORT, true).show();
             } */ else if (binding.edtmrp.getText().toString().equals("")) {
-                Toasty.info(AddProductActivity.this, "Enter MRP", Toasty.LENGTH_SHORT, true).show();
-            } /*else if (binding.entmrp.getText().toString().equals("")) {
+                    Toasty.info(AddProductActivity.this, "Enter MRP", Toasty.LENGTH_SHORT, true).show();
+                } /*else if (binding.entmrp.getText().toString().equals("")) {
                 Toasty.info(AddProductActivity.this, "Enter Colour", Toasty.LENGTH_SHORT, true).show();
             } else if (binding.edtsearchtag.getText().toString().equals("")) {
                 Toasty.info(AddProductActivity.this, "Enter Colour ", Toasty.LENGTH_SHORT, true).show();
@@ -194,33 +234,95 @@ public class AddProductActivity extends AppCompatActivity {
                 Toasty.info(AddProductActivity.this, "Enter Discount ", Toasty.LENGTH_SHORT, true).show();
             } else if (binding.edtsale.getText().toString().equals("")) {
                 Toasty.info(AddProductActivity.this, "Enter Sale", Toasty.LENGTH_SHORT, true).show();
-            } */ else if (fileArrayList.size() == 0) {
-                Toasty.info(AddProductActivity.this, "Select Product Image", Toasty.LENGTH_SHORT, true).show();
-            } else {
+            } */ /*else if (fileArrayList.size() != 3) {
+                    Toasty.info(AddProductActivity.this, "Select Product Image", Toasty.LENGTH_SHORT, true).show();
+                }*/ else {
 
-                if (Utils.isNetwork(AddProductActivity.this)) {
-                    addProduct("0");
+                    if (Utils.isNetwork(AddProductActivity.this)) {
+                        updateProduct("0");
+                    } else {
+                        Toast.makeText(AddProductActivity.this, getString(R.string.no_internet), Toast.LENGTH_SHORT).show();
+                    }
+                }
+            } else {
+                /*add image to array list*/
+                fileArrayList = new ArrayList<>();
+                if (fileImage1 != null) {
+                    fileArrayList.add(fileImage1);
+                }
+                if (fileImage2 != null) {
+                    fileArrayList.add(fileImage2);
+                }
+                if (fileImage3 != null) {
+                    fileArrayList.add(fileImage3);
+                }
+                if (binding.entproductName.getText().toString().equals("")) {
+                    Toasty.info(AddProductActivity.this, "Enter Product Name ", Toasty.LENGTH_SHORT, true).show();
+                } else if (brandId.equals("")) {
+                    Toasty.info(AddProductActivity.this, "Enter Brand Name ", Toasty.LENGTH_SHORT, true).show();
+                } else if (categoryId.equals("")) {
+                    Toasty.info(AddProductActivity.this, "Enter Category ", Toasty.LENGTH_SHORT, true).show();
+                } else if (binding.edtdescription.getText().toString().equals("")) {
+                    Toasty.info(AddProductActivity.this, "Enter description ", Toasty.LENGTH_SHORT, true).show();
+                } else if (binding.edtdescription1.getText().toString().equals("")) {
+                    Toasty.info(AddProductActivity.this, "Enter description 1", Toasty.LENGTH_SHORT, true).show();
+                } else if (binding.edtSpecification.getText().toString().equals("")) {
+                    Toasty.info(AddProductActivity.this, "Enter Specification", Toasty.LENGTH_SHORT, true).show();
+                } /*else if (binding.entwarranty.getText().toString().equals("")) {
+                Toasty.info(AddProductActivity.this, "Enter Warranty ", Toasty.LENGTH_SHORT, true).show();
+            } */ else if (binding.edtmrp.getText().toString().equals("")) {
+                    Toasty.info(AddProductActivity.this, "Enter MRP", Toasty.LENGTH_SHORT, true).show();
+                } /*else if (binding.entmrp.getText().toString().equals("")) {
+                Toasty.info(AddProductActivity.this, "Enter Colour", Toasty.LENGTH_SHORT, true).show();
+            } else if (binding.edtsearchtag.getText().toString().equals("")) {
+                Toasty.info(AddProductActivity.this, "Enter Colour ", Toasty.LENGTH_SHORT, true).show();
+            }*/ /*else if (binding.edtdiscount.getText().toString().equals("")) {
+                Toasty.info(AddProductActivity.this, "Enter Discount ", Toasty.LENGTH_SHORT, true).show();
+            } else if (binding.edtsale.getText().toString().equals("")) {
+                Toasty.info(AddProductActivity.this, "Enter Sale", Toasty.LENGTH_SHORT, true).show();
+            } */ else if (fileArrayList.size() != 3) {
+                    Toasty.info(AddProductActivity.this, "Select Product Image", Toasty.LENGTH_SHORT, true).show();
                 } else {
-                    Toast.makeText(AddProductActivity.this, getString(R.string.no_internet), Toast.LENGTH_SHORT).show();
+
+                    if (Utils.isNetwork(AddProductActivity.this)) {
+                        addProduct("0");
+                    } else {
+                        Toast.makeText(AddProductActivity.this, getString(R.string.no_internet), Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
         }
 
         public void AddProductLiveClick(View view) {
-
-            if (binding.entproductName.getText().toString().equals("")) {
-                Toasty.info(AddProductActivity.this, "Enter Product Name ", Toasty.LENGTH_SHORT, true).show();
-            } else if (brandId.equals("")) {
-                Toasty.info(AddProductActivity.this, "Enter Brand Name ", Toasty.LENGTH_SHORT, true).show();
-            } else if (categoryId.equals("")) {
-                Toasty.info(AddProductActivity.this, "Enter Category ", Toasty.LENGTH_SHORT, true).show();
-            } else if (binding.edtdescription.getText().toString().equals("")) {
-                Toasty.info(AddProductActivity.this, "Enter description ", Toasty.LENGTH_SHORT, true).show();
-            } /*else if (binding.entwarranty.getText().toString().equals("")) {
+            if (from.equals("edit")) {
+                /*add image to array list*/
+                fileArrayList = new ArrayList<>();
+                if (fileImage1 != null) {
+                    fileArrayList.add(fileImage1);
+                }
+                if (fileImage2 != null) {
+                    fileArrayList.add(fileImage2);
+                }
+                if (fileImage3 != null) {
+                    fileArrayList.add(fileImage3);
+                }
+                if (binding.entproductName.getText().toString().equals("")) {
+                    Toasty.info(AddProductActivity.this, "Enter Product Name ", Toasty.LENGTH_SHORT, true).show();
+                } else if (brandId.equals("")) {
+                    Toasty.info(AddProductActivity.this, "Enter Brand Name ", Toasty.LENGTH_SHORT, true).show();
+                } else if (categoryId.equals("")) {
+                    Toasty.info(AddProductActivity.this, "Enter Category ", Toasty.LENGTH_SHORT, true).show();
+                } else if (binding.edtdescription.getText().toString().equals("")) {
+                    Toasty.info(AddProductActivity.this, "Enter description ", Toasty.LENGTH_SHORT, true).show();
+                } else if (binding.edtdescription1.getText().toString().equals("")) {
+                    Toasty.info(AddProductActivity.this, "Enter description 1", Toasty.LENGTH_SHORT, true).show();
+                } else if (binding.edtSpecification.getText().toString().equals("")) {
+                    Toasty.info(AddProductActivity.this, "Enter Specification", Toasty.LENGTH_SHORT, true).show();
+                } /*else if (binding.entwarranty.getText().toString().equals("")) {
                 Toasty.info(AddProductActivity.this, "Enter Warranty ", Toasty.LENGTH_SHORT, true).show();
             } */ else if (binding.edtmrp.getText().toString().equals("")) {
-                Toasty.info(AddProductActivity.this, "Enter MRP", Toasty.LENGTH_SHORT, true).show();
-            } /*else if (binding.entmrp.getText().toString().equals("")) {
+                    Toasty.info(AddProductActivity.this, "Enter MRP", Toasty.LENGTH_SHORT, true).show();
+                } /*else if (binding.entmrp.getText().toString().equals("")) {
                 Toasty.info(AddProductActivity.this, "Enter Colour", Toasty.LENGTH_SHORT, true).show();
             } else if (binding.edtsearchtag.getText().toString().equals("")) {
                 Toasty.info(AddProductActivity.this, "Enter Colour ", Toasty.LENGTH_SHORT, true).show();
@@ -228,14 +330,61 @@ public class AddProductActivity extends AppCompatActivity {
                 Toasty.info(AddProductActivity.this, "Enter Discount ", Toasty.LENGTH_SHORT, true).show();
             } else if (binding.edtsale.getText().toString().equals("")) {
                 Toasty.info(AddProductActivity.this, "Enter Sale", Toasty.LENGTH_SHORT, true).show();
-            } */ else if (fileArrayList.size() == 0) {
-                Toasty.info(AddProductActivity.this, "Select Product Image", Toasty.LENGTH_SHORT, true).show();
-            } else {
+            } */ /*else if (fileArrayList.size() != 3) {
+                    Toasty.info(AddProductActivity.this, "Select Product Image", Toasty.LENGTH_SHORT, true).show();
+                }*/ else {
 
-                if (Utils.isNetwork(AddProductActivity.this)) {
-                    addProduct("1");
+                    if (Utils.isNetwork(AddProductActivity.this)) {
+                        updateProduct("0");
+                    } else {
+                        Toast.makeText(AddProductActivity.this, getString(R.string.no_internet), Toast.LENGTH_SHORT).show();
+                    }
+                }
+            } else {
+                /*add image to array list*/
+                fileArrayList = new ArrayList<>();
+                if (fileImage1 != null) {
+                    fileArrayList.add(fileImage1);
+                }
+                if (fileImage2 != null) {
+                    fileArrayList.add(fileImage2);
+                }
+                if (fileImage3 != null) {
+                    fileArrayList.add(fileImage3);
+                }
+                if (binding.entproductName.getText().toString().equals("")) {
+                    Toasty.info(AddProductActivity.this, "Enter Product Name ", Toasty.LENGTH_SHORT, true).show();
+                } else if (brandId.equals("")) {
+                    Toasty.info(AddProductActivity.this, "Enter Brand Name ", Toasty.LENGTH_SHORT, true).show();
+                } else if (categoryId.equals("")) {
+                    Toasty.info(AddProductActivity.this, "Enter Category ", Toasty.LENGTH_SHORT, true).show();
+                } else if (binding.edtdescription.getText().toString().equals("")) {
+                    Toasty.info(AddProductActivity.this, "Enter description ", Toasty.LENGTH_SHORT, true).show();
+                } else if (binding.edtdescription1.getText().toString().equals("")) {
+                    Toasty.info(AddProductActivity.this, "Enter description 1", Toasty.LENGTH_SHORT, true).show();
+                } else if (binding.edtSpecification.getText().toString().equals("")) {
+                    Toasty.info(AddProductActivity.this, "Enter Specification", Toasty.LENGTH_SHORT, true).show();
+                } /*else if (binding.entwarranty.getText().toString().equals("")) {
+                Toasty.info(AddProductActivity.this, "Enter Warranty ", Toasty.LENGTH_SHORT, true).show();
+            } */ else if (binding.edtmrp.getText().toString().equals("")) {
+                    Toasty.info(AddProductActivity.this, "Enter MRP", Toasty.LENGTH_SHORT, true).show();
+                } /*else if (binding.entmrp.getText().toString().equals("")) {
+                Toasty.info(AddProductActivity.this, "Enter Colour", Toasty.LENGTH_SHORT, true).show();
+            } else if (binding.edtsearchtag.getText().toString().equals("")) {
+                Toasty.info(AddProductActivity.this, "Enter Colour ", Toasty.LENGTH_SHORT, true).show();
+            }*/ /*else if (binding.edtdiscount.getText().toString().equals("")) {
+                Toasty.info(AddProductActivity.this, "Enter Discount ", Toasty.LENGTH_SHORT, true).show();
+            } else if (binding.edtsale.getText().toString().equals("")) {
+                Toasty.info(AddProductActivity.this, "Enter Sale", Toasty.LENGTH_SHORT, true).show();
+            } */ else if (fileArrayList.size() != 3) {
+                    Toasty.info(AddProductActivity.this, "Select Product Image", Toasty.LENGTH_SHORT, true).show();
                 } else {
-                    Toast.makeText(AddProductActivity.this, getString(R.string.no_internet), Toast.LENGTH_SHORT).show();
+
+                    if (Utils.isNetwork(AddProductActivity.this)) {
+                        addProduct("0");
+                    } else {
+                        Toast.makeText(AddProductActivity.this, getString(R.string.no_internet), Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
         }
@@ -353,6 +502,107 @@ public class AddProductActivity extends AppCompatActivity {
 
     }
 
+    private void getProductDetails(boolean isLoading) {
+        dialog.show();
+        UserProfileRequestModel model = new UserProfileRequestModel();
+        model.setUserId(SharedPref.getVal(AddProductActivity.this, SharedPref.user_id));
+        model.setProduct_id(productId);
+
+        ApiInterface client = ApiClient.createService(ApiInterface.class, "", "");
+        client.productDetail(model).enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
+                try {
+                    JSONObject jsonObject = new JSONObject(response.body().string());
+                    String code = jsonObject.getString("code");
+                    if (code.equals("200")) {
+                        Gson gson = new Gson();
+                        Type listType = new TypeToken<List<ProductDetailsDataModel>>() {
+                        }.getType();
+                        productDataModelList = new ArrayList<>();
+                        productDataModelList.addAll(gson.fromJson(jsonObject.getString("product Detail"), listType));
+
+                        setData();
+                    } else {
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+                dismissDialog();
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<ResponseBody> call, @NonNull Throwable error) {
+                dismissDialog();
+                error.printStackTrace();
+                if (error instanceof HttpException) {
+                    switch (((HttpException) error).code()) {
+                        case HttpsURLConnection.HTTP_UNAUTHORIZED:
+                            Toast.makeText(AddProductActivity.this, getString(R.string.unauthorised_user), Toast.LENGTH_SHORT).show();
+                            break;
+                        case HttpsURLConnection.HTTP_FORBIDDEN:
+                            Toast.makeText(AddProductActivity.this, getString(R.string.forbidden), Toast.LENGTH_SHORT).show();
+                            break;
+                        case HttpsURLConnection.HTTP_INTERNAL_ERROR:
+                            Toast.makeText(AddProductActivity.this, getString(R.string.internal_server_error), Toast.LENGTH_SHORT).show();
+                            break;
+                        case HttpsURLConnection.HTTP_BAD_REQUEST:
+                            Toast.makeText(AddProductActivity.this, getString(R.string.bad_request), Toast.LENGTH_SHORT).show();
+                            break;
+                        default:
+                            Toast.makeText(AddProductActivity.this, error.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    Toast.makeText(AddProductActivity.this, getString(R.string.something_went_wrong), Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
+
+    private void setData() {
+        ProductDetailsDataModel model = productDataModelList.get(0);
+
+        binding.image1.setVisibility(View.VISIBLE);
+        binding.imgCameraimage1.setVisibility(View.GONE);
+        Glide.with(AddProductActivity.this).load(model.getProductImages().get(0).getProductImage())
+                .error(R.drawable.loader).placeholder(R.drawable.loader).into(binding.image1);
+        binding.edtdescription.setText(model.getDescription());
+
+        binding.image2.setVisibility(View.VISIBLE);
+        binding.imgCameraimage2.setVisibility(View.GONE);
+        Glide.with(AddProductActivity.this).load(model.getProductImages().get(1).getProductImage())
+                .error(R.drawable.loader).placeholder(R.drawable.loader).into(binding.image2);
+        binding.edtdescription1.setText(model.getDescription2());
+
+        binding.image3.setVisibility(View.VISIBLE);
+        binding.imgCameraimage3.setVisibility(View.GONE);
+        Glide.with(AddProductActivity.this).load(model.getProductImages().get(2).getProductImage())
+                .error(R.drawable.loader).placeholder(R.drawable.loader).into(binding.image3);
+        binding.edtSpecification.setText(model.getSpecification());
+
+        binding.entproductName.setText(model.getProductName());
+        binding.edtmrp.setText(model.getMrp());
+        binding.edtsale.setText(model.getSellingPrice());
+        binding.edtdiscount.setText(model.getDiscountMrp());
+        binding.entwarranty.setText(model.getWarranty());
+        binding.edtsearchtag.setText(model.getSearchTags());
+        binding.edtColour.setText(model.getColor());
+
+        for (int i = 0; i < productCategoryModelList.size(); i++) {
+            if (productCategoryModelList.get(i).getCategoryId().equals(model.getCategoryId())) {
+                binding.spinproductcategory.setSelection(i);
+                categoryId = model.getCategoryId();
+            }
+        }
+        for (int i = 0; i < productBrandModelList.size(); i++) {
+            if (productBrandModelList.get(i).getCategoryId().equals(model.getBrandId())) {
+                binding.spinBrand.setSelection(i);
+                brandId = model.getCategoryId();
+            }
+        }
+    }
+
     @NonNull
     private MultipartBody.Part prepareFilePart(String partName, Uri fileUri) {
 
@@ -372,6 +622,25 @@ public class AddProductActivity extends AppCompatActivity {
         return MultipartBody.Part.createFormData(partName, file.getName(), requestFile);
     }
 
+    @NonNull
+    private MultipartBody.Part prepareFilePartEmpty(String partName) {
+
+        // use the FileUtils to get the actual file by uri
+//        File file = FileUtils.getFile(this, fileUri);
+   /*     //compress the image using Compressor lib
+        Timber.d("size of image before compression --> " + file.getTotalSpace());
+        compressedImageFile = new Compressor(this).compressToFile(file);
+        Timber.d("size of image after compression --> " + compressedImageFile.getTotalSpace());*/
+        // create RequestBody instance from file
+        RequestBody requestFile =
+                RequestBody.create(MediaType.parse("multipart/form-data"), "");
+      /*  RequestBody requestFile =
+                RequestBody.create(MediaType.parse(getContentResolver().getType(fileUri)), file);*/
+
+        // MultipartBody.Part is used to send also the actual file name
+        return MultipartBody.Part.createFormData(partName, "", requestFile);
+    }
+
     List<MultipartBody.Part> uploadImages(List<File> paths) {
         List<MultipartBody.Part> list = new ArrayList<>();
         int i = 0;
@@ -385,6 +654,14 @@ public class AddProductActivity extends AppCompatActivity {
         return list;
     }
 
+    List<MultipartBody.Part> uploadImagesEmpty() {
+        List<MultipartBody.Part> list = new ArrayList<>();
+        int i = 0;
+        MultipartBody.Part imageRequest = prepareFilePartEmpty("product_image[]");
+        list.add(imageRequest);
+        return list;
+    }
+
     private void addProduct(String is_active) {
         dialog.show();
         List<MultipartBody.Part> list;
@@ -392,6 +669,8 @@ public class AddProductActivity extends AppCompatActivity {
 
         RequestBody user_id =
                 RequestBody.create(MediaType.parse("text/plain"), SharedPref.getVal(AddProductActivity.this, SharedPref.user_id));
+        RequestBody shop_id =
+                RequestBody.create(MediaType.parse("text/plain"), SharedPref.getVal(AddProductActivity.this, SharedPref.shop_id));
         RequestBody product_name =
                 RequestBody.create(MediaType.parse("text/plain"), Objects.requireNonNull(binding.entproductName.getText()).toString());
         RequestBody brand_id =
@@ -400,6 +679,10 @@ public class AddProductActivity extends AppCompatActivity {
                 RequestBody.create(MediaType.parse("text/plain"), categoryId);
         RequestBody description =
                 RequestBody.create(MediaType.parse("text/plain"), Objects.requireNonNull(binding.edtdescription.getText()).toString());
+        RequestBody description2 =
+                RequestBody.create(MediaType.parse("text/plain"), Objects.requireNonNull(binding.edtdescription1.getText()).toString());
+        RequestBody specification =
+                RequestBody.create(MediaType.parse("text/plain"), Objects.requireNonNull(binding.edtSpecification.getText()).toString());
         RequestBody warranty =
                 RequestBody.create(MediaType.parse("text/plain"), Objects.requireNonNull(binding.entwarranty.getText()).toString());
         RequestBody size_id =
@@ -418,8 +701,8 @@ public class AddProductActivity extends AppCompatActivity {
                 RequestBody.create(MediaType.parse("text/plain"), is_active);
 
         ApiInterface client = ApiClient.createService(ApiInterface.class, "", "");
-        client.addproduct(product_name, brand_id, category_id, description, warranty, size_id, color, search_tags, mrp,
-                discount_mrp, selling_price, user_id, isActive, list).enqueue(new Callback<ResponseBody>() {
+        client.addproduct(product_name, brand_id, category_id, description, description2, specification, warranty, size_id, color, search_tags, mrp,
+                discount_mrp, selling_price, user_id,shop_id, isActive, list).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
                 try {
@@ -427,6 +710,103 @@ public class AddProductActivity extends AppCompatActivity {
                     String code = jsonObject.getString("code");
                     if (code.equals("200")) {
                         Toast.makeText(AddProductActivity.this, "Product Added successfully", Toast.LENGTH_SHORT).show();
+                        finish();
+                    } else {
+                        Toast.makeText(AddProductActivity.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
+
+                    }
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                dismissDialog();
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<ResponseBody> call, @NonNull Throwable error) {
+                // binding.recProductlist.hideShimmer();
+                dismissDialog();
+                error.printStackTrace();
+                if (error instanceof HttpException) {
+                    switch (((HttpException) error).code()) {
+                        case HttpsURLConnection.HTTP_UNAUTHORIZED:
+                            Toast.makeText(AddProductActivity.this, getString(R.string.unauthorised_user), Toast.LENGTH_SHORT).show();
+                            break;
+                        case HttpsURLConnection.HTTP_FORBIDDEN:
+                            Toast.makeText(AddProductActivity.this, getString(R.string.forbidden), Toast.LENGTH_SHORT).show();
+                            break;
+                        case HttpsURLConnection.HTTP_INTERNAL_ERROR:
+                            Toast.makeText(AddProductActivity.this, getString(R.string.internal_server_error), Toast.LENGTH_SHORT).show();
+                            break;
+                        case HttpsURLConnection.HTTP_BAD_REQUEST:
+                            Toast.makeText(AddProductActivity.this, getString(R.string.bad_request), Toast.LENGTH_SHORT).show();
+                            break;
+                        default:
+                            Toast.makeText(AddProductActivity.this, error.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    Toast.makeText(AddProductActivity.this, getString(R.string.something_went_wrong), Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+
+    }
+
+    private void updateProduct(String is_active) {
+        dialog.show();
+        List<MultipartBody.Part> list;
+        if (fileArrayList.size() == 0) {
+            list = uploadImagesEmpty();
+        } else {
+            list = uploadImages(fileArrayList);
+        }
+
+        RequestBody product_id =
+                RequestBody.create(MediaType.parse("text/plain"), productId);
+        RequestBody user_id =
+                RequestBody.create(MediaType.parse("text/plain"), SharedPref.getVal(AddProductActivity.this, SharedPref.user_id));
+        RequestBody shop_id =
+                RequestBody.create(MediaType.parse("text/plain"), SharedPref.getVal(AddProductActivity.this, SharedPref.shop_id));
+        RequestBody product_name =
+                RequestBody.create(MediaType.parse("text/plain"), Objects.requireNonNull(binding.entproductName.getText()).toString());
+        RequestBody brand_id =
+                RequestBody.create(MediaType.parse("text/plain"), brandId);
+        RequestBody category_id =
+                RequestBody.create(MediaType.parse("text/plain"), categoryId);
+        RequestBody description =
+                RequestBody.create(MediaType.parse("text/plain"), Objects.requireNonNull(binding.edtdescription.getText()).toString());
+        RequestBody description2 =
+                RequestBody.create(MediaType.parse("text/plain"), Objects.requireNonNull(binding.edtdescription1.getText()).toString());
+        RequestBody specification =
+                RequestBody.create(MediaType.parse("text/plain"), Objects.requireNonNull(binding.edtSpecification.getText()).toString());
+        RequestBody warranty =
+                RequestBody.create(MediaType.parse("text/plain"), Objects.requireNonNull(binding.entwarranty.getText()).toString());
+        RequestBody size_id =
+                RequestBody.create(MediaType.parse("text/plain"), "");
+        RequestBody color =
+                RequestBody.create(MediaType.parse("text/plain"), Objects.requireNonNull(binding.edtColour.getText()).toString());
+        RequestBody search_tags =
+                RequestBody.create(MediaType.parse("text/plain"), Objects.requireNonNull(binding.edtsearchtag.getText()).toString());
+        RequestBody mrp =
+                RequestBody.create(MediaType.parse("text/plain"), Objects.requireNonNull(binding.edtmrp.getText()).toString());
+        RequestBody discount_mrp =
+                RequestBody.create(MediaType.parse("text/plain"), Objects.requireNonNull(binding.edtdiscount.getText()).toString());
+        RequestBody selling_price =
+                RequestBody.create(MediaType.parse("text/plain"), Objects.requireNonNull(binding.edtsale.getText()).toString());
+        RequestBody isActive =
+                RequestBody.create(MediaType.parse("text/plain"), is_active);
+
+        ApiInterface client = ApiClient.createService(ApiInterface.class, "", "");
+        client.updateProduct(product_id, product_name, brand_id, category_id, description, description2, specification, warranty, size_id, color, search_tags, mrp,
+                discount_mrp, selling_price, user_id,shop_id, isActive, list).enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
+                try {
+                    JSONObject jsonObject = new JSONObject(response.body().string());
+                    String code = jsonObject.getString("code");
+                    if (code.equals("200")) {
+                        Toast.makeText(AddProductActivity.this, "Product Updated successfully", Toast.LENGTH_SHORT).show();
                         finish();
                     } else {
                         Toast.makeText(AddProductActivity.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
@@ -690,8 +1070,6 @@ public class AddProductActivity extends AppCompatActivity {
                 Uri uri = intent.getData();
                 File file = ImagePicker.Companion.getFile(intent);
 
-                fileProfileImage = file;
-
                 if (uri.getPath().length() > 0) {
                     Uri mImageUri = Uri.fromFile(new File(uri.getPath()));
                     Bitmap selectedImageBitmap = null;
@@ -734,17 +1112,17 @@ public class AddProductActivity extends AppCompatActivity {
                         binding.image1.setImageBitmap(selectedImageBitmap);
                         binding.imgCameraimage1.setVisibility(View.GONE);
                         binding.image1.setVisibility(View.VISIBLE);
-                        fileArrayList.add(fileProfileImage);
+                        fileImage1 = file;
 //                        binding.image1.setVisibility(View.VISIBLE);
                     } else if (var == 2) {
                         binding.image2.setImageBitmap(selectedImageBitmap);
-                        fileArrayList.add(fileProfileImage);
                         binding.imgCameraimage2.setVisibility(View.GONE);
                         binding.image2.setVisibility(View.VISIBLE);
+                        fileImage2 = file;
 //                        binding.image1.setVisibility(View.VISIBLE);
                     } else if (var == 3) {
                         binding.image3.setImageBitmap(selectedImageBitmap);
-                        fileArrayList.add(fileProfileImage);
+                        fileImage3 = file;
                         binding.imgCameraimage3.setVisibility(View.GONE);
                         binding.image3.setVisibility(View.VISIBLE);
 //                        binding.image1.setVisibility(View.VISIBLE);

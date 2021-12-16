@@ -3,7 +3,6 @@ package com.pepdeal.in.activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -19,6 +18,7 @@ import com.google.firebase.messaging.FirebaseMessaging;
 import com.pepdeal.in.R;
 import com.pepdeal.in.constants.ApiClient;
 import com.pepdeal.in.constants.ApiInterface;
+import com.pepdeal.in.constants.ConnectivityReceiver;
 import com.pepdeal.in.constants.SharedPref;
 import com.pepdeal.in.constants.Utils;
 import com.pepdeal.in.databinding.ActivityLoginBinding;
@@ -94,99 +94,99 @@ public class LoginActivity extends AppCompatActivity implements ConnectivityRece
             }
         }
 
-        private void requestParams() {
-            FirebaseMessaging.getInstance().getToken().addOnCompleteListener(new OnCompleteListener<String>() {
-                @Override
-                public void onComplete(@NonNull Task<String> task) {
-                    if (task.isComplete()) {
-                        firebaseToken = task.getResult();
-                        Log.e("AppConstants", "onComplete: new Token got: " + firebaseToken);
+    }
 
-                        LoginRequestModel loginRequestModel = new LoginRequestModel();
-                        loginRequestModel.setMobileNo(binding.edtMobile.getText().toString());
-                        loginRequestModel.setPassword(binding.edtPassword.getText().toString());
-                        loginRequestModel.setDeviceToken(firebaseToken);
+    private void requestParams() {
+        FirebaseMessaging.getInstance().getToken().addOnCompleteListener(new OnCompleteListener<String>() {
+            @Override
+            public void onComplete(@NonNull Task<String> task) {
+                if (task.isComplete()) {
+                    firebaseToken = task.getResult();
+                    Log.e("AppConstants", "onComplete: new Token got: " + firebaseToken);
 
-                        loginUser(loginRequestModel);
-                    }
+                    LoginRequestModel loginRequestModel = new LoginRequestModel();
+                    loginRequestModel.setMobileNo(binding.edtMobile.getText().toString());
+                    loginRequestModel.setPassword(binding.edtPassword.getText().toString());
+                    loginRequestModel.setDeviceToken(firebaseToken);
+
+                    loginUser(loginRequestModel);
                 }
-            });
+            }
+        });
 
-        }
+    }
 
-        private void dismissDialog() {
-            if (dialog != null && dialog.isShowing())
-                dialog.dismiss();
-        }
+    private void dismissDialog() {
+        if (dialog != null && dialog.isShowing())
+            dialog.dismiss();
+    }
 
-        private void loginUser(LoginRequestModel model) {
-            dialog.show();
-            ApiInterface apiInterface = ApiClient.createService(ApiInterface.class, "", "");
-            apiInterface.login(model).enqueue(new Callback<ResponseBody>() {
-                @Override
-                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                    try {
+    private void loginUser(LoginRequestModel model) {
+        dialog.show();
+        ApiInterface apiInterface = ApiClient.createService(ApiInterface.class, "", "");
+        apiInterface.login(model).enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                try {
 
-                        JSONObject jsonObject = new JSONObject(response.body().string());
-                        String status = jsonObject.getString("status");
-                        if (status.equals("1")) {
-                            JSONObject jsonObject1 = jsonObject.getJSONObject("body");
+                    JSONObject jsonObject = new JSONObject(response.body().string());
+                    String status = jsonObject.getString("status");
+                    if (status.equals("1")) {
+                        JSONObject jsonObject1 = jsonObject.getJSONObject("body");
 
-                            String userID = jsonObject1.getString("user_id");
-                            String user_Mobile = jsonObject1.getString("mobile_no");
+                        String userID = jsonObject1.getString("user_id");
+                        String user_Mobile = jsonObject1.getString("mobile_no");
 
-                            SharedPref.putVal(LoginActivity.this, SharedPref.user_id, userID);
-                            SharedPref.putVal(LoginActivity.this, SharedPref.mobile_no, user_Mobile);
-                            SharedPref.putVal(LoginActivity.this, SharedPref.password, binding.edtPassword.getText().toString());
+                        SharedPref.putVal(LoginActivity.this, SharedPref.user_id, userID);
+                        SharedPref.putVal(LoginActivity.this, SharedPref.mobile_no, user_Mobile);
+                        SharedPref.putVal(LoginActivity.this, SharedPref.password, binding.edtPassword.getText().toString());
 
-                            Toast.makeText(LoginActivity.this, jsonObject.getString("msg"), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(LoginActivity.this, jsonObject.getString("msg"), Toast.LENGTH_SHORT).show();
 
-                            Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
-                            startActivity(intent);
-                            finish();
+                        Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+                        startActivity(intent);
+                        finish();
 
-                        } else {
-                            Toast.makeText(LoginActivity.this, jsonObject.getString("msg"), Toast.LENGTH_SHORT).show();
-                        }
-
-                    } catch (JSONException | IOException jsonException) {
-                        jsonException.printStackTrace();
-                    }
-                    dismissDialog();
-                }
-
-
-                @Override
-                public void onFailure(Call<ResponseBody> call, Throwable error) {
-                    dismissDialog();
-                    error.printStackTrace();
-                    if (error instanceof HttpException) {
-                        switch (((HttpException) error).code()) {
-                            case HttpsURLConnection.HTTP_UNAUTHORIZED:
-                                Toast.makeText(LoginActivity.this, getString(R.string.unauthorised_user), Toast.LENGTH_SHORT).show();
-                                break;
-                            case HttpsURLConnection.HTTP_FORBIDDEN:
-                                Toast.makeText(LoginActivity.this, getString(R.string.forbidden), Toast.LENGTH_SHORT).show();
-                                break;
-                            case HttpsURLConnection.HTTP_INTERNAL_ERROR:
-                                Toast.makeText(LoginActivity.this, getString(R.string.internal_server_error), Toast.LENGTH_SHORT).show();
-                                break;
-                            case HttpsURLConnection.HTTP_BAD_REQUEST:
-                                Toast.makeText(LoginActivity.this, getString(R.string.bad_request), Toast.LENGTH_SHORT).show();
-                                break;
-                            default:
-                                Toast.makeText(LoginActivity.this, error.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
-                        }
                     } else {
-                        Toast.makeText(LoginActivity.this, getString(R.string.something_went_wrong), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(LoginActivity.this, jsonObject.getString("msg"), Toast.LENGTH_SHORT).show();
                     }
 
-
+                } catch (JSONException | IOException jsonException) {
+                    jsonException.printStackTrace();
                 }
-            });
+                dismissDialog();
+            }
 
 
-        }
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable error) {
+                dismissDialog();
+                error.printStackTrace();
+                if (error instanceof HttpException) {
+                    switch (((HttpException) error).code()) {
+                        case HttpsURLConnection.HTTP_UNAUTHORIZED:
+                            Toast.makeText(LoginActivity.this, getString(R.string.unauthorised_user), Toast.LENGTH_SHORT).show();
+                            break;
+                        case HttpsURLConnection.HTTP_FORBIDDEN:
+                            Toast.makeText(LoginActivity.this, getString(R.string.forbidden), Toast.LENGTH_SHORT).show();
+                            break;
+                        case HttpsURLConnection.HTTP_INTERNAL_ERROR:
+                            Toast.makeText(LoginActivity.this, getString(R.string.internal_server_error), Toast.LENGTH_SHORT).show();
+                            break;
+                        case HttpsURLConnection.HTTP_BAD_REQUEST:
+                            Toast.makeText(LoginActivity.this, getString(R.string.bad_request), Toast.LENGTH_SHORT).show();
+                            break;
+                        default:
+                            Toast.makeText(LoginActivity.this, error.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    Toast.makeText(LoginActivity.this, getString(R.string.something_went_wrong), Toast.LENGTH_SHORT).show();
+                }
+
+
+            }
+        });
+
 
     }
 }

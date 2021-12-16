@@ -133,7 +133,7 @@ public class AddShopActivity extends AppCompatActivity {
         model.setShopAddress(Objects.requireNonNull(binding.edtShopAddress.getText()).toString());
         model.setShopMobileNo(Objects.requireNonNull(binding.edtMobileNumber.getText()).toString());
         model.setBgColorId(backgroundColor);
-        model.setFontStyleId(fontStyle);
+        model.setFontStyleId("0");
         model.setFontSizeId(fontSize);
 
         ApiInterface client = ApiClient.createService(ApiInterface.class, "", "");
@@ -541,9 +541,9 @@ public class AddShopActivity extends AppCompatActivity {
                 Toast.makeText(AddShopActivity.this, "Enter valid Mobile Number", Toast.LENGTH_SHORT).show();
             } else if (backgroundColor.equals("")) {
                 Toast.makeText(AddShopActivity.this, "Select Background Color", Toast.LENGTH_SHORT).show();
-            } else if (fontStyle.equals("")) {
+            } /*else if (fontStyle.equals("")) {
                 Toast.makeText(AddShopActivity.this, "Select Font Style", Toast.LENGTH_SHORT).show();
-            } else if (fontSize.equals("")) {
+            } */else if (fontSize.equals("")) {
                 Toast.makeText(AddShopActivity.this, "Select Font Size", Toast.LENGTH_SHORT).show();
             } else {
                 if (Utils.isNetwork(AddShopActivity.this)) {

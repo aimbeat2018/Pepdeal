@@ -9,6 +9,7 @@ import com.pepdeal.in.model.requestModel.AddShopRequestModel;
 import com.pepdeal.in.model.requestModel.LoginRequestModel;
 import com.pepdeal.in.model.requestModel.OTPRequestModel;
 import com.pepdeal.in.model.requestModel.ResetPasswordRequestModel;
+import com.pepdeal.in.model.requestModel.SellerServiceRequestModel;
 import com.pepdeal.in.model.requestModel.UserProfileRequestModel;
 import com.pepdeal.in.model.requestModel.UserRegisterModel;
 
@@ -65,12 +66,53 @@ public interface ApiInterface {
     @POST("brandList")
     Call<ResponseBody> brandList(@Body UserProfileRequestModel model);
 
+    @POST("productList")
+    Call<ResponseBody> productList(@Body UserProfileRequestModel model);
+
+    @POST("favouriteList")
+    Call<ResponseBody> favouriteList(@Body UserProfileRequestModel model);
+
+    @POST("homePage")
+    Call<ResponseBody> homePage(@Body UserProfileRequestModel model);
+
+    @POST("addFavourite")
+    Call<ResponseBody> addFavourite(@Body UserProfileRequestModel model);
+
+    @POST("favouriteRemove")
+    Call<ResponseBody> favouriteRemove(@Body UserProfileRequestModel model);
+
+    @POST("deleteproduct")
+    Call<ResponseBody> deleteproduct(@Body UserProfileRequestModel model);
+
+    @POST("productDetail")
+    Call<ResponseBody> productDetail(@Body UserProfileRequestModel model);
+
+    @POST("addTicket")
+    Call<ResponseBody> addTicket(@Body UserProfileRequestModel model);
+
+    @POST("ticketList")
+    Call<ResponseBody> ticketList(@Body UserProfileRequestModel model);
+
+    @POST("addSupershop")
+    Call<ResponseBody> addSupershop(@Body UserProfileRequestModel model);
+
+    @POST("supershopList")
+    Call<ResponseBody> supershopList(@Body UserProfileRequestModel model);
+
+    @POST("shopListWithDetail")
+    Call<ResponseBody> shopListWithDetail(@Body UserProfileRequestModel model);
+
+    @POST("sellerServices")
+    Call<ResponseBody> sellerServices(@Body SellerServiceRequestModel model);
+
     @Multipart
     @POST("addproduct")
     Call<ResponseBody> addproduct(@Part("product_name") RequestBody product_name,
                                   @Part("brand_id") RequestBody brand_id,
                                   @Part("category_id") RequestBody category_id,
                                   @Part("description") RequestBody description,
+                                  @Part("description2") RequestBody description2,
+                                  @Part("specification") RequestBody specification,
                                   @Part("warranty") RequestBody warranty,
                                   @Part("size_id") RequestBody size_id,
                                   @Part("color") RequestBody color,
@@ -79,6 +121,28 @@ public interface ApiInterface {
                                   @Part("discount_mrp") RequestBody discount_mrp,
                                   @Part("selling_price") RequestBody selling_price,
                                   @Part("user_id") RequestBody user_id,
+                                  @Part("shop_id") RequestBody shop_id,
                                   @Part("isActive") RequestBody isActive,
                                   @Part List<MultipartBody.Part> productImages);
+
+    @Multipart
+    @POST("updateProduct")
+    Call<ResponseBody> updateProduct(@Part("product_id") RequestBody product_id,
+                                     @Part("product_name") RequestBody product_name,
+                                     @Part("brand_id") RequestBody brand_id,
+                                     @Part("category_id") RequestBody category_id,
+                                     @Part("description") RequestBody description,
+                                     @Part("description2") RequestBody description2,
+                                     @Part("specification") RequestBody specification,
+                                     @Part("warranty") RequestBody warranty,
+                                     @Part("size_id") RequestBody size_id,
+                                     @Part("color") RequestBody color,
+                                     @Part("search_tags") RequestBody search_tags,
+                                     @Part("mrp") RequestBody mrp,
+                                     @Part("discount_mrp") RequestBody discount_mrp,
+                                     @Part("selling_price") RequestBody selling_price,
+                                     @Part("user_id") RequestBody user_id,
+                                     @Part("shop_id") RequestBody shop_id,
+                                     @Part("isActive") RequestBody isActive,
+                                     @Part List<MultipartBody.Part> productImages);
 }

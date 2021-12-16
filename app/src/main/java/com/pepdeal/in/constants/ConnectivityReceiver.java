@@ -1,4 +1,4 @@
-package com.pepdeal.in.activity;
+package com.pepdeal.in.constants;
 
 
 import android.content.BroadcastReceiver;

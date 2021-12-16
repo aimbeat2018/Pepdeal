@@ -7,6 +7,7 @@
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
@@ -15,8 +16,23 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:usesCleartextTraffic="true"
-        android:theme="@style/Theme.Pepdeal">
+        android:theme="@style/Theme.Pepdeal"
+        android:usesCleartextTraffic="true">
+        <activity
+            android:name=".activity.SellerTicketListActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.MessageChatActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.MessageUsersListActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.AllCategoryListActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.SellerShopServicesListActivity"
+            android:exported="false" />
         <activity
             android:name=".activity.AddShopActivity"
             android:exported="false" />
