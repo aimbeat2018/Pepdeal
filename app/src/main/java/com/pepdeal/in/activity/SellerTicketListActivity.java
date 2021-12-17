@@ -6,6 +6,9 @@ import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
@@ -31,7 +34,9 @@ import com.pepdeal.in.databinding.ItemSellerTicketLayoutBinding;
 import com.pepdeal.in.databinding.ItemTicketLayoutBinding;
 import com.pepdeal.in.fragment.TicketFragment;
 import com.pepdeal.in.model.requestModel.AddProductCategoryResponseModel;
+import com.pepdeal.in.model.requestModel.SellerTicketStatusModel;
 import com.pepdeal.in.model.requestModel.UserProfileRequestModel;
+import com.pepdeal.in.model.sellerwiseticketmodel.SellerWiseTicketDataModel;
 import com.pepdeal.in.model.ticketmodel.TicketDataModel;
 
 import org.json.JSONArray;
@@ -55,7 +60,8 @@ import retrofit2.Response;
 public class SellerTicketListActivity extends AppCompatActivity {
 
     ActivitySellerTicketListBinding binding;
-    List<TicketDataModel> productDataModelList = new ArrayList<>();
+    List<SellerWiseTicketDataModel> productDataModelList = new ArrayList<>();
+    ProgressDialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +69,9 @@ public class SellerTicketListActivity extends AppCompatActivity {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_seller_ticket_list);
         binding.setHandler(new ClickHandler());
 
+        dialog = new ProgressDialog(this);
+        dialog.setTitle("Loading");
+        dialog.setMessage("Please wait...");
     }
 
     public class ClickHandler {
@@ -75,7 +84,7 @@ public class SellerTicketListActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         if (Utils.isNetwork(SellerTicketListActivity.this)) {
-            getTicketsList();
+            getTicketsList(true);
         } else {
             binding.lnrMainLayout.setVisibility(View.GONE);
             Utils.InternetAlertDialog(SellerTicketListActivity.this, getString(R.string.no_internet_title), getString(R.string.no_internet_desc));
@@ -96,13 +105,20 @@ public class SellerTicketListActivity extends AppCompatActivity {
         getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
     }
 
-    private void getTicketsList() {
-        showShimmer();
+    private void dismissDialog() {
+        if (dialog != null && dialog.isShowing())
+            dialog.dismiss();
+    }
+
+    private void getTicketsList(boolean isLoading) {
+        if (isLoading)
+            showShimmer();
         UserProfileRequestModel model = new UserProfileRequestModel();
         model.setUserId(SharedPref.getVal(SellerTicketListActivity.this, SharedPref.user_id));
+        model.setShop_id(SharedPref.getVal(SellerTicketListActivity.this, SharedPref.shop_id));
 
         ApiInterface client = ApiClient.createService(ApiInterface.class, "", "");
-        client.ticketList(model).enqueue(new Callback<ResponseBody>() {
+        client.sellerwiseTicket(model).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
                 try {
@@ -110,10 +126,10 @@ public class SellerTicketListActivity extends AppCompatActivity {
                     String code = jsonObject.getString("code");
                     if (code.equals("200")) {
                         Gson gson = new Gson();
-                        Type listType = new TypeToken<List<TicketDataModel>>() {
+                        Type listType = new TypeToken<List<SellerWiseTicketDataModel>>() {
                         }.getType();
                         productDataModelList = new ArrayList<>();
-                        productDataModelList.addAll(gson.fromJson(jsonObject.getString("data"), listType));
+                        productDataModelList.addAll(gson.fromJson(jsonObject.getString("Data"), listType));
 
                         if (productDataModelList.size() > 0) {
                             binding.recList.setLayoutManager(new LinearLayoutManager(SellerTicketListActivity.this));
@@ -178,7 +194,7 @@ public class SellerTicketListActivity extends AppCompatActivity {
 
         @Override
         public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-            TicketDataModel model = productDataModelList.get(position);
+            SellerWiseTicketDataModel model = productDataModelList.get(position);
             holder.bind(model, position);
         }
 
@@ -195,7 +211,7 @@ public class SellerTicketListActivity extends AppCompatActivity {
                 this.layoutBinding = itemView;
             }
 
-            public void bind(TicketDataModel model, int position) {
+            public void bind(SellerWiseTicketDataModel model, int position) {
 
                 Glide.with(SellerTicketListActivity.this).load(model.getProductImage())
                         .error(R.drawable.loader).placeholder(R.drawable.loader).into(layoutBinding.imgProductImage);
@@ -204,7 +220,7 @@ public class SellerTicketListActivity extends AppCompatActivity {
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                 SimpleDateFormat formatted = new SimpleDateFormat("dd MMM yyyy");
                 try {
-                    Date date = simpleDateFormat.parse(model.getTicketCreatedAt());
+                    Date date = simpleDateFormat.parse(model.getCreatedAt());
                     String dateFormatted = formatted.format(date);
                     layoutBinding.txtDate.setText("Date : " + dateFormatted);
                 } catch (ParseException e) {
@@ -227,31 +243,171 @@ public class SellerTicketListActivity extends AppCompatActivity {
                 }
 
                 /*Ticket Status 0 = Delivered , 1 = Approved , 2 = Waiting ,3 =Rejected*/
-               /* if (model.getTicketStatus().equals("0")) {
-                    layoutBinding.viewStatus.getBackground().setColorFilter(getResources().getColor(R.color.green), PorterDuff.Mode.SRC_ATOP);
-                    layoutBinding.txtStatus.setText("Delivered");
-                    layoutBinding.txtStatus.setTextColor(getResources().getColor(R.color.green));
+                if (model.getTicketStatus().equals("0")) {
+                    layoutBinding.txtStatus.setText("Status : Delivered");
+                    layoutBinding.txtStatus.setVisibility(View.VISIBLE);
+                    layoutBinding.cardReject.setVisibility(View.GONE);
+                    layoutBinding.cardConfirm.setVisibility(View.GONE);
                 } else if (model.getTicketStatus().equals("1")) {
-                    layoutBinding.viewStatus.getBackground().setColorFilter(getResources().getColor(R.color.purple_200), PorterDuff.Mode.SRC_ATOP);
-                    layoutBinding.txtStatus.setText("Confirmed");
-                    layoutBinding.txtStatus.setTextColor(getResources().getColor(R.color.purple_200));
+                    layoutBinding.txtStatus.setText("Status : Confirmed");
+                    layoutBinding.txtStatus.setVisibility(View.VISIBLE);
+                    layoutBinding.cardReject.setVisibility(View.VISIBLE);
+                    layoutBinding.cardConfirm.setVisibility(View.VISIBLE);
+                    layoutBinding.txtConfirm.setText("Delivered");
                 } else if (model.getTicketStatus().equals("2")) {
-                    layoutBinding.viewStatus.getBackground().setColorFilter(getResources().getColor(R.color.errorColor), PorterDuff.Mode.SRC_ATOP);
-                    layoutBinding.txtStatus.setText("Waiting");
-                    layoutBinding.txtStatus.setTextColor(getResources().getColor(R.color.errorColor));
+                    layoutBinding.txtStatus.setVisibility(View.GONE);
+                    layoutBinding.cardReject.setVisibility(View.VISIBLE);
+                    layoutBinding.cardConfirm.setVisibility(View.VISIBLE);
+                    layoutBinding.txtConfirm.setText("Confirm");
                 } else if (model.getTicketStatus().equals("3")) {
-                    layoutBinding.viewStatus.getBackground().setColorFilter(getResources().getColor(R.color.errorColor), PorterDuff.Mode.SRC_ATOP);
-                    layoutBinding.txtStatus.setText("Rejected");
-                    layoutBinding.txtStatus.setTextColor(getResources().getColor(R.color.errorColor));
-                }*/
+                    layoutBinding.txtStatus.setText("Status : Rejected");
+                    layoutBinding.cardReject.setVisibility(View.GONE);
+                    layoutBinding.cardConfirm.setVisibility(View.GONE);
+                }
 
-                layoutBinding.cardDetails.setOnClickListener(new View.OnClickListener() {
+                /*layoutBinding.cardDetails.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         Intent intent = new Intent(new Intent(SellerTicketListActivity.this, AddProductActivity.class));
                         intent.putExtra("product_id", model.getProductId());
                         intent.putExtra("from", "edit");
                         startActivity(intent);
+                    }
+                });*/
+
+                layoutBinding.cardConfirm.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        if (model.getTicketStatus().equals("2")) {
+                            new AlertDialog.Builder(SellerTicketListActivity.this)
+                                    .setTitle("Alert!!!")
+                                    .setMessage("Are you sure you want to confirm this ticket?")
+
+                                    // Specifying a listener allows you to take an action before dismissing the dialog.
+                                    // The dialog is automatically dismissed when a dialog button is clicked.
+                                    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            // Continue with delete operation
+                                            if (Utils.isNetwork(SellerTicketListActivity.this)) {
+                                                updateTicketStatus(model.getTicketId(),"1");
+//                                            getFavList(true);
+                                            } else {
+//                                            binding.lnrMainLayout.setVisibility(View.GONE);
+                                                Utils.InternetAlertDialog(SellerTicketListActivity.this, getString(R.string.no_internet_title), getString(R.string.no_internet_desc));
+                                            }
+                                        }
+                                    })
+
+                                    // A null listener allows the button to dismiss the dialog and take no further action.
+                                    .setNegativeButton(android.R.string.no, null)
+                                    .show();
+                        }else if(model.getTicketStatus().equals("1")){
+                            new AlertDialog.Builder(SellerTicketListActivity.this)
+                                    .setTitle("Alert!!!")
+                                    .setMessage("Are you sure you want to delivered this ticket?")
+
+                                    // Specifying a listener allows you to take an action before dismissing the dialog.
+                                    // The dialog is automatically dismissed when a dialog button is clicked.
+                                    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            // Continue with delete operation
+                                            if (Utils.isNetwork(SellerTicketListActivity.this)) {
+                                                updateTicketStatus(model.getTicketId(),"0");
+//                                            getFavList(true);
+                                            } else {
+//                                            binding.lnrMainLayout.setVisibility(View.GONE);
+                                                Utils.InternetAlertDialog(SellerTicketListActivity.this, getString(R.string.no_internet_title), getString(R.string.no_internet_desc));
+                                            }
+                                        }
+                                    })
+
+                                    // A null listener allows the button to dismiss the dialog and take no further action.
+                                    .setNegativeButton(android.R.string.no, null)
+                                    .show();
+                        }
+                    }
+                });
+
+                layoutBinding.cardReject.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        new AlertDialog.Builder(SellerTicketListActivity.this)
+                                .setTitle("Alert!!!")
+                                .setMessage("Are you sure you want to reject this ticket?")
+
+                                // Specifying a listener allows you to take an action before dismissing the dialog.
+                                // The dialog is automatically dismissed when a dialog button is clicked.
+                                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        // Continue with delete operation
+                                        if (Utils.isNetwork(SellerTicketListActivity.this)) {
+                                            updateTicketStatus(model.getTicketId(), "3");
+//                                            getFavList(true);
+                                        } else {
+//                                            binding.lnrMainLayout.setVisibility(View.GONE);
+                                            Utils.InternetAlertDialog(SellerTicketListActivity.this, getString(R.string.no_internet_title), getString(R.string.no_internet_desc));
+                                        }
+                                    }
+                                })
+
+                                // A null listener allows the button to dismiss the dialog and take no further action.
+                                .setNegativeButton(android.R.string.no, null)
+                                .show();
+                    }
+                });
+            }
+
+            private void updateTicketStatus(String ticketId, String ticketStatus) {
+                dialog.show();
+                SellerTicketStatusModel model = new SellerTicketStatusModel();
+                model.setUserId(SharedPref.getVal(SellerTicketListActivity.this, SharedPref.user_id));
+                model.setTicketId(ticketId);
+                model.setTicketStatus(ticketStatus);
+
+                ApiInterface client = ApiClient.createService(ApiInterface.class, "", "");
+                client.sellerticketStatus(model).enqueue(new Callback<ResponseBody>() {
+                    @Override
+                    public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
+                        try {
+                            JSONObject jsonObject = new JSONObject(response.body().string());
+                            String code = jsonObject.getString("code");
+                            if (code.equals("200")) {
+                                Toast.makeText(SellerTicketListActivity.this, "Status changed successfully", Toast.LENGTH_SHORT).show();
+                                getTicketsList(false);
+                            } else {
+                                Toast.makeText(SellerTicketListActivity.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                        dismissDialog();
+                    }
+
+                    @Override
+                    public void onFailure(@NonNull Call<ResponseBody> call, @NonNull Throwable error) {
+                        // binding.recProductlist.hideShimmer();
+                        dismissDialog();
+                        error.printStackTrace();
+                        if (error instanceof HttpException) {
+                            switch (((HttpException) error).code()) {
+                                case HttpsURLConnection.HTTP_UNAUTHORIZED:
+                                    Toast.makeText(SellerTicketListActivity.this, getString(R.string.unauthorised_user), Toast.LENGTH_SHORT).show();
+                                    break;
+                                case HttpsURLConnection.HTTP_FORBIDDEN:
+                                    Toast.makeText(SellerTicketListActivity.this, getString(R.string.forbidden), Toast.LENGTH_SHORT).show();
+                                    break;
+                                case HttpsURLConnection.HTTP_INTERNAL_ERROR:
+                                    Toast.makeText(SellerTicketListActivity.this, getString(R.string.internal_server_error), Toast.LENGTH_SHORT).show();
+                                    break;
+                                case HttpsURLConnection.HTTP_BAD_REQUEST:
+                                    Toast.makeText(SellerTicketListActivity.this, getString(R.string.bad_request), Toast.LENGTH_SHORT).show();
+                                    break;
+                                default:
+                                    Toast.makeText(SellerTicketListActivity.this, error.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                            }
+                        } else {
+                            Toast.makeText(SellerTicketListActivity.this, getString(R.string.something_went_wrong), Toast.LENGTH_SHORT).show();
+                        }
                     }
                 });
             }

@@ -11,6 +11,7 @@ import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -68,6 +69,23 @@ public class HomeActivity extends AppCompatActivity {
         // binding.setHandler(new HomeActivity.ClickHandler(this));
 
         SharedPref.putBol(HomeActivity.this, SharedPref.isLogin, true);
+
+        binding.searchView.setOnEditorActionListener((v, actionId, event) -> {
+            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                new Handler().postDelayed(new Runnable() {
+
+                    @Override
+                    public void run() {
+                        // This method will be executed once the timer is over
+                        Intent intent = new Intent(HomeActivity.this, SearchActivity.class);
+                        intent.putExtra("key", binding.searchView.getText().toString());
+                        startActivity(intent);
+                    }
+                }, 1000);
+                return true;
+            }
+            return false;
+        });
     }
 
     @Override

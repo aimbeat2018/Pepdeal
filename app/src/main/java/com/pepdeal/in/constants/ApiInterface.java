@@ -10,6 +10,7 @@ import com.pepdeal.in.model.requestModel.LoginRequestModel;
 import com.pepdeal.in.model.requestModel.OTPRequestModel;
 import com.pepdeal.in.model.requestModel.ResetPasswordRequestModel;
 import com.pepdeal.in.model.requestModel.SellerServiceRequestModel;
+import com.pepdeal.in.model.requestModel.SellerTicketStatusModel;
 import com.pepdeal.in.model.requestModel.UserProfileRequestModel;
 import com.pepdeal.in.model.requestModel.UserRegisterModel;
 
@@ -102,8 +103,17 @@ public interface ApiInterface {
     @POST("shopListWithDetail")
     Call<ResponseBody> shopListWithDetail(@Body UserProfileRequestModel model);
 
+    @POST("sellerwiseTicket")
+    Call<ResponseBody> sellerwiseTicket(@Body UserProfileRequestModel model);
+
     @POST("sellerServices")
     Call<ResponseBody> sellerServices(@Body SellerServiceRequestModel model);
+
+    @POST("sellerticketStatus")
+    Call<ResponseBody> sellerticketStatus(@Body SellerTicketStatusModel model);
+
+    @POST("searchTags")
+    Call<ResponseBody> searchTags(@Body UserProfileRequestModel model);
 
     @Multipart
     @POST("addproduct")

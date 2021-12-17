@@ -17,6 +17,17 @@ public class UserProfileRequestModel {
     @SerializedName("shop_id")
     @Expose
     private String shop_id;
+    @SerializedName("search_key")
+    @Expose
+    private String search_key;
+
+    public String getSearch_key() {
+        return search_key;
+    }
+
+    public void setSearch_key(String search_key) {
+        this.search_key = search_key;
+    }
 
     public String getShop_id() {
         return shop_id;

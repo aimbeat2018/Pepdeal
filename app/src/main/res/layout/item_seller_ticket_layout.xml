@@ -142,6 +142,19 @@
 
                         </androidx.appcompat.widget.LinearLayoutCompat>
 
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/txt_status"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginHorizontal="@dimen/margin_3"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/roboto_medium"
+                            android:gravity="start"
+                            android:text=""
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/text_12" />
+
                     </androidx.appcompat.widget.LinearLayoutCompat>
 
                     <androidx.appcompat.widget.LinearLayoutCompat
@@ -161,6 +174,7 @@
                             app:cardElevation="@dimen/margin_5">
 
                             <androidx.appcompat.widget.AppCompatTextView
+                                android:id="@+id/txt_confirm"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginHorizontal="@dimen/margin_20"
@@ -183,6 +197,7 @@
                             app:cardElevation="@dimen/margin_5">
 
                             <androidx.appcompat.widget.AppCompatTextView
+                                android:id="@+id/txt_reject"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginHorizontal="@dimen/margin_20"

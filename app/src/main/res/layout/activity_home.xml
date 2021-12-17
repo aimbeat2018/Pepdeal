@@ -84,20 +84,21 @@
                     android:background="@color/purple_500">
 
 
-                    <androidx.appcompat.widget.SearchView
+                    <androidx.appcompat.widget.AppCompatEditText
                         android:id="@+id/searchView"
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
                         android:layout_marginHorizontal="@dimen/margin_10"
                         android:layout_marginVertical="@dimen/margin_10"
                         android:background="@drawable/search_edittext_background_layout"
+                        android:drawableLeft="@drawable/ic_baseline_search_24"
                         android:focusableInTouchMode="true"
                         android:focusedByDefault="false"
+                        android:imeOptions="actionSearch"
+                        android:lineSpacingExtra="@dimen/margin_10"
+                        android:hint="Search"
                         android:inputType="text"
-                        app:iconifiedByDefault="false"
-                        app:queryBackground="@color/transparent"
-                        app:queryHint="Search"
-                        app:searchHintIcon="@color/black" />
+                        android:paddingStart="@dimen/margin_10" />
 
 
                 </androidx.appcompat.widget.LinearLayoutCompat>

@@ -19,6 +19,9 @@
         android:theme="@style/Theme.Pepdeal"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".activity.SearchActivity"
+            android:exported="false" />
+        <activity
             android:name=".activity.SellerTicketListActivity"
             android:exported="false" />
         <activity
