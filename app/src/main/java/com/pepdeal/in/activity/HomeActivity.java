@@ -59,11 +59,13 @@ public class HomeActivity extends AppCompatActivity {
     ArrayList<UsersHomeTabModel> homeTabModelArrayList = new ArrayList<>();
     public static int pos = 1;
     String user_status = "";
+    String msgFlagDefault = "0";
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_home);
         binding.includeLayout.setHandler(new NavigationClick());
+        SharedPref.putVal(HomeActivity.this, SharedPref.msgFlag, msgFlagDefault);
         setHomeTabData();
         navigationDrawer();
         // binding.setHandler(new HomeActivity.ClickHandler(this));
@@ -187,6 +189,8 @@ public class HomeActivity extends AppCompatActivity {
             binding.includeLayout.lnrSellerNavigation.setVisibility(View.GONE);
             binding.includeLayout.lnrCustomerBackground.setBackgroundColor(Color.parseColor("#FFFFFF"));
             binding.includeLayout.lnrSellerBackground.setBackgroundColor(Color.parseColor("#F6B394"));
+            msgFlagDefault = "0";
+            SharedPref.putVal(HomeActivity.this, SharedPref.msgFlag, msgFlagDefault);
         }
 
 
@@ -203,6 +207,8 @@ public class HomeActivity extends AppCompatActivity {
                 binding.includeLayout.lnrSellerNavigation.setVisibility(View.VISIBLE);
                 binding.includeLayout.lnrSellerBackground.setBackgroundColor(Color.parseColor("#FFFFFF"));
                 binding.includeLayout.lnrCustomerBackground.setBackgroundColor(Color.parseColor("#F6B394"));
+                msgFlagDefault = "1";
+                SharedPref.putVal(HomeActivity.this, SharedPref.msgFlag, msgFlagDefault);
             } else {
                 Toast.makeText(HomeActivity.this, "First Add Your Shop", Toast.LENGTH_SHORT).show();
             }
@@ -217,10 +223,7 @@ public class HomeActivity extends AppCompatActivity {
                     // The dialog is automatically dismissed when a dialog button is clicked.
                     .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
-                            // Continue with delete operation
-                            SharedPref.clearData(HomeActivity.this);
-                            startActivity(new Intent(HomeActivity.this, LoginActivity.class));
-                            finish();
+                            logoutUser();
                         }
                     })
 
@@ -261,7 +264,8 @@ public class HomeActivity extends AppCompatActivity {
         }
 
         public void onAboutShopClick(View view) {
-            startActivity(new Intent(HomeActivity.this, ShopDetailsActivity.class).putExtra("shop_id", SharedPref.getVal(HomeActivity.this, SharedPref.shop_id)));
+            startActivity(new Intent(HomeActivity.this, ShopDetailsActivity.class)
+                    .putExtra("shop_id", SharedPref.getVal(HomeActivity.this, SharedPref.shop_id)));
             binding.drawerLayout.closeDrawers();
         }
 
@@ -277,6 +281,31 @@ public class HomeActivity extends AppCompatActivity {
 
         public void onSellerTicketClick(View view) {
             startActivity(new Intent(HomeActivity.this, SellerTicketListActivity.class));
+            binding.drawerLayout.closeDrawers();
+        }
+
+        public void onAboutUs(View view) {
+            startActivity(new Intent(HomeActivity.this, AboutUsActivity.class).putExtra("from","about"));
+            binding.drawerLayout.closeDrawers();
+        }
+
+        /* if (from.equals("about")) {
+            binding.txtTitle.setText("About Us");
+        } else if (from.equals("privacy")) {
+            binding.txtTitle.setText("Privacy policy");
+        } else if (from.equals("terms")) {
+            binding.txtTitle.setText("Terms & Condition");
+        } else if (from.equals("contact")) {
+            binding.txtTitle.setText("Contact Us");
+        }*/
+
+        public void onContactUs(View view) {
+            startActivity(new Intent(HomeActivity.this, AboutUsActivity.class).putExtra("from", "contact"));
+            binding.drawerLayout.closeDrawers();
+        }
+
+        public void onLegalUs(View view) {
+            startActivity(new Intent(HomeActivity.this, AboutUsActivity.class).putExtra("from", "privacy"));
             binding.drawerLayout.closeDrawers();
         }
     }
@@ -338,6 +367,60 @@ public class HomeActivity extends AppCompatActivity {
 
         binding.recTab.setLayoutManager(new LinearLayoutManager(HomeActivity.this, LinearLayoutManager.HORIZONTAL, false));
         binding.recTab.setAdapter(new UsersTabAdapter());
+    }
+
+    /*LogoutUser*/
+    private void logoutUser() {
+//        dialog.show();
+        UserProfileRequestModel model = new UserProfileRequestModel();
+        model.setUserId(SharedPref.getVal(HomeActivity.this, SharedPref.user_id));
+
+        ApiInterface client = ApiClient.createService(ApiInterface.class, "", "");
+        client.userLogout(model).enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
+                try {
+                    JSONObject jsonObject = new JSONObject(response.body().string());
+                    String code = jsonObject.getString("code");
+                    if (code.equals("200")) {
+                        // Continue with delete operation
+                        SharedPref.clearData(HomeActivity.this);
+                        startActivity(new Intent(HomeActivity.this, LoginActivity.class));
+                        finish();
+                    } else {
+                        Toast.makeText(HomeActivity.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<ResponseBody> call, @NonNull Throwable error) {
+                // binding.recProductlist.hideShimmer();
+                error.printStackTrace();
+                if (error instanceof HttpException) {
+                    switch (((HttpException) error).code()) {
+                        case HttpsURLConnection.HTTP_UNAUTHORIZED:
+                            Toast.makeText(HomeActivity.this, getString(R.string.unauthorised_user), Toast.LENGTH_SHORT).show();
+                            break;
+                        case HttpsURLConnection.HTTP_FORBIDDEN:
+                            Toast.makeText(HomeActivity.this, getString(R.string.forbidden), Toast.LENGTH_SHORT).show();
+                            break;
+                        case HttpsURLConnection.HTTP_INTERNAL_ERROR:
+                            Toast.makeText(HomeActivity.this, getString(R.string.internal_server_error), Toast.LENGTH_SHORT).show();
+                            break;
+                        case HttpsURLConnection.HTTP_BAD_REQUEST:
+                            Toast.makeText(HomeActivity.this, getString(R.string.bad_request), Toast.LENGTH_SHORT).show();
+                            break;
+                        default:
+                            Toast.makeText(HomeActivity.this, error.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    Toast.makeText(HomeActivity.this, getString(R.string.something_went_wrong), Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 
     public class UsersTabAdapter extends RecyclerView.Adapter<UsersTabAdapter.ViewHolder> {

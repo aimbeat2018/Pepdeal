@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,6 +23,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.pepdeal.in.R;
 import com.pepdeal.in.activity.HomeActivity;
+import com.pepdeal.in.activity.MessageChatActivity;
 import com.pepdeal.in.activity.ShopDetailsActivity;
 import com.pepdeal.in.constants.ApiClient;
 import com.pepdeal.in.constants.ApiInterface;
@@ -226,7 +228,7 @@ public class SuperShopFragment extends Fragment {
                                     public void onClick(DialogInterface dialog, int which) {
                                         // Continue with delete operation
                                         if (Utils.isNetwork(activity)) {
-                                            removeSuperShop(model.getShopId());
+                                            removeSuperShop(model.getSuperId());
 //                                            getFavList(true);
                                         } else {
 //                                            binding.lnrMainLayout.setVisibility(View.GONE);
@@ -240,15 +242,28 @@ public class SuperShopFragment extends Fragment {
                                 .show();
                     }
                 });
+
+                layoutBinding.imgMessage.setOnClickListener(view -> startActivity(new Intent(activity, MessageChatActivity.class).putExtra("shop_id", model.getShopId())
+                        .putExtra("name", model.getShopName()).putExtra("user_id", SharedPref.getVal(activity, SharedPref.user_id))));
+
+                layoutBinding.lnrMobile.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent = new Intent(Intent.ACTION_DIAL);
+
+                        intent.setData(Uri.parse("tel:" + model.getShopMobileNo()));
+                        activity.startActivity(intent);
+                    }
+                });
             }
 
             private void removeSuperShop(String shopId) {
                 UserProfileRequestModel model = new UserProfileRequestModel();
                 model.setUserId(SharedPref.getVal(activity, SharedPref.user_id));
-                model.setShop_id(shopId);
+                model.setSuper_id(shopId);
 
                 ApiInterface client = ApiClient.createService(ApiInterface.class, "", "");
-                client.favouriteRemove(model).enqueue(new Callback<ResponseBody>() {
+                client.removeSupershop(model).enqueue(new Callback<ResponseBody>() {
                     @Override
                     public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
                         try {

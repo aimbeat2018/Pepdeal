@@ -72,8 +72,8 @@ public class TicketFragment extends Fragment {
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_ticket, container, false);
         activity = (HomeActivity) getActivity();
-        binding.recList.setLayoutManager(new LinearLayoutManager(activity));
-        binding.recList.setAdapter(new ProductAdapter());
+      /*  binding.recList.setLayoutManager(new LinearLayoutManager(activity));
+        binding.recList.setAdapter(new ProductAdapter());*/
 
         if (Utils.isNetwork(activity)) {
             getTicketsList();

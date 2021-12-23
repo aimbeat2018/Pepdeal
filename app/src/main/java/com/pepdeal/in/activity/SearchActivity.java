@@ -7,9 +7,12 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,8 +31,12 @@ import com.pepdeal.in.constants.Utils;
 import com.pepdeal.in.databinding.ActivitySearchBinding;
 import com.pepdeal.in.databinding.ItemHomeShopsListBinding;
 import com.pepdeal.in.fragment.HomeFragment;
+import com.pepdeal.in.fragment.SuperShopFragment;
 import com.pepdeal.in.model.homemodel.HomeShopDataModel;
 import com.pepdeal.in.model.requestModel.UserProfileRequestModel;
+import com.pepdeal.in.model.searchmodel.SearchProductModel;
+import com.pepdeal.in.model.searchmodel.SearchShopModel;
+import com.pepdeal.in.model.supershopmodel.SuperShopDataModel;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -51,7 +58,8 @@ public class SearchActivity extends AppCompatActivity {
     ActivitySearchBinding binding;
     String key = "";
     ProgressDialog dialog;
-    List<HomeShopDataModel> homeShopDataModelList = new ArrayList<>();
+    List<SearchShopModel> searchShopModelArrayList = new ArrayList<>();
+    List<SearchProductModel> searchProductModelArrayList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,7 +74,7 @@ public class SearchActivity extends AppCompatActivity {
         key = getIntent().getStringExtra("key");
 
         if (Utils.isNetwork(SearchActivity.this)) {
-            getSearchData();
+            getSearchData(true);
         } else {
             binding.lnrMainLayout.setVisibility(View.GONE);
             Utils.InternetAlertDialog(SearchActivity.this, getString(R.string.no_internet_title), getString(R.string.no_internet_desc));
@@ -98,8 +106,9 @@ public class SearchActivity extends AppCompatActivity {
             dialog.dismiss();
     }
 
-    private void getSearchData() {
-        showShimmer();
+    private void getSearchData(boolean isLoading) {
+        if (isLoading)
+            showShimmer();
         UserProfileRequestModel model = new UserProfileRequestModel();
         model.setUserId(SharedPref.getVal(SearchActivity.this, SharedPref.user_id));
         model.setSearch_key(key);
@@ -113,21 +122,42 @@ public class SearchActivity extends AppCompatActivity {
                     String code = jsonObject.getString("code");
                     if (code.equals("200")) {
 
-                        Gson gson = new Gson();
-                        Type listType = new TypeToken<List<HomeShopDataModel>>() {
+                        JSONObject jsonObject1 = jsonObject.getJSONObject("Data");
+                        /*Shop array json*/
+                        Gson gson1 = new Gson();
+                        Type listType = new TypeToken<List<SearchShopModel>>() {
                         }.getType();
-                        homeShopDataModelList = new ArrayList<>();
-                        homeShopDataModelList.addAll(gson.fromJson(jsonObject.getString("shop List"), listType));
+                        searchShopModelArrayList = new ArrayList<>();
+                        searchShopModelArrayList.addAll(gson1.fromJson(jsonObject1.getString("shopData"), listType));
 
-                        if (homeShopDataModelList.size() > 0) {
-                            binding.recList.setLayoutManager(new LinearLayoutManager(SearchActivity.this));
-                            binding.recList.setAdapter(new ShopAdapter());
+                        if (searchShopModelArrayList.size() > 0) {
+                            binding.recShoplist.setLayoutManager(new LinearLayoutManager(SearchActivity.this));
+                            binding.recShoplist.setAdapter(new ShopAdapter());
 
+                            binding.recShoplist.setVisibility(View.VISIBLE);
                             binding.lnrMainLayout.setVisibility(View.VISIBLE);
-                            binding.lnrNoData.setVisibility(View.GONE);
                         } else {
-                            binding.lnrMainLayout.setVisibility(View.GONE);
-                            binding.lnrNoData.setVisibility(View.VISIBLE);
+                            binding.recShoplist.setVisibility(View.GONE);
+//                            binding.lnrNoData.setVisibility(View.VISIBLE);
+                        }
+
+                        /*Product array json*/
+                        Gson gson2 = new Gson();
+                        Type listType1 = new TypeToken<List<SearchProductModel>>() {
+                        }.getType();
+                        searchProductModelArrayList = new ArrayList<>();
+                        searchProductModelArrayList.addAll(gson2.fromJson(jsonObject1.getString("productData"), listType1));
+
+                        if (searchProductModelArrayList.size() > 0) {
+                            binding.recProductlist.setLayoutManager(new GridLayoutManager(SearchActivity.this, 3));
+                            binding.recProductlist.setAdapter(new ProductAdapter(SearchActivity.this, searchProductModelArrayList, "search", "", ""));
+
+                            binding.recProductlist.setVisibility(View.VISIBLE);
+                            binding.lnrMainLayout.setVisibility(View.VISIBLE);
+//                            binding.lnrNoData.setVisibility(View.GONE);
+                        } else {
+                            binding.recProductlist.setVisibility(View.GONE);
+//                            binding.lnrNoData.setVisibility(View.VISIBLE);
                         }
                     } else {
                         binding.lnrMainLayout.setVisibility(View.GONE);
@@ -135,8 +165,8 @@ public class SearchActivity extends AppCompatActivity {
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
-                    binding.lnrMainLayout.setVisibility(View.GONE);
-                    binding.lnrNoData.setVisibility(View.VISIBLE);
+//                    binding.lnrMainLayout.setVisibility(View.GONE);
+//                    binding.lnrNoData.setVisibility(View.VISIBLE);
                 }
 
                 hideShimmer();
@@ -181,13 +211,13 @@ public class SearchActivity extends AppCompatActivity {
 
         @Override
         public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-            HomeShopDataModel model = homeShopDataModelList.get(position);
+            SearchShopModel model = searchShopModelArrayList.get(position);
             holder.bind(model, position);
         }
 
         @Override
         public int getItemCount() {
-            return homeShopDataModelList.size();
+            return searchShopModelArrayList.size();
         }
 
         public class ViewHolder extends RecyclerView.ViewHolder {
@@ -196,39 +226,49 @@ public class SearchActivity extends AppCompatActivity {
             public ViewHolder(@NonNull ItemHomeShopsListBinding itemView) {
                 super(itemView.getRoot());
                 this.layoutBinding = itemView;
+                layoutBinding.recProduct.setVisibility(View.GONE);
+                layoutBinding.imgDelete.setVisibility(View.GONE);
             }
 
-            public void bind(HomeShopDataModel model, int position) {
+            public void bind(SearchShopModel model, int position) {
                 layoutBinding.txtName.setText(model.getShopName());
-                if (model.getFontsizeName().contains("px")) {
-                    layoutBinding.txtName.setTextSize(Float.parseFloat(model.getFontsizeName().replace("px", "")));
+                if (model.getFontSizeName().contains("px")) {
+                    layoutBinding.txtName.setTextSize(Float.parseFloat(model.getFontSizeName().replace("px", "")));
                 }
 
                 layoutBinding.txtAddress.setText(model.getShopAddress());
                 layoutBinding.txtMobile.setText(model.getShopMobileNo());
 
-                layoutBinding.lnrBack.setBackgroundColor(Color.parseColor(model.getBgcolorName()));
+                layoutBinding.lnrBack.setBackgroundColor(Color.parseColor(model.getBgColor()));
 
                 layoutBinding.txtName.setOnClickListener(view -> {
                     startActivity(new Intent(SearchActivity.this, ShopDetailsActivity.class).putExtra("shop_id", model.getShopId()));
                 });
-                if (model.getProductsList().isEmpty()) {
-                    layoutBinding.recProduct.setVisibility(View.GONE);
-                } else {
-                    layoutBinding.recProduct.setVisibility(View.VISIBLE);
-                    layoutBinding.recProduct.setLayoutManager(new GridLayoutManager(SearchActivity.this, 3));
-                    layoutBinding.recProduct.setAdapter(new ProductAdapter(SearchActivity.this, model.getProductsList(), "home"));
-                }
 
-                layoutBinding.imgSuperShop.setOnClickListener(new View.OnClickListener() {
+                layoutBinding.imgSuperShop.setVisibility(View.GONE);
+
+                layoutBinding.imgSuperShop.setOnClickListener(view -> {
+                    if (Utils.isNetwork(SearchActivity.this)) {
+                        if (model.getShopStatus() == 1) {
+                            removeSuperShop(model.getShopStatusId());
+                        } else {
+                            addSuperShop(model.getShopId());
+                        }
+                    } else {
+                        binding.lnrMainLayout.setVisibility(View.GONE);
+                        Utils.InternetAlertDialog(SearchActivity.this, getString(R.string.no_internet_title), getString(R.string.no_internet_desc));
+                    }
+                });
+                layoutBinding.imgMessage.setOnClickListener(view -> startActivity(new Intent(SearchActivity.this, MessageChatActivity.class).putExtra("shop_id", model.getShopId())
+                        .putExtra("name", model.getShopName()).putExtra("user_id", SharedPref.getVal(SearchActivity.this, SharedPref.user_id))));
+
+                layoutBinding.lnrMobile.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        if (Utils.isNetwork(SearchActivity.this)) {
-                            addSuperShop(model.getShopId());
-                        } else {
-                            binding.lnrMainLayout.setVisibility(View.GONE);
-                            Utils.InternetAlertDialog(SearchActivity.this, getString(R.string.no_internet_title), getString(R.string.no_internet_desc));
-                        }
+                        Intent intent = new Intent(Intent.ACTION_DIAL);
+
+                        intent.setData(Uri.parse("tel:" + model.getShopMobileNo()));
+                        startActivity(intent);
                     }
                 });
             }
@@ -248,7 +288,9 @@ public class SearchActivity extends AppCompatActivity {
                             String code = jsonObject.getString("code");
                             if (code.equals("200")) {
                                 Toast.makeText(SearchActivity.this, "Shop added in super shop", Toast.LENGTH_SHORT).show();
+                                layoutBinding.imgSuperShop.setImageDrawable(getResources().getDrawable(R.drawable.ic_fav_selected));
 //                                binding.txtFav.setText("Remove Favourite");
+                                getSearchData(false);
                             } else {
                                 Toast.makeText(SearchActivity.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
                             }
@@ -262,6 +304,61 @@ public class SearchActivity extends AppCompatActivity {
                     public void onFailure(@NonNull Call<ResponseBody> call, @NonNull Throwable error) {
                         // binding.recProductlist.hideShimmer();
                         dismissDialog();
+                        error.printStackTrace();
+                        if (error instanceof HttpException) {
+                            switch (((HttpException) error).code()) {
+                                case HttpsURLConnection.HTTP_UNAUTHORIZED:
+                                    Toast.makeText(SearchActivity.this, getString(R.string.unauthorised_user), Toast.LENGTH_SHORT).show();
+                                    break;
+                                case HttpsURLConnection.HTTP_FORBIDDEN:
+                                    Toast.makeText(SearchActivity.this, getString(R.string.forbidden), Toast.LENGTH_SHORT).show();
+                                    break;
+                                case HttpsURLConnection.HTTP_INTERNAL_ERROR:
+                                    Toast.makeText(SearchActivity.this, getString(R.string.internal_server_error), Toast.LENGTH_SHORT).show();
+                                    break;
+                                case HttpsURLConnection.HTTP_BAD_REQUEST:
+                                    Toast.makeText(SearchActivity.this, getString(R.string.bad_request), Toast.LENGTH_SHORT).show();
+                                    break;
+                                default:
+                                    Toast.makeText(SearchActivity.this, error.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                            }
+                        } else {
+                            Toast.makeText(SearchActivity.this, getString(R.string.something_went_wrong), Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+            }
+
+            private void removeSuperShop(String superShopId) {
+                UserProfileRequestModel model = new UserProfileRequestModel();
+                model.setUserId(SharedPref.getVal(SearchActivity.this, SharedPref.user_id));
+                model.setSuper_id(superShopId);
+
+                ApiInterface client = ApiClient.createService(ApiInterface.class, "", "");
+                client.removeSupershop(model).enqueue(new Callback<ResponseBody>() {
+                    @Override
+                    public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
+                        try {
+                            JSONObject jsonObject = new JSONObject(response.body().string());
+                            String code = jsonObject.getString("code");
+                            if (code.equals("200")) {
+                                Toast.makeText(SearchActivity.this, "Shop Removed from Super shop", Toast.LENGTH_SHORT).show();
+                                layoutBinding.imgSuperShop.setImageDrawable(getResources().getDrawable(R.drawable.ic_add_super_shop));
+                                getSearchData(false);
+
+                            } else {
+                                Toast.makeText(SearchActivity.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+//                    dismissDialog();
+                    }
+
+                    @Override
+                    public void onFailure(@NonNull Call<ResponseBody> call, @NonNull Throwable error) {
+                        // binding.recProductlist.hideShimmer();
+//                    dismissDialog();
                         error.printStackTrace();
                         if (error instanceof HttpException) {
                             switch (((HttpException) error).code()) {

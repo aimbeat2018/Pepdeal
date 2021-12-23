@@ -28,8 +28,8 @@
                 android:layout_width="@dimen/margin_90"
                 android:layout_height="@dimen/margin_90"
                 android:layout_gravity="center"
-                android:visibility="gone"
-                android:gravity="center">
+                android:gravity="center"
+                android:visibility="gone">
 
                 <RelativeLayout
                     android:id="@+id/img_profile_layout"
@@ -353,7 +353,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/margin_15"
                         android:orientation="vertical"
-                        android:visibility="visible">
+                        android:visibility="gone">
 
                         <androidx.appcompat.widget.LinearLayoutCompat
                             android:layout_width="match_parent"
@@ -396,6 +396,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/margin_15"
+                        android:onClick="@{handler::onContactUs}"
                         android:orientation="vertical">
 
                         <androidx.appcompat.widget.LinearLayoutCompat
@@ -438,6 +439,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/margin_15"
+                        android:onClick="@{handler::onAboutUs}"
                         android:orientation="vertical">
 
                         <androidx.appcompat.widget.LinearLayoutCompat
@@ -480,6 +482,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/margin_15"
+                        android:onClick="@{handler::onLegalUs}"
                         android:orientation="vertical"
                         android:visibility="visible">
 
@@ -523,6 +526,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/margin_15"
+                        android:onClick="@{handler::onLogout}"
                         android:orientation="vertical">
 
                         <androidx.appcompat.widget.LinearLayoutCompat
@@ -546,8 +550,6 @@
                                 android:layout_marginVertical="@dimen/margin_5"
                                 android:layout_weight="1"
                                 android:fontFamily="@font/roboto_bold"
-
-                                android:onClick="@{handler::onLogout}"
                                 android:paddingHorizontal="@dimen/margin_3"
                                 android:singleLine="true"
                                 android:text="@string/logout"
@@ -755,8 +757,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/margin_15"
-                        android:orientation="vertical"
                         android:onClick="@{handler::onMessageClick}"
+                        android:orientation="vertical"
                         android:visibility="visible">
 
                         <androidx.appcompat.widget.LinearLayoutCompat
@@ -886,6 +888,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/margin_15"
+                        android:onClick="@{handler::onLogout}"
                         android:orientation="vertical">
 
                         <androidx.appcompat.widget.LinearLayoutCompat

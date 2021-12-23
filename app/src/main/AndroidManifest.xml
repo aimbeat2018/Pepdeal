@@ -19,6 +19,9 @@
         android:theme="@style/Theme.Pepdeal"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".activity.AboutUsActivity"
+            android:exported="false" />
+        <activity
             android:name=".activity.SearchActivity"
             android:exported="false" />
         <activity
@@ -50,9 +53,6 @@
             android:exported="false" />
         <activity
             android:name=".activity.ShopDetailsActivity"
-            android:exported="false" />
-        <activity
-            android:name=".activity.TicketListActivity"
             android:exported="false" />
         <activity
             android:name=".activity.ResetPasswordActivity"
@@ -113,5 +113,12 @@
             </intent-filter>
         </receiver>
     </application>
+
+    <queries>
+        <!-- Camera -->
+        <intent>
+            <action android:name="android.media.action.IMAGE_CAPTURE" />
+        </intent>
+    </queries>
 
 </manifest>

@@ -11,6 +11,7 @@ import com.pepdeal.in.model.requestModel.OTPRequestModel;
 import com.pepdeal.in.model.requestModel.ResetPasswordRequestModel;
 import com.pepdeal.in.model.requestModel.SellerServiceRequestModel;
 import com.pepdeal.in.model.requestModel.SellerTicketStatusModel;
+import com.pepdeal.in.model.requestModel.SendMessageRequestModel;
 import com.pepdeal.in.model.requestModel.UserProfileRequestModel;
 import com.pepdeal.in.model.requestModel.UserRegisterModel;
 
@@ -64,6 +65,12 @@ public interface ApiInterface {
     @POST("categoryList")
     Call<ResponseBody> categoryList(@Body UserProfileRequestModel model);
 
+    @POST("shopMsgForUser")
+    Call<ResponseBody> shopMsgForUser(@Body UserProfileRequestModel model);
+
+    @POST("msgsList")
+    Call<ResponseBody> msgsList(@Body UserProfileRequestModel model);
+
     @POST("brandList")
     Call<ResponseBody> brandList(@Body UserProfileRequestModel model);
 
@@ -97,6 +104,9 @@ public interface ApiInterface {
     @POST("addSupershop")
     Call<ResponseBody> addSupershop(@Body UserProfileRequestModel model);
 
+    @POST("removeSupershop")
+    Call<ResponseBody> removeSupershop(@Body UserProfileRequestModel model);
+
     @POST("supershopList")
     Call<ResponseBody> supershopList(@Body UserProfileRequestModel model);
 
@@ -114,6 +124,12 @@ public interface ApiInterface {
 
     @POST("searchTags")
     Call<ResponseBody> searchTags(@Body UserProfileRequestModel model);
+
+    @POST("sendMsgs")
+    Call<ResponseBody> sendMsgs(@Body SendMessageRequestModel model);
+
+    @POST("msgsCheckingstatus")
+    Call<ResponseBody> msgsCheckingstatus(@Body SendMessageRequestModel model);
 
     @Multipart
     @POST("addproduct")
@@ -155,4 +171,18 @@ public interface ApiInterface {
                                      @Part("shop_id") RequestBody shop_id,
                                      @Part("isActive") RequestBody isActive,
                                      @Part List<MultipartBody.Part> productImages);
+
+    /*user_id  product_id image_id product_images*/
+    @Multipart
+    @POST("productImageupdate")
+    Call<ResponseBody> productImageupdate(@Part("product_id") RequestBody product_id,
+                                          @Part("user_id") RequestBody user_id,
+                                          @Part("image_id") RequestBody image_id,
+                                          @Part MultipartBody.Part productImages);
+
+    @POST("pagesList")
+    Call<ResponseBody> pagesList(@Body UserProfileRequestModel model);
+
+    @POST("userLogout")
+    Call<ResponseBody> userLogout(@Body UserProfileRequestModel model);
 }

@@ -86,92 +86,6 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 
-                <androidx.appcompat.widget.LinearLayoutCompat
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="@dimen/margin_10"
-                    android:orientation="horizontal"
-                    android:visibility="gone">
-
-                    <androidx.cardview.widget.CardView
-                        android:layout_width="@dimen/margin_65"
-                        android:layout_height="@dimen/margin_65"
-                        android:layout_marginHorizontal="@dimen/margin_3"
-                        android:layout_marginVertical="@dimen/margin_10"
-                        app:cardCornerRadius="@dimen/margin_35"
-                        app:cardElevation="@dimen/margin_5">
-
-                        <androidx.appcompat.widget.LinearLayoutCompat
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:background="@color/gray_light" />
-
-                    </androidx.cardview.widget.CardView>
-
-                    <androidx.cardview.widget.CardView
-                        android:layout_width="@dimen/margin_65"
-                        android:layout_height="@dimen/margin_65"
-                        android:layout_marginVertical="@dimen/margin_10"
-                        android:layout_marginStart="@dimen/margin_10"
-                        app:cardCornerRadius="@dimen/margin_35"
-                        app:cardElevation="@dimen/margin_5">
-
-                        <androidx.appcompat.widget.LinearLayoutCompat
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:background="@color/gray_light" />
-                    </androidx.cardview.widget.CardView>
-
-                    <androidx.cardview.widget.CardView
-                        android:layout_width="@dimen/margin_65"
-                        android:layout_height="@dimen/margin_65"
-                        android:layout_marginVertical="@dimen/margin_10"
-                        android:layout_marginStart="@dimen/margin_10"
-                        app:cardCornerRadius="@dimen/margin_35"
-                        app:cardElevation="@dimen/margin_5">
-
-                        <androidx.appcompat.widget.LinearLayoutCompat
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:background="@color/gray_light" />
-                    </androidx.cardview.widget.CardView>
-
-                    <androidx.cardview.widget.CardView
-                        android:layout_width="@dimen/margin_65"
-                        android:layout_height="@dimen/margin_65"
-                        android:layout_marginVertical="@dimen/margin_10"
-                        android:layout_marginStart="@dimen/margin_10"
-                        app:cardCornerRadius="@dimen/margin_35"
-                        app:cardElevation="@dimen/margin_5">
-
-                        <androidx.appcompat.widget.LinearLayoutCompat
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:background="@color/gray_light" />
-                    </androidx.cardview.widget.CardView>
-
-                    <androidx.cardview.widget.CardView
-                        android:layout_width="@dimen/margin_65"
-                        android:layout_height="@dimen/margin_65"
-                        android:layout_marginVertical="@dimen/margin_10"
-                        android:layout_marginStart="@dimen/margin_10"
-                        app:cardCornerRadius="@dimen/margin_35"
-                        app:cardElevation="@dimen/margin_5">
-
-                        <androidx.appcompat.widget.LinearLayoutCompat
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:background="@color/gray_light" />
-                    </androidx.cardview.widget.CardView>
-
-                </androidx.appcompat.widget.LinearLayoutCompat>
-
-                <androidx.appcompat.widget.LinearLayoutCompat
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/margin_150"
-                    android:background="@color/gray_light"
-                    android:visibility="gone" />
-
                 <include layout="@layout/item_shimmer_home_layout" />
 
                 <include layout="@layout/item_shimmer_home_layout" />
@@ -219,7 +133,14 @@
                         android:orientation="vertical">
 
                         <androidx.recyclerview.widget.RecyclerView
-                            android:id="@+id/rec_list"
+                            android:id="@+id/rec_shoplist"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/margin_10"
+                            android:nestedScrollingEnabled="false" />
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/rec_productlist"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/margin_10"
@@ -236,7 +157,7 @@
             android:layout_height="match_parent"
             android:gravity="center"
             android:orientation="vertical"
-            android:visibility="visible">
+            android:visibility="gone">
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:layout_width="@dimen/margin_100"

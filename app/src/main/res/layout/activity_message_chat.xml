@@ -40,6 +40,7 @@
                     app:tint="@color/white" />
 
                 <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/txt_userName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -110,6 +111,7 @@
                     android:background="@drawable/curve_back_layout">
 
                     <androidx.appcompat.widget.AppCompatEditText
+                        android:id="@+id/edt_message"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@null"
@@ -126,7 +128,8 @@
                     android:layout_gravity="center"
                     android:layout_marginStart="@dimen/margin_10"
                     android:background="@drawable/circular_view_layout"
-                    android:gravity="center">
+                    android:gravity="center"
+                    android:onClick="@{handler::onSendMessage}">
 
                     <androidx.appcompat.widget.AppCompatImageView
                         android:layout_width="wrap_content"
@@ -135,7 +138,6 @@
                         android:padding="@dimen/margin_5"
                         android:src="@drawable/ic_baseline_send_24"
                         app:tint="@color/white" />
-
 
                 </androidx.appcompat.widget.LinearLayoutCompat>
             </androidx.appcompat.widget.LinearLayoutCompat>

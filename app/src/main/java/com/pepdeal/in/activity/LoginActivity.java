@@ -1,8 +1,14 @@
 package com.pepdeal.in.activity;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -15,6 +21,8 @@ import androidx.databinding.DataBindingUtil;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.messaging.FirebaseMessaging;
+import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
+import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings;
 import com.pepdeal.in.R;
 import com.pepdeal.in.constants.ApiClient;
 import com.pepdeal.in.constants.ApiInterface;
@@ -28,6 +36,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.concurrent.TimeUnit;
 
 import javax.net.ssl.HttpsURLConnection;
 
@@ -46,6 +56,9 @@ public class LoginActivity extends AppCompatActivity implements ConnectivityRece
 
     String firebaseToken = "";
     ProgressDialog dialog;
+    private FirebaseRemoteConfig mFirebaseRemoteConfig;
+    private static final String VERSION_CODE_KEY = "version_code";
+    private AlertDialog updateDailog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +69,8 @@ public class LoginActivity extends AppCompatActivity implements ConnectivityRece
         dialog = new ProgressDialog(this);
         dialog.setTitle("Loading");
         dialog.setMessage("Please wait...");
+
+        initRemoteConfig();
     }
 
     @Override
@@ -103,7 +118,6 @@ public class LoginActivity extends AppCompatActivity implements ConnectivityRece
                 if (task.isComplete()) {
                     firebaseToken = task.getResult();
                     Log.e("AppConstants", "onComplete: new Token got: " + firebaseToken);
-
                     LoginRequestModel loginRequestModel = new LoginRequestModel();
                     loginRequestModel.setMobileNo(binding.edtMobile.getText().toString());
                     loginRequestModel.setPassword(binding.edtPassword.getText().toString());
@@ -113,7 +127,6 @@ public class LoginActivity extends AppCompatActivity implements ConnectivityRece
                 }
             }
         });
-
     }
 
     private void dismissDialog() {
@@ -188,5 +201,93 @@ public class LoginActivity extends AppCompatActivity implements ConnectivityRece
         });
 
 
+    }
+
+    private void initRemoteConfig() {
+        mFirebaseRemoteConfig = FirebaseRemoteConfig.getInstance();
+//Setting the Default Map Value with the current app version code
+//default values are used for safety if on backend version_code is not set in remote config
+        HashMap<String, Object> firebaseDefaultMap = new HashMap<>();
+        firebaseDefaultMap.put(VERSION_CODE_KEY, getCurrentVersionCode());
+        mFirebaseRemoteConfig.setDefaultsAsync(firebaseDefaultMap);
+//setMinimumFetchIntervalInSeconds to 0 during development to fast retrieve the values
+//in production set it to 12 which means checks for firebase remote config values for every 12 hours
+        mFirebaseRemoteConfig.setConfigSettingsAsync(
+                new FirebaseRemoteConfigSettings.Builder()
+                        .setMinimumFetchIntervalInSeconds(TimeUnit.HOURS.toSeconds(0))
+                        .build());
+//Fetching remote firebase version_code value here
+        mFirebaseRemoteConfig.fetch().addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()) {
+//activate most recently fetch config value
+                    mFirebaseRemoteConfig.activate().addOnCompleteListener(new OnCompleteListener<Boolean>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Boolean> task) {
+                            if (task.isSuccessful()) {
+//calling function to check if new version is available or not
+                                final int latestAppVersion = (int) mFirebaseRemoteConfig.getDouble(VERSION_CODE_KEY);
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        checkForUpdate(latestAppVersion);
+                                    }
+                                });
+                            }
+                        }
+                    });
+                }
+            }
+        });
+    }
+
+    private void checkForUpdate(int latestAppVersion) {
+        if (latestAppVersion > getCurrentVersionCode()) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle("Update App");
+            builder.setMessage("New Version Available On Play store.\n" + "Please Update Your App");
+            builder.setPositiveButton("Update", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    goToPlayStore();
+                    updateDailog.dismiss();
+                }
+            });
+            builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    updateDailog.dismiss();
+                }
+            });
+            // create and show the alert dialog
+            updateDailog = builder.create();
+            updateDailog.show();
+        }
+    }
+
+    private int getCurrentVersionCode() {
+        int versionCode = 1;
+        try {
+            final PackageInfo pInfo = getApplicationContext().getPackageManager().getPackageInfo(getApplicationContext().getPackageName(), 0);
+            if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+                versionCode = (int) pInfo.getLongVersionCode();
+            } else {
+                versionCode = pInfo.versionCode;
+            }
+        } catch (PackageManager.NameNotFoundException e) {
+            //log exception
+        }
+        return versionCode;
+    }
+
+    private void goToPlayStore() {
+        try {
+            Intent appStoreIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + getPackageName()));
+            appStoreIntent.setPackage("com.android.vending");
+            startActivity(appStoreIntent);
+        } catch (android.content.ActivityNotFoundException exception) {
+            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + getPackageName())));
+        }
     }
 }

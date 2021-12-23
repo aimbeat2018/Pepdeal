@@ -17,9 +17,15 @@ public class UserProfileRequestModel {
     @SerializedName("shop_id")
     @Expose
     private String shop_id;
+    @SerializedName("msg_flag")
+    @Expose
+    private String msg_flag;
     @SerializedName("search_key")
     @Expose
     private String search_key;
+    @SerializedName("super_id")
+    @Expose
+    private String super_id;
 
     public String getSearch_key() {
         return search_key;
@@ -59,5 +65,21 @@ public class UserProfileRequestModel {
 
     public void setFav_id(String fav_id) {
         this.fav_id = fav_id;
+    }
+
+    public String getMsg_flag() {
+        return msg_flag;
+    }
+
+    public void setMsg_flag(String msg_flag) {
+        this.msg_flag = msg_flag;
+    }
+
+    public String getSuper_id() {
+        return super_id;
+    }
+
+    public void setSuper_id(String super_id) {
+        this.super_id = super_id;
     }
 }

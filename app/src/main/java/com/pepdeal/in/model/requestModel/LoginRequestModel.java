@@ -39,31 +39,4 @@ public class LoginRequestModel {
     public void setDeviceToken(String deviceToken) {
         this.deviceToken = deviceToken;
     }
-
-/*
-    @SerializedName("user_id")
-    @Expose
-    private String userId;
-    @SerializedName("username")
-    @Expose
-    private String username;
-
-
-    public String getUserId() {
-        return userId;
-    }
-
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }*/
-
-
 }

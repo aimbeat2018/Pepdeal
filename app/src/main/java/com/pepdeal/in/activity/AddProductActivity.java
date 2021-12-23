@@ -100,6 +100,7 @@ public class AddProductActivity extends AppCompatActivity {
     List<File> fileArrayList = new ArrayList<>();
     String productId = "", from = "";
     List<ProductDetailsDataModel> productDataModelList = new ArrayList<>();
+    String imageId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -702,7 +703,7 @@ public class AddProductActivity extends AppCompatActivity {
 
         ApiInterface client = ApiClient.createService(ApiInterface.class, "", "");
         client.addproduct(product_name, brand_id, category_id, description, description2, specification, warranty, size_id, color, search_tags, mrp,
-                discount_mrp, selling_price, user_id,shop_id, isActive, list).enqueue(new Callback<ResponseBody>() {
+                discount_mrp, selling_price, user_id, shop_id, isActive, list).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
                 try {
@@ -799,7 +800,7 @@ public class AddProductActivity extends AppCompatActivity {
 
         ApiInterface client = ApiClient.createService(ApiInterface.class, "", "");
         client.updateProduct(product_id, product_name, brand_id, category_id, description, description2, specification, warranty, size_id, color, search_tags, mrp,
-                discount_mrp, selling_price, user_id,shop_id, isActive, list).enqueue(new Callback<ResponseBody>() {
+                discount_mrp, selling_price, user_id, shop_id, isActive, list).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
                 try {
@@ -808,6 +809,81 @@ public class AddProductActivity extends AppCompatActivity {
                     if (code.equals("200")) {
                         Toast.makeText(AddProductActivity.this, "Product Updated successfully", Toast.LENGTH_SHORT).show();
                         finish();
+                    } else {
+                        Toast.makeText(AddProductActivity.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
+
+                    }
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                dismissDialog();
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<ResponseBody> call, @NonNull Throwable error) {
+                // binding.recProductlist.hideShimmer();
+                dismissDialog();
+                error.printStackTrace();
+                if (error instanceof HttpException) {
+                    switch (((HttpException) error).code()) {
+                        case HttpsURLConnection.HTTP_UNAUTHORIZED:
+                            Toast.makeText(AddProductActivity.this, getString(R.string.unauthorised_user), Toast.LENGTH_SHORT).show();
+                            break;
+                        case HttpsURLConnection.HTTP_FORBIDDEN:
+                            Toast.makeText(AddProductActivity.this, getString(R.string.forbidden), Toast.LENGTH_SHORT).show();
+                            break;
+                        case HttpsURLConnection.HTTP_INTERNAL_ERROR:
+                            Toast.makeText(AddProductActivity.this, getString(R.string.internal_server_error), Toast.LENGTH_SHORT).show();
+                            break;
+                        case HttpsURLConnection.HTTP_BAD_REQUEST:
+                            Toast.makeText(AddProductActivity.this, getString(R.string.bad_request), Toast.LENGTH_SHORT).show();
+                            break;
+                        default:
+                            Toast.makeText(AddProductActivity.this, error.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    Toast.makeText(AddProductActivity.this, getString(R.string.something_went_wrong), Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+
+    }
+
+    private void updateProductImage(String image_id, String selectedFile) {
+        dialog.show();
+        MultipartBody.Part document = null;
+        if (selectedFile != null) {
+            if (!selectedFile.equals("")) {
+                RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), new File(selectedFile));
+                document = MultipartBody.Part.createFormData("product_images", new File(selectedFile).getName(), requestFile);
+            } else {
+                RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), "");
+                document = MultipartBody.Part.createFormData("product_images", "", requestFile);
+            }
+        } else {
+            RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), "");
+            document = MultipartBody.Part.createFormData("document", "", requestFile);
+        }
+
+        RequestBody product_id =
+                RequestBody.create(MediaType.parse("text/plain"), productId);
+        RequestBody user_id =
+                RequestBody.create(MediaType.parse("text/plain"), SharedPref.getVal(AddProductActivity.this, SharedPref.user_id));
+        RequestBody imageId =
+                RequestBody.create(MediaType.parse("text/plain"), image_id);
+
+        ApiInterface client = ApiClient.createService(ApiInterface.class, "", "");
+        client.productImageupdate(product_id, user_id, imageId, document).enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
+                try {
+                    JSONObject jsonObject = new JSONObject(response.body().string());
+                    String code = jsonObject.getString("code");
+                    if (code.equals("200")) {
+                        Toast.makeText(AddProductActivity.this, "Product Image Updated successfully", Toast.LENGTH_SHORT).show();
+//                        finish();
                     } else {
                         Toast.makeText(AddProductActivity.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
 
@@ -918,7 +994,6 @@ public class AddProductActivity extends AppCompatActivity {
     }
 
     private void setCategory(ArrayList<AddProductCategoryResponseModel> arrayList, AppCompatSpinner spinnershopfont) {
-
 
         ArrayAdapter<AddProductCategoryResponseModel> modelArrayAdapter = new ArrayAdapter<AddProductCategoryResponseModel>(AddProductActivity.this,
                 R.layout.custom_spinner_shopfont, arrayList) {
@@ -1113,18 +1188,33 @@ public class AddProductActivity extends AppCompatActivity {
                         binding.imgCameraimage1.setVisibility(View.GONE);
                         binding.image1.setVisibility(View.VISIBLE);
                         fileImage1 = file;
+
+                        if (from.equals("edit")) {
+                            imageId = productDataModelList.get(0).getProductImages().get(0).getProductImageID();
+                            updateProductImage(imageId, fileImage1.getPath());
+                        }
 //                        binding.image1.setVisibility(View.VISIBLE);
                     } else if (var == 2) {
                         binding.image2.setImageBitmap(selectedImageBitmap);
                         binding.imgCameraimage2.setVisibility(View.GONE);
                         binding.image2.setVisibility(View.VISIBLE);
                         fileImage2 = file;
+
+                        if (from.equals("edit")) {
+                            imageId = productDataModelList.get(0).getProductImages().get(1).getProductImageID();
+                            updateProductImage(imageId, fileImage2.getPath());
+                        }
 //                        binding.image1.setVisibility(View.VISIBLE);
                     } else if (var == 3) {
                         binding.image3.setImageBitmap(selectedImageBitmap);
                         fileImage3 = file;
                         binding.imgCameraimage3.setVisibility(View.GONE);
                         binding.image3.setVisibility(View.VISIBLE);
+
+                        if (from.equals("edit")) {
+                            imageId = productDataModelList.get(0).getProductImages().get(2).getProductImageID();
+                            updateProductImage(imageId, fileImage3.getPath());
+                        }
 //                        binding.image1.setVisibility(View.VISIBLE);
                     }
 //                    binding.imgProfile.setImageURI(uri);

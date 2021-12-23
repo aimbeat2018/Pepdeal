@@ -17,6 +17,8 @@ import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 import com.pepdeal.in.R;
 import com.pepdeal.in.activity.HomeActivity;
+import com.pepdeal.in.activity.MessageUsersListActivity;
+import com.pepdeal.in.activity.SellerTicketListActivity;
 import com.pepdeal.in.firebaseservice.util.NotificationHelper;
 import com.pepdeal.in.firebaseservice.util.NotificationUtils;
 
@@ -104,10 +106,11 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             JSONObject data = json.getJSONObject("data");
 
             String title = data.getString("title");
-            String message = data.getString("body");
+            String message = data.getString("message");
 //            boolean isBackground = data.getBoolean("is_background");
             String imageUrl = data.getString("image");
             String timestamp = data.getString("timestamp");
+            String msg_flag = data.getString("msg_flag");
 //            String offer_id = data.getString("offer_id");
             /*if(data.has("result")) {
                 JSONArray jsonArray = data.getJSONArray("result");
@@ -125,7 +128,18 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 intent = new Intent(getApplicationContext(), OffersProductListActivity.class);
                 intent.putExtra("offer_id", offer_id);
             } else {*/
-            intent = new Intent(getApplicationContext(), HomeActivity.class);
+            /*0-admin, 1- chat, 2- ticket status change,3- ticket raised*/
+            if (msg_flag.equals("0")) {
+                intent = new Intent(getApplicationContext(), HomeActivity.class);
+                HomeActivity.pos = 1;
+            } else if (msg_flag.equals("1")) {
+                intent = new Intent(getApplicationContext(), MessageUsersListActivity.class);
+            } else if (msg_flag.equals("2")) {
+                intent = new Intent(getApplicationContext(), HomeActivity.class);
+                HomeActivity.pos = 2;
+            } else if (msg_flag.equals("3")) {
+                intent = new Intent(getApplicationContext(), SellerTicketListActivity.class);
+            }
 //                intent.putExtra("status",status);
 //            }
 

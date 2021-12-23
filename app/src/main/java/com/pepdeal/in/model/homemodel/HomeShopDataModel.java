@@ -27,6 +27,12 @@ public class HomeShopDataModel {
     @SerializedName("fontstyle_name")
     @Expose
     private String fontstyleName;
+    @SerializedName("super_shop_status")
+    @Expose
+    private String superShopStatus;
+    @SerializedName("super_shop_id")
+    @Expose
+    private String superShopId;
     @SerializedName("products_list")
     @Expose
     private List<HomeProductDataModel> productsList = null;
@@ -85,6 +91,22 @@ public class HomeShopDataModel {
 
     public void setFontstyleName(String fontstyleName) {
         this.fontstyleName = fontstyleName;
+    }
+
+    public String getSuperShopStatus() {
+        return superShopStatus;
+    }
+
+    public void setSuperShopStatus(String superShopStatus) {
+        this.superShopStatus = superShopStatus;
+    }
+
+    public String getSuperShopId() {
+        return superShopId;
+    }
+
+    public void setSuperShopId(String superShopId) {
+        this.superShopId = superShopId;
     }
 
     public List<HomeProductDataModel> getProductsList() {

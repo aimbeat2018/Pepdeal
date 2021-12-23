@@ -31,6 +31,7 @@ import com.pepdeal.in.model.homemodel.HomeShopDataModel;
 import com.pepdeal.in.model.productdetailsmodel.ProductDetailsDataModel;
 import com.pepdeal.in.model.requestModel.AddShopRequestModel;
 import com.pepdeal.in.model.requestModel.UserProfileRequestModel;
+import com.pepdeal.in.model.searchmodel.SearchProductModel;
 
 import org.json.JSONObject;
 
@@ -49,6 +50,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
     Context activity;
     List<HomeProductDataModel> homeProductDataModelList;
     List<ProductDetailsDataModel> productDetailsDataModelList;
+    List<SearchProductModel> searchProductDataModelList;
     String from = "";
     String from1 = "";
 
@@ -65,6 +67,13 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
     public ProductAdapter(Context activity, List<ProductDetailsDataModel> productDetailsDataModelList, String from, String from1) {
         this.activity = activity;
         this.productDetailsDataModelList = productDetailsDataModelList;
+        this.from = from;
+        this.from1 = from1;
+    }
+
+    public ProductAdapter(Context activity, List<SearchProductModel> productDetailsDataModelList, String from, String from1, String from2) {
+        this.activity = activity;
+        this.searchProductDataModelList = productDetailsDataModelList;
         this.from = from;
         this.from1 = from1;
     }
@@ -86,6 +95,10 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
             ProductDetailsDataModel model = productDetailsDataModelList.get(position);
             holder.bindShopData(model, position);
 
+        } else if (from.equals("search")) {
+            SearchProductModel model = searchProductDataModelList.get(position);
+            holder.bindSearchData(model, position);
+
         } else {
           /*  UsersHomeTabModel model = homeTabModelArrayList.get(position);
             holder.bind(model, position);*/
@@ -99,6 +112,8 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
             return homeProductDataModelList.size();
         else if (from.equals("shop"))
             return productDetailsDataModelList.size();
+        else if (from.equals("search"))
+            return searchProductDataModelList.size();
         else
             return 3;
 
@@ -215,6 +230,53 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
                     addFav(model.getProductId());
                 } else {
                     removeFav(model.getFavouriteId());
+                }
+            });
+
+        }
+
+        public void bindSearchData(SearchProductModel model, int position) {
+            Glide.with(activity).load(model.getProductImage())
+                    .error(R.drawable.loader).placeholder(R.drawable.loader).into(layoutBinding.imgProductImage);
+            layoutBinding.txtProductName.setText(model.getProductName());
+
+            if (model.getDiscountMrp().equals("0") || model.getDiscountMrp().equals("") || model.getDiscountMrp() == null) {
+                layoutBinding.cardOffer.setVisibility(View.GONE);
+                layoutBinding.txtActualPrice.setVisibility(View.GONE);
+                layoutBinding.txtDiscountPrice.setText("₹ " + model.getMrp());
+            } else {
+                layoutBinding.cardOffer.setVisibility(View.VISIBLE);
+                layoutBinding.txtActualPrice.setVisibility(View.VISIBLE);
+
+                layoutBinding.txtActualPrice.setText("₹ " + model.getMrp());
+                layoutBinding.txtActualPrice.setPaintFlags(layoutBinding.txtActualPrice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+                layoutBinding.txtDiscountPrice.setText("₹ " + model.getSellingPrice());
+
+                layoutBinding.txtOff.setText(model.getDiscountMrp() + "% OFF");
+            }
+
+            layoutBinding.lnrDetails.setOnClickListener(view -> {
+                Intent intent = new Intent(new Intent(activity, ProductDetailsActivity.class));
+                intent.putExtra("product_id", model.getProductId());
+                activity.startActivity(intent);
+            });
+            layoutBinding.relImage.setOnClickListener(view -> {
+                Intent intent = new Intent(new Intent(activity, ProductDetailsActivity.class));
+                intent.putExtra("product_id", model.getProductId());
+                activity.startActivity(intent);
+            });
+
+            if (model.getFavStatus().equals("0")) {
+                layoutBinding.imgAddFav.setColorFilter(ContextCompat.getColor(activity, R.color.black), android.graphics.PorterDuff.Mode.SRC_IN);
+            } else {
+                layoutBinding.imgAddFav.setColorFilter(ContextCompat.getColor(activity, R.color.errorColor), android.graphics.PorterDuff.Mode.SRC_IN);
+            }
+
+            layoutBinding.imgAddFav.setOnClickListener(view -> {
+                if (model.getFavStatus().equals("0")) {
+                    addFav(model.getProductId());
+                } else {
+                    removeFav(model.getFavId());
                 }
             });
 
