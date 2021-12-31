@@ -90,7 +90,7 @@
                             android:padding="@dimen/margin_5"
                             android:text="@string/favorite"
                             android:textColor="@color/black"
-                            android:textSize="@dimen/text_15" />
+                            android:textSize="@dimen/text_19" />
 
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/rec_list"

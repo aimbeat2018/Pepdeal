@@ -95,7 +95,6 @@
                     </LinearLayout>
                 </com.loopeer.shadow.ShadowView>
 
-
                 <com.loopeer.shadow.ShadowView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -145,6 +144,55 @@
                     </LinearLayout>
                 </com.loopeer.shadow.ShadowView>
 
+                <com.loopeer.shadow.ShadowView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/margin_25"
+                    android:layout_marginVertical="@dimen/margin_5"
+                    app:cornerRadius="@dimen/margin_20"
+                    app:shadowColor="@color/colorPrimaryDarkTrans"
+                    app:shadowMargin="@dimen/margin_6"
+                    app:shadowRadius="@dimen/margin_15">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/margin_5"
+                        android:layout_marginVertical="@dimen/margin_6"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        app:layout_gravity="center">
+
+                        <ImageView
+                            android:layout_width="@dimen/margin_22"
+                            android:layout_height="@dimen/margin_20"
+                            android:layout_marginLeft="@dimen/margin_5"
+                            android:padding="@dimen/margin_2"
+                            android:src="@drawable/ic_baseline_mail_outline_24"
+                            app:tint="@color/darkGray" />
+
+                        <View
+                            android:layout_width="@dimen/margin_1"
+                            android:layout_height="match_parent"
+                            android:layout_marginVertical="@dimen/margin_5"
+                            android:layout_marginLeft="@dimen/margin_5"
+                            android:background="@color/gray" />
+
+                        <EditText
+                            android:id="@+id/edtEmail"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/margin_33"
+                            android:layout_marginHorizontal="@dimen/margin_5"
+                            android:background="@null"
+                            android:fontFamily="@font/roboto_regular"
+                            android:hint="@string/your_mail"
+                            android:inputType="textEmailSubject"
+                            android:paddingStart="@dimen/margin_5"
+                            android:textColor="@color/black"
+                            android:textColorHint="@color/lightGrayColor"
+                            android:textSize="@dimen/text_14" />
+                    </LinearLayout>
+                </com.loopeer.shadow.ShadowView>
 
                 <com.loopeer.shadow.ShadowView
                     android:layout_width="match_parent"

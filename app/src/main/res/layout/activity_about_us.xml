@@ -110,7 +110,7 @@
                             android:padding="@dimen/margin_5"
                             android:text=""
                             android:textColor="@color/black"
-                            android:textSize="@dimen/text_15" />
+                            android:textSize="@dimen/text_19" />
 
                         <androidx.appcompat.widget.AppCompatTextView
                             android:id="@+id/txt_data"

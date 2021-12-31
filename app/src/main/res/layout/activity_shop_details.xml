@@ -113,10 +113,35 @@
                         android:layout_weight="1"
                         android:fontFamily="@font/roboto_bold"
                         android:gravity="center"
-                        android:text="SIDDHIVINAYAK STORE"
+                        android:maxLength="1"
+                        android:text=""
+                        android:textAllCaps="true"
                         android:textColor="#C12222"
                         android:textSize="@dimen/text_17"
                         android:textStyle="bold" />
+
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end"
+                        android:layout_marginTop="@dimen/margin_3">
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/img_super_shop"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginEnd="@dimen/margin_5"
+                            android:adjustViewBounds="true"
+                            android:onClick="@{handler::onAddSuperShopClick}"
+                            android:src="@drawable/ic_add_super_shop" />
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/img_message"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:adjustViewBounds="true"
+                            android:src="@drawable/ic_send_message" />
+                    </androidx.appcompat.widget.LinearLayoutCompat>
 
                 </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -149,7 +174,7 @@
                             android:layout_marginHorizontal="@dimen/margin_5"
                             android:fontFamily="@font/roboto_medium"
                             android:gravity="center"
-                            android:text="Andheri Mumbai"
+                            android:text=""
                             android:textColor="@color/black"
                             android:textSize="@dimen/text_13" />
                     </androidx.appcompat.widget.LinearLayoutCompat>
@@ -177,31 +202,9 @@
                             android:layout_marginHorizontal="@dimen/margin_5"
                             android:fontFamily="@font/roboto_medium"
                             android:gravity="center"
-                            android:text="77759898989"
+                            android:text=""
                             android:textColor="@color/black"
                             android:textSize="@dimen/text_13" />
-                    </androidx.appcompat.widget.LinearLayoutCompat>
-
-                    <androidx.appcompat.widget.LinearLayoutCompat
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="end">
-
-                        <androidx.appcompat.widget.AppCompatImageView
-                            android:id="@+id/img_super_shop"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_marginEnd="@dimen/margin_5"
-                            android:adjustViewBounds="true"
-                            android:onClick="@{handler::onAddSuperShopClick}"
-                            android:src="@drawable/ic_add_super_shop" />
-
-                        <androidx.appcompat.widget.AppCompatImageView
-                            android:id="@+id/img_message"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:adjustViewBounds="true"
-                            android:src="@drawable/ic_send_message" />
                     </androidx.appcompat.widget.LinearLayoutCompat>
 
                 </androidx.appcompat.widget.LinearLayoutCompat>
@@ -240,6 +243,7 @@
                                     android:layout_width="@dimen/margin_55"
                                     android:layout_height="@dimen/margin_55"
                                     android:layout_marginVertical="@dimen/margin_10"
+                                    android:layout_marginEnd="@dimen/margin_5"
                                     app:cardCornerRadius="@dimen/margin_35"
                                     app:cardElevation="@dimen/margin_5">
 
@@ -274,8 +278,8 @@
                                     android:id="@+id/card_door_step"
                                     android:layout_width="@dimen/margin_55"
                                     android:layout_height="@dimen/margin_55"
-                                    android:layout_marginHorizontal="@dimen/margin_3"
                                     android:layout_marginVertical="@dimen/margin_10"
+                                    android:layout_marginEnd="@dimen/margin_5"
                                     app:cardCornerRadius="@dimen/margin_35"
                                     app:cardElevation="@dimen/margin_5">
 
@@ -310,8 +314,8 @@
                                     android:id="@+id/card_home_delivery"
                                     android:layout_width="@dimen/margin_55"
                                     android:layout_height="@dimen/margin_55"
-                                    android:layout_marginHorizontal="@dimen/margin_3"
                                     android:layout_marginVertical="@dimen/margin_10"
+                                    android:layout_marginEnd="@dimen/margin_5"
                                     app:cardCornerRadius="@dimen/margin_35"
                                     app:cardElevation="@dimen/margin_5">
 
@@ -346,8 +350,8 @@
                                     android:id="@+id/card_live_demo"
                                     android:layout_width="@dimen/margin_55"
                                     android:layout_height="@dimen/margin_55"
-                                    android:layout_marginHorizontal="@dimen/margin_3"
                                     android:layout_marginVertical="@dimen/margin_10"
+                                    android:layout_marginEnd="@dimen/margin_5"
                                     app:cardCornerRadius="@dimen/margin_35"
                                     app:cardElevation="@dimen/margin_5">
 
@@ -382,8 +386,8 @@
                                     android:id="@+id/card_offers"
                                     android:layout_width="@dimen/margin_55"
                                     android:layout_height="@dimen/margin_55"
-                                    android:layout_marginHorizontal="@dimen/margin_3"
                                     android:layout_marginVertical="@dimen/margin_10"
+                                    android:layout_marginEnd="@dimen/margin_5"
                                     app:cardCornerRadius="@dimen/margin_35"
                                     app:cardElevation="@dimen/margin_5">
 
@@ -418,7 +422,6 @@
                                     android:id="@+id/card_bargain"
                                     android:layout_width="@dimen/margin_55"
                                     android:layout_height="@dimen/margin_55"
-                                    android:layout_marginHorizontal="@dimen/margin_3"
                                     android:layout_marginVertical="@dimen/margin_10"
                                     app:cardCornerRadius="@dimen/margin_35"
                                     app:cardElevation="@dimen/margin_5">

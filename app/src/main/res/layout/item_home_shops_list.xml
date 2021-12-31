@@ -43,7 +43,9 @@
                             android:layout_weight="1"
                             android:fontFamily="@font/roboto_bold"
                             android:gravity="center"
-                            android:text="SIDDHIVINAYAK STORE"
+                            android:maxLines="1"
+                            android:text=""
+                            android:textAllCaps="true"
                             android:textColor="#C12222"
                             android:textSize="@dimen/text_17"
                             android:textStyle="bold" />
@@ -79,6 +81,7 @@
                                 android:layout_marginHorizontal="@dimen/margin_5"
                                 android:fontFamily="@font/roboto_medium"
                                 android:gravity="center"
+                                android:maxLines="1"
                                 android:text=""
                                 android:textColor="@color/black"
                                 android:textSize="@dimen/text_13" />
@@ -116,7 +119,8 @@
                         <androidx.appcompat.widget.LinearLayoutCompat
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="end">
+                            android:layout_gravity="end"
+                            android:visibility="gone">
 
                             <androidx.appcompat.widget.AppCompatImageView
                                 android:id="@+id/img_super_shop"

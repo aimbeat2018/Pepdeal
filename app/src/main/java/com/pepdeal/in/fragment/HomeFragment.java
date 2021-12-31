@@ -257,7 +257,7 @@ public class HomeFragment extends Fragment {
                     layoutBinding.recProduct.setVisibility(View.GONE);
                 } else {
                     layoutBinding.recProduct.setVisibility(View.VISIBLE);
-                    layoutBinding.recProduct.setLayoutManager(new GridLayoutManager(activity, 3));
+                    layoutBinding.recProduct.setLayoutManager(new LinearLayoutManager(activity, RecyclerView.HORIZONTAL, false));
                     layoutBinding.recProduct.setAdapter(new ProductAdapter(activity, model.getProductsList(), "home"));
                 }
 

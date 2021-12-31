@@ -3,17 +3,23 @@ package com.pepdeal.in.activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.pepdeal.in.R;
 import com.pepdeal.in.constants.ApiClient;
 import com.pepdeal.in.constants.ApiInterface;
 import com.pepdeal.in.constants.Utils;
 import com.pepdeal.in.databinding.ActivityOtpVerificationBinding;
+import com.pepdeal.in.model.requestModel.LoginRequestModel;
 import com.pepdeal.in.model.requestModel.UserRegisterModel;
 
 import org.json.JSONException;
@@ -33,7 +39,7 @@ import retrofit2.Response;
 public class OtpVerificationActivity extends AppCompatActivity {
 
     ActivityOtpVerificationBinding binding;
-    String mobileNo = "", from = "", name = "", Intentotp = "", password = "", devicetoken = "";
+    String mobileNo = "", from = "", name = "", Intentotp = "", password = "", devicetoken = "", email = "";
     String userEnteredOTP = "";
     ProgressDialog dialog;
 
@@ -56,6 +62,7 @@ public class OtpVerificationActivity extends AppCompatActivity {
         if (from.equals("register")) {
             name = getIntent().getStringExtra("name");
             password = getIntent().getStringExtra("password");
+            email = getIntent().getStringExtra("email");
         }
         binding.txtOtpMsg.setText(getString(R.string.enter_otp_sent_to) + " " + mobileNo);
 
@@ -93,14 +100,23 @@ public class OtpVerificationActivity extends AppCompatActivity {
 
                     if (Utils.isNetwork(OtpVerificationActivity.this)) {
 
-                        UserRegisterModel model = new UserRegisterModel();
-                        model.setUsername(name);
-                        model.setMobileNo(mobileNo);
-                        model.setPassword(password);
-                        model.setDeviceToken(devicetoken);
 
-                        // sendOtp(model);
-                        saveUserData(model);
+                        FirebaseMessaging.getInstance().getToken().addOnCompleteListener(new OnCompleteListener<String>() {
+                            @Override
+                            public void onComplete(@NonNull Task<String> task) {
+                                if (task.isComplete()) {
+                                    devicetoken = task.getResult();
+                                    Log.e("AppConstants", "onComplete: new Token got: " + devicetoken);
+                                    UserRegisterModel model = new UserRegisterModel();
+                                    model.setUsername(name);
+                                    model.setMobileNo(mobileNo);
+                                    model.setPassword(password);
+                                    model.setEmail(email);
+                                    model.setDeviceToken(devicetoken);
+                                    saveUserData(model);
+                                }
+                            }
+                        });
 
                         //saveuserdata(name,mobileNo,password,devicetoken);
                     } else {

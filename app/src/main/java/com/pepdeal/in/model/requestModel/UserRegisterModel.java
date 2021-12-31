@@ -13,6 +13,9 @@ public class UserRegisterModel {
     @SerializedName("username")
     @Expose
     private String username;
+    @SerializedName("email")
+    @Expose
+    private String email;
     @SerializedName("password")
     @Expose
     private String password;
@@ -20,6 +23,13 @@ public class UserRegisterModel {
     @Expose
     private String deviceToken;
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
     public String getMobileNo() {
         return mobileNo;

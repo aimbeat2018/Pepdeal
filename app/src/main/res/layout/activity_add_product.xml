@@ -112,7 +112,7 @@
                         android:gravity="center"
                         android:text="@string/product_name"
                         android:textColor="@color/black"
-                        android:textSize="@dimen/text_15" />
+                        android:textSize="@dimen/text_19" />
 
                     <androidx.cardview.widget.CardView
                         android:layout_width="match_parent"

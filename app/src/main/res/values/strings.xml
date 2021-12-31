@@ -6,6 +6,7 @@
     <string name="reset_password">Reset Password</string>
     <string name="mobile_number">Mobile Number</string>
     <string name="your_name">Your Name</string>
+    <string name="your_mail">Your Email Id</string>
     <string name="forgotPassword">Forgot Password?</string>
     <string name="enter_password">Enter Password</string>
     <string name="re_enter_password">Re-Enter Password</string>

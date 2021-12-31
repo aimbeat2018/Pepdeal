@@ -102,6 +102,7 @@ public class RegistrationActivity extends AppCompatActivity {
                         intent.putExtra("mobile_no", binding.edtMobileNo.getText().toString());
                         intent.putExtra("otp", otp);
                         intent.putExtra("password", binding.edtPassword.getText().toString());
+                        intent.putExtra("email", binding.edtEmail.getText().toString());
                         intent.putExtra("from", "register");
                         startActivity(intent);
 //                        finish();
