@@ -96,7 +96,7 @@
                     android:gravity="center"
                     android:text="@string/product_list_form"
                     android:textColor="@color/black"
-                    android:textSize="@dimen/text_15" />
+                    android:textSize="@dimen/text_19" />
 
                 <androidx.appcompat.widget.LinearLayoutCompat
                     android:layout_width="match_parent"
@@ -112,7 +112,7 @@
                         android:gravity="center"
                         android:text="@string/product_name"
                         android:textColor="@color/black"
-                        android:textSize="@dimen/text_19" />
+                        android:textSize="@dimen/text_15" />
 
                     <androidx.cardview.widget.CardView
                         android:layout_width="match_parent"
@@ -451,8 +451,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/margin_13"
                     android:layout_marginTop="@dimen/margin_10"
-                    android:visibility="gone"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:visibility="gone">
 
                     <androidx.appcompat.widget.AppCompatTextView
                         android:layout_width="wrap_content"
@@ -547,7 +547,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/margin_13"
                     android:layout_marginTop="@dimen/margin_10"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:visibility="gone">
 
                     <androidx.appcompat.widget.AppCompatTextView
                         android:layout_width="wrap_content"

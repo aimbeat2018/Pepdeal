@@ -23,12 +23,27 @@ public class SuperShopDataModel {
     @SerializedName("shop_mobile_no")
     @Expose
     private String shopMobileNo;
+    @SerializedName("shop_description")
+    @Expose
+    private String shopDescription;
+    @SerializedName("city")
+    @Expose
+    private String city;
+    @SerializedName("state")
+    @Expose
+    private String state;
     @SerializedName("bg_color_id")
     @Expose
     private String bgColorId;
     @SerializedName("bg_color_name")
     @Expose
     private String bgColorName;
+    @SerializedName("font_color_id")
+    @Expose
+    private String fontColorId;
+    @SerializedName("font_color_name")
+    @Expose
+    private String fontColorName;
     @SerializedName("font_size_id")
     @Expose
     private String fontSizeId;
@@ -90,6 +105,30 @@ public class SuperShopDataModel {
         this.shopMobileNo = shopMobileNo;
     }
 
+    public String getShopDescription() {
+        return shopDescription;
+    }
+
+    public void setShopDescription(String shopDescription) {
+        this.shopDescription = shopDescription;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
     public String getBgColorId() {
         return bgColorId;
     }
@@ -104,6 +143,22 @@ public class SuperShopDataModel {
 
     public void setBgColorName(String bgColorName) {
         this.bgColorName = bgColorName;
+    }
+
+    public String getFontColorId() {
+        return fontColorId;
+    }
+
+    public void setFontColorId(String fontColorId) {
+        this.fontColorId = fontColorId;
+    }
+
+    public String getFontColorName() {
+        return fontColorName;
+    }
+
+    public void setFontColorName(String fontColorName) {
+        this.fontColorName = fontColorName;
     }
 
     public String getFontSizeId() {

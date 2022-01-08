@@ -13,7 +13,7 @@ public class UserRegisterModel {
     @SerializedName("username")
     @Expose
     private String username;
-    @SerializedName("email")
+    @SerializedName("email_id")
     @Expose
     private String email;
     @SerializedName("password")

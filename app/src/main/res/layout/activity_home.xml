@@ -42,7 +42,6 @@
                         android:padding="@dimen/margin_5"
                         android:src="@drawable/ic_menu" />
 
-
                     <androidx.appcompat.widget.AppCompatImageView
                         android:layout_width="@dimen/margin_100"
                         android:layout_height="match_parent"
@@ -53,9 +52,9 @@
                     <RelativeLayout
                         android:layout_width="@dimen/margin_30"
                         android:layout_height="@dimen/margin_30"
-                        android:visibility="gone"
                         android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true">
+                        android:layout_centerVertical="true"
+                        android:visibility="gone">
 
                         <androidx.appcompat.widget.AppCompatImageView
                             android:layout_width="match_parent"
@@ -95,10 +94,10 @@
                         android:drawableLeft="@drawable/ic_baseline_search_24"
                         android:focusableInTouchMode="true"
                         android:focusedByDefault="false"
-                        android:imeOptions="actionSearch"
-                        android:lineSpacingExtra="@dimen/margin_10"
                         android:hint="Search"
+                        android:imeOptions="actionSearch"
                         android:inputType="text"
+                        android:lineSpacingExtra="@dimen/margin_10"
                         android:paddingStart="@dimen/margin_10" />
 
 
@@ -120,12 +119,14 @@
                     <androidx.appcompat.widget.LinearLayoutCompat
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="#FFFFCC">
+                        android:background="#FFFFCC"
+                        android:gravity="center">
 
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/rec_tab"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content" />
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center" />
                     </androidx.appcompat.widget.LinearLayoutCompat>
 
                     <androidx.fragment.app.FragmentContainerView

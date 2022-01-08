@@ -28,6 +28,8 @@ import com.pepdeal.in.model.requestModel.AddBackgroundColorResponseModel;
 import com.pepdeal.in.model.requestModel.AddShopFontResponseModel;
 import com.pepdeal.in.model.requestModel.AddShopRequestModel;
 import com.pepdeal.in.model.requestModel.UserProfileRequestModel;
+import com.pepdeal.in.model.shopdetailsmodel.ShopFontColorModel;
+import com.pepdeal.in.model.shopdetailsmodel.ShopFontStyleModel;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -48,9 +50,9 @@ public class AddShopActivity extends AppCompatActivity {
     ActivityAddShopBinding binding;
 
     ArrayList<AddBackgroundColorResponseModel> backgroundcolorModelList = new ArrayList<>();
-    ArrayList<AddShopFontResponseModel> shopFontModelList = new ArrayList<>();
-    ArrayList<AddShopFontResponseModel> shopFontModelListSize = new ArrayList<>();
-    String backgroundColor = "", fontStyle = "", fontSize = "";
+    ArrayList<ShopFontStyleModel> shopFontModelList = new ArrayList<>();
+    ArrayList<ShopFontColorModel> shopFontModelListSize = new ArrayList<>();
+    String backgroundColor = "", fontStyle = "", fontSize = "", fontColor = "";
     ProgressDialog dialog;
 
     @Override
@@ -65,7 +67,8 @@ public class AddShopActivity extends AppCompatActivity {
 
         if (Utils.isNetwork(AddShopActivity.this)) {
             requestBackgroundColor();
-            requestShopFont();
+//            requestShopFont();
+            setFontStyle();
             requestShopFontSize();
         } else {
             Utils.InternetAlertDialog(AddShopActivity.this, getString(R.string.no_internet_title), getString(R.string.no_internet_desc));
@@ -92,7 +95,7 @@ public class AddShopActivity extends AppCompatActivity {
 
             }
         });
-        binding.spinfont.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        binding.spinFontStyle.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
@@ -104,11 +107,11 @@ public class AddShopActivity extends AppCompatActivity {
 
             }
         });
-        binding.spinBoardSignFontSize.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        binding.spinBoardSignFontColor.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
-                fontSize = shopFontModelListSize.get(i).getFontStyleId();
+                fontColor = shopFontModelListSize.get(i).getFontColorId();
 
             }
 
@@ -125,6 +128,154 @@ public class AddShopActivity extends AppCompatActivity {
         super.onResume();
     }
 
+    private void setFontStyle() {
+        ShopFontStyleModel model0 = new ShopFontStyleModel();
+        model0.setFontStyleId("0");
+        model0.setFontStyleName(getString(R.string.board_sign_font_style));
+        model0.setFontStyle(R.string.board_sign_font_style);
+        shopFontModelList.add(model0);
+        ShopFontStyleModel model = new ShopFontStyleModel();
+        model.setFontStyleId("1");
+        model.setFontStyleName("Roboto Black");
+        model.setFontStyle(R.font.roboto_black);
+        shopFontModelList.add(model);
+        ShopFontStyleModel model1 = new ShopFontStyleModel();
+        model1.setFontStyleId("2");
+        model1.setFontStyleName("Roboto Black Italic");
+        model1.setFontStyle(R.font.roboto_blackitalic);
+        shopFontModelList.add(model1);
+        ShopFontStyleModel model2 = new ShopFontStyleModel();
+        model2.setFontStyleId("3");
+        model2.setFontStyleName("Roboto Bold");
+        model2.setFontStyle(R.font.roboto_bold);
+        shopFontModelList.add(model2);
+        ShopFontStyleModel model3 = new ShopFontStyleModel();
+        model3.setFontStyleId("4");
+        model3.setFontStyleName("Roboto Bold Condensed");
+        model3.setFontStyle(R.font.roboto_boldcondensed);
+        shopFontModelList.add(model3);
+        ShopFontStyleModel model4 = new ShopFontStyleModel();
+        model4.setFontStyleId("5");
+        model4.setFontStyleName("Roboto Bold Condensed Italic");
+        model4.setFontStyle(R.font.roboto_boldcondenseditalic);
+        shopFontModelList.add(model4);
+        ShopFontStyleModel model5 = new ShopFontStyleModel();
+        model5.setFontStyleId("6");
+        model5.setFontStyleName("Roboto Bold Italic");
+        model5.setFontStyle(R.font.roboto_bolditalic);
+        shopFontModelList.add(model5);
+        ShopFontStyleModel model6 = new ShopFontStyleModel();
+        model6.setFontStyleId("7");
+        model6.setFontStyleName("Roboto Condensed");
+        model6.setFontStyle(R.font.roboto_condensed);
+        shopFontModelList.add(model6);
+        ShopFontStyleModel model7 = new ShopFontStyleModel();
+        model7.setFontStyleId("8");
+        model7.setFontStyleName("Roboto Condensed Italic");
+        model7.setFontStyle(R.font.roboto_condenseditalic);
+        shopFontModelList.add(model7);
+        ShopFontStyleModel model8 = new ShopFontStyleModel();
+        model8.setFontStyleId("9");
+        model8.setFontStyleName("Roboto Italic");
+        model8.setFontStyle(R.font.roboto_italic);
+        shopFontModelList.add(model8);
+        ShopFontStyleModel model9 = new ShopFontStyleModel();
+        model9.setFontStyleId("10");
+        model9.setFontStyleName("Roboto Light");
+        model9.setFontStyle(R.font.roboto_light);
+        shopFontModelList.add(model9);
+        ShopFontStyleModel model10 = new ShopFontStyleModel();
+        model10.setFontStyleId("11");
+        model10.setFontStyleName("Roboto Light Italic");
+        model10.setFontStyle(R.font.roboto_lightitalic);
+        shopFontModelList.add(model10);
+        ShopFontStyleModel model11 = new ShopFontStyleModel();
+        model11.setFontStyleId("12");
+        model11.setFontStyleName("Roboto Medium");
+        model11.setFontStyle(R.font.roboto_medium);
+        shopFontModelList.add(model11);
+        ShopFontStyleModel model12 = new ShopFontStyleModel();
+        model12.setFontStyleId("13");
+        model12.setFontStyleName("Roboto Medium Italic");
+        model12.setFontStyle(R.font.roboto_mediumitalic);
+        shopFontModelList.add(model12);
+        ShopFontStyleModel model13 = new ShopFontStyleModel();
+        model13.setFontStyleId("14");
+        model13.setFontStyleName("Roboto Regular");
+        model13.setFontStyle(R.font.roboto_regular);
+        shopFontModelList.add(model13);
+        ShopFontStyleModel model14 = new ShopFontStyleModel();
+        model14.setFontStyleId("15");
+        model14.setFontStyleName("Roboto Thin");
+        model14.setFontStyle(R.font.roboto_thin);
+        shopFontModelList.add(model14);
+        ShopFontStyleModel model15 = new ShopFontStyleModel();
+        model15.setFontStyleId("16");
+        model15.setFontStyleName("Roboto Thin Italic");
+        model15.setFontStyle(R.font.roboto_thinitalic);
+        shopFontModelList.add(model15);
+
+        setShopFontStyle(shopFontModelList, binding.spinFontStyle);
+    }
+
+    private void setShopFontStyle(ArrayList<ShopFontStyleModel> shopFontModelList, AppCompatSpinner spinnershopfont) {
+
+
+        ArrayAdapter<ShopFontStyleModel> modelArrayAdapter = new ArrayAdapter<ShopFontStyleModel>(AddShopActivity.this,
+                R.layout.custom_spinner_shopfont, shopFontModelList) {
+
+            @Override
+            public View getView(int position, View convertView, ViewGroup parent) {
+                View v = convertView;
+                if (v == null) {
+                    Context mContext = this.getContext();
+                    LayoutInflater vi = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                    v = vi.inflate(R.layout.custom_spinner_shopfont, null);
+                }
+                AppCompatTextView colorname = v.findViewById(R.id.fontname);
+
+                colorname.setText(shopFontModelList.get(position).getFontStyleName());
+
+                switch (position) {
+                    case 0:
+                        colorname.setTextColor(Color.GRAY);
+                        break;
+                    default:
+                        colorname.setTextColor(Color.BLACK);
+                        break;
+                }
+                return v;
+            }
+
+            @Override
+            public View getDropDownView(int position, View convertView, ViewGroup parent) {
+                View v = convertView;
+                if (v == null) {
+                    Context mContext = this.getContext();
+                    LayoutInflater vi = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                    v = vi.inflate(R.layout.custom_spinner_shopfont1, null);
+                }
+
+                AppCompatTextView colorname = v.findViewById(R.id.fontname);
+                colorname.setText(shopFontModelList.get(position).getFontStyleName());
+
+                switch (position) {
+                    case 0:
+                        colorname.setTextColor(Color.GRAY);
+                        break;
+                    default:
+                        colorname.setTextColor(Color.BLACK);
+                        break;
+                }
+                return v;
+            }
+        };
+        spinnershopfont.setAdapter(modelArrayAdapter);
+        modelArrayAdapter.notifyDataSetChanged();
+
+
+    }
+
     private void addShop() {
         dialog.show();
         AddShopRequestModel model = new AddShopRequestModel();
@@ -132,9 +283,13 @@ public class AddShopActivity extends AppCompatActivity {
         model.setShopName(Objects.requireNonNull(binding.edtShopName.getText()).toString());
         model.setShopAddress(Objects.requireNonNull(binding.edtShopAddress.getText()).toString());
         model.setShopMobileNo(Objects.requireNonNull(binding.edtMobileNumber.getText()).toString());
+        model.setShopDescription(Objects.requireNonNull(binding.edtAbout.getText()).toString());
+        model.setCity(Objects.requireNonNull(binding.edtShopCity.getText()).toString());
+        model.setState(Objects.requireNonNull(binding.edtShopState.getText()).toString());
         model.setBgColorId(backgroundColor);
-        model.setFontStyleId("0");
+        model.setFontStyleId(fontStyle);
         model.setFontSizeId(fontSize);
+        model.setFontColorId(fontColor);
 
         ApiInterface client = ApiClient.createService(ApiInterface.class, "", "");
         client.shopAdd(model).enqueue(new Callback<ResponseBody>() {
@@ -186,7 +341,7 @@ public class AddShopActivity extends AppCompatActivity {
 
     }
 
-    private void requestShopFont() {
+    /*private void requestShopFont() {
         UserProfileRequestModel model = new UserProfileRequestModel();
         model.setUserId("");
 
@@ -253,24 +408,23 @@ public class AddShopActivity extends AppCompatActivity {
         });
 
 
-    }
+    }*/
 
     private void requestShopFontSize() {
         UserProfileRequestModel model = new UserProfileRequestModel();
         model.setUserId("");
 
         ApiInterface client = ApiClient.createService(ApiInterface.class, "", "");
-        client.fontsizeList(model).enqueue(new Callback<ResponseBody>() {
+        client.fontcolorList(model).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
                 try {
                     JSONObject jsonObject = new JSONObject(response.body().string());
                     shopFontModelListSize = new ArrayList<>();
-                    AddShopFontResponseModel model1 = new AddShopFontResponseModel();
+                    ShopFontColorModel model1 = new ShopFontColorModel();
 
-                    model1.setFontStyleId("");
-                    model1.setFontStyleName("Select Font Size");
-                    model1.setIsActive("");
+                    model1.setFontColorId("");
+                    model1.setFontColorName("Select Font Color");
                     shopFontModelListSize.add(model1);
 
                     JSONArray jsonArray = jsonObject.getJSONArray("data");
@@ -278,16 +432,15 @@ public class AddShopActivity extends AppCompatActivity {
                         for (int i = 0; i < jsonArray.length(); i++) {
                             JSONObject jsonObject1 = jsonArray.getJSONObject(i);
 
-                            AddShopFontResponseModel model = new AddShopFontResponseModel();
+                            ShopFontColorModel model = new ShopFontColorModel();
 
-                            model.setFontStyleId(jsonObject1.getString("font_size_id"));
-                            model.setFontStyleName(jsonObject1.getString("font_size_name"));
-                            model.setIsActive(jsonObject1.getString("isActive"));
+                            model.setFontColorId(jsonObject1.getString("font_color_id"));
+                            model.setFontColorName(jsonObject1.getString("font_color_name"));
 
                             shopFontModelListSize.add(model);
                         }
                     }
-                    setShopFontStyle(shopFontModelListSize, binding.spinBoardSignFontSize);
+                    setShopFontColor(shopFontModelListSize, binding.spinBoardSignFontColor);
 
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -324,11 +477,11 @@ public class AddShopActivity extends AppCompatActivity {
 
     }
 
-    private void setShopFontStyle(ArrayList<AddShopFontResponseModel> shopFontModelList, AppCompatSpinner spinnershopfont) {
+    private void setShopFontColor(ArrayList<ShopFontColorModel> shopFontModelList, AppCompatSpinner spinnershopfont) {
 
 
-        ArrayAdapter<AddShopFontResponseModel> modelArrayAdapter = new ArrayAdapter<AddShopFontResponseModel>(AddShopActivity.this,
-                R.layout.custom_spinner_shopfont, shopFontModelList) {
+        ArrayAdapter<ShopFontColorModel> modelArrayAdapter = new ArrayAdapter<ShopFontColorModel>(AddShopActivity.this,
+                R.layout.custom_spinner_backgroundcolor, shopFontModelList) {
 
             @Override
             public View getView(int position, View convertView, ViewGroup parent) {
@@ -336,23 +489,21 @@ public class AddShopActivity extends AppCompatActivity {
                 if (v == null) {
                     Context mContext = this.getContext();
                     LayoutInflater vi = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                    v = vi.inflate(R.layout.custom_spinner_shopfont, null);
+                    v = vi.inflate(R.layout.custom_spinner_backgroundcolor, null);
                 }
-
-                TextView font_name = (TextView) v.findViewById(R.id.fontname);
-                //  colorid.setText(backgroundcolorModelList.get(position).getIsActive());
-                font_name.setText(shopFontModelList.get(position).getFontStyleName());
-                //font_name.setBackgroundColor(Color.parseColor(shopFontModelList.get(position).getBgColorName()));
-
-
-//                image.setImageResource(paymentModeArrayList.get(position).getImage());
+                View color = v.findViewById(R.id.bacKcolor);
+                AppCompatTextView colorname = v.findViewById(R.id.colorname);
+                colorname.setText(shopFontModelList.get(position).getFontColorName());
+                if (!shopFontModelList.get(position).getFontColorId().equals("")) {
+                    color.setBackgroundColor(Color.parseColor(shopFontModelList.get(position).getFontColorName()));
+                }
 
                 switch (position) {
                     case 0:
-                        font_name.setTextColor(Color.GRAY);
+                        colorname.setTextColor(Color.GRAY);
                         break;
                     default:
-                        font_name.setTextColor(Color.BLACK);
+                        colorname.setTextColor(Color.BLACK);
                         break;
                 }
                 return v;
@@ -364,22 +515,22 @@ public class AddShopActivity extends AppCompatActivity {
                 if (v == null) {
                     Context mContext = this.getContext();
                     LayoutInflater vi = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                    v = vi.inflate(R.layout.custom_spinner_shopfont1, null);
+                    v = vi.inflate(R.layout.custom_spinner_backgroundcolor1, null);
                 }
 
-                TextView font_name = (TextView) v.findViewById(R.id.fontname);
-
-                font_name.setText(shopFontModelList.get(position).getFontStyleName());
-
-
-//                image.setImageResource(paymentModeArrayList.get(position).getImage());
+                View color = v.findViewById(R.id.bacKcolor);
+                AppCompatTextView colorname = v.findViewById(R.id.colorname);
+                colorname.setText(shopFontModelList.get(position).getFontColorName());
+                if (!shopFontModelList.get(position).getFontColorId().equals("")) {
+                    color.setBackgroundColor(Color.parseColor(shopFontModelList.get(position).getFontColorName()));
+                }
 
                 switch (position) {
                     case 0:
-                        font_name.setTextColor(Color.GRAY);
+                        colorname.setTextColor(Color.GRAY);
                         break;
                     default:
-                        font_name.setTextColor(Color.BLACK);
+                        colorname.setTextColor(Color.BLACK);
                         break;
                 }
                 return v;
@@ -535,16 +686,22 @@ public class AddShopActivity extends AppCompatActivity {
                 Toast.makeText(AddShopActivity.this, "Enter Shop Name", Toast.LENGTH_SHORT).show();
             } else if (binding.edtShopAddress.getText().toString().equals("")) {
                 Toast.makeText(AddShopActivity.this, "Enter Shop Address", Toast.LENGTH_SHORT).show();
+            } else if (binding.edtShopCity.getText().toString().equals("")) {
+                Toast.makeText(AddShopActivity.this, "Enter Shop City", Toast.LENGTH_SHORT).show();
+            } else if (binding.edtShopState.getText().toString().equals("")) {
+                Toast.makeText(AddShopActivity.this, "Enter Shop State", Toast.LENGTH_SHORT).show();
             } else if (binding.edtMobileNumber.getText().toString().equals("")) {
                 Toast.makeText(AddShopActivity.this, "Enter Mobile Number", Toast.LENGTH_SHORT).show();
             } else if (binding.edtMobileNumber.getText().length() != 10) {
                 Toast.makeText(AddShopActivity.this, "Enter valid Mobile Number", Toast.LENGTH_SHORT).show();
             } else if (backgroundColor.equals("")) {
                 Toast.makeText(AddShopActivity.this, "Select Background Color", Toast.LENGTH_SHORT).show();
-            } /*else if (fontStyle.equals("")) {
+            } else if (fontStyle.equals("")) {
                 Toast.makeText(AddShopActivity.this, "Select Font Style", Toast.LENGTH_SHORT).show();
-            } */else if (fontSize.equals("")) {
-                Toast.makeText(AddShopActivity.this, "Select Font Size", Toast.LENGTH_SHORT).show();
+            } else if (fontColor.equals("")) {
+                Toast.makeText(AddShopActivity.this, "Select Font Color", Toast.LENGTH_SHORT).show();
+            } else if (binding.edtAbout.getText().toString().equals("")) {
+                Toast.makeText(AddShopActivity.this, "Enter About Shop", Toast.LENGTH_SHORT).show();
             } else {
                 if (Utils.isNetwork(AddShopActivity.this)) {
                     addShop();

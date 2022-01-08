@@ -23,6 +23,10 @@
     <color name="colorPrimaryDarkTrans">#50EC5F1F</color>
     <color name="inactiveColor">#F6B394</color>
 
+
+    <color name="selectedDotColorTrans">#DB3936</color>
+    <color name="unselectedDotColor">#DFB8B7</color>
+
     <color name="blue1">#0099CC</color>
     <color name="purple">#9933CC</color>
     <color name="green">#669900</color>

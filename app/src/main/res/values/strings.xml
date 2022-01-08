@@ -65,6 +65,7 @@
     <string name="sale">Sale</string>
     <string name="upload_product_image">Upload Product image</string>
     <string name="save">SAVE</string>
+    <string name="submit">SUBMIT</string>
     <string name="delete">Delete</string>
     <string name="reject">Reject</string>
     <string name="confirm">Confirm</string>
@@ -74,12 +75,20 @@
     <string name="shop_services">Shop Services</string>
     <string name="shop_name">Shop Name</string>
     <string name="shop_address">Shop Address</string>
+    <string name="shop_city">Shop City</string>
+    <string name="about_Shop">About Shop</string>
+    <string name="shop_state">Shop State</string>
     <string name="enter_shop_name">Enter Shop Name</string>
     <string name="enter_shop_address">Enter Shop Address</string>
+    <string name="enter_shop_city">Enter Shop City</string>
+    <string name="enter_about_shop">Enter About Shop</string>
+    <string name="enter_shop_state">Enter Shop State</string>
     <string name="enter_mobile_number">Enter Mobile Number</string>
     <string name="board_sign_color">Shop Board Background</string>
-    <string name="board_sign_font">Shop Board Font</string>
-    <string name="board_sign_font_size">Shop Board Font Size</string>
+    <string name="board_sign_font_style">Shop Board Font Style</string>
+    <string name="board_sign_font_color">Shop Board Font Color</string>
+    <string name="query">Query</string>
+    <string name="enter_query">Enter Query</string>
     <string name="product_details1">This metal planter with a foliage pattern is perfect to add a
 tropical feel to your home. The piece is hand-crafted with a
 lacquered finish on the outside and an elegant gold
@@ -127,6 +136,9 @@ Hole.</string>
     <string name="second_fragment_label">Second Fragment</string>
     <string name="next">Next</string>
     <string name="previous">Previous</string>
+    <string name="privacy_policy">Privacy Policy</string>
+    <string name="terms_condition">Terms &amp; Condition</string>
+
 
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>

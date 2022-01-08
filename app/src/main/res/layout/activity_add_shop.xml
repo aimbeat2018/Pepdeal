@@ -49,8 +49,8 @@
                     android:layout_width="@dimen/margin_30"
                     android:layout_height="@dimen/margin_30"
                     android:layout_alignParentRight="true"
-                    android:visibility="gone"
-                    android:layout_centerVertical="true">
+                    android:layout_centerVertical="true"
+                    android:visibility="gone">
 
                     <androidx.appcompat.widget.AppCompatImageView
                         android:layout_width="match_parent"
@@ -211,6 +211,108 @@
                         android:layout_marginHorizontal="@dimen/margin_10"
                         android:fontFamily="@font/roboto_regular"
                         android:gravity="center"
+                        android:text="@string/shop_city"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/text_15" />
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/margin_5"
+                        android:layout_marginTop="@dimen/margin_7"
+                        android:layout_marginBottom="@dimen/margin_5"
+                        app:cardCornerRadius="@dimen/margin_20"
+                        app:cardElevation="@dimen/margin_5">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="@dimen/margin_5"
+                            android:layout_marginVertical="@dimen/margin_6"
+                            android:gravity="center"
+                            android:orientation="horizontal"
+                            app:layout_gravity="center">
+
+                            <androidx.appcompat.widget.AppCompatEditText
+                                android:id="@+id/edt_shop_city"
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/margin_35"
+                                android:layout_marginHorizontal="@dimen/margin_5"
+                                android:background="@null"
+                                android:fontFamily="@font/roboto_regular"
+                                android:hint="@string/enter_shop_city"
+                                android:paddingStart="@dimen/margin_5"
+                                android:textColor="@color/black"
+                                android:textColorHint="@color/lightGrayColor"
+                                android:textSize="@dimen/text_14" />
+                        </LinearLayout>
+                    </androidx.cardview.widget.CardView>
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/margin_13"
+                    android:layout_marginTop="@dimen/margin_10"
+                    android:orientation="vertical">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/margin_10"
+                        android:fontFamily="@font/roboto_regular"
+                        android:gravity="center"
+                        android:text="@string/shop_state"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/text_15" />
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/margin_5"
+                        android:layout_marginTop="@dimen/margin_7"
+                        android:layout_marginBottom="@dimen/margin_5"
+                        app:cardCornerRadius="@dimen/margin_20"
+                        app:cardElevation="@dimen/margin_5">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="@dimen/margin_5"
+                            android:layout_marginVertical="@dimen/margin_6"
+                            android:gravity="center"
+                            android:orientation="horizontal"
+                            app:layout_gravity="center">
+
+                            <androidx.appcompat.widget.AppCompatEditText
+                                android:id="@+id/edt_shop_state"
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/margin_35"
+                                android:layout_marginHorizontal="@dimen/margin_5"
+                                android:background="@null"
+                                android:fontFamily="@font/roboto_regular"
+                                android:hint="@string/enter_shop_state"
+                                android:paddingStart="@dimen/margin_5"
+                                android:textColor="@color/black"
+                                android:textColorHint="@color/lightGrayColor"
+                                android:textSize="@dimen/text_14" />
+                        </LinearLayout>
+                    </androidx.cardview.widget.CardView>
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/margin_13"
+                    android:layout_marginTop="@dimen/margin_10"
+                    android:orientation="vertical">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/margin_10"
+                        android:fontFamily="@font/roboto_regular"
+                        android:gravity="center"
                         android:text="@string/mobile_number"
                         android:textColor="@color/black"
                         android:textSize="@dimen/text_15" />
@@ -303,8 +405,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/margin_13"
                     android:layout_marginTop="@dimen/margin_10"
-                    android:visibility="gone"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:visibility="visible">
 
                     <androidx.appcompat.widget.AppCompatTextView
                         android:layout_width="wrap_content"
@@ -312,7 +414,7 @@
                         android:layout_marginHorizontal="@dimen/margin_10"
                         android:fontFamily="@font/roboto_regular"
                         android:gravity="center"
-                        android:text="@string/board_sign_font"
+                        android:text="@string/board_sign_font_style"
                         android:textColor="@color/black"
                         android:textSize="@dimen/text_15" />
 
@@ -335,10 +437,55 @@
                             app:layout_gravity="center">
 
                             <androidx.appcompat.widget.AppCompatSpinner
-                                android:id="@+id/spinfont"
+                                android:id="@+id/spin_font_style"
                                 android:layout_width="match_parent"
                                 android:layout_height="@dimen/margin_35"
-                                android:layout_marginHorizontal="@dimen/margin_5"/>
+                                android:layout_marginHorizontal="@dimen/margin_5" />
+                        </LinearLayout>
+                    </androidx.cardview.widget.CardView>
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/margin_13"
+                    android:layout_marginTop="@dimen/margin_10"
+                    android:orientation="vertical"
+                    android:visibility="visible">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/margin_10"
+                        android:fontFamily="@font/roboto_regular"
+                        android:gravity="center"
+                        android:text="@string/board_sign_font_color"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/text_15" />
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/margin_5"
+                        android:layout_marginTop="@dimen/margin_7"
+                        android:layout_marginBottom="@dimen/margin_5"
+                        app:cardCornerRadius="@dimen/margin_20"
+                        app:cardElevation="@dimen/margin_5">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="@dimen/margin_5"
+                            android:layout_marginVertical="@dimen/margin_6"
+                            android:gravity="center"
+                            android:orientation="horizontal"
+                            app:layout_gravity="center">
+
+                            <androidx.appcompat.widget.AppCompatSpinner
+                                android:id="@+id/spin_board_sign_font_color"
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/margin_35"
+                                android:layout_marginHorizontal="@dimen/margin_5" />
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
                 </androidx.appcompat.widget.LinearLayoutCompat>
@@ -356,7 +503,7 @@
                         android:layout_marginHorizontal="@dimen/margin_10"
                         android:fontFamily="@font/roboto_regular"
                         android:gravity="center"
-                        android:text="@string/board_sign_font_size"
+                        android:text="@string/about_Shop"
                         android:textColor="@color/black"
                         android:textSize="@dimen/text_15" />
 
@@ -378,15 +525,21 @@
                             android:orientation="horizontal"
                             app:layout_gravity="center">
 
-                            <androidx.appcompat.widget.AppCompatSpinner
-                                android:id="@+id/spin_board_sign_font_size"
+                            <androidx.appcompat.widget.AppCompatEditText
+                                android:id="@+id/edt_about"
                                 android:layout_width="match_parent"
                                 android:layout_height="@dimen/margin_35"
-                                android:layout_marginHorizontal="@dimen/margin_5" />
+                                android:layout_marginHorizontal="@dimen/margin_5"
+                                android:background="@null"
+                                android:fontFamily="@font/roboto_regular"
+                                android:hint="@string/enter_about_shop"
+                                android:paddingStart="@dimen/margin_5"
+                                android:textColor="@color/black"
+                                android:textColorHint="@color/lightGrayColor"
+                                android:textSize="@dimen/text_14" />
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
                 </androidx.appcompat.widget.LinearLayoutCompat>
-
 
                 <androidx.appcompat.widget.LinearLayoutCompat
                     android:layout_width="match_parent"

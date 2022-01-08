@@ -3,6 +3,23 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/AimBeat/UpdateWork/Pepdeal/app/src/main/res/layout/activity_add_product.xml" value="0.2421875" />
+        <entry key="..\:/AimBeat/UpdateWork/Pepdeal/app/src/main/res/layout/activity_add_shop.xml" value="0.2421875" />
+        <entry key="..\:/AimBeat/UpdateWork/Pepdeal/app/src/main/res/layout/activity_home.xml" value="0.23846153846153847" />
+        <entry key="..\:/AimBeat/UpdateWork/Pepdeal/app/src/main/res/layout/activity_logal.xml" value="0.2421875" />
+        <entry key="..\:/AimBeat/UpdateWork/Pepdeal/app/src/main/res/layout/activity_product_details.xml" value="0.2421875" />
+        <entry key="..\:/AimBeat/UpdateWork/Pepdeal/app/src/main/res/layout/activity_shop_details.xml" value="0.2421875" />
+        <entry key="..\:/AimBeat/UpdateWork/Pepdeal/app/src/main/res/layout/activity_shop_sign_board.xml" value="0.228125" />
+        <entry key="..\:/AimBeat/UpdateWork/Pepdeal/app/src/main/res/layout/activity_update_about_shop.xml" value="0.2421875" />
+        <entry key="..\:/AimBeat/UpdateWork/Pepdeal/app/src/main/res/layout/custom_spinner_shopfont.xml" value="0.2421875" />
+        <entry key="..\:/AimBeat/UpdateWork/Pepdeal/app/src/main/res/layout/custom_spinner_shopfont1.xml" value="0.2421875" />
+        <entry key="..\:/AimBeat/UpdateWork/Pepdeal/app/src/main/res/layout/fragment_help.xml" value="0.2421875" />
+        <entry key="..\:/AimBeat/UpdateWork/Pepdeal/app/src/main/res/layout/fragment_home.xml" value="0.136" />
+        <entry key="..\:/AimBeat/UpdateWork/Pepdeal/app/src/main/res/layout/item_category_home_layout.xml" value="0.2421875" />
+        <entry key="..\:/AimBeat/UpdateWork/Pepdeal/app/src/main/res/layout/item_home_product_list_layout.xml" value="0.2421875" />
+        <entry key="..\:/AimBeat/UpdateWork/Pepdeal/app/src/main/res/layout/item_home_shops_list.xml" value="0.2421875" />
+        <entry key="..\:/AimBeat/UpdateWork/Pepdeal/app/src/main/res/layout/item_product_list_layout.xml" value="0.2421875" />
+        <entry key="..\:/AimBeat/UpdateWork/Pepdeal/app/src/main/res/layout/navigation_layout.xml" value="0.2421875" />
         <entry key="..\:/Nutan/projects/Pepdeal/app/src/main/res/drawable-v24/ic_baseline_keyboard_arrow_left_24.xml" value="0.20046296296296295" />
         <entry key="..\:/Nutan/projects/Pepdeal/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1865740740740741" />
         <entry key="..\:/Nutan/projects/Pepdeal/app/src/main/res/drawable-v24/ic_menu.xml" value="0.19771689497716896" />
@@ -111,7 +128,7 @@
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">

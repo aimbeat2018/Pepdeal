@@ -264,7 +264,7 @@ public class HomeActivity extends AppCompatActivity {
         }
 
         public void onAboutShopClick(View view) {
-            startActivity(new Intent(HomeActivity.this, ShopDetailsActivity.class)
+            startActivity(new Intent(HomeActivity.this, UpdateAboutShopActivity.class)
                     .putExtra("shop_id", SharedPref.getVal(HomeActivity.this, SharedPref.shop_id)));
             binding.drawerLayout.closeDrawers();
         }
@@ -285,7 +285,12 @@ public class HomeActivity extends AppCompatActivity {
         }
 
         public void onAboutUs(View view) {
-            startActivity(new Intent(HomeActivity.this, AboutUsActivity.class).putExtra("from","about"));
+            startActivity(new Intent(HomeActivity.this, AboutUsActivity.class).putExtra("from", "about"));
+            binding.drawerLayout.closeDrawers();
+        }
+
+        public void onShopSignBoardClick(View view) {
+            startActivity(new Intent(HomeActivity.this, ShopSignBoardActivity.class));
             binding.drawerLayout.closeDrawers();
         }
 
@@ -305,7 +310,7 @@ public class HomeActivity extends AppCompatActivity {
         }
 
         public void onLegalUs(View view) {
-            startActivity(new Intent(HomeActivity.this, AboutUsActivity.class).putExtra("from", "privacy"));
+            startActivity(new Intent(HomeActivity.this, LegalActivity.class));
             binding.drawerLayout.closeDrawers();
         }
     }

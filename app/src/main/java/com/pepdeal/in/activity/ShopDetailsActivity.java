@@ -2,6 +2,7 @@ package com.pepdeal.in.activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -11,6 +12,8 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Typeface;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -86,6 +89,13 @@ public class ShopDetailsActivity extends AppCompatActivity {
                 binding.lnrMainLayout.setVisibility(View.GONE);
                 Utils.InternetAlertDialog(ShopDetailsActivity.this, getString(R.string.no_internet_title), getString(R.string.no_internet_desc));
             }
+        }
+
+        public void onMobileNumberClick(View view) {
+            Intent intent = new Intent(Intent.ACTION_DIAL);
+
+            intent.setData(Uri.parse("tel:" + shopDetailsDataModel.getShopMobileNo()));
+            startActivity(intent);
         }
     }
 
@@ -184,14 +194,53 @@ public class ShopDetailsActivity extends AppCompatActivity {
                         shopDetailsDataModel = gson2.fromJson(jsonObject.getString("ShopDetail"), ShopDetailsDataModel.class);
 
                         binding.txtName.setText(shopDetailsDataModel.getShopName());
-                        if (shopDetailsDataModel.getFontsizeName().contains("px")) {
+                        binding.txtAboutShop.setText(shopDetailsDataModel.getShopDescription());
+                       /* if (shopDetailsDataModel.getFontsizeName().contains("px")) {
                             binding.txtName.setTextSize(Float.parseFloat(shopDetailsDataModel.getFontsizeName().replace("px", "")));
-                        }
+                        }*/
 
                         binding.txtAddress.setText(shopDetailsDataModel.getShopAddress());
                         binding.txtMobile.setText(shopDetailsDataModel.getShopMobileNo());
 
                         binding.lnrBack.setBackgroundColor(Color.parseColor(shopDetailsDataModel.getBgcolorName()));
+                        binding.txtName.setTextColor(Color.parseColor(shopDetailsDataModel.getFontColorName()));
+
+                        Typeface typeface = null;
+                        if (shopDetailsDataModel.getFontStyleId().equals("1")) {
+                            typeface = ResourcesCompat.getFont(ShopDetailsActivity.this, R.font.roboto_black);
+                        } else if (shopDetailsDataModel.getFontStyleId().equals("2")) {
+                            typeface = ResourcesCompat.getFont(ShopDetailsActivity.this, R.font.roboto_blackitalic);
+                        } else if (shopDetailsDataModel.getFontStyleId().equals("3")) {
+                            typeface = ResourcesCompat.getFont(ShopDetailsActivity.this, R.font.roboto_bold);
+                        } else if (shopDetailsDataModel.getFontStyleId().equals("4")) {
+                            typeface = ResourcesCompat.getFont(ShopDetailsActivity.this, R.font.roboto_boldcondensed);
+                        } else if (shopDetailsDataModel.getFontStyleId().equals("5")) {
+                            typeface = ResourcesCompat.getFont(ShopDetailsActivity.this, R.font.roboto_boldcondenseditalic);
+                        } else if (shopDetailsDataModel.getFontStyleId().equals("6")) {
+                            typeface = ResourcesCompat.getFont(ShopDetailsActivity.this, R.font.roboto_bolditalic);
+                        } else if (shopDetailsDataModel.getFontStyleId().equals("7")) {
+                            typeface = ResourcesCompat.getFont(ShopDetailsActivity.this, R.font.roboto_condensed);
+                        } else if (shopDetailsDataModel.getFontStyleId().equals("8")) {
+                            typeface = ResourcesCompat.getFont(ShopDetailsActivity.this, R.font.roboto_condenseditalic);
+                        } else if (shopDetailsDataModel.getFontStyleId().equals("9")) {
+                            typeface = ResourcesCompat.getFont(ShopDetailsActivity.this, R.font.roboto_italic);
+                        } else if (shopDetailsDataModel.getFontStyleId().equals("10")) {
+                            typeface = ResourcesCompat.getFont(ShopDetailsActivity.this, R.font.roboto_light);
+                        } else if (shopDetailsDataModel.getFontStyleId().equals("11")) {
+                            typeface = ResourcesCompat.getFont(ShopDetailsActivity.this, R.font.roboto_lightitalic);
+                        } else if (shopDetailsDataModel.getFontStyleId().equals("12")) {
+                            typeface = ResourcesCompat.getFont(ShopDetailsActivity.this, R.font.roboto_medium);
+                        } else if (shopDetailsDataModel.getFontStyleId().equals("13")) {
+                            typeface = ResourcesCompat.getFont(ShopDetailsActivity.this, R.font.roboto_mediumitalic);
+                        } else if (shopDetailsDataModel.getFontStyleId().equals("14")) {
+                            typeface = ResourcesCompat.getFont(ShopDetailsActivity.this, R.font.roboto_regular);
+                        } else if (shopDetailsDataModel.getFontStyleId().equals("15")) {
+                            typeface = ResourcesCompat.getFont(ShopDetailsActivity.this, R.font.roboto_thin);
+                        } else if (shopDetailsDataModel.getFontStyleId().equals("16")) {
+                            typeface = ResourcesCompat.getFont(ShopDetailsActivity.this, R.font.roboto_thinitalic);
+                        }
+                        if (!shopDetailsDataModel.getFontStyleId().equals("") || !shopDetailsDataModel.getFontStyleId().equals("0"))
+                            binding.txtName.setTypeface(typeface);
 
                         if (shopDetailsDataModel.getSuperShopTatus().equals("1")) {
                             Glide.with(ShopDetailsActivity.this).load(R.drawable.ic_fav_selected).into(binding.imgSuperShop);

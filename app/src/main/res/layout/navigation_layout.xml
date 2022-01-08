@@ -581,7 +581,7 @@
                     <androidx.appcompat.widget.LinearLayoutCompat
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:onClick="@{handler::onHomeClick}"
+                        android:onClick="@{handler::onShopSignBoardClick}"
                         android:orientation="vertical">
 
                         <androidx.appcompat.widget.LinearLayoutCompat

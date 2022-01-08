@@ -6,6 +6,7 @@ import com.pepdeal.in.model.requestModel.AddBackgroundColorResponseModel;
 import com.pepdeal.in.model.requestModel.AddProductCategoryResponseModel;
 import com.pepdeal.in.model.requestModel.AddShopFontResponseModel;
 import com.pepdeal.in.model.requestModel.AddShopRequestModel;
+import com.pepdeal.in.model.requestModel.HelpRequestModel;
 import com.pepdeal.in.model.requestModel.LoginRequestModel;
 import com.pepdeal.in.model.requestModel.OTPRequestModel;
 import com.pepdeal.in.model.requestModel.ResetPasswordRequestModel;
@@ -56,8 +57,20 @@ public interface ApiInterface {
     @POST("shopAdd")
     Call<ResponseBody> shopAdd(@Body AddShopRequestModel model);
 
+    @POST("enquiryForm")
+    Call<ResponseBody> enquiryForm(@Body HelpRequestModel model);
+
+    @POST("aboutshopupdate")
+    Call<ResponseBody> aboutshopupdate(@Body AddShopRequestModel model);
+
+    @POST("bgcolorupdate")
+    Call<ResponseBody> bgcolorupdate(@Body AddShopRequestModel model);
+
     @POST("fontstyleList")
     Call<ResponseBody> fontstyleList(@Body UserProfileRequestModel model);
+
+    @POST("fontcolorList")
+    Call<ResponseBody> fontcolorList(@Body UserProfileRequestModel model);
 
     @POST("fontsizeList")
     Call<ResponseBody> fontsizeList(@Body UserProfileRequestModel model);

@@ -16,8 +16,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:textSize="@dimen/text_13"
             android:text=""
-            android:textColor="@color/grayTextColor" />
+            android:textColor="@color/grayTextColor"
+            android:textSize="@dimen/text_13" />
     </androidx.appcompat.widget.LinearLayoutCompat>
 </androidx.appcompat.widget.LinearLayoutCompat>

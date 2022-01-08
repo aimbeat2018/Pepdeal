@@ -7,6 +7,9 @@ public class AddShopRequestModel {
     @SerializedName("user_id")
     @Expose
     private String userId;
+    @SerializedName("shop_id")
+    @Expose
+    private String shopId;
     @SerializedName("shop_name")
     @Expose
     private String shopName;
@@ -22,10 +25,24 @@ public class AddShopRequestModel {
     @SerializedName("font_size_id")
     @Expose
     private String fontSizeId;
+    @SerializedName("font_color_id")
+    @Expose
+    private String fontColorId;
     @SerializedName("font_style_id")
     @Expose
     private String fontStyleId;
+    @SerializedName("shop_description")
+    @Expose
+    private String shopDescription;
+    @SerializedName("city")
+    @Expose
+    private String city;
+    @SerializedName("state")
+    @Expose
+    private String state;
 
+
+    /*shop_description, city , state*/
     public String getUserId() {
         return userId;
     }
@@ -80,5 +97,45 @@ public class AddShopRequestModel {
 
     public void setFontStyleId(String fontStyleId) {
         this.fontStyleId = fontStyleId;
+    }
+
+    public String getShopDescription() {
+        return shopDescription;
+    }
+
+    public void setShopDescription(String shopDescription) {
+        this.shopDescription = shopDescription;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
+    public String getFontColorId() {
+        return fontColorId;
+    }
+
+    public void setFontColorId(String fontColorId) {
+        this.fontColorId = fontColorId;
+    }
+
+    public String getShopId() {
+        return shopId;
+    }
+
+    public void setShopId(String shopId) {
+        this.shopId = shopId;
     }
 }

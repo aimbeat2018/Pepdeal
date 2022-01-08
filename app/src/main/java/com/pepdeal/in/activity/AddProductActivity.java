@@ -668,10 +668,12 @@ public class AddProductActivity extends AppCompatActivity {
         List<MultipartBody.Part> list;
         list = uploadImages(fileArrayList);
 
+        String userIdStr = SharedPref.getVal(AddProductActivity.this, SharedPref.user_id);
+        String shopIdStr = SharedPref.getVal(AddProductActivity.this, SharedPref.shop_id);
         RequestBody user_id =
-                RequestBody.create(MediaType.parse("text/plain"), SharedPref.getVal(AddProductActivity.this, SharedPref.user_id));
+                RequestBody.create(MediaType.parse("text/plain"), userIdStr);
         RequestBody shop_id =
-                RequestBody.create(MediaType.parse("text/plain"), SharedPref.getVal(AddProductActivity.this, SharedPref.shop_id));
+                RequestBody.create(MediaType.parse("text/plain"), shopIdStr);
         RequestBody product_name =
                 RequestBody.create(MediaType.parse("text/plain"), Objects.requireNonNull(binding.entproductName.getText()).toString());
         RequestBody brand_id =
@@ -811,7 +813,6 @@ public class AddProductActivity extends AppCompatActivity {
                         finish();
                     } else {
                         Toast.makeText(AddProductActivity.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
-
                     }
 
                 } catch (Exception e) {

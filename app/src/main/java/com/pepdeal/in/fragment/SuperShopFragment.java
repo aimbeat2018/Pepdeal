@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -14,6 +15,7 @@ import android.view.WindowManager;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -200,9 +202,45 @@ public class SuperShopFragment extends Fragment {
 
             public void bind(SuperShopDataModel model, int position) {
                 layoutBinding.txtName.setText(model.getShopName());
-                if (model.getFontSizeName().contains("px")) {
-                    layoutBinding.txtName.setTextSize(Float.parseFloat(model.getFontSizeName().replace("px", "")));
+                layoutBinding.txtName.setTextColor(Color.parseColor(model.getFontColorName()));
+
+                Typeface typeface = null;
+                if (model.getFontStyleId().equals("1")) {
+                    typeface = ResourcesCompat.getFont(activity, R.font.roboto_black);
+                } else if (model.getFontStyleId().equals("2")) {
+                    typeface = ResourcesCompat.getFont(activity, R.font.roboto_blackitalic);
+                } else if (model.getFontStyleId().equals("3")) {
+                    typeface = ResourcesCompat.getFont(activity, R.font.roboto_bold);
+                } else if (model.getFontStyleId().equals("4")) {
+                    typeface = ResourcesCompat.getFont(activity, R.font.roboto_boldcondensed);
+                } else if (model.getFontStyleId().equals("5")) {
+                    typeface = ResourcesCompat.getFont(activity, R.font.roboto_boldcondenseditalic);
+                } else if (model.getFontStyleId().equals("6")) {
+                    typeface = ResourcesCompat.getFont(activity, R.font.roboto_bolditalic);
+                } else if (model.getFontStyleId().equals("7")) {
+                    typeface = ResourcesCompat.getFont(activity, R.font.roboto_condensed);
+                } else if (model.getFontStyleId().equals("8")) {
+                    typeface = ResourcesCompat.getFont(activity, R.font.roboto_condenseditalic);
+                } else if (model.getFontStyleId().equals("9")) {
+                    typeface = ResourcesCompat.getFont(activity, R.font.roboto_italic);
+                } else if (model.getFontStyleId().equals("10")) {
+                    typeface = ResourcesCompat.getFont(activity, R.font.roboto_light);
+                } else if (model.getFontStyleId().equals("11")) {
+                    typeface = ResourcesCompat.getFont(activity, R.font.roboto_lightitalic);
+                } else if (model.getFontStyleId().equals("12")) {
+                    typeface = ResourcesCompat.getFont(activity, R.font.roboto_medium);
+                } else if (model.getFontStyleId().equals("13")) {
+                    typeface = ResourcesCompat.getFont(activity, R.font.roboto_mediumitalic);
+                } else if (model.getFontStyleId().equals("14")) {
+                    typeface = ResourcesCompat.getFont(activity, R.font.roboto_regular);
+                } else if (model.getFontStyleId().equals("15")) {
+                    typeface = ResourcesCompat.getFont(activity, R.font.roboto_thin);
+                } else if (model.getFontStyleId().equals("16")) {
+                    typeface = ResourcesCompat.getFont(activity, R.font.roboto_thinitalic);
                 }
+                if (!model.getFontStyleId().equals("") || !model.getFontStyleId().equals("0"))
+                    layoutBinding.txtName.setTypeface(typeface);
+                layoutBinding.txtAddress.setText(model.getCity() + ", " + model.getState());
 
                 layoutBinding.txtAddress.setText(model.getShopAddress());
                 layoutBinding.txtMobile.setText(model.getShopMobileNo());
@@ -215,33 +253,28 @@ public class SuperShopFragment extends Fragment {
 
                 layoutBinding.imgSuperShop.setVisibility(View.GONE);
 
-                layoutBinding.imgDelete.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        new AlertDialog.Builder(activity)
-                                .setTitle("Alert!!!")
-                                .setMessage("Are you sure you want to remove shop from super shop?")
+                layoutBinding.imgDelete.setOnClickListener(view -> new AlertDialog.Builder(activity)
+                        .setTitle("Alert!!!")
+                        .setMessage("Are you sure you want to remove shop from super shop?")
 
-                                // Specifying a listener allows you to take an action before dismissing the dialog.
-                                // The dialog is automatically dismissed when a dialog button is clicked.
-                                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        // Continue with delete operation
-                                        if (Utils.isNetwork(activity)) {
-                                            removeSuperShop(model.getSuperId());
+                        // Specifying a listener allows you to take an action before dismissing the dialog.
+                        // The dialog is automatically dismissed when a dialog button is clicked.
+                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                // Continue with delete operation
+                                if (Utils.isNetwork(activity)) {
+                                    removeSuperShop(model.getSuperId());
 //                                            getFavList(true);
-                                        } else {
+                                } else {
 //                                            binding.lnrMainLayout.setVisibility(View.GONE);
-                                            Utils.InternetAlertDialog(activity, getString(R.string.no_internet_title), getString(R.string.no_internet_desc));
-                                        }
-                                    }
-                                })
+                                    Utils.InternetAlertDialog(activity, getString(R.string.no_internet_title), getString(R.string.no_internet_desc));
+                                }
+                            }
+                        })
 
-                                // A null listener allows the button to dismiss the dialog and take no further action.
-                                .setNegativeButton(android.R.string.no, null)
-                                .show();
-                    }
-                });
+                        // A null listener allows the button to dismiss the dialog and take no further action.
+                        .setNegativeButton(android.R.string.no, null)
+                        .show());
 
                 layoutBinding.imgMessage.setOnClickListener(view -> startActivity(new Intent(activity, MessageChatActivity.class).putExtra("shop_id", model.getShopId())
                         .putExtra("name", model.getShopName()).putExtra("user_id", SharedPref.getVal(activity, SharedPref.user_id))));

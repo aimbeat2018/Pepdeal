@@ -2,12 +2,17 @@ package com.pepdeal.in.fragment;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -33,6 +38,7 @@ import com.pepdeal.in.activity.ProductDetailsActivity;
 import com.pepdeal.in.activity.SearchActivity;
 import com.pepdeal.in.activity.SellerProductListingActivity;
 import com.pepdeal.in.activity.ShopDetailsActivity;
+import com.pepdeal.in.activity.ShopSignBoardActivity;
 import com.pepdeal.in.adapter.ProductAdapter;
 import com.pepdeal.in.constants.ApiClient;
 import com.pepdeal.in.constants.ApiInterface;
@@ -40,12 +46,16 @@ import com.pepdeal.in.constants.SharedPref;
 import com.pepdeal.in.constants.Utils;
 import com.pepdeal.in.databinding.FragmentHomeBinding;
 import com.pepdeal.in.databinding.ItemCategoryHomeLayoutBinding;
+import com.pepdeal.in.databinding.ItemHomeProductListLayoutBinding;
 import com.pepdeal.in.databinding.ItemHomeShopsListBinding;
 import com.pepdeal.in.databinding.ItemProductListLayoutBinding;
 import com.pepdeal.in.model.UsersHomeTabModel;
+import com.pepdeal.in.model.homemodel.HomeProductDataModel;
 import com.pepdeal.in.model.homemodel.HomeShopDataModel;
+import com.pepdeal.in.model.productdetailsmodel.ProductDetailsDataModel;
 import com.pepdeal.in.model.productlistmodel.ProductDataModel;
 import com.pepdeal.in.model.requestModel.UserProfileRequestModel;
+import com.pepdeal.in.model.searchmodel.SearchProductModel;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -151,6 +161,15 @@ public class HomeFragment extends Fragment {
                             }
                             binding.viewPager2.setAdapter(new ViewPagerAdapter());
                             binding.viewPager2.startAutoScroll();
+
+                            binding.viewPager2.setAdapter(new ViewPagerAdapter());
+                            binding.viewPager2.startAutoScroll();
+                            binding.viewPager2.setInterval(3000);
+                            binding.viewPager2.setCycle(true);
+                            binding.viewPager2.setStopScrollWhenTouch(true);
+                            binding.viewPager2.setVisibility(View.VISIBLE);
+                            binding.dotsIndicator.setViewPager(binding.viewPager2);
+                            binding.dotsIndicator.setVisibility(View.VISIBLE);
                         } else {
                             binding.viewPager2.setVisibility(View.GONE);
                         }
@@ -241,16 +260,50 @@ public class HomeFragment extends Fragment {
 
             public void bind(HomeShopDataModel model, int position) {
                 layoutBinding.txtName.setText(model.getShopName());
-                if (model.getFontsizeName().contains("px")) {
-                    layoutBinding.txtName.setTextSize(Float.parseFloat(model.getFontsizeName().replace("px", "")));
-                }
+                layoutBinding.txtName.setTextColor(Color.parseColor(model.getFontcolorName()));
 
-                layoutBinding.txtAddress.setText(model.getShopAddress());
+                Typeface typeface = null;
+                if (model.getFontStyleId().equals("1")) {
+                    typeface = ResourcesCompat.getFont(activity, R.font.roboto_black);
+                } else if (model.getFontStyleId().equals("2")) {
+                    typeface = ResourcesCompat.getFont(activity, R.font.roboto_blackitalic);
+                } else if (model.getFontStyleId().equals("3")) {
+                    typeface = ResourcesCompat.getFont(activity, R.font.roboto_bold);
+                } else if (model.getFontStyleId().equals("4")) {
+                    typeface = ResourcesCompat.getFont(activity, R.font.roboto_boldcondensed);
+                } else if (model.getFontStyleId().equals("5")) {
+                    typeface = ResourcesCompat.getFont(activity, R.font.roboto_boldcondenseditalic);
+                } else if (model.getFontStyleId().equals("6")) {
+                    typeface = ResourcesCompat.getFont(activity, R.font.roboto_bolditalic);
+                } else if (model.getFontStyleId().equals("7")) {
+                    typeface = ResourcesCompat.getFont(activity, R.font.roboto_condensed);
+                } else if (model.getFontStyleId().equals("8")) {
+                    typeface = ResourcesCompat.getFont(activity, R.font.roboto_condenseditalic);
+                } else if (model.getFontStyleId().equals("9")) {
+                    typeface = ResourcesCompat.getFont(activity, R.font.roboto_italic);
+                } else if (model.getFontStyleId().equals("10")) {
+                    typeface = ResourcesCompat.getFont(activity, R.font.roboto_light);
+                } else if (model.getFontStyleId().equals("11")) {
+                    typeface = ResourcesCompat.getFont(activity, R.font.roboto_lightitalic);
+                } else if (model.getFontStyleId().equals("12")) {
+                    typeface = ResourcesCompat.getFont(activity, R.font.roboto_medium);
+                } else if (model.getFontStyleId().equals("13")) {
+                    typeface = ResourcesCompat.getFont(activity, R.font.roboto_mediumitalic);
+                } else if (model.getFontStyleId().equals("14")) {
+                    typeface = ResourcesCompat.getFont(activity, R.font.roboto_regular);
+                } else if (model.getFontStyleId().equals("15")) {
+                    typeface = ResourcesCompat.getFont(activity, R.font.roboto_thin);
+                } else if (model.getFontStyleId().equals("16")) {
+                    typeface = ResourcesCompat.getFont(activity, R.font.roboto_thinitalic);
+                }
+                if (!model.getFontStyleId().equals("") || !model.getFontStyleId().equals("0"))
+                    layoutBinding.txtName.setTypeface(typeface);
+                layoutBinding.txtAddress.setText(model.getCity() + ", " + model.getState());
                 layoutBinding.txtMobile.setText(model.getShopMobileNo());
 
                 layoutBinding.lnrBack.setBackgroundColor(Color.parseColor(model.getBgcolorName()));
 
-                layoutBinding.txtName.setOnClickListener(view -> {
+                layoutBinding.lnrBack.setOnClickListener(view -> {
                     startActivity(new Intent(activity, ShopDetailsActivity.class).putExtra("shop_id", model.getShopId()));
                 });
                 if (model.getProductsList().isEmpty()) {
@@ -456,6 +509,372 @@ public class HomeFragment extends Fragment {
             return view == object;
         }
 
+    }
+
+    public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHolder> {
+        Context activity;
+        List<HomeProductDataModel> homeProductDataModelList;
+        List<ProductDetailsDataModel> productDetailsDataModelList;
+        List<SearchProductModel> searchProductDataModelList;
+        String from = "";
+        String from1 = "";
+
+        public ProductAdapter(Context activity) {
+            this.activity = activity;
+        }
+
+        public ProductAdapter(Context activity, List<HomeProductDataModel> homeProductDataModelList, String from) {
+            this.activity = activity;
+            this.homeProductDataModelList = homeProductDataModelList;
+            this.from = from;
+        }
+
+        public ProductAdapter(Context activity, List<ProductDetailsDataModel> productDetailsDataModelList, String from, String from1) {
+            this.activity = activity;
+            this.productDetailsDataModelList = productDetailsDataModelList;
+            this.from = from;
+            this.from1 = from1;
+        }
+
+        public ProductAdapter(Context activity, List<SearchProductModel> productDetailsDataModelList, String from, String from1, String from2) {
+            this.activity = activity;
+            this.searchProductDataModelList = productDetailsDataModelList;
+            this.from = from;
+            this.from1 = from1;
+        }
+
+        @NonNull
+        @Override
+        public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            ItemHomeProductListLayoutBinding layoutBinding = DataBindingUtil.inflate(LayoutInflater.from(activity), R.layout.item_home_product_list_layout, parent, false);
+            return new ViewHolder(layoutBinding);
+        }
+
+        @Override
+        public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+            if (from.equals("home")) {
+                HomeProductDataModel model = homeProductDataModelList.get(position);
+                holder.bindHomeData(model, position);
+
+            } else if (from.equals("shop")) {
+                ProductDetailsDataModel model = productDetailsDataModelList.get(position);
+                holder.bindShopData(model, position);
+
+            } else if (from.equals("search")) {
+                SearchProductModel model = searchProductDataModelList.get(position);
+                holder.bindSearchData(model, position);
+
+            } else {
+          /*  UsersHomeTabModel model = homeTabModelArrayList.get(position);
+            holder.bind(model, position);*/
+                holder.bind();
+            }
+        }
+
+        @Override
+        public int getItemCount() {
+            if (from.equals("home"))
+                return homeProductDataModelList.size();
+            else if (from.equals("shop"))
+                return productDetailsDataModelList.size();
+            else if (from.equals("search"))
+                return searchProductDataModelList.size();
+            else
+                return 3;
+
+        }
+
+        public class ViewHolder extends RecyclerView.ViewHolder {
+            ItemHomeProductListLayoutBinding layoutBinding;
+
+            public ViewHolder(@NonNull ItemHomeProductListLayoutBinding itemView) {
+                super(itemView.getRoot());
+                this.layoutBinding = itemView;
+            }
+
+            public void bind() {
+                layoutBinding.lnrDetails.setOnClickListener(view -> {
+                    Intent intent = new Intent(new Intent(activity, ProductDetailsActivity.class));
+                    intent.putExtra("product_id", "");
+                    activity.startActivity(intent);
+                });
+                layoutBinding.relImage.setOnClickListener(view -> {
+                    Intent intent = new Intent(new Intent(activity, ProductDetailsActivity.class));
+                    intent.putExtra("product_id", "");
+                    activity.startActivity(intent);
+                });
+
+            }
+
+            public void bindHomeData(HomeProductDataModel model, int position) {
+                Glide.with(activity).load(model.getProductImages())
+                        .error(R.drawable.loader).placeholder(R.drawable.loader).into(layoutBinding.imgProductImage);
+                layoutBinding.txtProductName.setText(model.getProductName());
+
+                if (model.getDiscountMrp().equals("0") || model.getDiscountMrp().equals("") || model.getDiscountMrp() == null) {
+                    layoutBinding.cardOffer.setVisibility(View.GONE);
+                    layoutBinding.txtActualPrice.setVisibility(View.GONE);
+                    layoutBinding.txtDiscountPrice.setText("₹ " + model.getMrp());
+                } else {
+                    layoutBinding.cardOffer.setVisibility(View.VISIBLE);
+                    layoutBinding.txtActualPrice.setVisibility(View.VISIBLE);
+
+                    layoutBinding.txtActualPrice.setText("₹ " + model.getMrp());
+                    layoutBinding.txtActualPrice.setPaintFlags(layoutBinding.txtActualPrice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+                    layoutBinding.txtDiscountPrice.setText("₹ " + model.getSellingPrice());
+
+                    layoutBinding.txtOff.setText(model.getDiscountMrp() + "% OFF");
+                }
+
+                layoutBinding.lnrDetails.setOnClickListener(view -> {
+                    Intent intent = new Intent(new Intent(activity, ProductDetailsActivity.class));
+                    intent.putExtra("product_id", model.getProductId());
+                    activity.startActivity(intent);
+                });
+                layoutBinding.relImage.setOnClickListener(view -> {
+                    Intent intent = new Intent(new Intent(activity, ProductDetailsActivity.class));
+                    intent.putExtra("product_id", model.getProductId());
+                    activity.startActivity(intent);
+                });
+
+                if (model.getFavouriteStatus().equals("0")) {
+                    layoutBinding.imgAddFav.setColorFilter(ContextCompat.getColor(activity, R.color.black), android.graphics.PorterDuff.Mode.SRC_IN);
+                } else {
+                    layoutBinding.imgAddFav.setColorFilter(ContextCompat.getColor(activity, R.color.errorColor), android.graphics.PorterDuff.Mode.SRC_IN);
+                }
+
+                layoutBinding.imgAddFav.setOnClickListener(view -> {
+                    if (model.getFavouriteStatus().equals("0")) {
+                        addFav(model.getProductId());
+                    } else {
+                        removeFav(model.getFavouriteId());
+                    }
+                });
+
+            }
+
+            public void bindShopData(ProductDetailsDataModel model, int position) {
+                Glide.with(activity).load(model.getProductImages())
+                        .error(R.drawable.loader).placeholder(R.drawable.loader).into(layoutBinding.imgProductImage);
+                layoutBinding.txtProductName.setText(model.getProductName());
+
+                if (model.getDiscountMrp().equals("0") || model.getDiscountMrp().equals("") || model.getDiscountMrp() == null) {
+                    layoutBinding.cardOffer.setVisibility(View.GONE);
+                    layoutBinding.txtActualPrice.setVisibility(View.GONE);
+                    layoutBinding.txtDiscountPrice.setText("₹ " + model.getMrp());
+                } else {
+                    layoutBinding.cardOffer.setVisibility(View.VISIBLE);
+                    layoutBinding.txtActualPrice.setVisibility(View.VISIBLE);
+
+                    layoutBinding.txtActualPrice.setText("₹ " + model.getMrp());
+                    layoutBinding.txtActualPrice.setPaintFlags(layoutBinding.txtActualPrice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+                    layoutBinding.txtDiscountPrice.setText("₹ " + model.getSellingPrice());
+
+                    layoutBinding.txtOff.setText(model.getDiscountMrp() + "% OFF");
+                }
+
+                layoutBinding.lnrDetails.setOnClickListener(view -> {
+                    Intent intent = new Intent(new Intent(activity, ProductDetailsActivity.class));
+                    intent.putExtra("product_id", model.getProductId());
+                    activity.startActivity(intent);
+                });
+                layoutBinding.relImage.setOnClickListener(view -> {
+                    Intent intent = new Intent(new Intent(activity, ProductDetailsActivity.class));
+                    intent.putExtra("product_id", model.getProductId());
+                    activity.startActivity(intent);
+                });
+
+                if (model.getFavouriteStatus().equals("0")) {
+                    layoutBinding.imgAddFav.setColorFilter(ContextCompat.getColor(activity, R.color.black), android.graphics.PorterDuff.Mode.SRC_IN);
+                } else {
+                    layoutBinding.imgAddFav.setColorFilter(ContextCompat.getColor(activity, R.color.errorColor), android.graphics.PorterDuff.Mode.SRC_IN);
+                }
+
+                layoutBinding.imgAddFav.setOnClickListener(view -> {
+                    if (model.getFavouriteStatus().equals("0")) {
+                        addFav(model.getProductId());
+                    } else {
+                        removeFav(model.getFavouriteId());
+                    }
+                });
+
+            }
+
+            public void bindSearchData(SearchProductModel model, int position) {
+                Glide.with(activity).load(model.getProductImage())
+                        .error(R.drawable.loader).placeholder(R.drawable.loader).into(layoutBinding.imgProductImage);
+                layoutBinding.txtProductName.setText(model.getProductName());
+
+                if (model.getDiscountMrp().equals("0") || model.getDiscountMrp().equals("") || model.getDiscountMrp() == null) {
+                    layoutBinding.cardOffer.setVisibility(View.GONE);
+                    layoutBinding.txtActualPrice.setVisibility(View.GONE);
+                    layoutBinding.txtDiscountPrice.setText("₹ " + model.getMrp());
+                } else {
+                    layoutBinding.cardOffer.setVisibility(View.VISIBLE);
+                    layoutBinding.txtActualPrice.setVisibility(View.VISIBLE);
+
+                    layoutBinding.txtActualPrice.setText("₹ " + model.getMrp());
+                    layoutBinding.txtActualPrice.setPaintFlags(layoutBinding.txtActualPrice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+                    layoutBinding.txtDiscountPrice.setText("₹ " + model.getSellingPrice());
+
+                    layoutBinding.txtOff.setText(model.getDiscountMrp() + "% OFF");
+                }
+
+                layoutBinding.lnrDetails.setOnClickListener(view -> {
+                    Intent intent = new Intent(new Intent(activity, ProductDetailsActivity.class));
+                    intent.putExtra("product_id", model.getProductId());
+                    activity.startActivity(intent);
+                });
+                layoutBinding.relImage.setOnClickListener(view -> {
+                    Intent intent = new Intent(new Intent(activity, ProductDetailsActivity.class));
+                    intent.putExtra("product_id", model.getProductId());
+                    activity.startActivity(intent);
+                });
+
+                if (model.getFavStatus().equals("0")) {
+                    layoutBinding.imgAddFav.setColorFilter(ContextCompat.getColor(activity, R.color.black), android.graphics.PorterDuff.Mode.SRC_IN);
+                } else {
+                    layoutBinding.imgAddFav.setColorFilter(ContextCompat.getColor(activity, R.color.errorColor), android.graphics.PorterDuff.Mode.SRC_IN);
+                }
+
+                layoutBinding.imgAddFav.setOnClickListener(view -> {
+                    if (model.getFavStatus().equals("0")) {
+                        addFav(model.getProductId());
+                    } else {
+                        removeFav(model.getFavId());
+                    }
+                });
+
+            }
+
+            private void addFav(String productId) {
+                UserProfileRequestModel model = new UserProfileRequestModel();
+                model.setUserId(SharedPref.getVal(activity, SharedPref.user_id));
+                model.setProduct_id(productId);
+
+                ApiInterface client = ApiClient.createService(ApiInterface.class, "", "");
+                client.addFavourite(model).enqueue(new Callback<ResponseBody>() {
+                    @Override
+                    public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
+                        try {
+                            JSONObject jsonObject = new JSONObject(response.body().string());
+                            String code = jsonObject.getString("code");
+                            if (code.equals("200")) {
+                          /*  final VibrationEffect vibrationEffect2;
+                            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.Q) {
+                                final Vibrator vibrator = (Vibrator) activity.getSystemService(Context.VIBRATOR_SERVICE);
+                                // create vibrator effect with the constant EFFECT_TICK
+                                vibrationEffect2 = VibrationEffect.createPredefined(VibrationEffect.EFFECT_TICK);
+
+                                // it is safe to cancel other vibrations currently taking place
+                                vibrator.cancel();
+
+                                vibrator.vibrate(vibrationEffect2);
+                            }*/
+                                Toast.makeText(activity, "Product Added to favourite", Toast.LENGTH_SHORT).show();
+                                layoutBinding.imgAddFav.setColorFilter(ContextCompat.getColor(activity, R.color.errorColor), android.graphics.PorterDuff.Mode.SRC_IN);
+                            } else {
+                                Toast.makeText(activity, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+//                    dismissDialog();
+                    }
+
+                    @Override
+                    public void onFailure(@NonNull Call<ResponseBody> call, @NonNull Throwable error) {
+                        // binding.recProductlist.hideShimmer();
+//                    dismissDialog();
+                        error.printStackTrace();
+                        if (error instanceof HttpException) {
+                            switch (((HttpException) error).code()) {
+                                case HttpsURLConnection.HTTP_UNAUTHORIZED:
+                                    Toast.makeText(activity, activity.getString(R.string.unauthorised_user), Toast.LENGTH_SHORT).show();
+                                    break;
+                                case HttpsURLConnection.HTTP_FORBIDDEN:
+                                    Toast.makeText(activity, activity.getString(R.string.forbidden), Toast.LENGTH_SHORT).show();
+                                    break;
+                                case HttpsURLConnection.HTTP_INTERNAL_ERROR:
+                                    Toast.makeText(activity, activity.getString(R.string.internal_server_error), Toast.LENGTH_SHORT).show();
+                                    break;
+                                case HttpsURLConnection.HTTP_BAD_REQUEST:
+                                    Toast.makeText(activity, activity.getString(R.string.bad_request), Toast.LENGTH_SHORT).show();
+                                    break;
+                                default:
+                                    Toast.makeText(activity, error.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                            }
+                        } else {
+                            Toast.makeText(activity, activity.getString(R.string.something_went_wrong), Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+            }
+
+            private void removeFav(String favId) {
+                UserProfileRequestModel model = new UserProfileRequestModel();
+                model.setUserId(SharedPref.getVal(activity, SharedPref.user_id));
+                model.setFav_id(favId);
+
+                ApiInterface client = ApiClient.createService(ApiInterface.class, "", "");
+                client.favouriteRemove(model).enqueue(new Callback<ResponseBody>() {
+                    @Override
+                    public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
+                        try {
+                            JSONObject jsonObject = new JSONObject(response.body().string());
+                            String code = jsonObject.getString("code");
+                            if (code.equals("200")) {
+                          /*  final VibrationEffect vibrationEffect2;
+                            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.Q) {
+                                final Vibrator vibrator = (Vibrator) activity.getSystemService(Context.VIBRATOR_SERVICE);
+                                // create vibrator effect with the constant EFFECT_TICK
+                                vibrationEffect2 = VibrationEffect.createPredefined(VibrationEffect.EFFECT_TICK);
+
+                                // it is safe to cancel other vibrations currently taking place
+                                vibrator.cancel();
+
+                                vibrator.vibrate(vibrationEffect2);
+                            }*/
+                                Toast.makeText(activity, "Product Removed from favourite", Toast.LENGTH_SHORT).show();
+                                layoutBinding.imgAddFav.setColorFilter(ContextCompat.getColor(activity, R.color.black), android.graphics.PorterDuff.Mode.SRC_IN);
+                            } else {
+                                Toast.makeText(activity, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+//                    dismissDialog();
+                    }
+
+                    @Override
+                    public void onFailure(@NonNull Call<ResponseBody> call, @NonNull Throwable error) {
+                        // binding.recProductlist.hideShimmer();
+//                    dismissDialog();
+                        error.printStackTrace();
+                        if (error instanceof HttpException) {
+                            switch (((HttpException) error).code()) {
+                                case HttpsURLConnection.HTTP_UNAUTHORIZED:
+                                    Toast.makeText(activity, activity.getString(R.string.unauthorised_user), Toast.LENGTH_SHORT).show();
+                                    break;
+                                case HttpsURLConnection.HTTP_FORBIDDEN:
+                                    Toast.makeText(activity, activity.getString(R.string.forbidden), Toast.LENGTH_SHORT).show();
+                                    break;
+                                case HttpsURLConnection.HTTP_INTERNAL_ERROR:
+                                    Toast.makeText(activity, activity.getString(R.string.internal_server_error), Toast.LENGTH_SHORT).show();
+                                    break;
+                                case HttpsURLConnection.HTTP_BAD_REQUEST:
+                                    Toast.makeText(activity, activity.getString(R.string.bad_request), Toast.LENGTH_SHORT).show();
+                                    break;
+                                default:
+                                    Toast.makeText(activity, error.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                            }
+                        } else {
+                            Toast.makeText(activity, activity.getString(R.string.something_went_wrong), Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+            }
+        }
     }
 
 }

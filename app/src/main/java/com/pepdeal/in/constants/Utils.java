@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.text.TextUtils;
 
 public class Utils {
     public  static  String BaseUrl="https://pepdeal.in/pepdeal-admin/Appjson/";
@@ -43,5 +44,9 @@ public class Utils {
         } else {
             return false;
         }
+    }
+
+    public static boolean isValidEmail(CharSequence target) {
+        return !TextUtils.isEmpty(target) && android.util.Patterns.EMAIL_ADDRESS.matcher(target).matches();
     }
 }
