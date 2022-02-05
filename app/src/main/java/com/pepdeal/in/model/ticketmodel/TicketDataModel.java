@@ -23,6 +23,9 @@ public class TicketDataModel {
     @SerializedName("product_name")
     @Expose
     private String productName;
+    @SerializedName("shop_name")
+    @Expose
+    private String shopName;
     @SerializedName("description")
     @Expose
     private String description;
@@ -125,5 +128,13 @@ public class TicketDataModel {
 
     public void setCreatedAt(String createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public String getShopName() {
+        return shopName;
+    }
+
+    public void setShopName(String shopName) {
+        this.shopName = shopName;
     }
 }

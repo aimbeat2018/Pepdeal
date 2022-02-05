@@ -1,6 +1,7 @@
 package com.pepdeal.in.activity;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.view.View;
@@ -25,6 +26,7 @@ import com.pepdeal.in.model.requestModel.UserProfileRequestModel;
 
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
@@ -65,6 +67,21 @@ public class ProductDetailsActivity extends AppCompatActivity {
     public class ClickHandler {
         public void onBackClick(View view) {
             onBackPressed();
+        }
+
+        public void onClickImage1(View view){
+            startActivity(new Intent(ProductDetailsActivity.this, FullImageActivity.class)
+                    .putExtra("from", "multiple").putExtra("arraylist", (Serializable) productDataModelList.get(0).getProductImages()).putExtra("position", String.valueOf(0)));
+        }
+
+        public void onClickImage2(View view){
+            startActivity(new Intent(ProductDetailsActivity.this, FullImageActivity.class)
+                    .putExtra("from", "multiple").putExtra("arraylist", (Serializable) productDataModelList.get(0).getProductImages()).putExtra("position", String.valueOf(1)));
+        }
+
+        public void onClickImage3(View view){
+            startActivity(new Intent(ProductDetailsActivity.this, FullImageActivity.class)
+                    .putExtra("from", "multiple").putExtra("arraylist", (Serializable) productDataModelList.get(0).getProductImages()).putExtra("position", String.valueOf(2)));
         }
     }
 

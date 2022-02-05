@@ -3,9 +3,10 @@ package com.pepdeal.in.model.productdetailsmodel;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class ProductDetailsDataModel {
+public class ProductDetailsDataModel implements Serializable {
 
     @SerializedName("product_id")
     @Expose

@@ -42,9 +42,20 @@
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/roboto_medium"
                         android:maxLines="2"
-                        android:text="Zara Fashion Flower Pot"
+                        android:text=""
                         android:textColor="@color/black"
                         android:textSize="@dimen/text_15" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/txt_shop_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/roboto_regular"
+                        android:maxLines="1"
+                        android:text=""
+                        android:textAllCaps="true"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/text_12" />
 
                     <androidx.appcompat.widget.LinearLayoutCompat
                         android:layout_width="match_parent"

@@ -637,11 +637,18 @@ public class HomeFragment extends Fragment {
                     activity.startActivity(intent);
                 });
 
-                if (model.getFavouriteStatus().equals("0")) {
-                    layoutBinding.imgAddFav.setColorFilter(ContextCompat.getColor(activity, R.color.black), android.graphics.PorterDuff.Mode.SRC_IN);
+//                if (model.getFavouriteStatus().equals("0")) {
+//                    layoutBinding.imgAddFav.setColorFilter(ContextCompat.getColor(activity, R.color.black), android.graphics.PorterDuff.Mode.SRC_IN);
+//                } else {
+//                    layoutBinding.imgAddFav.setColorFilter(ContextCompat.getColor(activity, R.color.errorColor), android.graphics.PorterDuff.Mode.SRC_IN);
+//                }
+
+                if (model.getFavouriteStatus().equals("1")) {
+                    layoutBinding.imgAddFav.setImageDrawable(getResources().getDrawable(R.drawable.ic_fav_selected));
                 } else {
-                    layoutBinding.imgAddFav.setColorFilter(ContextCompat.getColor(activity, R.color.errorColor), android.graphics.PorterDuff.Mode.SRC_IN);
+                    layoutBinding.imgAddFav.setImageDrawable(getResources().getDrawable(R.drawable.ic_favorite));
                 }
+
 
                 layoutBinding.imgAddFav.setOnClickListener(view -> {
                     if (model.getFavouriteStatus().equals("0")) {
@@ -684,10 +691,15 @@ public class HomeFragment extends Fragment {
                     activity.startActivity(intent);
                 });
 
-                if (model.getFavouriteStatus().equals("0")) {
-                    layoutBinding.imgAddFav.setColorFilter(ContextCompat.getColor(activity, R.color.black), android.graphics.PorterDuff.Mode.SRC_IN);
+//                if (model.getFavouriteStatus().equals("0")) {
+//                    layoutBinding.imgAddFav.setColorFilter(ContextCompat.getColor(activity, R.color.black), android.graphics.PorterDuff.Mode.SRC_IN);
+//                } else {
+//                    layoutBinding.imgAddFav.setColorFilter(ContextCompat.getColor(activity, R.color.errorColor), android.graphics.PorterDuff.Mode.SRC_IN);
+//                }
+                if (model.getFavouriteStatus().equals("1")) {
+                    layoutBinding.imgAddFav.setImageDrawable(getResources().getDrawable(R.drawable.ic_fav_selected));
                 } else {
-                    layoutBinding.imgAddFav.setColorFilter(ContextCompat.getColor(activity, R.color.errorColor), android.graphics.PorterDuff.Mode.SRC_IN);
+                    layoutBinding.imgAddFav.setImageDrawable(getResources().getDrawable(R.drawable.ic_favorite));
                 }
 
                 layoutBinding.imgAddFav.setOnClickListener(view -> {
@@ -731,10 +743,16 @@ public class HomeFragment extends Fragment {
                     activity.startActivity(intent);
                 });
 
-                if (model.getFavStatus().equals("0")) {
-                    layoutBinding.imgAddFav.setColorFilter(ContextCompat.getColor(activity, R.color.black), android.graphics.PorterDuff.Mode.SRC_IN);
+//                if (model.getFavStatus().equals("0")) {
+//                    layoutBinding.imgAddFav.setColorFilter(ContextCompat.getColor(activity, R.color.black), android.graphics.PorterDuff.Mode.SRC_IN);
+//                } else {
+//                    layoutBinding.imgAddFav.setColorFilter(ContextCompat.getColor(activity, R.color.errorColor), android.graphics.PorterDuff.Mode.SRC_IN);
+//                }
+
+                if (model.getFavStatus().equals("1")) {
+                    layoutBinding.imgAddFav.setImageDrawable(getResources().getDrawable(R.drawable.ic_fav_selected));
                 } else {
-                    layoutBinding.imgAddFav.setColorFilter(ContextCompat.getColor(activity, R.color.errorColor), android.graphics.PorterDuff.Mode.SRC_IN);
+                    layoutBinding.imgAddFav.setImageDrawable(getResources().getDrawable(R.drawable.ic_favorite));
                 }
 
                 layoutBinding.imgAddFav.setOnClickListener(view -> {
@@ -772,7 +790,7 @@ public class HomeFragment extends Fragment {
                                 vibrator.vibrate(vibrationEffect2);
                             }*/
                                 Toast.makeText(activity, "Product Added to favourite", Toast.LENGTH_SHORT).show();
-                                layoutBinding.imgAddFav.setColorFilter(ContextCompat.getColor(activity, R.color.errorColor), android.graphics.PorterDuff.Mode.SRC_IN);
+                                layoutBinding.imgAddFav.setImageDrawable(getResources().getDrawable(R.drawable.ic_fav_selected));
                             } else {
                                 Toast.makeText(activity, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
                             }
@@ -836,7 +854,7 @@ public class HomeFragment extends Fragment {
                                 vibrator.vibrate(vibrationEffect2);
                             }*/
                                 Toast.makeText(activity, "Product Removed from favourite", Toast.LENGTH_SHORT).show();
-                                layoutBinding.imgAddFav.setColorFilter(ContextCompat.getColor(activity, R.color.black), android.graphics.PorterDuff.Mode.SRC_IN);
+                                layoutBinding.imgAddFav.setImageDrawable(getResources().getDrawable(R.drawable.ic_favorite));
                             } else {
                                 Toast.makeText(activity, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
                             }

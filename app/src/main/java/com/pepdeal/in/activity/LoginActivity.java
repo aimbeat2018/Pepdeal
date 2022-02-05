@@ -10,6 +10,8 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.method.PasswordTransformationMethod;
+import android.text.method.SingleLineTransformationMethod;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
@@ -71,6 +73,7 @@ public class LoginActivity extends AppCompatActivity implements ConnectivityRece
         dialog.setMessage("Please wait...");
 
         initRemoteConfig();
+
     }
 
     @Override
@@ -109,22 +112,30 @@ public class LoginActivity extends AppCompatActivity implements ConnectivityRece
             }
         }
 
+        public void onPasswordClick(View view){
+            if (binding.edtPassword.getTransformationMethod().getClass().getSimpleName().equals("PasswordTransformationMethod")) {
+                binding.edtPassword.setTransformationMethod(new SingleLineTransformationMethod());
+                binding.imgPassword.setImageResource(R.drawable.ic_baseline_visibility_24);
+            } else {
+                binding.edtPassword.setTransformationMethod(new PasswordTransformationMethod());
+                binding.imgPassword.setImageResource(R.drawable.ic_baseline_visibility_off_24);
+            }
+
+            binding.edtPassword.setSelection(binding.edtPassword.getText().length());
+        }
     }
 
     private void requestParams() {
-        FirebaseMessaging.getInstance().getToken().addOnCompleteListener(new OnCompleteListener<String>() {
-            @Override
-            public void onComplete(@NonNull Task<String> task) {
-                if (task.isComplete()) {
-                    firebaseToken = task.getResult();
-                    Log.e("AppConstants", "onComplete: new Token got: " + firebaseToken);
-                    LoginRequestModel loginRequestModel = new LoginRequestModel();
-                    loginRequestModel.setMobileNo(binding.edtMobile.getText().toString());
-                    loginRequestModel.setPassword(binding.edtPassword.getText().toString());
-                    loginRequestModel.setDeviceToken(firebaseToken);
+        FirebaseMessaging.getInstance().getToken().addOnCompleteListener(task -> {
+            if (task.isComplete()) {
+                firebaseToken = task.getResult();
+                Log.e("AppConstants", "onComplete: new Token got: " + firebaseToken);
+                LoginRequestModel loginRequestModel = new LoginRequestModel();
+                loginRequestModel.setMobileNo(binding.edtMobile.getText().toString());
+                loginRequestModel.setPassword(binding.edtPassword.getText().toString());
+                loginRequestModel.setDeviceToken(firebaseToken);
 
-                    loginUser(loginRequestModel);
-                }
+                loginUser(loginRequestModel);
             }
         });
     }

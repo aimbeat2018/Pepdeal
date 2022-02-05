@@ -37,6 +37,7 @@ import androidx.core.content.FileProvider;
 import androidx.databinding.DataBindingUtil;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.github.dhaval2404.imagepicker.ImagePicker;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.gson.Gson;
@@ -54,6 +55,8 @@ import com.pepdeal.in.model.requestModel.AddProductCategoryResponseModel;
 import com.pepdeal.in.model.requestModel.AddProductListRequestModel;
 import com.pepdeal.in.model.requestModel.AddShopFontResponseModel;
 import com.pepdeal.in.model.requestModel.UserProfileRequestModel;
+import com.theartofdev.edmodo.cropper.CropImage;
+import com.theartofdev.edmodo.cropper.CropImageView;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -167,6 +170,10 @@ public class AddProductActivity extends AppCompatActivity {
                 } else {
                     if (binding.edtdiscount.getText().toString().equals("")) {
                         binding.edtsale.setText(binding.edtmrp.getText().toString());
+                    } else if (Integer.parseInt(binding.edtdiscount.getText().toString()) > 100) {
+                        Toast.makeText(AddProductActivity.this, "Discount should not be greater than 100", Toast.LENGTH_SHORT).show();
+                        binding.edtdiscount.setText("");
+                        binding.edtsale.setText("");
                     } else {
                         double mrp = Double.parseDouble(binding.edtmrp.getText().toString());
                         double discount = Double.parseDouble(binding.edtdiscount.getText().toString());
@@ -213,17 +220,17 @@ public class AddProductActivity extends AppCompatActivity {
                 }
                 if (binding.entproductName.getText().toString().equals("")) {
                     Toasty.info(AddProductActivity.this, "Enter Product Name ", Toasty.LENGTH_SHORT, true).show();
-                } else if (brandId.equals("")) {
+                } else if (binding.edtBrandName.getText().toString().equals("")) {
                     Toasty.info(AddProductActivity.this, "Enter Brand Name ", Toasty.LENGTH_SHORT, true).show();
                 } else if (categoryId.equals("")) {
                     Toasty.info(AddProductActivity.this, "Enter Category ", Toasty.LENGTH_SHORT, true).show();
                 } else if (binding.edtdescription.getText().toString().equals("")) {
                     Toasty.info(AddProductActivity.this, "Enter description ", Toasty.LENGTH_SHORT, true).show();
-                } else if (binding.edtdescription1.getText().toString().equals("")) {
+                } /*else if (binding.edtdescription1.getText().toString().equals("")) {
                     Toasty.info(AddProductActivity.this, "Enter description 1", Toasty.LENGTH_SHORT, true).show();
                 } else if (binding.edtSpecification.getText().toString().equals("")) {
                     Toasty.info(AddProductActivity.this, "Enter Specification", Toasty.LENGTH_SHORT, true).show();
-                } /*else if (binding.entwarranty.getText().toString().equals("")) {
+                }*/ /*else if (binding.entwarranty.getText().toString().equals("")) {
                 Toasty.info(AddProductActivity.this, "Enter Warranty ", Toasty.LENGTH_SHORT, true).show();
             } */ else if (binding.edtmrp.getText().toString().equals("")) {
                     Toasty.info(AddProductActivity.this, "Enter MRP", Toasty.LENGTH_SHORT, true).show();
@@ -259,17 +266,17 @@ public class AddProductActivity extends AppCompatActivity {
                 }
                 if (binding.entproductName.getText().toString().equals("")) {
                     Toasty.info(AddProductActivity.this, "Enter Product Name ", Toasty.LENGTH_SHORT, true).show();
-                } else if (brandId.equals("")) {
+                } else if (binding.edtBrandName.getText().toString().equals("")) {
                     Toasty.info(AddProductActivity.this, "Enter Brand Name ", Toasty.LENGTH_SHORT, true).show();
                 } else if (categoryId.equals("")) {
                     Toasty.info(AddProductActivity.this, "Enter Category ", Toasty.LENGTH_SHORT, true).show();
                 } else if (binding.edtdescription.getText().toString().equals("")) {
                     Toasty.info(AddProductActivity.this, "Enter description ", Toasty.LENGTH_SHORT, true).show();
-                } else if (binding.edtdescription1.getText().toString().equals("")) {
+                } /*else if (binding.edtdescription1.getText().toString().equals("")) {
                     Toasty.info(AddProductActivity.this, "Enter description 1", Toasty.LENGTH_SHORT, true).show();
                 } else if (binding.edtSpecification.getText().toString().equals("")) {
                     Toasty.info(AddProductActivity.this, "Enter Specification", Toasty.LENGTH_SHORT, true).show();
-                } /*else if (binding.entwarranty.getText().toString().equals("")) {
+                }*/ /*else if (binding.entwarranty.getText().toString().equals("")) {
                 Toasty.info(AddProductActivity.this, "Enter Warranty ", Toasty.LENGTH_SHORT, true).show();
             } */ else if (binding.edtmrp.getText().toString().equals("")) {
                     Toasty.info(AddProductActivity.this, "Enter MRP", Toasty.LENGTH_SHORT, true).show();
@@ -309,17 +316,17 @@ public class AddProductActivity extends AppCompatActivity {
                 }
                 if (binding.entproductName.getText().toString().equals("")) {
                     Toasty.info(AddProductActivity.this, "Enter Product Name ", Toasty.LENGTH_SHORT, true).show();
-                } else if (brandId.equals("")) {
+                } else if (binding.edtBrandName.getText().toString().equals("")) {
                     Toasty.info(AddProductActivity.this, "Enter Brand Name ", Toasty.LENGTH_SHORT, true).show();
                 } else if (categoryId.equals("")) {
                     Toasty.info(AddProductActivity.this, "Enter Category ", Toasty.LENGTH_SHORT, true).show();
                 } else if (binding.edtdescription.getText().toString().equals("")) {
                     Toasty.info(AddProductActivity.this, "Enter description ", Toasty.LENGTH_SHORT, true).show();
-                } else if (binding.edtdescription1.getText().toString().equals("")) {
+                } /*else if (binding.edtdescription1.getText().toString().equals("")) {
                     Toasty.info(AddProductActivity.this, "Enter description 1", Toasty.LENGTH_SHORT, true).show();
                 } else if (binding.edtSpecification.getText().toString().equals("")) {
                     Toasty.info(AddProductActivity.this, "Enter Specification", Toasty.LENGTH_SHORT, true).show();
-                } /*else if (binding.entwarranty.getText().toString().equals("")) {
+                } *//*else if (binding.entwarranty.getText().toString().equals("")) {
                 Toasty.info(AddProductActivity.this, "Enter Warranty ", Toasty.LENGTH_SHORT, true).show();
             } */ else if (binding.edtmrp.getText().toString().equals("")) {
                     Toasty.info(AddProductActivity.this, "Enter MRP", Toasty.LENGTH_SHORT, true).show();
@@ -355,17 +362,17 @@ public class AddProductActivity extends AppCompatActivity {
                 }
                 if (binding.entproductName.getText().toString().equals("")) {
                     Toasty.info(AddProductActivity.this, "Enter Product Name ", Toasty.LENGTH_SHORT, true).show();
-                } else if (brandId.equals("")) {
+                } else if (binding.edtBrandName.getText().toString().equals("")) {
                     Toasty.info(AddProductActivity.this, "Enter Brand Name ", Toasty.LENGTH_SHORT, true).show();
                 } else if (categoryId.equals("")) {
                     Toasty.info(AddProductActivity.this, "Enter Category ", Toasty.LENGTH_SHORT, true).show();
                 } else if (binding.edtdescription.getText().toString().equals("")) {
                     Toasty.info(AddProductActivity.this, "Enter description ", Toasty.LENGTH_SHORT, true).show();
-                } else if (binding.edtdescription1.getText().toString().equals("")) {
+                } /*else if (binding.edtdescription1.getText().toString().equals("")) {
                     Toasty.info(AddProductActivity.this, "Enter description 1", Toasty.LENGTH_SHORT, true).show();
                 } else if (binding.edtSpecification.getText().toString().equals("")) {
                     Toasty.info(AddProductActivity.this, "Enter Specification", Toasty.LENGTH_SHORT, true).show();
-                } /*else if (binding.entwarranty.getText().toString().equals("")) {
+                }*/ /*else if (binding.entwarranty.getText().toString().equals("")) {
                 Toasty.info(AddProductActivity.this, "Enter Warranty ", Toasty.LENGTH_SHORT, true).show();
             } */ else if (binding.edtmrp.getText().toString().equals("")) {
                     Toasty.info(AddProductActivity.this, "Enter MRP", Toasty.LENGTH_SHORT, true).show();
@@ -676,8 +683,10 @@ public class AddProductActivity extends AppCompatActivity {
                 RequestBody.create(MediaType.parse("text/plain"), shopIdStr);
         RequestBody product_name =
                 RequestBody.create(MediaType.parse("text/plain"), Objects.requireNonNull(binding.entproductName.getText()).toString());
+       /* RequestBody brand_id =
+                RequestBody.create(MediaType.parse("text/plain"), brandId);*/
         RequestBody brand_id =
-                RequestBody.create(MediaType.parse("text/plain"), brandId);
+                RequestBody.create(MediaType.parse("text/plain"), Objects.requireNonNull(binding.edtBrandName.getText()).toString());
         RequestBody category_id =
                 RequestBody.create(MediaType.parse("text/plain"), categoryId);
         RequestBody description =
@@ -773,8 +782,10 @@ public class AddProductActivity extends AppCompatActivity {
                 RequestBody.create(MediaType.parse("text/plain"), SharedPref.getVal(AddProductActivity.this, SharedPref.shop_id));
         RequestBody product_name =
                 RequestBody.create(MediaType.parse("text/plain"), Objects.requireNonNull(binding.entproductName.getText()).toString());
+//        RequestBody brand_id =
+//                RequestBody.create(MediaType.parse("text/plain"), brandId);
         RequestBody brand_id =
-                RequestBody.create(MediaType.parse("text/plain"), brandId);
+                RequestBody.create(MediaType.parse("text/plain"), Objects.requireNonNull(binding.edtBrandName.getText()).toString());
         RequestBody category_id =
                 RequestBody.create(MediaType.parse("text/plain"), categoryId);
         RequestBody description =
@@ -1141,87 +1152,185 @@ public class AddProductActivity extends AppCompatActivity {
     @Override
     public void onActivityResult(int requestCode, int resuleCode, Intent intent) {
         super.onActivityResult(requestCode, resuleCode, intent);
-        if (resuleCode == RESULT_OK) {
+        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
+            CropImage.ActivityResult result = CropImage.getActivityResult(intent);
+            if (resuleCode == RESULT_OK) {
+                try {
+                    Uri uri = result.getUri();
+
+                    if (uri.getPath().length() > 0) {
+                        File file = new File(uri.getPath());
+
+                        Uri mImageUri = Uri.fromFile(new File(uri.getPath()));
+                        Bitmap selectedImageBitmap = null;
+                        try {
+                            selectedImageBitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), mImageUri);
+                            selectedImageBitmap = getResizedBitmap(selectedImageBitmap, 500);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+
+                        ExifInterface ei = new ExifInterface(uri.getPath());
+                        int orientation = ei.getAttributeInt(ExifInterface.TAG_ORIENTATION,
+                                ExifInterface.ORIENTATION_UNDEFINED);
+
+                        switch (orientation) {
+
+                            case ExifInterface.ORIENTATION_ROTATE_90:
+                                selectedImageBitmap = rotateImage(selectedImageBitmap, 90);
+                                break;
+
+                            case ExifInterface.ORIENTATION_ROTATE_180:
+                                selectedImageBitmap = rotateImage(selectedImageBitmap, 180);
+                                break;
+
+                            case ExifInterface.ORIENTATION_ROTATE_270:
+                                selectedImageBitmap = rotateImage(selectedImageBitmap, 270);
+                                break;
+
+                            case ExifInterface.ORIENTATION_NORMAL:
+                            default:
+                                selectedImageBitmap = selectedImageBitmap;
+                        }
+
+                        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+                        selectedImageBitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
+                        byte[] byteArrayImage = byteArrayOutputStream.toByteArray();
+                        encodedImage = Base64.encodeToString(byteArrayImage, Base64.DEFAULT);
+
+                        if (var == 1) {
+                            binding.image1.setImageBitmap(selectedImageBitmap);
+                            binding.imgCameraimage1.setVisibility(View.GONE);
+                            binding.image1.setVisibility(View.VISIBLE);
+                            fileImage1 = file;
+
+                            if (from.equals("edit")) {
+                                imageId = productDataModelList.get(0).getProductImages().get(0).getProductImageID();
+                                updateProductImage(imageId, fileImage1.getPath());
+                            }
+//                        binding.image1.setVisibility(View.VISIBLE);
+                        } else if (var == 2) {
+                            binding.image2.setImageBitmap(selectedImageBitmap);
+                            binding.imgCameraimage2.setVisibility(View.GONE);
+                            binding.image2.setVisibility(View.VISIBLE);
+                            fileImage2 = file;
+
+                            if (from.equals("edit")) {
+                                imageId = productDataModelList.get(0).getProductImages().get(1).getProductImageID();
+                                updateProductImage(imageId, fileImage2.getPath());
+                            }
+//                        binding.image1.setVisibility(View.VISIBLE);
+                        } else if (var == 3) {
+                            binding.image3.setImageBitmap(selectedImageBitmap);
+                            fileImage3 = file;
+                            binding.imgCameraimage3.setVisibility(View.GONE);
+                            binding.image3.setVisibility(View.VISIBLE);
+
+                            if (from.equals("edit")) {
+                                imageId = productDataModelList.get(0).getProductImages().get(2).getProductImageID();
+                                updateProductImage(imageId, fileImage3.getPath());
+                            }
+//                        binding.image1.setVisibility(View.VISIBLE);
+                        }
+//                    binding.imgProfile.setImageURI(uri);
+                    } else {
+                        Toast.makeText(getApplicationContext(), "No Image Captured", Toast.LENGTH_SHORT).show();
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                //From here you can load the image however you need to, I recommend using the Glide library
+
+            } else if (resuleCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
+                Exception error = result.getError();
+            }
+        } else if (resuleCode == RESULT_OK) {
             try {
                 Uri uri = intent.getData();
                 File file = ImagePicker.Companion.getFile(intent);
 
-                if (uri.getPath().length() > 0) {
-                    Uri mImageUri = Uri.fromFile(new File(uri.getPath()));
-                    Bitmap selectedImageBitmap = null;
-                    try {
-                        selectedImageBitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), mImageUri);
-                        selectedImageBitmap = getResizedBitmap(selectedImageBitmap, 500);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+                /*image cropping*/
+                CropImage.activity(uri)
+                        .setGuidelines(CropImageView.Guidelines.ON)
+                        .start(this);
 
-                    ExifInterface ei = new ExifInterface(uri.getPath());
-                    int orientation = ei.getAttributeInt(ExifInterface.TAG_ORIENTATION,
-                            ExifInterface.ORIENTATION_UNDEFINED);
 
-                    switch (orientation) {
-
-                        case ExifInterface.ORIENTATION_ROTATE_90:
-                            selectedImageBitmap = rotateImage(selectedImageBitmap, 90);
-                            break;
-
-                        case ExifInterface.ORIENTATION_ROTATE_180:
-                            selectedImageBitmap = rotateImage(selectedImageBitmap, 180);
-                            break;
-
-                        case ExifInterface.ORIENTATION_ROTATE_270:
-                            selectedImageBitmap = rotateImage(selectedImageBitmap, 270);
-                            break;
-
-                        case ExifInterface.ORIENTATION_NORMAL:
-                        default:
-                            selectedImageBitmap = selectedImageBitmap;
-                    }
-
-                    ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-                    selectedImageBitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
-                    byte[] byteArrayImage = byteArrayOutputStream.toByteArray();
-                    encodedImage = Base64.encodeToString(byteArrayImage, Base64.DEFAULT);
-
-                    if (var == 1) {
-                        binding.image1.setImageBitmap(selectedImageBitmap);
-                        binding.imgCameraimage1.setVisibility(View.GONE);
-                        binding.image1.setVisibility(View.VISIBLE);
-                        fileImage1 = file;
-
-                        if (from.equals("edit")) {
-                            imageId = productDataModelList.get(0).getProductImages().get(0).getProductImageID();
-                            updateProductImage(imageId, fileImage1.getPath());
-                        }
+//                if (uri.getPath().length() > 0) {
+//                    Uri mImageUri = Uri.fromFile(new File(uri.getPath()));
+//                    Bitmap selectedImageBitmap = null;
+//                    try {
+//                        selectedImageBitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), mImageUri);
+//                        selectedImageBitmap = getResizedBitmap(selectedImageBitmap, 500);
+//                    } catch (IOException e) {
+//                        e.printStackTrace();
+//                    }
+//
+//                    ExifInterface ei = new ExifInterface(uri.getPath());
+//                    int orientation = ei.getAttributeInt(ExifInterface.TAG_ORIENTATION,
+//                            ExifInterface.ORIENTATION_UNDEFINED);
+//
+//                    switch (orientation) {
+//
+//                        case ExifInterface.ORIENTATION_ROTATE_90:
+//                            selectedImageBitmap = rotateImage(selectedImageBitmap, 90);
+//                            break;
+//
+//                        case ExifInterface.ORIENTATION_ROTATE_180:
+//                            selectedImageBitmap = rotateImage(selectedImageBitmap, 180);
+//                            break;
+//
+//                        case ExifInterface.ORIENTATION_ROTATE_270:
+//                            selectedImageBitmap = rotateImage(selectedImageBitmap, 270);
+//                            break;
+//
+//                        case ExifInterface.ORIENTATION_NORMAL:
+//                        default:
+//                            selectedImageBitmap = selectedImageBitmap;
+//                    }
+//
+//                    ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+//                    selectedImageBitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
+//                    byte[] byteArrayImage = byteArrayOutputStream.toByteArray();
+//                    encodedImage = Base64.encodeToString(byteArrayImage, Base64.DEFAULT);
+//
+//                    if (var == 1) {
+//                        binding.image1.setImageBitmap(selectedImageBitmap);
+//                        binding.imgCameraimage1.setVisibility(View.GONE);
 //                        binding.image1.setVisibility(View.VISIBLE);
-                    } else if (var == 2) {
-                        binding.image2.setImageBitmap(selectedImageBitmap);
-                        binding.imgCameraimage2.setVisibility(View.GONE);
-                        binding.image2.setVisibility(View.VISIBLE);
-                        fileImage2 = file;
-
-                        if (from.equals("edit")) {
-                            imageId = productDataModelList.get(0).getProductImages().get(1).getProductImageID();
-                            updateProductImage(imageId, fileImage2.getPath());
-                        }
-//                        binding.image1.setVisibility(View.VISIBLE);
-                    } else if (var == 3) {
-                        binding.image3.setImageBitmap(selectedImageBitmap);
-                        fileImage3 = file;
-                        binding.imgCameraimage3.setVisibility(View.GONE);
-                        binding.image3.setVisibility(View.VISIBLE);
-
-                        if (from.equals("edit")) {
-                            imageId = productDataModelList.get(0).getProductImages().get(2).getProductImageID();
-                            updateProductImage(imageId, fileImage3.getPath());
-                        }
-//                        binding.image1.setVisibility(View.VISIBLE);
-                    }
-//                    binding.imgProfile.setImageURI(uri);
-                } else {
-                    Toast.makeText(getApplicationContext(), "No Image Captured", Toast.LENGTH_SHORT).show();
-                }
+//                        fileImage1 = file;
+//
+//                        if (from.equals("edit")) {
+//                            imageId = productDataModelList.get(0).getProductImages().get(0).getProductImageID();
+//                            updateProductImage(imageId, fileImage1.getPath());
+//                        }
+////                        binding.image1.setVisibility(View.VISIBLE);
+//                    } else if (var == 2) {
+//                        binding.image2.setImageBitmap(selectedImageBitmap);
+//                        binding.imgCameraimage2.setVisibility(View.GONE);
+//                        binding.image2.setVisibility(View.VISIBLE);
+//                        fileImage2 = file;
+//
+//                        if (from.equals("edit")) {
+//                            imageId = productDataModelList.get(0).getProductImages().get(1).getProductImageID();
+//                            updateProductImage(imageId, fileImage2.getPath());
+//                        }
+////                        binding.image1.setVisibility(View.VISIBLE);
+//                    } else if (var == 3) {
+//                        binding.image3.setImageBitmap(selectedImageBitmap);
+//                        fileImage3 = file;
+//                        binding.imgCameraimage3.setVisibility(View.GONE);
+//                        binding.image3.setVisibility(View.VISIBLE);
+//
+//                        if (from.equals("edit")) {
+//                            imageId = productDataModelList.get(0).getProductImages().get(2).getProductImageID();
+//                            updateProductImage(imageId, fileImage3.getPath());
+//                        }
+////                        binding.image1.setVisibility(View.VISIBLE);
+//                    }
+////                    binding.imgProfile.setImageURI(uri);
+//                } else {
+//                    Toast.makeText(getApplicationContext(), "No Image Captured", Toast.LENGTH_SHORT).show();
+//                }
 
             } catch (Exception e) {
                 e.printStackTrace();
@@ -1256,7 +1365,6 @@ public class AddProductActivity extends AppCompatActivity {
                             isclick = false;
                         } else {
 //                            dialog.dismiss();
-                            isclick = true;
                             isclick = true;
                         }
                     } else {

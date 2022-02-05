@@ -98,8 +98,12 @@ public class ShopSignBoardActivity extends AppCompatActivity {
         binding.spinbackcolor.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-
                 backgroundColor = backgroundcolorModelList.get(i).getBgColorId();
+
+                if (!backgroundcolorModelList.get(i).getBgColorName().equals("Select Background Color")) {
+                    binding.lnrBack.setBackgroundColor(Color.parseColor(backgroundcolorModelList.get(i).getBgColorName()));
+                }
+
             }
 
             @Override
@@ -110,8 +114,44 @@ public class ShopSignBoardActivity extends AppCompatActivity {
         binding.spinFontStyle.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-
                 fontStyle = shopFontModelList.get(i).getFontStyleId();
+
+                Typeface typeface = null;
+                if (shopFontModelList.get(i).getFontStyleId().equals("1")) {
+                    typeface = ResourcesCompat.getFont(ShopSignBoardActivity.this, R.font.roboto_black);
+                } else if (shopFontModelList.get(i).getFontStyleId().equals("2")) {
+                    typeface = ResourcesCompat.getFont(ShopSignBoardActivity.this, R.font.roboto_blackitalic);
+                } else if (shopFontModelList.get(i).getFontStyleId().equals("3")) {
+                    typeface = ResourcesCompat.getFont(ShopSignBoardActivity.this, R.font.roboto_bold);
+                } else if (shopFontModelList.get(i).getFontStyleId().equals("4")) {
+                    typeface = ResourcesCompat.getFont(ShopSignBoardActivity.this, R.font.roboto_boldcondensed);
+                } else if (shopFontModelList.get(i).getFontStyleId().equals("5")) {
+                    typeface = ResourcesCompat.getFont(ShopSignBoardActivity.this, R.font.roboto_boldcondenseditalic);
+                } else if (shopFontModelList.get(i).getFontStyleId().equals("6")) {
+                    typeface = ResourcesCompat.getFont(ShopSignBoardActivity.this, R.font.roboto_bolditalic);
+                } else if (shopFontModelList.get(i).getFontStyleId().equals("7")) {
+                    typeface = ResourcesCompat.getFont(ShopSignBoardActivity.this, R.font.roboto_condensed);
+                } else if (shopFontModelList.get(i).getFontStyleId().equals("8")) {
+                    typeface = ResourcesCompat.getFont(ShopSignBoardActivity.this, R.font.roboto_condenseditalic);
+                } else if (shopFontModelList.get(i).getFontStyleId().equals("9")) {
+                    typeface = ResourcesCompat.getFont(ShopSignBoardActivity.this, R.font.roboto_italic);
+                } else if (shopFontModelList.get(i).getFontStyleId().equals("10")) {
+                    typeface = ResourcesCompat.getFont(ShopSignBoardActivity.this, R.font.roboto_light);
+                } else if (shopFontModelList.get(i).getFontStyleId().equals("11")) {
+                    typeface = ResourcesCompat.getFont(ShopSignBoardActivity.this, R.font.roboto_lightitalic);
+                } else if (shopFontModelList.get(i).getFontStyleId().equals("12")) {
+                    typeface = ResourcesCompat.getFont(ShopSignBoardActivity.this, R.font.roboto_medium);
+                } else if (shopFontModelList.get(i).getFontStyleId().equals("13")) {
+                    typeface = ResourcesCompat.getFont(ShopSignBoardActivity.this, R.font.roboto_mediumitalic);
+                } else if (shopFontModelList.get(i).getFontStyleId().equals("14")) {
+                    typeface = ResourcesCompat.getFont(ShopSignBoardActivity.this, R.font.roboto_regular);
+                } else if (shopFontModelList.get(i).getFontStyleId().equals("15")) {
+                    typeface = ResourcesCompat.getFont(ShopSignBoardActivity.this, R.font.roboto_thin);
+                } else if (shopFontModelList.get(i).getFontStyleId().equals("16")) {
+                    typeface = ResourcesCompat.getFont(ShopSignBoardActivity.this, R.font.roboto_thinitalic);
+                }
+                if (!shopFontModelList.get(i).getFontStyleId().equals("") || !shopFontModelList.get(i).getFontStyleId().equals("0"))
+                    binding.txtName.setTypeface(typeface);
             }
 
             @Override
@@ -122,8 +162,11 @@ public class ShopSignBoardActivity extends AppCompatActivity {
         binding.spinBoardSignFontColor.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-
                 fontColor = shopFontModelListSize.get(i).getFontColorId();
+
+                if (!shopFontModelListSize.get(i).getFontColorName().equals("Select Font Color")) {
+                    binding.txtName.setTextColor(Color.parseColor(shopFontModelListSize.get(i).getFontColorName()));
+                }
 
             }
 
@@ -239,7 +282,6 @@ public class ShopSignBoardActivity extends AppCompatActivity {
     }
 
     private void setShopFontStyle(ArrayList<ShopFontStyleModel> shopFontModelList, AppCompatSpinner spinnershopfont) {
-
 
         ArrayAdapter<ShopFontStyleModel> modelArrayAdapter = new ArrayAdapter<ShopFontStyleModel>(ShopSignBoardActivity.this,
                 R.layout.custom_spinner_shopfont, shopFontModelList) {
@@ -377,7 +419,7 @@ public class ShopSignBoardActivity extends AppCompatActivity {
 
                         binding.txtName.setText(shopDetailsDataModel.getShopName());
 
-                        binding.txtAddress.setText(shopDetailsDataModel.getShopAddress() + "," + shopDetailsDataModel.getCity() + "," + shopDetailsDataModel.getState());
+                        binding.txtAddress.setText(shopDetailsDataModel.getCity() + "," + shopDetailsDataModel.getState());
                         binding.txtMobile.setText(shopDetailsDataModel.getShopMobileNo());
 
                         binding.lnrBack.setBackgroundColor(Color.parseColor(shopDetailsDataModel.getBgcolorName()));
@@ -420,20 +462,20 @@ public class ShopSignBoardActivity extends AppCompatActivity {
                         if (!shopDetailsDataModel.getFontStyleId().equals("") || !shopDetailsDataModel.getFontStyleId().equals("0"))
                             binding.txtName.setTypeface(typeface);
 
-                        fontColor = shopDetailsDataModel.getFontColorName();
-                        backgroundColor = shopDetailsDataModel.getBgcolorName();
+                        fontColor = shopDetailsDataModel.getFontColorName2();
+                        backgroundColor = shopDetailsDataModel.getBgcolorName2();
                         fontStyle = shopDetailsDataModel.getFontStyleId();
 
                         if (shopDetailsDataModel != null) {
                             for (int i = 0; i < shopFontModelListSize.size(); i++) {
-                                if (shopFontModelListSize.get(i).getFontColorName().equals(shopDetailsDataModel.getFontColorName()))
+                                if (shopFontModelListSize.get(i).getFontColorName2().equals(shopDetailsDataModel.getFontColorName2()))
                                     binding.spinBoardSignFontColor.setSelection(i);
                             }
                         }
 
                         if (shopDetailsDataModel != null) {
                             for (int i = 0; i < backgroundcolorModelList.size(); i++) {
-                                if (backgroundcolorModelList.get(i).getBgColorName().equals(shopDetailsDataModel.getBgcolorName()))
+                                if (backgroundcolorModelList.get(i).getBgColorName2().equals(shopDetailsDataModel.getBgcolorName2()))
                                     binding.spinbackcolor.setSelection(i);
                             }
                         }
@@ -566,6 +608,7 @@ public class ShopSignBoardActivity extends AppCompatActivity {
 
                     model1.setFontColorId("");
                     model1.setFontColorName("Select Font Color");
+                    model1.setFontColorName2("Select Font Color");
                     shopFontModelListSize.add(model1);
 
                     JSONArray jsonArray = jsonObject.getJSONArray("data");
@@ -577,6 +620,7 @@ public class ShopSignBoardActivity extends AppCompatActivity {
 
                             model.setFontColorId(jsonObject1.getString("font_color_id"));
                             model.setFontColorName(jsonObject1.getString("font_color_name"));
+                            model.setFontColorName2(jsonObject1.getString("font_color_name2"));
 
                             shopFontModelListSize.add(model);
                         }
@@ -625,8 +669,7 @@ public class ShopSignBoardActivity extends AppCompatActivity {
 
     }
 
-    private void setShopFontColor
-            (ArrayList<ShopFontColorModel> shopFontModelList, AppCompatSpinner spinnershopfont) {
+    private void setShopFontColor(ArrayList<ShopFontColorModel> shopFontModelList, AppCompatSpinner spinnershopfont) {
 
 
         ArrayAdapter<ShopFontColorModel> modelArrayAdapter = new ArrayAdapter<ShopFontColorModel>(ShopSignBoardActivity.this,
@@ -642,7 +685,7 @@ public class ShopSignBoardActivity extends AppCompatActivity {
                 }
                 View color = v.findViewById(R.id.bacKcolor);
                 AppCompatTextView colorname = v.findViewById(R.id.colorname);
-                colorname.setText(shopFontModelList.get(position).getFontColorName());
+                colorname.setText(shopFontModelList.get(position).getFontColorName2());
                 if (!shopFontModelList.get(position).getFontColorId().equals("")) {
                     color.setBackgroundColor(Color.parseColor(shopFontModelList.get(position).getFontColorName()));
                 }
@@ -669,7 +712,7 @@ public class ShopSignBoardActivity extends AppCompatActivity {
 
                 View color = v.findViewById(R.id.bacKcolor);
                 AppCompatTextView colorname = v.findViewById(R.id.colorname);
-                colorname.setText(shopFontModelList.get(position).getFontColorName());
+                colorname.setText(shopFontModelList.get(position).getFontColorName2());
                 if (!shopFontModelList.get(position).getFontColorId().equals("")) {
                     color.setBackgroundColor(Color.parseColor(shopFontModelList.get(position).getFontColorName()));
                 }
@@ -706,6 +749,7 @@ public class ShopSignBoardActivity extends AppCompatActivity {
 
                     model1.setBgColorId("");
                     model1.setBgColorName("Select Background Color");
+                    model1.setBgColorName2("Select Background Color");
                     model1.setIsActive("");
                     backgroundcolorModelList.add(model1);
 
@@ -718,6 +762,7 @@ public class ShopSignBoardActivity extends AppCompatActivity {
 
                             model.setBgColorId(jsonObject1.getString("bg_color_id"));
                             model.setBgColorName(jsonObject1.getString("bg_color_name"));
+                            model.setBgColorName2(jsonObject1.getString("bg_color_name2"));
                             model.setIsActive(jsonObject1.getString("isActive"));
 
                             backgroundcolorModelList.add(model);
@@ -785,7 +830,7 @@ public class ShopSignBoardActivity extends AppCompatActivity {
                 }
                 View color = (View) v.findViewById(R.id.bacKcolor);
                 AppCompatTextView colorname = (AppCompatTextView) v.findViewById(R.id.colorname);
-                colorname.setText(backgroundcolorModelList.get(position).getBgColorName());
+                colorname.setText(backgroundcolorModelList.get(position).getBgColorName2());
                 if (!backgroundcolorModelList.get(position).getBgColorId().equals("")) {
                     color.setBackgroundColor(Color.parseColor(backgroundcolorModelList.get(position).getBgColorName()));
                 }
@@ -812,7 +857,7 @@ public class ShopSignBoardActivity extends AppCompatActivity {
 
                 View color = (View) v.findViewById(R.id.bacKcolor);
                 AppCompatTextView colorname = (AppCompatTextView) v.findViewById(R.id.colorname);
-                colorname.setText(backgroundcolorModelList.get(position).getBgColorName());
+                colorname.setText(backgroundcolorModelList.get(position).getBgColorName2());
                 if (!backgroundcolorModelList.get(position).getBgColorId().equals("")) {
                     color.setBackgroundColor(Color.parseColor(backgroundcolorModelList.get(position).getBgColorName()));
                 }

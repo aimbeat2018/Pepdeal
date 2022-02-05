@@ -239,6 +239,7 @@
                                 android:id="@+id/img_image1"
                                 android:layout_width="match_parent"
                                 android:layout_height="@dimen/margin_180"
+                                android:onClick="@{handler::onClickImage1}"
                                 android:padding="@dimen/margin_8" />
                         </RelativeLayout>
 
@@ -269,6 +270,7 @@
                             android:id="@+id/img_image2"
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/margin_180"
+                            android:onClick="@{handler::onClickImage2}"
                             android:padding="@dimen/margin_8" />
 
                         <androidx.appcompat.widget.AppCompatTextView
@@ -298,6 +300,7 @@
                             android:id="@+id/img_image3"
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/margin_180"
+                            android:onClick="@{handler::onClickImage3}"
                             android:padding="@dimen/margin_8" />
 
                         <androidx.appcompat.widget.LinearLayoutCompat

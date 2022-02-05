@@ -17,7 +17,7 @@
             android:id="@+id/card_tab"
             android:layout_width="@dimen/margin_65"
             android:layout_height="@dimen/margin_65"
-            android:layout_marginHorizontal="@dimen/margin_3"
+            android:layout_marginHorizontal="@dimen/margin_5"
             android:layout_marginVertical="@dimen/margin_10"
             app:cardCornerRadius="@dimen/margin_35"
             app:cardElevation="@dimen/margin_5">

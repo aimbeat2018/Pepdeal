@@ -58,7 +58,7 @@ public class HomeActivity extends AppCompatActivity {
     ActivityHomeBinding binding;
     ArrayList<UsersHomeTabModel> homeTabModelArrayList = new ArrayList<>();
     public static int pos = 1;
-    String user_status = "";
+    String user_status = "", shop_name = "", username = "";
     String msgFlagDefault = "0";
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -132,8 +132,9 @@ public class HomeActivity extends AppCompatActivity {
 
                         JSONObject jsonObject1 = jsonObject.getJSONObject("body");
 
-                        String username = jsonObject1.getString("first_name");
+                        username = jsonObject1.getString("first_name");
                         String mobile = jsonObject1.getString("mobile_no");
+                        shop_name = jsonObject1.getString("shop_name");
                         user_status = jsonObject1.getString("user_status");
                         String shop_id = jsonObject1.getString("shop_id");
                         binding.includeLayout.txtname.setText(username);
@@ -191,6 +192,7 @@ public class HomeActivity extends AppCompatActivity {
             binding.includeLayout.lnrSellerBackground.setBackgroundColor(Color.parseColor("#F6B394"));
             msgFlagDefault = "0";
             SharedPref.putVal(HomeActivity.this, SharedPref.msgFlag, msgFlagDefault);
+            binding.includeLayout.txtname.setText(username);
         }
 
 
@@ -209,6 +211,8 @@ public class HomeActivity extends AppCompatActivity {
                 binding.includeLayout.lnrCustomerBackground.setBackgroundColor(Color.parseColor("#F6B394"));
                 msgFlagDefault = "1";
                 SharedPref.putVal(HomeActivity.this, SharedPref.msgFlag, msgFlagDefault);
+
+                binding.includeLayout.txtname.setText(shop_name);
             } else {
                 Toast.makeText(HomeActivity.this, "First Add Your Shop", Toast.LENGTH_SHORT).show();
             }

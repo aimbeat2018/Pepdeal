@@ -19,6 +19,9 @@ public class ShopDetailsDataModel {
     @SerializedName("bgcolor_name")
     @Expose
     private String bgcolorName;
+    @SerializedName("bgcolor_name2")
+    @Expose
+    private String bgcolorName2;
     @SerializedName("fontsize_name")
     @Expose
     private String fontsizeName;
@@ -46,6 +49,9 @@ public class ShopDetailsDataModel {
     @SerializedName("fontcolor_name")
     @Expose
     private String fontColorName;
+    @SerializedName("fontcolor_name2")
+    @Expose
+    private String fontColorName2;
 
     public String getShopId() {
         return shopId;
@@ -157,5 +163,21 @@ public class ShopDetailsDataModel {
 
     public void setFontStyleId(String fontStyleId) {
         this.fontStyleId = fontStyleId;
+    }
+
+    public String getBgcolorName2() {
+        return bgcolorName2;
+    }
+
+    public void setBgcolorName2(String bgcolorName2) {
+        this.bgcolorName2 = bgcolorName2;
+    }
+
+    public String getFontColorName2() {
+        return fontColorName2;
+    }
+
+    public void setFontColorName2(String fontColorName2) {
+        this.fontColorName2 = fontColorName2;
     }
 }

@@ -104,15 +104,31 @@
                     android:layout_marginHorizontal="@dimen/margin_13"
                     android:orientation="vertical">
 
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:layout_width="wrap_content"
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="@dimen/margin_10"
-                        android:fontFamily="@font/roboto_regular"
-                        android:gravity="center"
-                        android:text="@string/product_name"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/text_15" />
+                        android:orientation="horizontal">
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/margin_10"
+                            android:fontFamily="@font/roboto_regular"
+                            android:gravity="center"
+                            android:text="@string/product_name"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/text_15" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/roboto_regular"
+                            android:gravity="center"
+                            android:paddingHorizontal="@dimen/margin_8"
+                            android:text="*"
+                            android:textColor="@color/red"
+                            android:textSize="@dimen/text_15" />
+                    </androidx.appcompat.widget.LinearLayoutCompat>
 
                     <androidx.cardview.widget.CardView
                         android:layout_width="match_parent"
@@ -155,15 +171,31 @@
                     android:layout_marginTop="@dimen/margin_10"
                     android:orientation="vertical">
 
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:layout_width="wrap_content"
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="@dimen/margin_10"
-                        android:fontFamily="@font/roboto_regular"
-                        android:gravity="center"
-                        android:text="@string/brand_name"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/text_15" />
+                        android:orientation="horizontal">
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/margin_10"
+                            android:fontFamily="@font/roboto_regular"
+                            android:gravity="center"
+                            android:text="@string/brand_name"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/text_15" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/roboto_regular"
+                            android:gravity="center"
+                            android:paddingHorizontal="@dimen/margin_8"
+                            android:text="*"
+                            android:textColor="@color/red"
+                            android:textSize="@dimen/text_15" />
+                    </androidx.appcompat.widget.LinearLayoutCompat>
 
                     <androidx.cardview.widget.CardView
                         android:layout_width="match_parent"
@@ -187,7 +219,21 @@
                                 android:id="@+id/spinBrand"
                                 android:layout_width="match_parent"
                                 android:layout_height="@dimen/margin_35"
-                                android:layout_marginHorizontal="@dimen/margin_5" />
+                                android:layout_marginHorizontal="@dimen/margin_5"
+                                android:visibility="gone" />
+
+                            <androidx.appcompat.widget.AppCompatEditText
+                                android:id="@+id/edtBrandName"
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/margin_35"
+                                android:layout_marginHorizontal="@dimen/margin_5"
+                                android:background="@null"
+                                android:fontFamily="@font/roboto_regular"
+                                android:hint="@string/enter_brand_name"
+                                android:paddingStart="@dimen/margin_5"
+                                android:textColor="@color/black"
+                                android:textColorHint="@color/lightGrayColor"
+                                android:textSize="@dimen/text_14" />
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
                 </androidx.appcompat.widget.LinearLayoutCompat>
@@ -199,15 +245,31 @@
                     android:layout_marginTop="@dimen/margin_10"
                     android:orientation="vertical">
 
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:layout_width="wrap_content"
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="@dimen/margin_10"
-                        android:fontFamily="@font/roboto_regular"
-                        android:gravity="center"
-                        android:text="@string/category"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/text_15" />
+                        android:orientation="horizontal">
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/margin_10"
+                            android:fontFamily="@font/roboto_regular"
+                            android:gravity="center"
+                            android:text="@string/category"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/text_15" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/roboto_regular"
+                            android:gravity="center"
+                            android:paddingHorizontal="@dimen/margin_8"
+                            android:text="*"
+                            android:textColor="@color/red"
+                            android:textSize="@dimen/text_15" />
+                    </androidx.appcompat.widget.LinearLayoutCompat>
 
                     <androidx.cardview.widget.CardView
                         android:layout_width="match_parent"
@@ -243,15 +305,31 @@
                     android:layout_marginTop="@dimen/margin_10"
                     android:orientation="vertical">
 
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:layout_width="wrap_content"
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="@dimen/margin_10"
-                        android:fontFamily="@font/roboto_regular"
-                        android:gravity="center"
-                        android:text="@string/description"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/text_15" />
+                        android:orientation="horizontal">
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/margin_10"
+                            android:fontFamily="@font/roboto_regular"
+                            android:gravity="center"
+                            android:text="@string/description"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/text_15" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/roboto_regular"
+                            android:gravity="center"
+                            android:paddingHorizontal="@dimen/margin_8"
+                            android:text="*"
+                            android:textColor="@color/red"
+                            android:textSize="@dimen/text_15" />
+                    </androidx.appcompat.widget.LinearLayoutCompat>
 
                     <androidx.cardview.widget.CardView
                         android:layout_width="match_parent"
@@ -601,17 +679,32 @@
                     android:layout_marginHorizontal="@dimen/margin_13"
                     android:orientation="vertical">
 
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:layout_width="wrap_content"
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="start"
-                        android:layout_marginHorizontal="@dimen/margin_10"
                         android:layout_marginVertical="@dimen/margin_10"
-                        android:fontFamily="@font/roboto_bold"
-                        android:gravity="center"
-                        android:text="@string/price"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/text_15" />
+                        android:orientation="horizontal">
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/margin_10"
+                            android:fontFamily="@font/roboto_regular"
+                            android:gravity="center"
+                            android:text="@string/price"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/text_15" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/roboto_regular"
+                            android:gravity="center"
+                            android:paddingHorizontal="@dimen/margin_8"
+                            android:text="*"
+                            android:textColor="@color/red"
+                            android:textSize="@dimen/text_15" />
+                    </androidx.appcompat.widget.LinearLayoutCompat>
 
                     <androidx.appcompat.widget.LinearLayoutCompat
                         android:layout_width="match_parent"
@@ -781,17 +874,32 @@
                     android:layout_marginTop="@dimen/margin_10"
                     android:orientation="vertical">
 
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:layout_width="wrap_content"
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="start"
-                        android:layout_marginHorizontal="@dimen/margin_10"
                         android:layout_marginVertical="@dimen/margin_10"
-                        android:fontFamily="@font/roboto_bold"
-                        android:gravity="center"
-                        android:text="@string/upload_product_image"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/text_15" />
+                        android:orientation="horizontal">
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/margin_10"
+                            android:fontFamily="@font/roboto_regular"
+                            android:gravity="center"
+                            android:text="@string/upload_product_image"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/text_15" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/roboto_regular"
+                            android:gravity="center"
+                            android:paddingHorizontal="@dimen/margin_8"
+                            android:text="*"
+                            android:textColor="@color/red"
+                            android:textSize="@dimen/text_15" />
+                    </androidx.appcompat.widget.LinearLayoutCompat>
 
                     <androidx.appcompat.widget.LinearLayoutCompat
                         android:layout_width="match_parent"

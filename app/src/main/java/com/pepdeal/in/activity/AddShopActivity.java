@@ -425,6 +425,7 @@ public class AddShopActivity extends AppCompatActivity {
 
                     model1.setFontColorId("");
                     model1.setFontColorName("Select Font Color");
+                    model1.setFontColorName2("Select Font Color");
                     shopFontModelListSize.add(model1);
 
                     JSONArray jsonArray = jsonObject.getJSONArray("data");
@@ -436,6 +437,7 @@ public class AddShopActivity extends AppCompatActivity {
 
                             model.setFontColorId(jsonObject1.getString("font_color_id"));
                             model.setFontColorName(jsonObject1.getString("font_color_name"));
+                            model.setFontColorName2(jsonObject1.getString("font_color_name2"));
 
                             shopFontModelListSize.add(model);
                         }
@@ -493,7 +495,7 @@ public class AddShopActivity extends AppCompatActivity {
                 }
                 View color = v.findViewById(R.id.bacKcolor);
                 AppCompatTextView colorname = v.findViewById(R.id.colorname);
-                colorname.setText(shopFontModelList.get(position).getFontColorName());
+                colorname.setText(shopFontModelList.get(position).getFontColorName2());
                 if (!shopFontModelList.get(position).getFontColorId().equals("")) {
                     color.setBackgroundColor(Color.parseColor(shopFontModelList.get(position).getFontColorName()));
                 }
@@ -520,7 +522,7 @@ public class AddShopActivity extends AppCompatActivity {
 
                 View color = v.findViewById(R.id.bacKcolor);
                 AppCompatTextView colorname = v.findViewById(R.id.colorname);
-                colorname.setText(shopFontModelList.get(position).getFontColorName());
+                colorname.setText(shopFontModelList.get(position).getFontColorName2());
                 if (!shopFontModelList.get(position).getFontColorId().equals("")) {
                     color.setBackgroundColor(Color.parseColor(shopFontModelList.get(position).getFontColorName()));
                 }
@@ -557,6 +559,7 @@ public class AddShopActivity extends AppCompatActivity {
 
                     model1.setBgColorId("");
                     model1.setBgColorName("Select Background Color");
+                    model1.setBgColorName2("Select Background Color");
                     model1.setIsActive("");
                     backgroundcolorModelList.add(model1);
 
@@ -569,6 +572,7 @@ public class AddShopActivity extends AppCompatActivity {
 
                             model.setBgColorId(jsonObject1.getString("bg_color_id"));
                             model.setBgColorName(jsonObject1.getString("bg_color_name"));
+                            model.setBgColorName2(jsonObject1.getString("bg_color_name2"));
                             model.setIsActive(jsonObject1.getString("isActive"));
 
                             backgroundcolorModelList.add(model);
@@ -627,7 +631,7 @@ public class AddShopActivity extends AppCompatActivity {
                 }
                 View color = (View) v.findViewById(R.id.bacKcolor);
                 AppCompatTextView colorname = (AppCompatTextView) v.findViewById(R.id.colorname);
-                colorname.setText(backgroundcolorModelList.get(position).getBgColorName());
+                colorname.setText(backgroundcolorModelList.get(position).getBgColorName2());
                 if (!backgroundcolorModelList.get(position).getBgColorId().equals("")) {
                     color.setBackgroundColor(Color.parseColor(backgroundcolorModelList.get(position).getBgColorName()));
                 }
@@ -654,7 +658,7 @@ public class AddShopActivity extends AppCompatActivity {
 
                 View color = (View) v.findViewById(R.id.bacKcolor);
                 AppCompatTextView colorname = (AppCompatTextView) v.findViewById(R.id.colorname);
-                colorname.setText(backgroundcolorModelList.get(position).getBgColorName());
+                colorname.setText(backgroundcolorModelList.get(position).getBgColorName2());
                 if (!backgroundcolorModelList.get(position).getBgColorId().equals("")) {
                     color.setBackgroundColor(Color.parseColor(backgroundcolorModelList.get(position).getBgColorName()));
                 }

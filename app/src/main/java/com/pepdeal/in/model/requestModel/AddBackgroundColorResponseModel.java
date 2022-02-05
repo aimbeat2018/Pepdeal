@@ -11,6 +11,9 @@ public class AddBackgroundColorResponseModel {
     @SerializedName("bg_color_name")
     @Expose
     private String bgColorName;
+    @SerializedName("bg_color_name2")
+    @Expose
+    private String bgColorName2;
     @SerializedName("isActive")
     @Expose
     private String isActive;
@@ -35,6 +38,14 @@ public class AddBackgroundColorResponseModel {
 
     public void setBgColorName(String bgColorName) {
         this.bgColorName = bgColorName;
+    }
+
+    public String getBgColorName2() {
+        return bgColorName2;
+    }
+
+    public void setBgColorName2(String bgColorName2) {
+        this.bgColorName2 = bgColorName2;
     }
 
     public String getIsActive() {

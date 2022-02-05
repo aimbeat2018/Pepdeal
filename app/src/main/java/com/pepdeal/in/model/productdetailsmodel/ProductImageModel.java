@@ -3,7 +3,9 @@ package com.pepdeal.in.model.productdetailsmodel;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class ProductImageModel {
+import java.io.Serializable;
+
+public class ProductImageModel implements Serializable {
     @SerializedName("product_image")
     @Expose
     private String productImage;

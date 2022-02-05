@@ -201,6 +201,7 @@ public class TicketFragment extends Fragment {
                 Glide.with(activity).load(model.getProductImage())
                         .error(R.drawable.loader).placeholder(R.drawable.loader).into(layoutBinding.imgProductImage);
                 layoutBinding.txtProductName.setText(model.getProductName());
+                layoutBinding.txtShopName.setText(model.getShopName());
 
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                 SimpleDateFormat formatted = new SimpleDateFormat("dd MMM yyyy");

@@ -66,7 +66,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/margin_5"
                         android:text="+91"
-                        android:textColor="@color/grayTextColor"/>
+                        android:textColor="@color/grayTextColor" />
 
                     <View
                         android:layout_width="@dimen/margin_1"
@@ -113,10 +113,12 @@
                     app:layout_gravity="center">
 
                     <ImageView
+                        android:id="@+id/img_password"
                         android:layout_width="@dimen/margin_20"
                         android:layout_height="@dimen/margin_20"
                         android:layout_marginLeft="@dimen/margin_5"
-                        android:src="@drawable/eye_icon"
+                        android:onClick="@{handler::onPasswordClick}"
+                        android:src="@drawable/ic_baseline_visibility_off_24"
                         app:tint="@color/darkGray" />
 
                     <View

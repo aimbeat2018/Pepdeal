@@ -157,6 +157,7 @@
                                 android:layout_marginHorizontal="@dimen/margin_5"
                                 android:fontFamily="@font/roboto_medium"
                                 android:text=""
+                                android:textAllCaps="true"
                                 android:textColor="@color/black"
                                 android:textSize="@dimen/text_13" />
                         </androidx.appcompat.widget.LinearLayoutCompat>

@@ -10,6 +10,9 @@ public class ShopFontColorModel {
     @SerializedName("font_color_name")
     @Expose
     private String fontColorName;
+    @SerializedName("font_color_name2")
+    @Expose
+    private String fontColorName2;
 
     public String getFontColorId() {
         return fontColorId;
@@ -25,5 +28,13 @@ public class ShopFontColorModel {
 
     public void setFontColorName(String fontColorName) {
         this.fontColorName = fontColorName;
+    }
+
+    public String getFontColorName2() {
+        return fontColorName2;
+    }
+
+    public void setFontColorName2(String fontColorName2) {
+        this.fontColorName2 = fontColorName2;
     }
 }
