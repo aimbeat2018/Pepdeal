@@ -3,6 +3,8 @@ package com.pepdeal.in.activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.method.PasswordTransformationMethod;
+import android.text.method.SingleLineTransformationMethod;
 import android.view.View;
 import android.widget.Toast;
 
@@ -76,11 +78,35 @@ public class RegistrationActivity extends AppCompatActivity {
         public void onLoginClick(View view) {
             startActivity(new Intent(RegistrationActivity.this, LoginActivity.class));
         }
+
+        public void onPasswordClick(View view) {
+            if (binding.edtPassword.getTransformationMethod().getClass().getSimpleName().equals("PasswordTransformationMethod")) {
+                binding.edtPassword.setTransformationMethod(new SingleLineTransformationMethod());
+                binding.imgPassword.setImageResource(R.drawable.ic_baseline_visibility_24);
+            } else {
+                binding.edtPassword.setTransformationMethod(new PasswordTransformationMethod());
+                binding.imgPassword.setImageResource(R.drawable.ic_baseline_visibility_off_24);
+            }
+
+            binding.edtPassword.setSelection(binding.edtPassword.getText().length());
+        }
+
+        public void onConfirmPasswordClick(View view) {
+            if (binding.edtConfirmPassword.getTransformationMethod().getClass().getSimpleName().equals("PasswordTransformationMethod")) {
+                binding.edtConfirmPassword.setTransformationMethod(new SingleLineTransformationMethod());
+                binding.imgConfirmPassword.setImageResource(R.drawable.ic_baseline_visibility_24);
+            } else {
+                binding.edtConfirmPassword.setTransformationMethod(new PasswordTransformationMethod());
+                binding.imgConfirmPassword.setImageResource(R.drawable.ic_baseline_visibility_off_24);
+            }
+
+            binding.edtConfirmPassword.setSelection(binding.edtConfirmPassword.getText().length());
+        }
     }
 
     private void dismissDialog() {
         if (dialog != null && dialog.isShowing())
-        dialog.dismiss();
+            dialog.dismiss();
     }
 
     private void sendOtp(OTPRequestModel model) {

@@ -105,6 +105,9 @@ public interface ApiInterface {
     @POST("deleteproduct")
     Call<ResponseBody> deleteproduct(@Body UserProfileRequestModel model);
 
+    @POST("productstatusChange ")
+    Call<ResponseBody> productstatusChange (@Body UserProfileRequestModel model);
+
     @POST("productDetail")
     Call<ResponseBody> productDetail(@Body UserProfileRequestModel model);
 

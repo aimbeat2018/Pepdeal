@@ -247,7 +247,7 @@ public class AddProductActivity extends AppCompatActivity {
                 }*/ else {
 
                     if (Utils.isNetwork(AddProductActivity.this)) {
-                        updateProduct("0");
+                        updateProduct("1");
                     } else {
                         Toast.makeText(AddProductActivity.this, getString(R.string.no_internet), Toast.LENGTH_SHORT).show();
                     }
@@ -293,7 +293,7 @@ public class AddProductActivity extends AppCompatActivity {
                 } else {
 
                     if (Utils.isNetwork(AddProductActivity.this)) {
-                        addProduct("0");
+                        addProduct("1");
                     } else {
                         Toast.makeText(AddProductActivity.this, getString(R.string.no_internet), Toast.LENGTH_SHORT).show();
                     }
@@ -1247,7 +1247,7 @@ public class AddProductActivity extends AppCompatActivity {
         } else if (resuleCode == RESULT_OK) {
             try {
                 Uri uri = intent.getData();
-                File file = ImagePicker.Companion.getFile(intent);
+//                File file = ImagePicker.Companion.getFile(intent);
 
                 /*image cropping*/
                 CropImage.activity(uri)

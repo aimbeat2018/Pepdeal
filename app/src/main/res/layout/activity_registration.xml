@@ -214,10 +214,12 @@
                         app:layout_gravity="center">
 
                         <ImageView
-                            android:layout_width="@dimen/margin_22"
+                            android:id="@+id/img_password"
+                            android:layout_width="@dimen/margin_20"
                             android:layout_height="@dimen/margin_20"
                             android:layout_marginLeft="@dimen/margin_5"
-                            android:src="@drawable/eye_icon"
+                            android:onClick="@{handler::onPasswordClick}"
+                            android:src="@drawable/ic_baseline_visibility_off_24"
                             app:tint="@color/darkGray" />
 
                         <View
@@ -263,10 +265,12 @@
                         app:layout_gravity="center">
 
                         <ImageView
-                            android:layout_width="@dimen/margin_22"
+                            android:id="@+id/img_confirm_password"
+                            android:layout_width="@dimen/margin_20"
                             android:layout_height="@dimen/margin_20"
                             android:layout_marginLeft="@dimen/margin_5"
-                            android:src="@drawable/eye_icon"
+                            android:onClick="@{handler::onConfirmPasswordClick}"
+                            android:src="@drawable/ic_baseline_visibility_off_24"
                             app:tint="@color/darkGray" />
 
                         <View

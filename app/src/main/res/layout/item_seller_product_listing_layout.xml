@@ -112,10 +112,10 @@
                         android:layout_weight="1"
                         android:fontFamily="@font/roboto_medium"
                         android:gravity="start"
-                        android:visibility="gone"
                         android:text="Date : 27 Oct 2021"
                         android:textColor="@color/black"
-                        android:textSize="@dimen/text_12" />
+                        android:textSize="@dimen/text_12"
+                        android:visibility="gone" />
 
                 </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -124,6 +124,24 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:orientation="vertical">
+
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginVertical="@dimen/margin_5"
+                        android:gravity="center">
+
+                        <com.github.angads25.toggle.LabeledSwitch
+                            android:id="@+id/switch_live_status"
+                            android:layout_width="wrap_content"
+                            android:layout_height="@dimen/margin_30"
+                            android:textSize="@dimen/margin_10"
+                            app:colorBorder="@color/purple_500"
+                            app:colorOn="@color/purple_500"
+                            app:on="false"
+                            app:textOff="Non-Live"
+                            app:textOn="Live" />
+                    </androidx.appcompat.widget.LinearLayoutCompat>
 
                     <androidx.cardview.widget.CardView
                         android:id="@+id/card_update"

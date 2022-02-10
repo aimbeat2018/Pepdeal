@@ -260,7 +260,8 @@ public class HomeFragment extends Fragment {
 
             public void bind(HomeShopDataModel model, int position) {
                 layoutBinding.txtName.setText(model.getShopName());
-                layoutBinding.txtName.setTextColor(Color.parseColor(model.getFontcolorName()));
+                if (!model.getFontcolorName().equals(""))
+                    layoutBinding.txtName.setTextColor(Color.parseColor(model.getFontcolorName()));
 
                 Typeface typeface = null;
                 if (model.getFontStyleId().equals("1")) {
@@ -333,7 +334,7 @@ public class HomeFragment extends Fragment {
                     }
                 });
 
-                layoutBinding.imgMessage.setOnClickListener(view -> {
+               /* layoutBinding.imgMessage.setOnClickListener(view -> {
                     startActivity(new Intent(activity, MessageChatActivity.class).putExtra("shop_id", model.getShopId())
                             .putExtra("name", model.getShopName()).putExtra("user_id", SharedPref.getVal(activity, SharedPref.user_id)));
                 });
@@ -346,7 +347,7 @@ public class HomeFragment extends Fragment {
                         intent.setData(Uri.parse("tel:" + model.getShopMobileNo()));
                         activity.startActivity(intent);
                     }
-                });
+                });*/
             }
 
             private void addSuperShop(String shopId) {

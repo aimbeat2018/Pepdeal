@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Paint;
@@ -19,6 +20,8 @@ import android.view.WindowManager;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.github.angads25.toggle.LabeledSwitch;
+import com.github.angads25.toggle.interfaces.OnToggledListener;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.pepdeal.in.R;
@@ -55,12 +58,17 @@ public class SellerProductListingActivity extends AppCompatActivity {
 
     ActivitySellerProductListingBinding binding;
     List<ProductDataModel> productDataModelList = new ArrayList<>();
+    ProgressDialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_seller_product_listing);
         binding.setHandler(new ClickHandler());
+
+        dialog = new ProgressDialog(this);
+        dialog.setTitle("Loading");
+        dialog.setMessage("Please wait...");
 
     }
 
@@ -167,6 +175,11 @@ public class SellerProductListingActivity extends AppCompatActivity {
         });
     }
 
+    private void dismissDialog() {
+        if (dialog != null && dialog.isShowing())
+            dialog.dismiss();
+    }
+
     public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHolder> {
 
         @NonNull
@@ -201,6 +214,11 @@ public class SellerProductListingActivity extends AppCompatActivity {
                         .error(R.drawable.loader).placeholder(R.drawable.loader).into(layoutBinding.imgProductImage);
                 layoutBinding.txtProductName.setText(model.getProductName());
 
+                if (model.getIsActive().equals("1")) {
+                    layoutBinding.switchLiveStatus.setOn(false);
+                } else {
+                    layoutBinding.switchLiveStatus.setOn(true);
+                }
                 if (model.getDiscountMrp().equals("0") || model.getDiscountMrp().equals("") || model.getDiscountMrp() == null) {
                     layoutBinding.lnrOffer.setVisibility(View.GONE);
                     layoutBinding.txtActualPrice.setVisibility(View.GONE);
@@ -220,6 +238,58 @@ public class SellerProductListingActivity extends AppCompatActivity {
                             putExtra("from", "edit").putExtra("product_id", model.getProductId()));
                 });
 
+                layoutBinding.switchLiveStatus.setOnToggledListener(new OnToggledListener() {
+                    @Override
+                    public void onSwitched(LabeledSwitch labeledSwitch, boolean isOn) {
+                        if (isOn) {
+                            new AlertDialog.Builder(SellerProductListingActivity.this)
+                                    .setTitle("Alert!!!")
+                                    .setMessage("Are you sure you want to do live this product?")
+
+                                    // Specifying a listener allows you to take an action before dismissing the dialog.
+                                    // The dialog is automatically dismissed when a dialog button is clicked.
+                                    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            // Continue with delete operation
+                                            if (Utils.isNetwork(SellerProductListingActivity.this)) {
+                                                liveProduct(model.getProductId(), "0");
+//                                            getFavList(true);
+                                            } else {
+//                                            binding.lnrMainLayout.setVisibility(View.GONE);
+                                                Utils.InternetAlertDialog(SellerProductListingActivity.this, getString(R.string.no_internet_title), getString(R.string.no_internet_desc));
+                                            }
+                                        }
+                                    })
+
+                                    // A null listener allows the button to dismiss the dialog and take no further action.
+                                    .setNegativeButton(android.R.string.no, null)
+                                    .show();
+                        } else {
+                            new AlertDialog.Builder(SellerProductListingActivity.this)
+                                    .setTitle("Alert!!!")
+                                    .setMessage("Are you sure you want to do non live this product?")
+
+                                    // Specifying a listener allows you to take an action before dismissing the dialog.
+                                    // The dialog is automatically dismissed when a dialog button is clicked.
+                                    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            // Continue with delete operation
+                                            if (Utils.isNetwork(SellerProductListingActivity.this)) {
+                                                liveProduct(model.getProductId(), "1");
+//                                            getFavList(true);
+                                            } else {
+//                                            binding.lnrMainLayout.setVisibility(View.GONE);
+                                                Utils.InternetAlertDialog(SellerProductListingActivity.this, getString(R.string.no_internet_title), getString(R.string.no_internet_desc));
+                                            }
+                                        }
+                                    })
+
+                                    // A null listener allows the button to dismiss the dialog and take no further action.
+                                    .setNegativeButton(android.R.string.no, null)
+                                    .show();
+                        }
+                    }
+                });
                 layoutBinding.cardDelete.setOnClickListener(view -> new AlertDialog.Builder(SellerProductListingActivity.this)
                         .setTitle("Alert!!!")
                         .setMessage("Are you sure you want to delete this product?")
@@ -272,6 +342,65 @@ public class SellerProductListingActivity extends AppCompatActivity {
                     public void onFailure(@NonNull Call<ResponseBody> call, @NonNull Throwable error) {
                         // binding.recProductlist.hideShimmer();
 //                    dismissDialog();
+                        error.printStackTrace();
+                        if (error instanceof HttpException) {
+                            switch (((HttpException) error).code()) {
+                                case HttpsURLConnection.HTTP_UNAUTHORIZED:
+                                    Toast.makeText(SellerProductListingActivity.this, getString(R.string.unauthorised_user), Toast.LENGTH_SHORT).show();
+                                    break;
+                                case HttpsURLConnection.HTTP_FORBIDDEN:
+                                    Toast.makeText(SellerProductListingActivity.this, getString(R.string.forbidden), Toast.LENGTH_SHORT).show();
+                                    break;
+                                case HttpsURLConnection.HTTP_INTERNAL_ERROR:
+                                    Toast.makeText(SellerProductListingActivity.this, getString(R.string.internal_server_error), Toast.LENGTH_SHORT).show();
+                                    break;
+                                case HttpsURLConnection.HTTP_BAD_REQUEST:
+                                    Toast.makeText(SellerProductListingActivity.this, getString(R.string.bad_request), Toast.LENGTH_SHORT).show();
+                                    break;
+                                default:
+                                    Toast.makeText(SellerProductListingActivity.this, error.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                            }
+                        } else {
+                            Toast.makeText(SellerProductListingActivity.this, getString(R.string.something_went_wrong), Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+            }
+
+            private void liveProduct(String productId, String isActive) {
+                dialog.show();
+                UserProfileRequestModel model = new UserProfileRequestModel();
+                model.setProduct_id(productId);
+                model.setIsActive(isActive);
+
+                ApiInterface client = ApiClient.createService(ApiInterface.class, "", "");
+                client.productstatusChange(model).enqueue(new Callback<ResponseBody>() {
+                    @Override
+                    public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
+                        try {
+                            JSONObject jsonObject = new JSONObject(response.body().string());
+                            String code = jsonObject.getString("code");
+                            if (code.equals("200")) {
+                                Toast.makeText(SellerProductListingActivity.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
+
+                                if (isActive.equals("1")) {
+                                    layoutBinding.switchLiveStatus.setOn(false);
+                                } else {
+                                    layoutBinding.switchLiveStatus.setOn(true);
+                                }
+                            } else {
+                                Toast.makeText(SellerProductListingActivity.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                        dismissDialog();
+                    }
+
+                    @Override
+                    public void onFailure(@NonNull Call<ResponseBody> call, @NonNull Throwable error) {
+                        // binding.recProductlist.hideShimmer();
+                        dismissDialog();
                         error.printStackTrace();
                         if (error instanceof HttpException) {
                             switch (((HttpException) error).code()) {

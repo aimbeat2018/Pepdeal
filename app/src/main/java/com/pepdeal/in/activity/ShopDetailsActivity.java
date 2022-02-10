@@ -84,7 +84,11 @@ public class ShopDetailsActivity extends AppCompatActivity {
 
         public void onAddSuperShopClick(View view) {
             if (Utils.isNetwork(ShopDetailsActivity.this)) {
-                addSuperShop(shop_id);
+                if (shopDetailsDataModel.getSuperShopTatus().equals("1")) {
+                    removeSuperShop(shopDetailsDataModel.getSuperShopId());
+                } else {
+                    addSuperShop(shop_id);
+                }
             } else {
                 binding.lnrMainLayout.setVisibility(View.GONE);
                 Utils.InternetAlertDialog(ShopDetailsActivity.this, getString(R.string.no_internet_title), getString(R.string.no_internet_desc));
@@ -199,7 +203,7 @@ public class ShopDetailsActivity extends AppCompatActivity {
                             binding.txtName.setTextSize(Float.parseFloat(shopDetailsDataModel.getFontsizeName().replace("px", "")));
                         }*/
 
-                        binding.txtAddress.setText(shopDetailsDataModel.getShopAddress());
+                        binding.txtAddress.setText(shopDetailsDataModel.getShopAddress() + "," + shopDetailsDataModel.getCity() + "," + shopDetailsDataModel.getState());
                         binding.txtMobile.setText(shopDetailsDataModel.getShopMobileNo());
 
                         binding.lnrBack.setBackgroundColor(Color.parseColor(shopDetailsDataModel.getBgcolorName()));
@@ -312,7 +316,7 @@ public class ShopDetailsActivity extends AppCompatActivity {
     }
 
     private void addSuperShop(String shopId) {
-        dialog.show();
+//        dialog.show();
         UserProfileRequestModel model = new UserProfileRequestModel();
         model.setUserId(SharedPref.getVal(ShopDetailsActivity.this, SharedPref.user_id));
         model.setShop_id(shopId);
@@ -327,6 +331,8 @@ public class ShopDetailsActivity extends AppCompatActivity {
                     if (code.equals("200")) {
                         Toast.makeText(ShopDetailsActivity.this, "Shop added in super shop", Toast.LENGTH_SHORT).show();
 //                                binding.txtFav.setText("Remove Favourite");
+                        getShopDetails(false);
+//                        binding.imgSuperShop.setImageDrawable(getResources().getDrawable(R.drawable.ic_fav_selected));
                     } else {
                         Toast.makeText(ShopDetailsActivity.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
                     }
@@ -340,6 +346,62 @@ public class ShopDetailsActivity extends AppCompatActivity {
             public void onFailure(@NonNull Call<ResponseBody> call, @NonNull Throwable error) {
                 // binding.recProductlist.hideShimmer();
                 dismissDialog();
+                error.printStackTrace();
+                if (error instanceof HttpException) {
+                    switch (((HttpException) error).code()) {
+                        case HttpsURLConnection.HTTP_UNAUTHORIZED:
+                            Toast.makeText(ShopDetailsActivity.this, getString(R.string.unauthorised_user), Toast.LENGTH_SHORT).show();
+                            break;
+                        case HttpsURLConnection.HTTP_FORBIDDEN:
+                            Toast.makeText(ShopDetailsActivity.this, getString(R.string.forbidden), Toast.LENGTH_SHORT).show();
+                            break;
+                        case HttpsURLConnection.HTTP_INTERNAL_ERROR:
+                            Toast.makeText(ShopDetailsActivity.this, getString(R.string.internal_server_error), Toast.LENGTH_SHORT).show();
+                            break;
+                        case HttpsURLConnection.HTTP_BAD_REQUEST:
+                            Toast.makeText(ShopDetailsActivity.this, getString(R.string.bad_request), Toast.LENGTH_SHORT).show();
+                            break;
+                        default:
+                            Toast.makeText(ShopDetailsActivity.this, error.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    Toast.makeText(ShopDetailsActivity.this, getString(R.string.something_went_wrong), Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
+
+    private void removeSuperShop(String superShopId) {
+        UserProfileRequestModel model = new UserProfileRequestModel();
+        model.setUserId(SharedPref.getVal(ShopDetailsActivity.this, SharedPref.user_id));
+        model.setSuper_id(superShopId);
+
+        ApiInterface client = ApiClient.createService(ApiInterface.class, "", "");
+        client.removeSupershop(model).enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
+                try {
+                    JSONObject jsonObject = new JSONObject(response.body().string());
+                    String code = jsonObject.getString("code");
+                    if (code.equals("200")) {
+                        Toast.makeText(ShopDetailsActivity.this, "Shop Removed from Super shop", Toast.LENGTH_SHORT).show();
+//                        binding.imgSuperShop.setImageDrawable(getResources().getDrawable(R.drawable.ic_add_super_shop));
+//                        getSearchData(false);
+                        getShopDetails(false);
+
+                    } else {
+                        Toast.makeText(ShopDetailsActivity.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+//                    dismissDialog();
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<ResponseBody> call, @NonNull Throwable error) {
+                // binding.recProductlist.hideShimmer();
+//                    dismissDialog();
                 error.printStackTrace();
                 if (error instanceof HttpException) {
                     switch (((HttpException) error).code()) {

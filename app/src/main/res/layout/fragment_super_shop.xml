@@ -132,6 +132,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_3"
                 android:fontFamily="@font/roboto_regular"
+                android:visibility="gone"
                 android:maxLines="2"
                 android:text="@string/no_fav_added_message"
                 android:textColor="@color/black"

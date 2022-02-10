@@ -26,6 +26,9 @@ public class UserProfileRequestModel {
     @SerializedName("super_id")
     @Expose
     private String super_id;
+    @SerializedName("isActive")
+    @Expose
+    private String isActive;
 
     public String getSearch_key() {
         return search_key;
@@ -81,5 +84,13 @@ public class UserProfileRequestModel {
 
     public void setSuper_id(String super_id) {
         this.super_id = super_id;
+    }
+
+    public String getIsActive() {
+        return isActive;
+    }
+
+    public void setIsActive(String isActive) {
+        this.isActive = isActive;
     }
 }
