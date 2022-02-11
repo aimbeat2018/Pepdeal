@@ -79,12 +79,12 @@ import retrofit2.Response;
 public class AddShopActivity extends AppCompatActivity implements LocationListener, GpsStatus.Listener {
 
     ActivityAddShopBinding binding;
-    public static final int REQUEST_CHECK_SETTINGS = 125;
     ArrayList<AddBackgroundColorResponseModel> backgroundcolorModelList = new ArrayList<>();
     ArrayList<ShopFontStyleModel> shopFontModelList = new ArrayList<>();
     ArrayList<ShopFontColorModel> shopFontModelListSize = new ArrayList<>();
     String backgroundColor = "", fontStyle = "", fontSize = "", fontColor = "";
     ProgressDialog dialog;
+    public static final int REQUEST_CHECK_SETTINGS = 125;
     public static final int PERMISSIONS_LOCATION_REQUEST = 124;
     private LocationManager mLocationManager;
     LocationTrack locationTrack;
@@ -92,6 +92,8 @@ public class AddShopActivity extends AppCompatActivity implements LocationListen
     GPSTracker gpsTracker;
     List<Address> addresses;
     Location myLocation;
+    double longitude = 0.0;
+    double latitude = 0.0;
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
@@ -333,6 +335,8 @@ public class AddShopActivity extends AppCompatActivity implements LocationListen
         model.setFontStyleId(fontStyle);
         model.setFontSizeId(fontSize);
         model.setFontColorId(fontColor);
+        model.setLatitude(String.valueOf(latitude));
+        model.setLongitude(String.valueOf(longitude));
 
         ApiInterface client = ApiClient.createService(ApiInterface.class, "", "");
         client.shopAdd(model).enqueue(new Callback<ResponseBody>() {
@@ -804,8 +808,8 @@ public class AddShopActivity extends AppCompatActivity implements LocationListen
 
                 if (gpsTracker.canGetLocation()) {
 
-                    double longitude = gpsTracker.getLongitude();
-                    double latitude = gpsTracker.getLatitude();
+                    longitude = gpsTracker.getLongitude();
+                    latitude = gpsTracker.getLatitude();
 
 
                     try {
@@ -866,8 +870,8 @@ public class AddShopActivity extends AppCompatActivity implements LocationListen
 
                             if (locationTrack.canGetLocation()) {
 
-                                double longitude = locationTrack.getLongitude();
-                                double latitude = locationTrack.getLatitude();
+                                longitude = locationTrack.getLongitude();
+                                latitude = locationTrack.getLatitude();
 
                                 try {
                                     binding.edtShopLatLong.setText(String.valueOf(latitude) + "," + String.valueOf(longitude));
@@ -970,8 +974,8 @@ public class AddShopActivity extends AppCompatActivity implements LocationListen
     public void onLocationChanged(@NonNull Location location) {
         myLocation = location;
 
-        double longitude = myLocation.getLongitude();
-        double latitude = myLocation.getLatitude();
+        longitude = myLocation.getLongitude();
+        latitude = myLocation.getLatitude();
 
 
         try {

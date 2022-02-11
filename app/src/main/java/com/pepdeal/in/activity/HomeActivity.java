@@ -1,10 +1,21 @@
 package com.pepdeal.in.activity;
 
+import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentSender;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.location.Address;
+import android.location.Geocoder;
+import android.location.GpsStatus;
+import android.location.Location;
+import android.location.LocationManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -15,7 +26,10 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
@@ -23,9 +37,21 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.common.api.ResolvableApiException;
+import com.google.android.gms.location.LocationListener;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.location.LocationSettingsRequest;
+import com.google.android.gms.location.LocationSettingsResponse;
+import com.google.android.gms.location.LocationSettingsStatusCodes;
+import com.google.android.gms.tasks.Task;
+import com.google.android.material.snackbar.Snackbar;
 import com.pepdeal.in.R;
 import com.pepdeal.in.constants.ApiClient;
 import com.pepdeal.in.constants.ApiInterface;
+import com.pepdeal.in.constants.GPSTracker;
+import com.pepdeal.in.constants.LocationTrack;
 import com.pepdeal.in.constants.SharedPref;
 import com.pepdeal.in.constants.Utils;
 import com.pepdeal.in.databinding.ActivityHomeBinding;
@@ -44,6 +70,8 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
 
 import javax.net.ssl.HttpsURLConnection;
 
@@ -53,19 +81,36 @@ import retrofit2.Callback;
 import retrofit2.HttpException;
 import retrofit2.Response;
 
-public class HomeActivity extends AppCompatActivity {
+public class HomeActivity extends AppCompatActivity implements LocationListener, GpsStatus.Listener {
 
     ActivityHomeBinding binding;
     ArrayList<UsersHomeTabModel> homeTabModelArrayList = new ArrayList<>();
     public static int pos = 1;
     String user_status = "", shop_name = "", username = "";
     String msgFlagDefault = "0";
+    public static final int REQUEST_CHECK_SETTINGS = 125;
+    public static final int PERMISSIONS_LOCATION_REQUEST = 124;
+    private LocationManager mLocationManager;
+    LocationTrack locationTrack;
+    Geocoder geocoder;
+    GPSTracker gpsTracker;
+    List<Address> addresses;
+    Location myLocation;
+    public static double longitude = 0.0;
+    public static double latitude = 0.0;
+    String address = "";
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_home);
         binding.includeLayout.setHandler(new NavigationClick());
         SharedPref.putVal(HomeActivity.this, SharedPref.msgFlag, msgFlagDefault);
+
+        geocoder = new Geocoder(this, Locale.getDefault());
+        gpsTracker = new GPSTracker(this);
+        mLocationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
+
         setHomeTabData();
         navigationDrawer();
         // binding.setHandler(new HomeActivity.ClickHandler(this));
@@ -88,6 +133,7 @@ public class HomeActivity extends AppCompatActivity {
             }
             return false;
         });
+        checkLocationPermission();
     }
 
     @Override
@@ -484,6 +530,252 @@ public class HomeActivity extends AppCompatActivity {
                     }
                 });
             }
+        }
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    private void checkLocationPermission() {
+        if (ContextCompat.checkSelfPermission(HomeActivity.this,
+                Manifest.permission.ACCESS_COARSE_LOCATION) + ContextCompat
+                .checkSelfPermission(HomeActivity.this,
+                        Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            if (ActivityCompat.shouldShowRequestPermissionRationale
+                    (HomeActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION) ||
+                    ActivityCompat.shouldShowRequestPermissionRationale
+                            (HomeActivity.this, Manifest.permission.ACCESS_FINE_LOCATION)) {
+
+                Snackbar.make(HomeActivity.this.findViewById(android.R.id.content),
+                        "Please Grant Permissions to access your location",
+                        Snackbar.LENGTH_INDEFINITE).setAction("ENABLE",
+                        new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+//                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                                requestPermissions(
+                                        new String[]{Manifest.permission
+                                                .ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION},
+                                        PERMISSIONS_LOCATION_REQUEST);
+//                                }
+                            }
+                        }).show();
+            } else {
+//                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                requestPermissions(
+                        new String[]{Manifest.permission
+                                .ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION},
+                        PERMISSIONS_LOCATION_REQUEST);
+//                }
+            }
+        } else {
+            // write your logic code if permission already granted
+            mLocationManager.addGpsStatusListener(this);
+            boolean isclick = true;
+            if (isclick) {
+                locationTrack = new LocationTrack(HomeActivity.this);
+
+                if (gpsTracker.canGetLocation()) {
+
+                    longitude = gpsTracker.getLongitude();
+                    latitude = gpsTracker.getLatitude();
+
+                    try {
+                        addresses = geocoder.getFromLocation(latitude, longitude, 1); // Here 1 represent max location result to returned, by documents it recommended 1 to 5
+
+                        if (addresses.size() == 0) {
+                            Toast.makeText(HomeActivity.this, "unable to get location", Toast.LENGTH_SHORT).show();
+                        } else {
+                            address = addresses.get(0).getAddressLine(0); // If any additional address line present than only, check with max available address lines by getMaxAddressLineIndex()
+                        }
+                        String city = addresses.get(0).getLocality();
+                        String state = addresses.get(0).getAdminArea();
+                        String country = addresses.get(0).getCountryName();
+                        String postalCode = addresses.get(0).getPostalCode();
+                        String knownName = addresses.get(0).getFeatureName();
+                        binding.txtLocation.setText(city);
+//                        binding.txtLocation.setText(address + " " + city + " " + state + " " + country + " " + knownName + " "  + postalCode);
+//                        binding.txtLocation.setText(city + " " + state + " " + country + " " + knownName + " "  + postalCode);
+//                        String name = getRegionName(latitude, longitude);
+                        /*binding.txtSelectedLocation.setVisibility(View.VISIBLE);
+//                        binding.txtSelectedLocation.setText(address + " " + city + " " + state + " " + country + " " + knownName + " " + name + " " + postalCode);
+                        binding.txtSelectedLocation.setText(address);
+                        checkPincode(postalCode);*/
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+//                    binding.txtSelectedLocation.setText(name);
+//                    checkCity(name);
+//                    Toast.makeText(getApplicationContext(), "Longitude:" + Double.toString(longitude) + "\nLatitude:" + Double.toString(latitude), Toast.LENGTH_SHORT).show();
+                } else {
+
+//                    locationTrack.showSettingsAlert();
+                    switchOnGPS();
+                }
+                isclick = false;
+            } else {
+               /* dialog.dismiss();
+                isclick = true;*/
+                isclick = true;
+            }
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        switch (requestCode) {
+            case PERMISSIONS_LOCATION_REQUEST:
+                if (grantResults.length > 0) {
+                    boolean cameraPermission = grantResults[1] == PackageManager.PERMISSION_GRANTED;
+                    boolean readExternalFile = grantResults[0] == PackageManager.PERMISSION_GRANTED;
+                    boolean writeExternalFile = grantResults[0] == PackageManager.PERMISSION_GRANTED;
+
+                    if (cameraPermission && readExternalFile && writeExternalFile) {
+                        // write your logic here
+                        boolean isclick = true;
+                        if (isclick) {
+                            locationTrack = new LocationTrack(HomeActivity.this);
+
+                            if (locationTrack.canGetLocation()) {
+
+                                longitude = locationTrack.getLongitude();
+                                latitude = locationTrack.getLatitude();
+
+                                try {
+//                                    binding.edtShopLatLong.setText(String.valueOf(latitude) + "," + String.valueOf(longitude));
+                                    addresses = geocoder.getFromLocation(latitude, longitude, 1); // Here 1 represent max location result to returned, by documents it recommended 1 to 5
+
+                                    if (addresses.size() == 0) {
+                                        Toast.makeText(HomeActivity.this, "unable to get location", Toast.LENGTH_SHORT).show();
+                                    } else {
+                                        address = addresses.get(0).getAddressLine(0); // If any additional address line present than only, check with max available address lines by getMaxAddressLineIndex()
+                                    }
+                                    String city = addresses.get(0).getLocality();
+                                    String state = addresses.get(0).getAdminArea();
+                                    String country = addresses.get(0).getCountryName();
+                                    String postalCode = addresses.get(0).getPostalCode();
+                                    String knownName = addresses.get(0).getFeatureName();
+                                    binding.txtLocation.setText(city);
+//                                    binding.txtLocation.setText(address + " " + city + " " + state + " " + country + " " + knownName + " "  + postalCode);
+//                                    binding.txtLocation.setText(city + " " + state + " " + country + " " + knownName + " "  + postalCode);
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+                            } else {
+
+                                locationTrack.showSettingsAlert();
+                            }
+                            isclick = false;
+                        } else {
+                           /* dialog.dismiss();
+                            isclick = true;*/
+                            isclick = true;
+                        }
+                    } else {
+                        Snackbar.make(HomeActivity.this.findViewById(android.R.id.content),
+                                "Please Grant Permissions to Access your current location",
+                                Snackbar.LENGTH_INDEFINITE).setAction("ENABLE",
+                                new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                                            requestPermissions(
+                                                    new String[]{Manifest.permission
+                                                            .ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION},
+                                                    PERMISSIONS_LOCATION_REQUEST);
+                                        }
+                                    }
+                                }).show();
+                    }
+                }
+                break;
+        }
+    }
+
+    private void switchOnGPS() {
+        @SuppressLint("RestrictedApi") LocationSettingsRequest.Builder builder = new LocationSettingsRequest.Builder()
+                .addLocationRequest(new LocationRequest().setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY));
+
+        Task<LocationSettingsResponse> task = LocationServices.getSettingsClient(HomeActivity.this).checkLocationSettings(builder.build());
+        task.addOnCompleteListener(task1 -> {
+            try {
+                LocationSettingsResponse response = task1.getResult(ApiException.class);
+            } catch (ApiException e) {
+                switch (e.getStatusCode()) {
+                    case LocationSettingsStatusCodes.RESOLUTION_REQUIRED:
+                        ResolvableApiException resolvableApiException = (ResolvableApiException) e;
+                        try {
+                            resolvableApiException.startResolutionForResult(HomeActivity.this, REQUEST_CHECK_SETTINGS);
+
+                        } catch (IntentSender.SendIntentException e1) {
+                            e1.printStackTrace();
+                        }
+                        break;
+
+                    case LocationSettingsStatusCodes.SETTINGS_CHANGE_UNAVAILABLE:
+                        //open setting and switch on GPS manually
+
+                        break;
+                }
+            }
+        });
+        //Give permission to access GPS
+        ActivityCompat.requestPermissions(HomeActivity.this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, 11);
+    }
+
+    @Override
+    public void onGpsStatusChanged(int i) {
+        switch (i) {
+            case GpsStatus.GPS_EVENT_STOPPED:
+                if (!mLocationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+                    switchOnGPS();
+                }
+                break;
+            case GpsStatus.GPS_EVENT_FIRST_FIX:
+                break;
+        }
+    }
+
+    @Override
+    public void onLocationChanged(@NonNull Location location) {
+        myLocation = location;
+
+        longitude = myLocation.getLongitude();
+        latitude = myLocation.getLatitude();
+
+
+        try {
+//            binding.edtShopLatLong.setText(String.valueOf(latitude) + "," + String.valueOf(longitude));
+            addresses = geocoder.getFromLocation(latitude, longitude, 1); // Here 1 represent max location result to returned, by documents it recommended 1 to 5
+
+            if (addresses.size() == 0) {
+                Toast.makeText(HomeActivity.this, "unable to get location", Toast.LENGTH_SHORT).show();
+            } else {
+                address = addresses.get(0).getAddressLine(0); // If any additional address line present than only, check with max available address lines by getMaxAddressLineIndex()
+            }
+
+            String city = addresses.get(0).getLocality();
+            String state = addresses.get(0).getAdminArea();
+            String country = addresses.get(0).getCountryName();
+            String postalCode = addresses.get(0).getPostalCode();
+            String knownName = addresses.get(0).getFeatureName();
+            binding.txtLocation.setText(city);
+//            binding.txtLocation.setText(city + " " + state + " " + country + " " + knownName + " "  + postalCode);
+
+                     /*   String city = addresses.get(0).getLocality();
+                        String state = addresses.get(0).getAdminArea();
+                        String country = addresses.get(0).getCountryName();
+                        String postalCode = addresses.get(0).getPostalCode();
+                        String knownName = addresses.get(0).getFeatureName();
+                        String name = getRegionName(latitude, longitude);
+                        binding.txtSelectedLocation.setVisibility(View.VISIBLE);
+//                        binding.txtSelectedLocation.setText(address + " " + city + " " + state + " " + country + " " + knownName + " " + name + " " + postalCode);
+                        binding.txtSelectedLocation.setText(address);
+                        checkPincode(postalCode);*/
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 

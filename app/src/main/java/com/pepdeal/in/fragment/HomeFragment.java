@@ -1,16 +1,29 @@
 package com.pepdeal.in.fragment;
 
+import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentSender;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Typeface;
+import android.location.Address;
+import android.location.Geocoder;
+import android.location.GpsStatus;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
+import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.databinding.DataBindingUtil;
@@ -29,9 +42,19 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.common.api.ResolvableApiException;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.location.LocationSettingsRequest;
+import com.google.android.gms.location.LocationSettingsResponse;
+import com.google.android.gms.location.LocationSettingsStatusCodes;
+import com.google.android.gms.tasks.Task;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.pepdeal.in.R;
+import com.pepdeal.in.activity.AddShopActivity;
 import com.pepdeal.in.activity.HomeActivity;
 import com.pepdeal.in.activity.MessageChatActivity;
 import com.pepdeal.in.activity.ProductDetailsActivity;
@@ -42,6 +65,8 @@ import com.pepdeal.in.activity.ShopSignBoardActivity;
 import com.pepdeal.in.adapter.ProductAdapter;
 import com.pepdeal.in.constants.ApiClient;
 import com.pepdeal.in.constants.ApiInterface;
+import com.pepdeal.in.constants.GPSTracker;
+import com.pepdeal.in.constants.LocationTrack;
 import com.pepdeal.in.constants.SharedPref;
 import com.pepdeal.in.constants.Utils;
 import com.pepdeal.in.databinding.FragmentHomeBinding;
@@ -82,6 +107,7 @@ public class HomeFragment extends Fragment {
         // Required empty public constructor
         this.activity = activity;
     }*/
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -142,6 +168,8 @@ public class HomeFragment extends Fragment {
         showShimmer();
         UserProfileRequestModel model = new UserProfileRequestModel();
         model.setUserId(SharedPref.getVal(activity, SharedPref.user_id));
+        model.setLatitude(String.valueOf(HomeActivity.latitude));
+        model.setLongitude(String.valueOf(HomeActivity.longitude));
 
         ApiInterface client = ApiClient.createService(ApiInterface.class, "", "");
         client.homePage(model).enqueue(new Callback<ResponseBody>() {
@@ -895,5 +923,6 @@ public class HomeFragment extends Fragment {
             }
         }
     }
+
 
 }

@@ -56,10 +56,10 @@
         <entry key="..\:/Uzma/Uzma/UpdateWork/Pepdeal/app/src/main/res/drawable/ic_favorite.xml" value="0.20046296296296295" />
         <entry key="..\:/Uzma/Uzma/UpdateWork/Pepdeal/app/src/main/res/layout/activity_about_us.xml" value="0.18611111111111112" />
         <entry key="..\:/Uzma/Uzma/UpdateWork/Pepdeal/app/src/main/res/layout/activity_add_product.xml" value="0.25" />
-        <entry key="..\:/Uzma/Uzma/UpdateWork/Pepdeal/app/src/main/res/layout/activity_add_shop.xml" value="0.33" />
+        <entry key="..\:/Uzma/Uzma/UpdateWork/Pepdeal/app/src/main/res/layout/activity_add_shop.xml" value="0.22" />
         <entry key="..\:/Uzma/Uzma/UpdateWork/Pepdeal/app/src/main/res/layout/activity_all_category_list.xml" value="0.18611111111111112" />
         <entry key="..\:/Uzma/Uzma/UpdateWork/Pepdeal/app/src/main/res/layout/activity_edit_profile.xml" value="0.209375" />
-        <entry key="..\:/Uzma/Uzma/UpdateWork/Pepdeal/app/src/main/res/layout/activity_home.xml" value="0.209375" />
+        <entry key="..\:/Uzma/Uzma/UpdateWork/Pepdeal/app/src/main/res/layout/activity_home.xml" value="0.33" />
         <entry key="..\:/Uzma/Uzma/UpdateWork/Pepdeal/app/src/main/res/layout/activity_login.xml" value="0.18611111111111112" />
         <entry key="..\:/Uzma/Uzma/UpdateWork/Pepdeal/app/src/main/res/layout/activity_message_chat.xml" value="0.2" />
         <entry key="..\:/Uzma/Uzma/UpdateWork/Pepdeal/app/src/main/res/layout/activity_message_users_list.xml" value="0.2" />
@@ -86,6 +86,7 @@
         <entry key="..\:/Uzma/Uzma/UpdateWork/Pepdeal/app/src/main/res/layout/item_category_home_layout.xml" value="0.18611111111111112" />
         <entry key="..\:/Uzma/Uzma/UpdateWork/Pepdeal/app/src/main/res/layout/item_category_list_layout.xml" value="0.18611111111111112" />
         <entry key="..\:/Uzma/Uzma/UpdateWork/Pepdeal/app/src/main/res/layout/item_favorite_layout.xml" value="0.25" />
+        <entry key="..\:/Uzma/Uzma/UpdateWork/Pepdeal/app/src/main/res/layout/item_home_product_list_layout.xml" value="0.18611111111111112" />
         <entry key="..\:/Uzma/Uzma/UpdateWork/Pepdeal/app/src/main/res/layout/item_home_shops_list.xml" value="0.22" />
         <entry key="..\:/Uzma/Uzma/UpdateWork/Pepdeal/app/src/main/res/layout/item_message_main_layout.xml" value="0.22" />
         <entry key="..\:/Uzma/Uzma/UpdateWork/Pepdeal/app/src/main/res/layout/item_message_users_list_layout.xml" value="0.25" />

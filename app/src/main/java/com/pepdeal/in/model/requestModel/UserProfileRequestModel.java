@@ -29,6 +29,12 @@ public class UserProfileRequestModel {
     @SerializedName("isActive")
     @Expose
     private String isActive;
+    @SerializedName("latitude")
+    @Expose
+    private String latitude;
+    @SerializedName("longitude")
+    @Expose
+    private String longitude;
 
     public String getSearch_key() {
         return search_key;
@@ -92,5 +98,21 @@ public class UserProfileRequestModel {
 
     public void setIsActive(String isActive) {
         this.isActive = isActive;
+    }
+
+    public String getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(String latitude) {
+        this.latitude = latitude;
+    }
+
+    public String getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(String longitude) {
+        this.longitude = longitude;
     }
 }

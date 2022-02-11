@@ -40,6 +40,12 @@ public class AddShopRequestModel {
     @SerializedName("state")
     @Expose
     private String state;
+    @SerializedName("latitude")
+    @Expose
+    private String latitude;
+    @SerializedName("longitude")
+    @Expose
+    private String longitude;
 
 
     /*shop_description, city , state*/
@@ -137,5 +143,21 @@ public class AddShopRequestModel {
 
     public void setShopId(String shopId) {
         this.shopId = shopId;
+    }
+
+    public String getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(String latitude) {
+        this.latitude = latitude;
+    }
+
+    public String getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(String longitude) {
+        this.longitude = longitude;
     }
 }

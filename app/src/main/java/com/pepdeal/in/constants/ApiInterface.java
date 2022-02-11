@@ -38,7 +38,6 @@ public interface ApiInterface {
     @POST("registerUser")
     Call<ResponseBody> registerUser(@Body UserRegisterModel userRegisterModel);
 
-
     @POST("forgot_password")
     Call<ResponseBody> forgot_password(@Body ResetPasswordRequestModel resetPasswordRequestModel);
 
@@ -61,6 +60,7 @@ public interface ApiInterface {
     Call<ResponseBody> enquiryForm(@Body HelpRequestModel model);
 
     @POST("aboutshopupdate")
+
     Call<ResponseBody> aboutshopupdate(@Body AddShopRequestModel model);
 
     @POST("bgcolorupdate")
