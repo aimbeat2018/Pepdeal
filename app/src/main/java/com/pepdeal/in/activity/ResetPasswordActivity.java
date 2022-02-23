@@ -7,6 +7,8 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.method.PasswordTransformationMethod;
+import android.text.method.SingleLineTransformationMethod;
 import android.view.View;
 import android.widget.Toast;
 
@@ -51,6 +53,7 @@ public class ResetPasswordActivity extends AppCompatActivity {
         dialog.setMessage("Please wait...");
 
         mobile_no = getIntent().getStringExtra("mobile_no");
+
     }
 
     public class ClickHandler {
@@ -73,64 +76,90 @@ public class ResetPasswordActivity extends AppCompatActivity {
             }
         }
 
-        private void dismissDialog() {
-            if (dialog != null && dialog.isShowing())
-                dialog.dismiss();
+        public void onPasswordClick(View view){
+            if (binding.edtPassword.getTransformationMethod().getClass().getSimpleName().equals("PasswordTransformationMethod")) {
+                binding.edtPassword.setTransformationMethod(new SingleLineTransformationMethod());
+                binding.imgPassword.setImageResource(R.drawable.ic_baseline_visibility_24);
+            } else {
+                binding.edtPassword.setTransformationMethod(new PasswordTransformationMethod());
+                binding.imgPassword.setImageResource(R.drawable.ic_baseline_visibility_off_24);
+            }
+
+            binding.edtPassword.setSelection(binding.edtPassword.getText().length());
         }
 
-        private void changePassword(ResetPasswordRequestModel model) {
+        public void onConfirmPasswordClick(View view) {
+            if (binding.edtConfirmPassword.getTransformationMethod().getClass().getSimpleName().equals("PasswordTransformationMethod")) {
+                binding.edtConfirmPassword.setTransformationMethod(new SingleLineTransformationMethod());
+                binding.imgConfirmPassword.setImageResource(R.drawable.ic_baseline_visibility_24);
+            } else {
+                binding.edtConfirmPassword.setTransformationMethod(new PasswordTransformationMethod());
+                binding.imgConfirmPassword.setImageResource(R.drawable.ic_baseline_visibility_off_24);
+            }
 
-            ApiInterface apiInterface = ApiClient.createService(ApiInterface.class, "", "");
-            apiInterface.forgot_password(model).enqueue(new Callback<ResponseBody>() {
-                @Override
-                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                    try {
-                        JSONObject jsonObject = new JSONObject(response.body().string());
+            binding.edtConfirmPassword.setSelection(binding.edtConfirmPassword.getText().length());
+        }
 
-                        String status = jsonObject.getString("status");
 
-                        if (status.equals("1")) {
-                            Toast.makeText(ResetPasswordActivity.this, jsonObject.getString("msg"), Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(ResetPasswordActivity.this, LoginActivity.class);
-                            startActivity(intent);
-                            finish();
-                        } else {
-                            Toast.makeText(ResetPasswordActivity.this, jsonObject.getString("msg"), Toast.LENGTH_SHORT).show();
-                        }
+    }
 
-                    } catch (JSONException | NumberFormatException | IOException e) {
-                        e.printStackTrace();
-                    }
-                    dismissDialog();
-                }
+    private void dismissDialog() {
+        if (dialog != null && dialog.isShowing())
+            dialog.dismiss();
+    }
 
-                @Override
-                public void onFailure(Call<ResponseBody> call, Throwable error) {
-                    dismissDialog();
-                    error.printStackTrace();
-                    if (error instanceof HttpException) {
-                        switch (((HttpException) error).code()) {
-                            case HttpsURLConnection.HTTP_UNAUTHORIZED:
-                                Toast.makeText(ResetPasswordActivity.this, getString(R.string.unauthorised_user), Toast.LENGTH_SHORT).show();
-                                break;
-                            case HttpsURLConnection.HTTP_FORBIDDEN:
-                                Toast.makeText(ResetPasswordActivity.this, getString(R.string.forbidden), Toast.LENGTH_SHORT).show();
-                                break;
-                            case HttpsURLConnection.HTTP_INTERNAL_ERROR:
-                                Toast.makeText(ResetPasswordActivity.this, getString(R.string.internal_server_error), Toast.LENGTH_SHORT).show();
-                                break;
-                            case HttpsURLConnection.HTTP_BAD_REQUEST:
-                                Toast.makeText(ResetPasswordActivity.this, getString(R.string.bad_request), Toast.LENGTH_SHORT).show();
-                                break;
-                            default:
-                                Toast.makeText(ResetPasswordActivity.this, error.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
-                        }
+    private void changePassword(ResetPasswordRequestModel model) {
+
+        ApiInterface apiInterface = ApiClient.createService(ApiInterface.class, "", "");
+        apiInterface.forgot_password(model).enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                try {
+                    JSONObject jsonObject = new JSONObject(response.body().string());
+
+                    String status = jsonObject.getString("status");
+
+                    if (status.equals("1")) {
+                        Toast.makeText(ResetPasswordActivity.this, jsonObject.getString("msg"), Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(ResetPasswordActivity.this, LoginActivity.class);
+                        startActivity(intent);
+                        finish();
                     } else {
-                        Toast.makeText(ResetPasswordActivity.this, getString(R.string.something_went_wrong), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ResetPasswordActivity.this, jsonObject.getString("msg"), Toast.LENGTH_SHORT).show();
                     }
-                }
-            });
 
-        }
+                } catch (JSONException | NumberFormatException | IOException e) {
+                    e.printStackTrace();
+                }
+                dismissDialog();
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable error) {
+                dismissDialog();
+                error.printStackTrace();
+                if (error instanceof HttpException) {
+                    switch (((HttpException) error).code()) {
+                        case HttpsURLConnection.HTTP_UNAUTHORIZED:
+                            Toast.makeText(ResetPasswordActivity.this, getString(R.string.unauthorised_user), Toast.LENGTH_SHORT).show();
+                            break;
+                        case HttpsURLConnection.HTTP_FORBIDDEN:
+                            Toast.makeText(ResetPasswordActivity.this, getString(R.string.forbidden), Toast.LENGTH_SHORT).show();
+                            break;
+                        case HttpsURLConnection.HTTP_INTERNAL_ERROR:
+                            Toast.makeText(ResetPasswordActivity.this, getString(R.string.internal_server_error), Toast.LENGTH_SHORT).show();
+                            break;
+                        case HttpsURLConnection.HTTP_BAD_REQUEST:
+                            Toast.makeText(ResetPasswordActivity.this, getString(R.string.bad_request), Toast.LENGTH_SHORT).show();
+                            break;
+                        default:
+                            Toast.makeText(ResetPasswordActivity.this, error.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    Toast.makeText(ResetPasswordActivity.this, getString(R.string.something_went_wrong), Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
     }
 }

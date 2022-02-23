@@ -1,9 +1,11 @@
 package com.pepdeal.in.activity;
 
 import android.Manifest;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.ClipData;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -596,6 +598,7 @@ public class AddProductActivity extends AppCompatActivity {
         binding.entwarranty.setText(model.getWarranty());
         binding.edtsearchtag.setText(model.getSearchTags());
         binding.edtColour.setText(model.getColor());
+        binding.edtBrandName.setText(model.getBrandId());
 
         for (int i = 0; i < productCategoryModelList.size(); i++) {
             if (productCategoryModelList.get(i).getCategoryId().equals(model.getCategoryId())) {
@@ -656,7 +659,7 @@ public class AddProductActivity extends AppCompatActivity {
             String fileName = uri.getName();
             Uri uri1 = Uri.fromFile(uri);
             //very important files[]
-            MultipartBody.Part imageRequest = prepareFilePart("product_image[]", uri1);
+            MultipartBody.Part imageRequest = prepareFilePart("product_images[]", uri1);
             list.add(imageRequest);
         }
         return list;
@@ -665,7 +668,7 @@ public class AddProductActivity extends AppCompatActivity {
     List<MultipartBody.Part> uploadImagesEmpty() {
         List<MultipartBody.Part> list = new ArrayList<>();
         int i = 0;
-        MultipartBody.Part imageRequest = prepareFilePartEmpty("product_image[]");
+        MultipartBody.Part imageRequest = prepareFilePartEmpty("product_images[]");
         list.add(imageRequest);
         return list;
     }
@@ -721,8 +724,22 @@ public class AddProductActivity extends AppCompatActivity {
                     JSONObject jsonObject = new JSONObject(response.body().string());
                     String code = jsonObject.getString("code");
                     if (code.equals("200")) {
-                        Toast.makeText(AddProductActivity.this, "Product Added successfully", Toast.LENGTH_SHORT).show();
-                        finish();
+//                        Toast.makeText(AddProductActivity.this, "Product Added successfully", Toast.LENGTH_SHORT).show();
+
+                        new AlertDialog.Builder(AddProductActivity.this)
+                                .setTitle("Alert!!!")
+                                .setMessage("Product added successfully and sent to our team for verification.")
+
+                                // Specifying a listener allows you to take an action before dismissing the dialog.
+                                // The dialog is automatically dismissed when a dialog button is clicked.
+                                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        // Continue with delete operation
+                                        finish();
+                                    }
+                                })
+                                .show();
+
                     } else {
                         Toast.makeText(AddProductActivity.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
 
@@ -820,8 +837,22 @@ public class AddProductActivity extends AppCompatActivity {
                     JSONObject jsonObject = new JSONObject(response.body().string());
                     String code = jsonObject.getString("code");
                     if (code.equals("200")) {
-                        Toast.makeText(AddProductActivity.this, "Product Updated successfully", Toast.LENGTH_SHORT).show();
-                        finish();
+//                        Toast.makeText(AddProductActivity.this, "Product Updated successfully", Toast.LENGTH_SHORT).show();
+
+
+                        new AlertDialog.Builder(AddProductActivity.this)
+                                .setTitle("Alert!!!")
+                                .setMessage("Product updated successfully and sent to our team for verification.")
+
+                                // Specifying a listener allows you to take an action before dismissing the dialog.
+                                // The dialog is automatically dismissed when a dialog button is clicked.
+                                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        // Continue with delete operation
+                                        finish();
+                                    }
+                                })
+                                .show();
                     } else {
                         Toast.makeText(AddProductActivity.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
                     }

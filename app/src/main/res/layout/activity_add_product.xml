@@ -755,6 +755,7 @@
                                         android:fontFamily="@font/roboto_regular"
                                         android:gravity="center"
                                         android:hint="@string/mrp"
+                                        android:inputType="number"
                                         android:textColor="@color/black"
                                         android:textColorHint="@color/lightGrayColor"
                                         android:textSize="@dimen/text_14" />
@@ -805,6 +806,7 @@
                                         android:background="@null"
                                         android:fontFamily="@font/roboto_regular"
                                         android:gravity="center"
+                                        android:inputType="number"
                                         android:hint="@string/discount"
                                         android:textColor="@color/black"
                                         android:textColorHint="@color/lightGrayColor"
@@ -857,6 +859,7 @@
                                         android:focusable="false"
                                         android:fontFamily="@font/roboto_regular"
                                         android:gravity="center"
+                                        android:inputType="number"
                                         android:hint="@string/sale"
                                         android:textColor="@color/black"
                                         android:textColorHint="@color/lightGrayColor"

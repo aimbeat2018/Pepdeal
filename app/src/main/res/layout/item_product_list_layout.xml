@@ -81,17 +81,19 @@
 
         </RelativeLayout>
 
-        <RelativeLayout
+        <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:orientation="horizontal"
             android:layout_marginTop="@dimen/margin_5">
 
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:id="@+id/lnr_details"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
+                android:layout_weight="1"
                 android:layout_marginTop="@dimen/margin_6"
                 android:orientation="vertical">
 
@@ -102,7 +104,7 @@
                     android:layout_centerVertical="true"
                     android:fontFamily="@font/roboto_bold"
                     android:gravity="center"
-                    android:text="Flower Pot "
+                    android:text="Flower"
                     android:textColor="@color/black"
                     android:textSize="@dimen/text_13" />
 
@@ -137,7 +139,7 @@
                 android:layout_marginTop="@dimen/margin_5"
                 android:layout_toEndOf="@+id/lnr_details"
                 android:src="@drawable/ic_favorite" />
-        </RelativeLayout>
+        </androidx.appcompat.widget.LinearLayoutCompat>
 
 
     </androidx.appcompat.widget.LinearLayoutCompat>

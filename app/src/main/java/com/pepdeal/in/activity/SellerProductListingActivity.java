@@ -251,7 +251,8 @@ public class SellerProductListingActivity extends AppCompatActivity {
                                     .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                                         public void onClick(DialogInterface dialog, int which) {
                                             // Continue with delete operation
-                                            if (Utils.isNetwork(SellerProductListingActivity.this)) {
+                                            if (Utils.isNetwork(SellerProductListingActivity.this))
+                                            {
                                                 liveProduct(model.getProductId(), "0");
 //                                            getFavList(true);
                                             } else {

@@ -139,6 +139,7 @@
                                 android:background="@null"
                                 android:fontFamily="@font/roboto_regular"
                                 android:hint="@string/enter_about_shop"
+                                android:maxLength="35"
                                 android:paddingStart="@dimen/margin_5"
                                 android:textColor="@color/black"
                                 android:textColorHint="@color/lightGrayColor"

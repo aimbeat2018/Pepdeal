@@ -31,6 +31,21 @@ public class SearchShopModel {
     @SerializedName("fontStyle_name")
     @Expose
     private String fontStyleName;
+    @SerializedName("font_style_id")
+    @Expose
+    private String fontStyleId;
+    @SerializedName("font_color_id")
+    @Expose
+    private String fontColorId;
+    @SerializedName("fontcolor_name")
+    @Expose
+    private String fontcolorName;
+    @SerializedName("city")
+    @Expose
+    private String city;
+    @SerializedName("state")
+    @Expose
+    private String state;
 
     public String getShopId() {
         return shopId;
@@ -102,5 +117,45 @@ public class SearchShopModel {
 
     public void setFontStyleName(String fontStyleName) {
         this.fontStyleName = fontStyleName;
+    }
+
+    public String getFontStyleId() {
+        return fontStyleId;
+    }
+
+    public void setFontStyleId(String fontStyleId) {
+        this.fontStyleId = fontStyleId;
+    }
+
+    public String getFontColorId() {
+        return fontColorId;
+    }
+
+    public void setFontColorId(String fontColorId) {
+        this.fontColorId = fontColorId;
+    }
+
+    public String getFontcolorName() {
+        return fontcolorName;
+    }
+
+    public void setFontcolorName(String fontcolorName) {
+        this.fontcolorName = fontcolorName;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
     }
 }

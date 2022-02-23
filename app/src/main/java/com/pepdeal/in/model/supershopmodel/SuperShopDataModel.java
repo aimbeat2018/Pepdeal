@@ -43,6 +43,7 @@ public class SuperShopDataModel {
     private String fontColorId;
     @SerializedName("font_color_name")
     @Expose
+
     private String fontColorName;
     @SerializedName("font_size_id")
     @Expose

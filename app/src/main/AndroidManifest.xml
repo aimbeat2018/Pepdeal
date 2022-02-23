@@ -29,6 +29,18 @@
         android:theme="@style/Theme.Pepdeal"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".activity.CitywiseShopListActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.CityListActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.CityListSearchActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.StateListActivity"
+            android:exported="false" />
+        <activity
             android:name=".activity.FullImageActivity"
             android:exported="false" />
         <activity

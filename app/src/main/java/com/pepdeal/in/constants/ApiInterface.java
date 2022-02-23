@@ -96,6 +96,9 @@ public interface ApiInterface {
     @POST("homePage")
     Call<ResponseBody> homePage(@Body UserProfileRequestModel model);
 
+    @POST("citySearch")
+    Call<ResponseBody> citySearch(@Body UserProfileRequestModel model);
+
     @POST("addFavourite")
     Call<ResponseBody> addFavourite(@Body UserProfileRequestModel model);
 
@@ -201,4 +204,13 @@ public interface ApiInterface {
 
     @POST("userLogout")
     Call<ResponseBody> userLogout(@Body UserProfileRequestModel model);
+
+    @POST("stateList")
+    Call<ResponseBody> stateList(@Body UserProfileRequestModel model);
+
+    @POST("cityListbystate")
+    Call<ResponseBody> cityListbystate(@Body UserProfileRequestModel model);
+
+    @POST("cityList")
+    Call<ResponseBody> cityList(@Body UserProfileRequestModel model);
 }

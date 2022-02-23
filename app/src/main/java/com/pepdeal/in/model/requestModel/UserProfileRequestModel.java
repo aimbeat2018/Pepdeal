@@ -26,6 +26,12 @@ public class UserProfileRequestModel {
     @SerializedName("super_id")
     @Expose
     private String super_id;
+    @SerializedName("state_id")
+    @Expose
+    private String state_id;
+    @SerializedName("city_id")
+    @Expose
+    private String city_id;
     @SerializedName("isActive")
     @Expose
     private String isActive;
@@ -114,5 +120,21 @@ public class UserProfileRequestModel {
 
     public void setLongitude(String longitude) {
         this.longitude = longitude;
+    }
+
+    public String getState_id() {
+        return state_id;
+    }
+
+    public void setState_id(String state_id) {
+        this.state_id = state_id;
+    }
+
+    public String getCity_id() {
+        return city_id;
+    }
+
+    public void setCity_id(String city_id) {
+        this.city_id = city_id;
     }
 }

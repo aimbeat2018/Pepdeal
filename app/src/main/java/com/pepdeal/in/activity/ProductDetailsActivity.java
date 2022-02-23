@@ -69,17 +69,17 @@ public class ProductDetailsActivity extends AppCompatActivity {
             onBackPressed();
         }
 
-        public void onClickImage1(View view){
+        public void onClickImage1(View view) {
             startActivity(new Intent(ProductDetailsActivity.this, FullImageActivity.class)
                     .putExtra("from", "multiple").putExtra("arraylist", (Serializable) productDataModelList.get(0).getProductImages()).putExtra("position", String.valueOf(0)));
         }
 
-        public void onClickImage2(View view){
+        public void onClickImage2(View view) {
             startActivity(new Intent(ProductDetailsActivity.this, FullImageActivity.class)
                     .putExtra("from", "multiple").putExtra("arraylist", (Serializable) productDataModelList.get(0).getProductImages()).putExtra("position", String.valueOf(1)));
         }
 
-        public void onClickImage3(View view){
+        public void onClickImage3(View view) {
             startActivity(new Intent(ProductDetailsActivity.this, FullImageActivity.class)
                     .putExtra("from", "multiple").putExtra("arraylist", (Serializable) productDataModelList.get(0).getProductImages()).putExtra("position", String.valueOf(2)));
         }
@@ -171,25 +171,50 @@ public class ProductDetailsActivity extends AppCompatActivity {
                 .error(R.drawable.loader).placeholder(R.drawable.loader).into(binding.imgImage1);
         binding.txtDesc.setText(model.getDescription());
 
-        Glide.with(ProductDetailsActivity.this).load(model.getProductImages().get(1).getProductImage())
-                .error(R.drawable.loader).placeholder(R.drawable.loader).into(binding.imgImage2);
-        binding.txtDesc1.setText(model.getDescription2());
+        if (model.getProductImages().get(1).getProductImage().equals("") || model.getProductImages().get(1).getProductImage() == null) {
+            binding.imgImage2.setVisibility(View.GONE);
+        } else {
+            binding.imgImage2.setVisibility(View.VISIBLE);
+            Glide.with(ProductDetailsActivity.this).load(model.getProductImages().get(1).getProductImage())
+                    .error(R.drawable.loader).placeholder(R.drawable.loader).into(binding.imgImage2);
+        }
 
-        Glide.with(ProductDetailsActivity.this).load(model.getProductImages().get(2).getProductImage())
-                .error(R.drawable.loader).placeholder(R.drawable.loader).into(binding.imgImage3);
+
+        if (model.getDescription2().equals("") || model.getDescription2() == null) {
+            binding.lnrDesc1.setVisibility(View.GONE);
+        } else {
+            binding.lnrDesc1.setVisibility(View.VISIBLE);
+            binding.txtDesc1.setText(model.getDescription2());
+        }
+
+        if (model.getProductImages().get(2).getProductImage().equals("") || model.getProductImages().get(2).getProductImage() == null) {
+            binding.imgImage3.setVisibility(View.GONE);
+        } else {
+            binding.imgImage3.setVisibility(View.VISIBLE);
+            Glide.with(ProductDetailsActivity.this).load(model.getProductImages().get(2).getProductImage())
+                    .error(R.drawable.loader).placeholder(R.drawable.loader).into(binding.imgImage3);
+        }
 
         binding.txtProductName.setText(model.getProductName());
         binding.txtCategory.setText("Category : " + model.getCategoryName());
-        binding.txtBrand.setText("Brand : " + model.getBrandName());
+
+        if (model.getBrandName().equals("") || model.getBrandName() == null) {
+            binding.txtBrand.setVisibility(View.GONE);
+        } else {
+            binding.txtBrand.setVisibility(View.VISIBLE);
+            binding.txtBrand.setText("Brand : " + model.getBrandName());
+        }
 
         if (model.getColor().equals("") || model.getColor() == null) {
             binding.txtColor.setVisibility(View.GONE);
         } else {
+            binding.txtColor.setVisibility(View.VISIBLE);
             binding.txtColor.setText("Color : " + model.getColor());
         }
         if (model.getSizeName().equals("") || model.getSizeName() == null) {
             binding.txtSize.setVisibility(View.GONE);
         } else {
+            binding.txtSize.setVisibility(View.VISIBLE);
             binding.txtSize.setText("Size : " + model.getSizeName());
         }
 
@@ -208,7 +233,12 @@ public class ProductDetailsActivity extends AppCompatActivity {
             binding.txtOff.setText(model.getDiscountMrp() + "% OFF");
         }
 
-        binding.txtSpecification.setText(model.getSpecification());
+        if (model.getSpecification().equals("") || model.getSpecification() == null) {
+            binding.lnrSpecification.setVisibility(View.GONE);
+        } else {
+            binding.lnrSpecification.setVisibility(View.VISIBLE);
+            binding.txtSpecification.setText(model.getSpecification());
+        }
 
         /*Ticket Status 0 = Delivered , 1 = Approved , 2 = Waiting ,3 =Rejected*/
         if (model.getTicketStatus().equals("") || model.getTicketStatus().equals("0") ||
@@ -230,9 +260,9 @@ public class ProductDetailsActivity extends AppCompatActivity {
         binding.cardFav.setOnClickListener(view -> {
             if (Utils.isNetwork(ProductDetailsActivity.this)) {
                 if (binding.txtFav.getText().toString().equals("Add To Favourite"))
-                    removeFav(model.getProductId());
-                else
                     addFav(model.getProductId());
+                else
+                    removeFav(model.getFavouriteId());
             } else {
 //                    binding.lnrMainLayout.setVisibility(View.GONE);
                 Utils.InternetAlertDialog(ProductDetailsActivity.this, getString(R.string.no_internet_title), getString(R.string.no_internet_desc));
@@ -254,7 +284,7 @@ public class ProductDetailsActivity extends AppCompatActivity {
         });
     }
 
-    private void raiseTicket(String productId,String shopId) {
+    private void raiseTicket(String productId, String shopId) {
         dialog.show();
         UserProfileRequestModel model = new UserProfileRequestModel();
         model.setUserId(SharedPref.getVal(ProductDetailsActivity.this, SharedPref.user_id));

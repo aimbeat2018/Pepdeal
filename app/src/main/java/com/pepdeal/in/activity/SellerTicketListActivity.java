@@ -216,6 +216,7 @@ public class SellerTicketListActivity extends AppCompatActivity {
                 Glide.with(SellerTicketListActivity.this).load(model.getProductImage())
                         .error(R.drawable.loader).placeholder(R.drawable.loader).into(layoutBinding.imgProductImage);
                 layoutBinding.txtProductName.setText(model.getProductName());
+                layoutBinding.txtUserName.setText(model.getCustName());
 
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                 SimpleDateFormat formatted = new SimpleDateFormat("dd MMM yyyy");
@@ -289,7 +290,7 @@ public class SellerTicketListActivity extends AppCompatActivity {
                                         public void onClick(DialogInterface dialog, int which) {
                                             // Continue with delete operation
                                             if (Utils.isNetwork(SellerTicketListActivity.this)) {
-                                                updateTicketStatus(model.getTicketId(),"1");
+                                                updateTicketStatus(model.getTicketId(), "1");
 //                                            getFavList(true);
                                             } else {
 //                                            binding.lnrMainLayout.setVisibility(View.GONE);
@@ -301,7 +302,7 @@ public class SellerTicketListActivity extends AppCompatActivity {
                                     // A null listener allows the button to dismiss the dialog and take no further action.
                                     .setNegativeButton(android.R.string.no, null)
                                     .show();
-                        }else if(model.getTicketStatus().equals("1")){
+                        } else if (model.getTicketStatus().equals("1")) {
                             new AlertDialog.Builder(SellerTicketListActivity.this)
                                     .setTitle("Alert!!!")
                                     .setMessage("Are you sure you want to delivered this ticket?")
@@ -312,7 +313,7 @@ public class SellerTicketListActivity extends AppCompatActivity {
                                         public void onClick(DialogInterface dialog, int which) {
                                             // Continue with delete operation
                                             if (Utils.isNetwork(SellerTicketListActivity.this)) {
-                                                updateTicketStatus(model.getTicketId(),"0");
+                                                updateTicketStatus(model.getTicketId(), "0");
 //                                            getFavList(true);
                                             } else {
 //                                            binding.lnrMainLayout.setVisibility(View.GONE);

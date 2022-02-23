@@ -56,10 +56,16 @@ public class HomeShopDataModel {
     private List<HomeProductDataModel> productsList = null;
     @SerializedName("super_shop_status")
     @Expose
-    private Integer superShopStatus;
+    private String superShopStatus;
     @SerializedName("super_shop_id")
     @Expose
     private String superShopId;
+    @SerializedName("advertise_image")
+    @Expose
+    private String advertiseImage;
+    @SerializedName("flag")
+    @Expose
+    private String flag;
 
     public String getShopId() {
         return shopId;
@@ -189,11 +195,11 @@ public class HomeShopDataModel {
         this.productsList = productsList;
     }
 
-    public Integer getSuperShopStatus() {
+    public String getSuperShopStatus() {
         return superShopStatus;
     }
 
-    public void setSuperShopStatus(Integer superShopStatus) {
+    public void setSuperShopStatus(String superShopStatus) {
         this.superShopStatus = superShopStatus;
     }
 
@@ -203,5 +209,21 @@ public class HomeShopDataModel {
 
     public void setSuperShopId(String superShopId) {
         this.superShopId = superShopId;
+    }
+
+    public String getAdvertiseImage() {
+        return advertiseImage;
+    }
+
+    public void setAdvertiseImage(String advertiseImage) {
+        this.advertiseImage = advertiseImage;
+    }
+
+    public String getFlag() {
+        return flag;
+    }
+
+    public void setFlag(String flag) {
+        this.flag = flag;
     }
 }

@@ -273,28 +273,35 @@
                             android:onClick="@{handler::onClickImage2}"
                             android:padding="@dimen/margin_8" />
 
-                        <androidx.appcompat.widget.AppCompatTextView
-                            android:layout_width="wrap_content"
+                        <androidx.appcompat.widget.LinearLayoutCompat
+                            android:id="@+id/lnr_desc1"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_centerVertical="true"
-                            android:layout_marginHorizontal="@dimen/margin_15"
                             android:layout_marginTop="@dimen/margin_15"
-                            android:fontFamily="@font/roboto_bold"
-                            android:gravity="center"
-                            android:text="@string/product_details11"
-                            android:textColor="@color/darkGray"
-                            android:textSize="@dimen/text_15" />
+                            android:orientation="vertical">
 
-                        <androidx.appcompat.widget.AppCompatTextView
-                            android:id="@+id/txt_desc1"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerVertical="true"
-                            android:layout_marginHorizontal="@dimen/margin_15"
-                            android:layout_marginVertical="@dimen/margin_5"
-                            android:fontFamily="@font/roboto_medium"
-                            android:textColor="@color/darkGray"
-                            android:textSize="@dimen/text_13" />
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:layout_marginHorizontal="@dimen/margin_15"
+                                android:fontFamily="@font/roboto_bold"
+                                android:gravity="center"
+                                android:text="@string/product_details11"
+                                android:textColor="@color/darkGray"
+                                android:textSize="@dimen/text_15" />
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:id="@+id/txt_desc1"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:layout_marginHorizontal="@dimen/margin_15"
+                                android:layout_marginVertical="@dimen/margin_5"
+                                android:fontFamily="@font/roboto_medium"
+                                android:textColor="@color/darkGray"
+                                android:textSize="@dimen/text_13" />
+                        </androidx.appcompat.widget.LinearLayoutCompat>
 
                         <androidx.appcompat.widget.AppCompatImageView
                             android:id="@+id/img_image3"
@@ -425,27 +432,34 @@
 
                             </androidx.appcompat.widget.LinearLayoutCompat>
 
-                            <androidx.appcompat.widget.AppCompatTextView
-                                android:layout_width="wrap_content"
+                            <androidx.appcompat.widget.LinearLayoutCompat
+                                android:id="@+id/lnr_specification"
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_centerVertical="true"
                                 android:layout_marginTop="@dimen/margin_15"
-                                android:fontFamily="@font/roboto_bold"
-                                android:gravity="center"
-                                android:text="@string/product_specification"
-                                android:textColor="@color/darkGray"
-                                android:textSize="@dimen/text_15" />
+                                android:orientation="vertical">
 
-                            <androidx.appcompat.widget.AppCompatTextView
-                                android:id="@+id/txt_specification"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_centerVertical="true"
-                                android:layout_marginTop="@dimen/margin_2"
-                                android:fontFamily="@font/roboto_medium"
-                                android:textColor="@color/darkGray"
-                                android:textSize="@dimen/text_13" />
+                                <androidx.appcompat.widget.AppCompatTextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_centerVertical="true"
+                                    android:layout_marginTop="@dimen/margin_15"
+                                    android:fontFamily="@font/roboto_bold"
+                                    android:gravity="center"
+                                    android:text="@string/product_specification"
+                                    android:textColor="@color/darkGray"
+                                    android:textSize="@dimen/text_15" />
 
+                                <androidx.appcompat.widget.AppCompatTextView
+                                    android:id="@+id/txt_specification"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_centerVertical="true"
+                                    android:layout_marginTop="@dimen/margin_2"
+                                    android:fontFamily="@font/roboto_medium"
+                                    android:textColor="@color/darkGray"
+                                    android:textSize="@dimen/text_13" />
+                            </androidx.appcompat.widget.LinearLayoutCompat>
                         </androidx.appcompat.widget.LinearLayoutCompat>
 
                         <androidx.appcompat.widget.LinearLayoutCompat

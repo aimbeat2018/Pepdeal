@@ -33,6 +33,7 @@ import com.pepdeal.in.constants.SharedPref;
 import com.pepdeal.in.constants.Utils;
 import com.pepdeal.in.databinding.FragmentSuperShopBinding;
 import com.pepdeal.in.databinding.ItemHomeShopsListBinding;
+import com.pepdeal.in.databinding.ItemSuperShopsListBinding;
 import com.pepdeal.in.model.requestModel.UserProfileRequestModel;
 import com.pepdeal.in.model.supershopmodel.SuperShopDataModel;
 
@@ -175,7 +176,7 @@ public class SuperShopFragment extends Fragment {
         @NonNull
         @Override
         public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            ItemHomeShopsListBinding layoutBinding = DataBindingUtil.inflate(LayoutInflater.from(activity), R.layout.item_home_shops_list, parent, false);
+            ItemSuperShopsListBinding layoutBinding = DataBindingUtil.inflate(LayoutInflater.from(activity), R.layout.item_super_shops_list, parent, false);
             return new ViewHolder(layoutBinding);
         }
 
@@ -191,9 +192,9 @@ public class SuperShopFragment extends Fragment {
         }
 
         public class ViewHolder extends RecyclerView.ViewHolder {
-            ItemHomeShopsListBinding layoutBinding;
+            ItemSuperShopsListBinding layoutBinding;
 
-            public ViewHolder(@NonNull ItemHomeShopsListBinding itemView) {
+            public ViewHolder(@NonNull ItemSuperShopsListBinding itemView) {
                 super(itemView.getRoot());
                 this.layoutBinding = itemView;
                 layoutBinding.recProduct.setVisibility(View.GONE);
@@ -206,38 +207,38 @@ public class SuperShopFragment extends Fragment {
 
                 Typeface typeface = null;
                 if (model.getFontStyleId().equals("1")) {
-                    typeface = ResourcesCompat.getFont(activity, R.font.roboto_black);
+                    typeface = ResourcesCompat.getFont(activity, R.font.anton_regular);
                 } else if (model.getFontStyleId().equals("2")) {
-                    typeface = ResourcesCompat.getFont(activity, R.font.roboto_blackitalic);
+                    typeface = ResourcesCompat.getFont(activity, R.font.berkshireswash_regular);
                 } else if (model.getFontStyleId().equals("3")) {
-                    typeface = ResourcesCompat.getFont(activity, R.font.roboto_bold);
+                    typeface = ResourcesCompat.getFont(activity, R.font.brasika_display);
                 } else if (model.getFontStyleId().equals("4")) {
-                    typeface = ResourcesCompat.getFont(activity, R.font.roboto_boldcondensed);
+                    typeface = ResourcesCompat.getFont(activity, R.font.carterone_regular);
                 } else if (model.getFontStyleId().equals("5")) {
-                    typeface = ResourcesCompat.getFont(activity, R.font.roboto_boldcondenseditalic);
+                    typeface = ResourcesCompat.getFont(activity, R.font.fredokaone_regular);
                 } else if (model.getFontStyleId().equals("6")) {
-                    typeface = ResourcesCompat.getFont(activity, R.font.roboto_bolditalic);
+                    typeface = ResourcesCompat.getFont(activity, R.font.gagalin_regular);
                 } else if (model.getFontStyleId().equals("7")) {
-                    typeface = ResourcesCompat.getFont(activity, R.font.roboto_condensed);
+                    typeface = ResourcesCompat.getFont(activity, R.font.lato_regular);
                 } else if (model.getFontStyleId().equals("8")) {
-                    typeface = ResourcesCompat.getFont(activity, R.font.roboto_condenseditalic);
+                    typeface = ResourcesCompat.getFont(activity, R.font.leaguespartan_bold);
                 } else if (model.getFontStyleId().equals("9")) {
-                    typeface = ResourcesCompat.getFont(activity, R.font.roboto_italic);
+                    typeface = ResourcesCompat.getFont(activity, R.font.lovelo_black);
                 } else if (model.getFontStyleId().equals("10")) {
-                    typeface = ResourcesCompat.getFont(activity, R.font.roboto_light);
+                    typeface = ResourcesCompat.getFont(activity, R.font.opensans_bold);
                 } else if (model.getFontStyleId().equals("11")) {
-                    typeface = ResourcesCompat.getFont(activity, R.font.roboto_lightitalic);
+                    typeface = ResourcesCompat.getFont(activity, R.font.quicksand_bold);
                 } else if (model.getFontStyleId().equals("12")) {
-                    typeface = ResourcesCompat.getFont(activity, R.font.roboto_medium);
-                } else if (model.getFontStyleId().equals("13")) {
-                    typeface = ResourcesCompat.getFont(activity, R.font.roboto_mediumitalic);
-                } else if (model.getFontStyleId().equals("14")) {
-                    typeface = ResourcesCompat.getFont(activity, R.font.roboto_regular);
-                } else if (model.getFontStyleId().equals("15")) {
-                    typeface = ResourcesCompat.getFont(activity, R.font.roboto_thin);
-                } else if (model.getFontStyleId().equals("16")) {
-                    typeface = ResourcesCompat.getFont(activity, R.font.roboto_thinitalic);
-                }
+                    typeface = ResourcesCompat.getFont(activity, R.font.yesevaone_regular);
+                } /*else if (model.getFontStyleId().equals("13")) {
+                            typeface = ResourcesCompat.getFont(activity, R.font.roboto_mediumitalic);
+                        } else if (model.getFontStyleId().equals("14")) {
+                            typeface = ResourcesCompat.getFont(activity, R.font.roboto_regular);
+                        } else if (model.getFontStyleId().equals("15")) {
+                            typeface = ResourcesCompat.getFont(activity, R.font.roboto_thin);
+                        } else if (model.getFontStyleId().equals("16")) {
+                            typeface = ResourcesCompat.getFont(activity, R.font.roboto_thinitalic);
+                        }*/
                 if (!model.getFontStyleId().equals("") || !model.getFontStyleId().equals("0"))
                     layoutBinding.txtName.setTypeface(typeface);
                 layoutBinding.txtAddress.setText(model.getCity() + ", " + model.getState());

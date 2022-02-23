@@ -117,39 +117,39 @@ public class ShopSignBoardActivity extends AppCompatActivity {
                 fontStyle = shopFontModelList.get(i).getFontStyleId();
 
                 Typeface typeface = null;
-                if (shopFontModelList.get(i).getFontStyleId().equals("1")) {
-                    typeface = ResourcesCompat.getFont(ShopSignBoardActivity.this, R.font.roboto_black);
-                } else if (shopFontModelList.get(i).getFontStyleId().equals("2")) {
-                    typeface = ResourcesCompat.getFont(ShopSignBoardActivity.this, R.font.roboto_blackitalic);
-                } else if (shopFontModelList.get(i).getFontStyleId().equals("3")) {
-                    typeface = ResourcesCompat.getFont(ShopSignBoardActivity.this, R.font.roboto_bold);
-                } else if (shopFontModelList.get(i).getFontStyleId().equals("4")) {
-                    typeface = ResourcesCompat.getFont(ShopSignBoardActivity.this, R.font.roboto_boldcondensed);
-                } else if (shopFontModelList.get(i).getFontStyleId().equals("5")) {
-                    typeface = ResourcesCompat.getFont(ShopSignBoardActivity.this, R.font.roboto_boldcondenseditalic);
-                } else if (shopFontModelList.get(i).getFontStyleId().equals("6")) {
-                    typeface = ResourcesCompat.getFont(ShopSignBoardActivity.this, R.font.roboto_bolditalic);
-                } else if (shopFontModelList.get(i).getFontStyleId().equals("7")) {
-                    typeface = ResourcesCompat.getFont(ShopSignBoardActivity.this, R.font.roboto_condensed);
-                } else if (shopFontModelList.get(i).getFontStyleId().equals("8")) {
-                    typeface = ResourcesCompat.getFont(ShopSignBoardActivity.this, R.font.roboto_condenseditalic);
-                } else if (shopFontModelList.get(i).getFontStyleId().equals("9")) {
-                    typeface = ResourcesCompat.getFont(ShopSignBoardActivity.this, R.font.roboto_italic);
-                } else if (shopFontModelList.get(i).getFontStyleId().equals("10")) {
-                    typeface = ResourcesCompat.getFont(ShopSignBoardActivity.this, R.font.roboto_light);
-                } else if (shopFontModelList.get(i).getFontStyleId().equals("11")) {
-                    typeface = ResourcesCompat.getFont(ShopSignBoardActivity.this, R.font.roboto_lightitalic);
-                } else if (shopFontModelList.get(i).getFontStyleId().equals("12")) {
-                    typeface = ResourcesCompat.getFont(ShopSignBoardActivity.this, R.font.roboto_medium);
-                } else if (shopFontModelList.get(i).getFontStyleId().equals("13")) {
-                    typeface = ResourcesCompat.getFont(ShopSignBoardActivity.this, R.font.roboto_mediumitalic);
-                } else if (shopFontModelList.get(i).getFontStyleId().equals("14")) {
-                    typeface = ResourcesCompat.getFont(ShopSignBoardActivity.this, R.font.roboto_regular);
-                } else if (shopFontModelList.get(i).getFontStyleId().equals("15")) {
-                    typeface = ResourcesCompat.getFont(ShopSignBoardActivity.this, R.font.roboto_thin);
-                } else if (shopFontModelList.get(i).getFontStyleId().equals("16")) {
-                    typeface = ResourcesCompat.getFont(ShopSignBoardActivity.this, R.font.roboto_thinitalic);
-                }
+                if (fontStyle.equals("1")) {
+                    typeface = ResourcesCompat.getFont(ShopSignBoardActivity.this, R.font.anton_regular);
+                } else if (fontStyle.equals("2")) {
+                    typeface = ResourcesCompat.getFont(ShopSignBoardActivity.this, R.font.berkshireswash_regular);
+                } else if (fontStyle.equals("3")) {
+                    typeface = ResourcesCompat.getFont(ShopSignBoardActivity.this, R.font.brasika_display);
+                } else if (fontStyle.equals("4")) {
+                    typeface = ResourcesCompat.getFont(ShopSignBoardActivity.this, R.font.carterone_regular);
+                } else if (fontStyle.equals("5")) {
+                    typeface = ResourcesCompat.getFont(ShopSignBoardActivity.this, R.font.fredokaone_regular);
+                } else if (fontStyle.equals("6")) {
+                    typeface = ResourcesCompat.getFont(ShopSignBoardActivity.this, R.font.gagalin_regular);
+                } else if (fontStyle.equals("7")) {
+                    typeface = ResourcesCompat.getFont(ShopSignBoardActivity.this, R.font.lato_regular);
+                } else if (fontStyle.equals("8")) {
+                    typeface = ResourcesCompat.getFont(ShopSignBoardActivity.this, R.font.leaguespartan_bold);
+                } else if (fontStyle.equals("9")) {
+                    typeface = ResourcesCompat.getFont(ShopSignBoardActivity.this, R.font.lovelo_black);
+                } else if (fontStyle.equals("10")) {
+                    typeface = ResourcesCompat.getFont(ShopSignBoardActivity.this, R.font.opensans_bold);
+                } else if (fontStyle.equals("11")) {
+                    typeface = ResourcesCompat.getFont(ShopSignBoardActivity.this, R.font.quicksand_bold);
+                } else if (fontStyle.equals("12")) {
+                    typeface = ResourcesCompat.getFont(ShopSignBoardActivity.this, R.font.yesevaone_regular);
+                } /*else if (fontStyle.equals("13")) {
+                            typeface = ResourcesCompat.getFont(ShopSignBoardActivity.this, R.font.roboto_mediumitalic);
+                        } else if (fontStyle.equals("14")) {
+                            typeface = ResourcesCompat.getFont(ShopSignBoardActivity.this, R.font.roboto_regular);
+                        } else if (fontStyle.equals("15")) {
+                            typeface = ResourcesCompat.getFont(ShopSignBoardActivity.this, R.font.roboto_thin);
+                        } else if (fontStyle.equals("16")) {
+                            typeface = ResourcesCompat.getFont(ShopSignBoardActivity.this, R.font.roboto_thinitalic);
+                        }*/
                 if (!shopFontModelList.get(i).getFontStyleId().equals("") || !shopFontModelList.get(i).getFontStyleId().equals("0"))
                     binding.txtName.setTypeface(typeface);
             }
@@ -192,65 +192,65 @@ public class ShopSignBoardActivity extends AppCompatActivity {
         shopFontModelList.add(model0);
         ShopFontStyleModel model = new ShopFontStyleModel();
         model.setFontStyleId("1");
-        model.setFontStyleName("Roboto Black");
-        model.setFontStyle(R.font.roboto_black);
+        model.setFontStyleName("Anton Regular");
+        model.setFontStyle(R.font.anton_regular);
         shopFontModelList.add(model);
         ShopFontStyleModel model1 = new ShopFontStyleModel();
         model1.setFontStyleId("2");
-        model1.setFontStyleName("Roboto Black Italic");
-        model1.setFontStyle(R.font.roboto_blackitalic);
+        model1.setFontStyleName("Berkshire Swash Regular");
+        model1.setFontStyle(R.font.berkshireswash_regular);
         shopFontModelList.add(model1);
         ShopFontStyleModel model2 = new ShopFontStyleModel();
         model2.setFontStyleId("3");
-        model2.setFontStyleName("Roboto Bold");
-        model2.setFontStyle(R.font.roboto_bold);
+        model2.setFontStyleName("Brasika Display");
+        model2.setFontStyle(R.font.brasika_display);
         shopFontModelList.add(model2);
         ShopFontStyleModel model3 = new ShopFontStyleModel();
         model3.setFontStyleId("4");
-        model3.setFontStyleName("Roboto Bold Condensed");
-        model3.setFontStyle(R.font.roboto_boldcondensed);
+        model3.setFontStyleName("Carter One");
+        model3.setFontStyle(R.font.carterone_regular);
         shopFontModelList.add(model3);
         ShopFontStyleModel model4 = new ShopFontStyleModel();
         model4.setFontStyleId("5");
-        model4.setFontStyleName("Roboto Bold Condensed Italic");
-        model4.setFontStyle(R.font.roboto_boldcondenseditalic);
+        model4.setFontStyleName("Fredokaone");
+        model4.setFontStyle(R.font.fredokaone_regular);
         shopFontModelList.add(model4);
         ShopFontStyleModel model5 = new ShopFontStyleModel();
         model5.setFontStyleId("6");
-        model5.setFontStyleName("Roboto Bold Italic");
-        model5.setFontStyle(R.font.roboto_bolditalic);
+        model5.setFontStyleName("Gagalin");
+        model5.setFontStyle(R.font.gagalin_regular);
         shopFontModelList.add(model5);
         ShopFontStyleModel model6 = new ShopFontStyleModel();
         model6.setFontStyleId("7");
-        model6.setFontStyleName("Roboto Condensed");
-        model6.setFontStyle(R.font.roboto_condensed);
+        model6.setFontStyleName("Lato");
+        model6.setFontStyle(R.font.lato_regular);
         shopFontModelList.add(model6);
         ShopFontStyleModel model7 = new ShopFontStyleModel();
         model7.setFontStyleId("8");
-        model7.setFontStyleName("Roboto Condensed Italic");
-        model7.setFontStyle(R.font.roboto_condenseditalic);
+        model7.setFontStyleName("League Spartan");
+        model7.setFontStyle(R.font.leaguespartan_bold);
         shopFontModelList.add(model7);
         ShopFontStyleModel model8 = new ShopFontStyleModel();
         model8.setFontStyleId("9");
-        model8.setFontStyleName("Roboto Italic");
-        model8.setFontStyle(R.font.roboto_italic);
+        model8.setFontStyleName("Lovelo Black");
+        model8.setFontStyle(R.font.lovelo_black);
         shopFontModelList.add(model8);
         ShopFontStyleModel model9 = new ShopFontStyleModel();
         model9.setFontStyleId("10");
-        model9.setFontStyleName("Roboto Light");
-        model9.setFontStyle(R.font.roboto_light);
+        model9.setFontStyleName("Opensans Bold");
+        model9.setFontStyle(R.font.opensans_bold);
         shopFontModelList.add(model9);
         ShopFontStyleModel model10 = new ShopFontStyleModel();
         model10.setFontStyleId("11");
-        model10.setFontStyleName("Roboto Light Italic");
-        model10.setFontStyle(R.font.roboto_lightitalic);
+        model10.setFontStyleName("Quicksand Bold");
+        model10.setFontStyle(R.font.quicksand_bold);
         shopFontModelList.add(model10);
         ShopFontStyleModel model11 = new ShopFontStyleModel();
         model11.setFontStyleId("12");
-        model11.setFontStyleName("Roboto Medium");
-        model11.setFontStyle(R.font.roboto_medium);
+        model11.setFontStyleName("Yeseva One");
+        model11.setFontStyle(R.font.yesevaone_regular);
         shopFontModelList.add(model11);
-        ShopFontStyleModel model12 = new ShopFontStyleModel();
+        /*ShopFontStyleModel model12 = new ShopFontStyleModel();
         model12.setFontStyleId("13");
         model12.setFontStyleName("Roboto Medium Italic");
         model12.setFontStyle(R.font.roboto_mediumitalic);
@@ -269,16 +269,9 @@ public class ShopSignBoardActivity extends AppCompatActivity {
         model15.setFontStyleId("16");
         model15.setFontStyleName("Roboto Thin Italic");
         model15.setFontStyle(R.font.roboto_thinitalic);
-        shopFontModelList.add(model15);
+        shopFontModelList.add(model15);*/
 
         setShopFontStyle(shopFontModelList, binding.spinFontStyle);
-
-        if (shopDetailsDataModel != null) {
-            for (int i = 0; i < shopFontModelList.size(); i++) {
-                if (shopFontModelList.get(i).getFontStyleId().equals(shopDetailsDataModel.getFontStyleId()))
-                    binding.spinFontStyle.setSelection(i);
-            }
-        }
     }
 
     private void setShopFontStyle(ArrayList<ShopFontStyleModel> shopFontModelList, AppCompatSpinner spinnershopfont) {
@@ -427,30 +420,30 @@ public class ShopSignBoardActivity extends AppCompatActivity {
 
                         Typeface typeface = null;
                         if (shopDetailsDataModel.getFontStyleId().equals("1")) {
-                            typeface = ResourcesCompat.getFont(ShopSignBoardActivity.this, R.font.roboto_black);
+                            typeface = ResourcesCompat.getFont(ShopSignBoardActivity.this, R.font.anton_regular);
                         } else if (shopDetailsDataModel.getFontStyleId().equals("2")) {
-                            typeface = ResourcesCompat.getFont(ShopSignBoardActivity.this, R.font.roboto_blackitalic);
+                            typeface = ResourcesCompat.getFont(ShopSignBoardActivity.this, R.font.berkshireswash_regular);
                         } else if (shopDetailsDataModel.getFontStyleId().equals("3")) {
-                            typeface = ResourcesCompat.getFont(ShopSignBoardActivity.this, R.font.roboto_bold);
+                            typeface = ResourcesCompat.getFont(ShopSignBoardActivity.this, R.font.brasika_display);
                         } else if (shopDetailsDataModel.getFontStyleId().equals("4")) {
-                            typeface = ResourcesCompat.getFont(ShopSignBoardActivity.this, R.font.roboto_boldcondensed);
+                            typeface = ResourcesCompat.getFont(ShopSignBoardActivity.this, R.font.carterone_regular);
                         } else if (shopDetailsDataModel.getFontStyleId().equals("5")) {
-                            typeface = ResourcesCompat.getFont(ShopSignBoardActivity.this, R.font.roboto_boldcondenseditalic);
+                            typeface = ResourcesCompat.getFont(ShopSignBoardActivity.this, R.font.fredokaone_regular);
                         } else if (shopDetailsDataModel.getFontStyleId().equals("6")) {
-                            typeface = ResourcesCompat.getFont(ShopSignBoardActivity.this, R.font.roboto_bolditalic);
+                            typeface = ResourcesCompat.getFont(ShopSignBoardActivity.this, R.font.gagalin_regular);
                         } else if (shopDetailsDataModel.getFontStyleId().equals("7")) {
-                            typeface = ResourcesCompat.getFont(ShopSignBoardActivity.this, R.font.roboto_condensed);
+                            typeface = ResourcesCompat.getFont(ShopSignBoardActivity.this, R.font.lato_regular);
                         } else if (shopDetailsDataModel.getFontStyleId().equals("8")) {
-                            typeface = ResourcesCompat.getFont(ShopSignBoardActivity.this, R.font.roboto_condenseditalic);
+                            typeface = ResourcesCompat.getFont(ShopSignBoardActivity.this, R.font.leaguespartan_bold);
                         } else if (shopDetailsDataModel.getFontStyleId().equals("9")) {
-                            typeface = ResourcesCompat.getFont(ShopSignBoardActivity.this, R.font.roboto_italic);
+                            typeface = ResourcesCompat.getFont(ShopSignBoardActivity.this, R.font.lovelo_black);
                         } else if (shopDetailsDataModel.getFontStyleId().equals("10")) {
-                            typeface = ResourcesCompat.getFont(ShopSignBoardActivity.this, R.font.roboto_light);
+                            typeface = ResourcesCompat.getFont(ShopSignBoardActivity.this, R.font.opensans_bold);
                         } else if (shopDetailsDataModel.getFontStyleId().equals("11")) {
-                            typeface = ResourcesCompat.getFont(ShopSignBoardActivity.this, R.font.roboto_lightitalic);
+                            typeface = ResourcesCompat.getFont(ShopSignBoardActivity.this, R.font.quicksand_bold);
                         } else if (shopDetailsDataModel.getFontStyleId().equals("12")) {
-                            typeface = ResourcesCompat.getFont(ShopSignBoardActivity.this, R.font.roboto_medium);
-                        } else if (shopDetailsDataModel.getFontStyleId().equals("13")) {
+                            typeface = ResourcesCompat.getFont(ShopSignBoardActivity.this, R.font.yesevaone_regular);
+                        } /*else if (shopDetailsDataModel.getFontStyleId().equals("13")) {
                             typeface = ResourcesCompat.getFont(ShopSignBoardActivity.this, R.font.roboto_mediumitalic);
                         } else if (shopDetailsDataModel.getFontStyleId().equals("14")) {
                             typeface = ResourcesCompat.getFont(ShopSignBoardActivity.this, R.font.roboto_regular);
@@ -458,24 +451,24 @@ public class ShopSignBoardActivity extends AppCompatActivity {
                             typeface = ResourcesCompat.getFont(ShopSignBoardActivity.this, R.font.roboto_thin);
                         } else if (shopDetailsDataModel.getFontStyleId().equals("16")) {
                             typeface = ResourcesCompat.getFont(ShopSignBoardActivity.this, R.font.roboto_thinitalic);
-                        }
+                        }*/
                         if (!shopDetailsDataModel.getFontStyleId().equals("") || !shopDetailsDataModel.getFontStyleId().equals("0"))
                             binding.txtName.setTypeface(typeface);
 
-                        fontColor = shopDetailsDataModel.getFontColorName2();
-                        backgroundColor = shopDetailsDataModel.getBgcolorName2();
+                        fontColor = shopDetailsDataModel.getFontColorId();
+                        backgroundColor = shopDetailsDataModel.getBgColorId();
                         fontStyle = shopDetailsDataModel.getFontStyleId();
 
                         if (shopDetailsDataModel != null) {
                             for (int i = 0; i < shopFontModelListSize.size(); i++) {
-                                if (shopFontModelListSize.get(i).getFontColorName2().equals(shopDetailsDataModel.getFontColorName2()))
+                                if (shopFontModelListSize.get(i).getFontColorId().equals(shopDetailsDataModel.getFontColorId()))
                                     binding.spinBoardSignFontColor.setSelection(i);
                             }
                         }
 
                         if (shopDetailsDataModel != null) {
                             for (int i = 0; i < backgroundcolorModelList.size(); i++) {
-                                if (backgroundcolorModelList.get(i).getBgColorName2().equals(shopDetailsDataModel.getBgcolorName2()))
+                                if (backgroundcolorModelList.get(i).getBgColorId().equals(shopDetailsDataModel.getBgColorId()))
                                     binding.spinbackcolor.setSelection(i);
                             }
                         }

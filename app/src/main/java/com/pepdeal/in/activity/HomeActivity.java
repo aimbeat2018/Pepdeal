@@ -86,7 +86,7 @@ public class HomeActivity extends AppCompatActivity implements LocationListener,
     ActivityHomeBinding binding;
     ArrayList<UsersHomeTabModel> homeTabModelArrayList = new ArrayList<>();
     public static int pos = 1;
-    String user_status = "", shop_name = "", username = "";
+    String user_status = "", shop_name = "", shop_id = "", username = "";
     String msgFlagDefault = "0";
     public static final int REQUEST_CHECK_SETTINGS = 125;
     public static final int PERMISSIONS_LOCATION_REQUEST = 124;
@@ -134,6 +134,12 @@ public class HomeActivity extends AppCompatActivity implements LocationListener,
             return false;
         });
         checkLocationPermission();
+
+        binding.lnrLocation.setOnClickListener(view -> {
+            startActivity(new Intent(HomeActivity.this, CityListSearchActivity.class));
+//            binding.drawerLayout.closeDrawers();
+
+        });
     }
 
     @Override
@@ -182,12 +188,17 @@ public class HomeActivity extends AppCompatActivity implements LocationListener,
                         String mobile = jsonObject1.getString("mobile_no");
                         shop_name = jsonObject1.getString("shop_name");
                         user_status = jsonObject1.getString("user_status");
-                        String shop_id = jsonObject1.getString("shop_id");
+                        shop_id = jsonObject1.getString("shop_id");
                         binding.includeLayout.txtname.setText(username);
                         binding.includeLayout.txtmobile.setText(mobile);
 
                         SharedPref.putVal(HomeActivity.this, SharedPref.shop_id, shop_id);
 
+                        if (binding.includeLayout.lnrCustomerNavigation.getVisibility() == View.VISIBLE) {
+                            binding.includeLayout.txtname.setText(username);
+                        } else {
+                            binding.includeLayout.txtname.setText(shop_name);
+                        }
                     } else {
                         binding.includeLayout.txtname.setText("username");
                         binding.includeLayout.txtmobile.setText("mobile");
@@ -243,8 +254,12 @@ public class HomeActivity extends AppCompatActivity implements LocationListener,
 
 
         public void onUpdateClick(View view) {
+            if (binding.includeLayout.lnrCustomerNavigation.getVisibility() == View.VISIBLE) {
+                startActivity(new Intent(HomeActivity.this, EditProfileActivity.class));
+            } else {
+                startActivity(new Intent(HomeActivity.this, ShopDetailsActivity.class).putExtra("shop_id", shop_id));
+            }
 
-            startActivity(new Intent(HomeActivity.this, EditProfileActivity.class));
             binding.drawerLayout.closeDrawers();
 
         }

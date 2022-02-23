@@ -2,6 +2,7 @@ package com.pepdeal.in.activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -12,6 +13,7 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -231,7 +233,7 @@ public class SearchActivity extends AppCompatActivity {
             }
 
             public void bind(SearchShopModel model, int position) {
-                layoutBinding.txtName.setText(model.getShopName());
+               /* layoutBinding.txtName.setText(model.getShopName());
                 if (model.getFontSizeName().contains("px")) {
                     layoutBinding.txtName.setTextSize(Float.parseFloat(model.getFontSizeName().replace("px", "")));
                 }
@@ -270,119 +272,64 @@ public class SearchActivity extends AppCompatActivity {
                         intent.setData(Uri.parse("tel:" + model.getShopMobileNo()));
                         startActivity(intent);
                     }
+                });*/
+
+                layoutBinding.txtName.setText(model.getShopName());
+                if (!model.getFontcolorName().equals(""))
+                    layoutBinding.txtName.setTextColor(Color.parseColor(model.getFontcolorName()));
+
+                Typeface typeface = null;
+                if (model.getFontStyleId().equals("1")) {
+                    typeface = ResourcesCompat.getFont(SearchActivity.this, R.font.anton_regular);
+                } else if (model.getFontStyleId().equals("2")) {
+                    typeface = ResourcesCompat.getFont(SearchActivity.this, R.font.berkshireswash_regular);
+                } else if (model.getFontStyleId().equals("3")) {
+                    typeface = ResourcesCompat.getFont(SearchActivity.this, R.font.brasika_display);
+                } else if (model.getFontStyleId().equals("4")) {
+                    typeface = ResourcesCompat.getFont(SearchActivity.this, R.font.carterone_regular);
+                } else if (model.getFontStyleId().equals("5")) {
+                    typeface = ResourcesCompat.getFont(SearchActivity.this, R.font.fredokaone_regular);
+                } else if (model.getFontStyleId().equals("6")) {
+                    typeface = ResourcesCompat.getFont(SearchActivity.this, R.font.gagalin_regular);
+                } else if (model.getFontStyleId().equals("7")) {
+                    typeface = ResourcesCompat.getFont(SearchActivity.this, R.font.lato_regular);
+                } else if (model.getFontStyleId().equals("8")) {
+                    typeface = ResourcesCompat.getFont(SearchActivity.this, R.font.leaguespartan_bold);
+                } else if (model.getFontStyleId().equals("9")) {
+                    typeface = ResourcesCompat.getFont(SearchActivity.this, R.font.lovelo_black);
+                } else if (model.getFontStyleId().equals("10")) {
+                    typeface = ResourcesCompat.getFont(SearchActivity.this, R.font.opensans_bold);
+                } else if (model.getFontStyleId().equals("11")) {
+                    typeface = ResourcesCompat.getFont(SearchActivity.this, R.font.quicksand_bold);
+                } else if (model.getFontStyleId().equals("12")) {
+                    typeface = ResourcesCompat.getFont(SearchActivity.this, R.font.yesevaone_regular);
+                } /*else if (model.getFontStyleId().equals("13")) {
+                            typeface = ResourcesCompat.getFont(SearchActivity.this, R.font.roboto_mediumitalic);
+                        } else if (model.getFontStyleId().equals("14")) {
+                            typeface = ResourcesCompat.getFont(SearchActivity.this, R.font.roboto_regular);
+                        } else if (model.getFontStyleId().equals("15")) {
+                            typeface = ResourcesCompat.getFont(SearchActivity.this, R.font.roboto_thin);
+                        } else if (model.getFontStyleId().equals("16")) {
+                            typeface = ResourcesCompat.getFont(SearchActivity.this, R.font.roboto_thinitalic);
+                        }*/
+                if (!model.getFontStyleId().equals("") || !model.getFontStyleId().equals("0")) {
+                    layoutBinding.txtName.setTypeface(typeface);
+                }
+                String address = model.getCity() + ", " + model.getState();
+                layoutBinding.txtAddress.setText(address);
+                layoutBinding.txtMobile.setText(model.getShopMobileNo());
+
+                try {
+                    layoutBinding.lnrBack.setBackgroundColor(Color.parseColor(model.getBgColor()));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+                layoutBinding.lnrBack.setOnClickListener(view -> {
+                    startActivity(new Intent(SearchActivity.this, ShopDetailsActivity.class).putExtra("shop_id", model.getShopId()));
                 });
             }
 
-            private void addSuperShop(String shopId) {
-                dialog.show();
-                UserProfileRequestModel model = new UserProfileRequestModel();
-                model.setUserId(SharedPref.getVal(SearchActivity.this, SharedPref.user_id));
-                model.setShop_id(shopId);
-
-                ApiInterface client = ApiClient.createService(ApiInterface.class, "", "");
-                client.addSupershop(model).enqueue(new Callback<ResponseBody>() {
-                    @Override
-                    public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
-                        try {
-                            JSONObject jsonObject = new JSONObject(response.body().string());
-                            String code = jsonObject.getString("code");
-                            if (code.equals("200")) {
-                                Toast.makeText(SearchActivity.this, "Shop added in super shop", Toast.LENGTH_SHORT).show();
-                                layoutBinding.imgSuperShop.setImageDrawable(getResources().getDrawable(R.drawable.ic_fav_selected));
-//                                binding.txtFav.setText("Remove Favourite");
-                                getSearchData(false);
-                            } else {
-                                Toast.makeText(SearchActivity.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
-                            }
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                        dismissDialog();
-                    }
-
-                    @Override
-                    public void onFailure(@NonNull Call<ResponseBody> call, @NonNull Throwable error) {
-                        // binding.recProductlist.hideShimmer();
-                        dismissDialog();
-                        error.printStackTrace();
-                        if (error instanceof HttpException) {
-                            switch (((HttpException) error).code()) {
-                                case HttpsURLConnection.HTTP_UNAUTHORIZED:
-                                    Toast.makeText(SearchActivity.this, getString(R.string.unauthorised_user), Toast.LENGTH_SHORT).show();
-                                    break;
-                                case HttpsURLConnection.HTTP_FORBIDDEN:
-                                    Toast.makeText(SearchActivity.this, getString(R.string.forbidden), Toast.LENGTH_SHORT).show();
-                                    break;
-                                case HttpsURLConnection.HTTP_INTERNAL_ERROR:
-                                    Toast.makeText(SearchActivity.this, getString(R.string.internal_server_error), Toast.LENGTH_SHORT).show();
-                                    break;
-                                case HttpsURLConnection.HTTP_BAD_REQUEST:
-                                    Toast.makeText(SearchActivity.this, getString(R.string.bad_request), Toast.LENGTH_SHORT).show();
-                                    break;
-                                default:
-                                    Toast.makeText(SearchActivity.this, error.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
-                            }
-                        } else {
-                            Toast.makeText(SearchActivity.this, getString(R.string.something_went_wrong), Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
-            }
-
-            private void removeSuperShop(String superShopId) {
-                UserProfileRequestModel model = new UserProfileRequestModel();
-                model.setUserId(SharedPref.getVal(SearchActivity.this, SharedPref.user_id));
-                model.setSuper_id(superShopId);
-
-                ApiInterface client = ApiClient.createService(ApiInterface.class, "", "");
-                client.removeSupershop(model).enqueue(new Callback<ResponseBody>() {
-                    @Override
-                    public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
-                        try {
-                            JSONObject jsonObject = new JSONObject(response.body().string());
-                            String code = jsonObject.getString("code");
-                            if (code.equals("200")) {
-                                Toast.makeText(SearchActivity.this, "Shop Removed from Super shop", Toast.LENGTH_SHORT).show();
-                                layoutBinding.imgSuperShop.setImageDrawable(getResources().getDrawable(R.drawable.ic_add_super_shop));
-                                getSearchData(false);
-
-                            } else {
-                                Toast.makeText(SearchActivity.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
-                            }
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-//                    dismissDialog();
-                    }
-
-                    @Override
-                    public void onFailure(@NonNull Call<ResponseBody> call, @NonNull Throwable error) {
-                        // binding.recProductlist.hideShimmer();
-//                    dismissDialog();
-                        error.printStackTrace();
-                        if (error instanceof HttpException) {
-                            switch (((HttpException) error).code()) {
-                                case HttpsURLConnection.HTTP_UNAUTHORIZED:
-                                    Toast.makeText(SearchActivity.this, getString(R.string.unauthorised_user), Toast.LENGTH_SHORT).show();
-                                    break;
-                                case HttpsURLConnection.HTTP_FORBIDDEN:
-                                    Toast.makeText(SearchActivity.this, getString(R.string.forbidden), Toast.LENGTH_SHORT).show();
-                                    break;
-                                case HttpsURLConnection.HTTP_INTERNAL_ERROR:
-                                    Toast.makeText(SearchActivity.this, getString(R.string.internal_server_error), Toast.LENGTH_SHORT).show();
-                                    break;
-                                case HttpsURLConnection.HTTP_BAD_REQUEST:
-                                    Toast.makeText(SearchActivity.this, getString(R.string.bad_request), Toast.LENGTH_SHORT).show();
-                                    break;
-                                default:
-                                    Toast.makeText(SearchActivity.this, error.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
-                            }
-                        } else {
-                            Toast.makeText(SearchActivity.this, getString(R.string.something_went_wrong), Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
-            }
         }
     }
 }

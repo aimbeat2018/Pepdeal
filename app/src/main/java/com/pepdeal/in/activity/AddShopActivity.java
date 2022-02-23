@@ -2,8 +2,10 @@ package com.pepdeal.in.activity;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.content.pm.PackageManager;
@@ -25,6 +27,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatSpinner;
@@ -86,6 +89,8 @@ public class AddShopActivity extends AppCompatActivity implements LocationListen
     ProgressDialog dialog;
     public static final int REQUEST_CHECK_SETTINGS = 125;
     public static final int PERMISSIONS_LOCATION_REQUEST = 124;
+    public static final int SELECT_STATE = 100;
+    public static final int SELECT_CITY = 101;
     private LocationManager mLocationManager;
     LocationTrack locationTrack;
     Geocoder geocoder;
@@ -94,6 +99,8 @@ public class AddShopActivity extends AppCompatActivity implements LocationListen
     Location myLocation;
     double longitude = 0.0;
     double latitude = 0.0;
+    String stateId = "", stateName = "", cityId = "", cityName = "";
+
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
@@ -181,65 +188,65 @@ public class AddShopActivity extends AppCompatActivity implements LocationListen
         shopFontModelList.add(model0);
         ShopFontStyleModel model = new ShopFontStyleModel();
         model.setFontStyleId("1");
-        model.setFontStyleName("Roboto Black");
-        model.setFontStyle(R.font.roboto_black);
+        model.setFontStyleName("Anton Regular");
+        model.setFontStyle(R.font.anton_regular);
         shopFontModelList.add(model);
         ShopFontStyleModel model1 = new ShopFontStyleModel();
         model1.setFontStyleId("2");
-        model1.setFontStyleName("Roboto Black Italic");
-        model1.setFontStyle(R.font.roboto_blackitalic);
+        model1.setFontStyleName("Berkshire Swash Regular");
+        model1.setFontStyle(R.font.berkshireswash_regular);
         shopFontModelList.add(model1);
         ShopFontStyleModel model2 = new ShopFontStyleModel();
         model2.setFontStyleId("3");
-        model2.setFontStyleName("Roboto Bold");
-        model2.setFontStyle(R.font.roboto_bold);
+        model2.setFontStyleName("Brasika Display");
+        model2.setFontStyle(R.font.brasika_display);
         shopFontModelList.add(model2);
         ShopFontStyleModel model3 = new ShopFontStyleModel();
         model3.setFontStyleId("4");
-        model3.setFontStyleName("Roboto Bold Condensed");
-        model3.setFontStyle(R.font.roboto_boldcondensed);
+        model3.setFontStyleName("Carter One");
+        model3.setFontStyle(R.font.carterone_regular);
         shopFontModelList.add(model3);
         ShopFontStyleModel model4 = new ShopFontStyleModel();
         model4.setFontStyleId("5");
-        model4.setFontStyleName("Roboto Bold Condensed Italic");
-        model4.setFontStyle(R.font.roboto_boldcondenseditalic);
+        model4.setFontStyleName("Fredokaone");
+        model4.setFontStyle(R.font.fredokaone_regular);
         shopFontModelList.add(model4);
         ShopFontStyleModel model5 = new ShopFontStyleModel();
         model5.setFontStyleId("6");
-        model5.setFontStyleName("Roboto Bold Italic");
-        model5.setFontStyle(R.font.roboto_bolditalic);
+        model5.setFontStyleName("Gagalin");
+        model5.setFontStyle(R.font.gagalin_regular);
         shopFontModelList.add(model5);
         ShopFontStyleModel model6 = new ShopFontStyleModel();
         model6.setFontStyleId("7");
-        model6.setFontStyleName("Roboto Condensed");
-        model6.setFontStyle(R.font.roboto_condensed);
+        model6.setFontStyleName("Lato");
+        model6.setFontStyle(R.font.lato_regular);
         shopFontModelList.add(model6);
         ShopFontStyleModel model7 = new ShopFontStyleModel();
         model7.setFontStyleId("8");
-        model7.setFontStyleName("Roboto Condensed Italic");
-        model7.setFontStyle(R.font.roboto_condenseditalic);
+        model7.setFontStyleName("League Spartan");
+        model7.setFontStyle(R.font.leaguespartan_bold);
         shopFontModelList.add(model7);
         ShopFontStyleModel model8 = new ShopFontStyleModel();
         model8.setFontStyleId("9");
-        model8.setFontStyleName("Roboto Italic");
-        model8.setFontStyle(R.font.roboto_italic);
+        model8.setFontStyleName("Lovelo Black");
+        model8.setFontStyle(R.font.lovelo_black);
         shopFontModelList.add(model8);
         ShopFontStyleModel model9 = new ShopFontStyleModel();
         model9.setFontStyleId("10");
-        model9.setFontStyleName("Roboto Light");
-        model9.setFontStyle(R.font.roboto_light);
+        model9.setFontStyleName("Opensans Bold");
+        model9.setFontStyle(R.font.opensans_bold);
         shopFontModelList.add(model9);
         ShopFontStyleModel model10 = new ShopFontStyleModel();
         model10.setFontStyleId("11");
-        model10.setFontStyleName("Roboto Light Italic");
-        model10.setFontStyle(R.font.roboto_lightitalic);
+        model10.setFontStyleName("Quicksand Bold");
+        model10.setFontStyle(R.font.quicksand_bold);
         shopFontModelList.add(model10);
         ShopFontStyleModel model11 = new ShopFontStyleModel();
         model11.setFontStyleId("12");
-        model11.setFontStyleName("Roboto Medium");
-        model11.setFontStyle(R.font.roboto_medium);
+        model11.setFontStyleName("Yeseva One");
+        model11.setFontStyle(R.font.yesevaone_regular);
         shopFontModelList.add(model11);
-        ShopFontStyleModel model12 = new ShopFontStyleModel();
+        /*ShopFontStyleModel model12 = new ShopFontStyleModel();
         model12.setFontStyleId("13");
         model12.setFontStyleName("Roboto Medium Italic");
         model12.setFontStyle(R.font.roboto_mediumitalic);
@@ -258,7 +265,7 @@ public class AddShopActivity extends AppCompatActivity implements LocationListen
         model15.setFontStyleId("16");
         model15.setFontStyleName("Roboto Thin Italic");
         model15.setFontStyle(R.font.roboto_thinitalic);
-        shopFontModelList.add(model15);
+        shopFontModelList.add(model15);*/
 
         setShopFontStyle(shopFontModelList, binding.spinFontStyle);
     }
@@ -329,8 +336,8 @@ public class AddShopActivity extends AppCompatActivity implements LocationListen
         model.setShopAddress(Objects.requireNonNull(binding.edtShopAddress.getText()).toString());
         model.setShopMobileNo(Objects.requireNonNull(binding.edtMobileNumber.getText()).toString());
         model.setShopDescription(Objects.requireNonNull(binding.edtAbout.getText()).toString());
-        model.setCity(Objects.requireNonNull(binding.edtShopCity.getText()).toString());
-        model.setState(Objects.requireNonNull(binding.edtShopState.getText()).toString());
+        model.setCity(cityId);
+        model.setState(stateId);
         model.setBgColorId(backgroundColor);
         model.setFontStyleId(fontStyle);
         model.setFontSizeId(fontSize);
@@ -346,8 +353,23 @@ public class AddShopActivity extends AppCompatActivity implements LocationListen
                     JSONObject jsonObject = new JSONObject(response.body().string());
                     String code = jsonObject.getString("code");
                     if (code.equals("200")) {
-                        Toast.makeText(AddShopActivity.this, "Shop Added Successfully", Toast.LENGTH_SHORT).show();
-                        finish();
+                       /* Toast.makeText(AddShopActivity.this, "Shop Added Successfully", Toast.LENGTH_SHORT).show();
+                        finish();*/
+
+
+                        new AlertDialog.Builder(AddShopActivity.this)
+                                .setTitle("Alert!!!")
+                                .setMessage("Shop added successfully and sent to our team for verification.")
+
+                                // Specifying a listener allows you to take an action before dismissing the dialog.
+                                // The dialog is automatically dismissed when a dialog button is clicked.
+                                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        // Continue with delete operation
+                                        finish();
+                                    }
+                                })
+                                .show();
                     } else {
                         Toast.makeText(AddShopActivity.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
                     }
@@ -727,7 +749,6 @@ public class AddShopActivity extends AppCompatActivity implements LocationListen
 
     }
 
-
     public class ClickHandler {
         public void onBackClick(View view) {
             onBackPressed();
@@ -761,6 +782,23 @@ public class AddShopActivity extends AppCompatActivity implements LocationListen
                     Utils.InternetAlertDialog(AddShopActivity.this, getString(R.string.no_internet_title), getString(R.string.no_internet_desc));
                 }
             }
+        }
+
+        public void onStateClick(View view) {
+            Intent intent = new Intent(AddShopActivity.this, StateListActivity.class);
+            startActivityForResult(intent, SELECT_STATE);
+
+        }
+
+        public void onCityClick(View view) {
+            if (stateId.equals("")) {
+                Toast.makeText(AddShopActivity.this, "Select State", Toast.LENGTH_SHORT).show();
+            } else {
+                Intent intent = new Intent(AddShopActivity.this, CityListActivity.class);
+                intent.putExtra("state_id", stateId);
+                startActivityForResult(intent, SELECT_CITY);
+            }
+
         }
     }
 
@@ -1002,5 +1040,24 @@ public class AddShopActivity extends AppCompatActivity implements LocationListen
         }
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
 
+        if (requestCode == SELECT_STATE) {
+            if (resultCode == RESULT_OK) {
+                stateId = data.getStringExtra("state_id");
+                stateName = data.getStringExtra("state_name");
+
+                binding.edtShopState.setText(stateName);
+            }
+        } else if (requestCode == SELECT_CITY) {
+            if (resultCode == RESULT_OK) {
+                cityId = data.getStringExtra("city_id");
+                cityName = data.getStringExtra("city_name");
+
+                binding.edtShopCity.setText(cityName);
+            }
+        }
+    }
 }

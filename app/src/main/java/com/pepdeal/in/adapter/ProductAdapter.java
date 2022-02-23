@@ -16,6 +16,9 @@ import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
+import com.bumptech.glide.request.target.DrawableImageViewTarget;
 import com.pepdeal.in.R;
 import com.pepdeal.in.activity.AddShopActivity;
 import com.pepdeal.in.activity.ProductDetailsActivity;
@@ -190,8 +193,15 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
         }
 
         public void bindShopData(ProductDetailsDataModel model, int position) {
-            Glide.with(activity).load(model.getProductImages())
+            Glide.with(activity).load(model.getProductImages().get(0).getProductImage())
                     .error(R.drawable.loader).placeholder(R.drawable.loader).into(layoutBinding.imgProductImage);
+
+        /*    Glide.with(activity)
+                    .load(model.getProductImages().get(0).getProductImage())
+                    .apply(new RequestOptions().diskCacheStrategy(DiskCacheStrategy.NONE))
+                    .error(R.drawable.loader).placeholder(R.drawable.loader)
+                    .into(new DrawableImageViewTarget(layoutBinding.imgProductImage));*/
+
             layoutBinding.txtProductName.setText(model.getProductName());
 
             if (model.getDiscountMrp().equals("0") || model.getDiscountMrp().equals("") || model.getDiscountMrp() == null) {
