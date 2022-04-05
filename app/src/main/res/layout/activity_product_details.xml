@@ -90,6 +90,140 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/lnr_back"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#FCCFD6"
+                android:orientation="horizontal"
+                android:padding="@dimen/margin_5">
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="@integer/material_motion_duration_long_1"
+                    android:orientation="vertical">
+
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/txt_name"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/roboto_bold"
+                            android:gravity="center"
+                            android:maxLines="1"
+                            android:text=""
+                            android:textAllCaps="true"
+                            android:textColor="#C12222"
+                            android:textSize="@dimen/text_19"
+                            android:textStyle="bold" />
+
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <androidx.appcompat.widget.LinearLayoutCompat
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_weight="1"
+                            android:gravity="start"
+                            android:orientation="horizontal">
+
+                            <androidx.appcompat.widget.AppCompatImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="@dimen/margin_20"
+                                android:layout_gravity="center"
+                                android:src="@drawable/ic_location"
+                                app:tint="@color/black" />
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:id="@+id/txt_address"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginHorizontal="@dimen/margin_5"
+                                android:fontFamily="@font/roboto_medium"
+                                android:maxLines="1"
+                                android:text=""
+                                android:textAllCaps="true"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/text_12" />
+                        </androidx.appcompat.widget.LinearLayoutCompat>
+
+                        <androidx.appcompat.widget.LinearLayoutCompat
+                            android:id="@+id/lnr_mobile"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:gravity="end"
+                            android:orientation="horizontal">
+
+                            <androidx.appcompat.widget.AppCompatImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="@dimen/margin_20"
+                                android:layout_gravity="center"
+                                android:src="@drawable/ic_call"
+                                app:tint="@color/black" />
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:id="@+id/txt_mobile"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginHorizontal="@dimen/margin_5"
+                                android:fontFamily="@font/roboto_medium"
+                                android:gravity="center"
+                                android:text=""
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/text_12" />
+                        </androidx.appcompat.widget.LinearLayoutCompat>
+
+                        <androidx.appcompat.widget.LinearLayoutCompat
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="end"
+                            android:visibility="gone">
+
+                            <androidx.appcompat.widget.AppCompatImageView
+                                android:id="@+id/img_super_shop"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_marginEnd="@dimen/margin_5"
+                                android:adjustViewBounds="true"
+                                android:src="@drawable/ic_add_super_shop" />
+
+                            <androidx.appcompat.widget.AppCompatImageView
+                                android:id="@+id/img_message"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:adjustViewBounds="true"
+                                android:src="@drawable/ic_send_message" />
+                        </androidx.appcompat.widget.LinearLayoutCompat>
+
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/img_delete"
+                    android:layout_width="@dimen/margin_30"
+                    android:layout_height="@dimen/margin_30"
+                    android:padding="@dimen/margin_5"
+                    android:src="@drawable/ic_delete"
+                    android:visibility="gone" />
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
             <androidx.core.widget.NestedScrollView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -100,119 +234,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical">
-
-                    <androidx.appcompat.widget.LinearLayoutCompat
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="#FCCFD6"
-                        android:orientation="vertical"
-                        android:padding="@dimen/margin_8"
-                        android:visibility="gone">
-
-                        <androidx.appcompat.widget.LinearLayoutCompat
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:orientation="horizontal">
-
-                            <androidx.appcompat.widget.AppCompatTextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:layout_marginTop="@dimen/margin_3"
-                                android:layout_weight="1"
-                                android:fontFamily="@font/roboto_bold"
-                                android:gravity="center"
-                                android:text="SIDDHIVINAYAK STORE"
-                                android:textColor="#C12222"
-                                android:textSize="@dimen/text_17"
-                                android:textStyle="bold" />
-
-                        </androidx.appcompat.widget.LinearLayoutCompat>
-
-                        <androidx.appcompat.widget.LinearLayoutCompat
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginVertical="@dimen/margin_8"
-                            android:orientation="horizontal">
-
-                            <androidx.appcompat.widget.LinearLayoutCompat
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:layout_weight="1"
-                                android:gravity="start"
-                                android:orientation="horizontal">
-
-                                <androidx.appcompat.widget.AppCompatImageView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="@dimen/margin_20"
-                                    android:layout_gravity="center"
-                                    android:src="@drawable/ic_location"
-                                    app:tint="@color/black" />
-
-                                <androidx.appcompat.widget.AppCompatTextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_gravity="center"
-                                    android:layout_marginHorizontal="@dimen/margin_5"
-                                    android:fontFamily="@font/roboto_medium"
-                                    android:gravity="center"
-                                    android:text="Andheri Mumbai"
-                                    android:textColor="@color/black"
-                                    android:textSize="@dimen/text_13" />
-                            </androidx.appcompat.widget.LinearLayoutCompat>
-
-                            <androidx.appcompat.widget.LinearLayoutCompat
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:layout_weight="1"
-                                android:gravity="end"
-                                android:orientation="horizontal">
-
-                                <androidx.appcompat.widget.AppCompatImageView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="@dimen/margin_20"
-                                    android:layout_gravity="center"
-                                    android:src="@drawable/ic_call"
-                                    app:tint="@color/black" />
-
-                                <androidx.appcompat.widget.AppCompatTextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_gravity="center"
-                                    android:layout_marginHorizontal="@dimen/margin_5"
-                                    android:fontFamily="@font/roboto_medium"
-                                    android:gravity="center"
-                                    android:text="77759898989"
-                                    android:textColor="@color/black"
-                                    android:textSize="@dimen/text_13" />
-                            </androidx.appcompat.widget.LinearLayoutCompat>
-
-                            <androidx.appcompat.widget.LinearLayoutCompat
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="end">
-
-                                <androidx.appcompat.widget.AppCompatImageView
-                                    android:id="@+id/img_super_shop"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="match_parent"
-                                    android:layout_marginEnd="@dimen/margin_5"
-                                    android:adjustViewBounds="true"
-                                    android:src="@drawable/ic_add_super_shop" />
-
-                                <androidx.appcompat.widget.AppCompatImageView
-                                    android:id="@+id/img_message"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="match_parent"
-                                    android:adjustViewBounds="true"
-                                    android:src="@drawable/ic_send_message" />
-                            </androidx.appcompat.widget.LinearLayoutCompat>
-
-                        </androidx.appcompat.widget.LinearLayoutCompat>
-                    </androidx.appcompat.widget.LinearLayoutCompat>
 
                     <androidx.appcompat.widget.LinearLayoutCompat
                         android:layout_width="match_parent"
@@ -235,12 +256,11 @@
                                 android:src="@drawable/ic_details_fav"
                                 android:visibility="gone" />
 
-                            <androidx.appcompat.widget.AppCompatImageView
+                            <com.pepdeal.in.constants.ScaleImageView
                                 android:id="@+id/img_image1"
                                 android:layout_width="match_parent"
-                                android:layout_height="@dimen/margin_180"
-                                android:onClick="@{handler::onClickImage1}"
-                                android:padding="@dimen/margin_8" />
+                                android:layout_height="wrap_content"
+                                android:onClick="@{handler::onClickImage1}" />
                         </RelativeLayout>
 
                         <androidx.appcompat.widget.AppCompatTextView
@@ -266,12 +286,11 @@
                             android:textColor="@color/darkGray"
                             android:textSize="@dimen/text_13" />
 
-                        <androidx.appcompat.widget.AppCompatImageView
+                        <com.pepdeal.in.constants.ScaleImageView
                             android:id="@+id/img_image2"
-                            android:layout_width="match_parent"
-                            android:layout_height="@dimen/margin_180"
-                            android:onClick="@{handler::onClickImage2}"
-                            android:padding="@dimen/margin_8" />
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:onClick="@{handler::onClickImage2}" />
 
                         <androidx.appcompat.widget.LinearLayoutCompat
                             android:id="@+id/lnr_desc1"
@@ -303,12 +322,12 @@
                                 android:textSize="@dimen/text_13" />
                         </androidx.appcompat.widget.LinearLayoutCompat>
 
-                        <androidx.appcompat.widget.AppCompatImageView
+                        <com.pepdeal.in.constants.ScaleImageView
                             android:id="@+id/img_image3"
-                            android:layout_width="match_parent"
-                            android:layout_height="@dimen/margin_180"
-                            android:onClick="@{handler::onClickImage3}"
-                            android:padding="@dimen/margin_8" />
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/margin_5"
+                            android:onClick="@{handler::onClickImage3}" />
 
                         <androidx.appcompat.widget.LinearLayoutCompat
                             android:layout_width="match_parent"

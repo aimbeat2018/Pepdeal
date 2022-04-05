@@ -121,6 +121,7 @@
                         android:layout_marginVertical="@dimen/margin_5"
                         android:background="@drawable/search_edittext_background_layout"
                         android:drawableLeft="@drawable/ic_baseline_search_24"
+                        android:focusable="false"
                         android:focusableInTouchMode="true"
                         android:focusedByDefault="false"
                         android:hint="Search"
@@ -136,7 +137,7 @@
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#FFFFCC"
+                android:background="#EDE4E4"
                 android:gravity="center">
 
                 <androidx.recyclerview.widget.RecyclerView
@@ -147,6 +148,7 @@
             </androidx.appcompat.widget.LinearLayoutCompat>
 
             <androidx.core.widget.NestedScrollView
+                android:id="@+id/nestedScroll"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:fillViewport="true"

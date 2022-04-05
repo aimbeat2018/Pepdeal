@@ -13,6 +13,8 @@ public class SharedPref {
     public static String password = "password";
     public static String shop_id = "shop_id";
     public static String msgFlag = "msgFlag";
+    public static String userName= "userName";
+    public static String shopName= "shopName";
 
     public static void putBol(Context context, String key, boolean val) {
         SharedPreferences sharedPreferences = context.getSharedPreferences(SharedPref, Context.MODE_PRIVATE);

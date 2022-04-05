@@ -45,6 +45,8 @@ public class RegistrationActivity extends AppCompatActivity {
         dialog = new ProgressDialog(this);
         dialog.setTitle("Loading");
         dialog.setMessage("Please wait...");
+
+        binding.tvtermsconditionn.setOnClickListener(view -> startActivity(new Intent(RegistrationActivity.this, AboutUsActivity.class).putExtra("from", "terms")));
     }
 
     public class ClickHandler {
@@ -58,6 +60,8 @@ public class RegistrationActivity extends AppCompatActivity {
                 Toasty.info(RegistrationActivity.this, "Enter valid password", Toasty.LENGTH_SHORT, true).show();
             } else if (!binding.edtPassword.getText().toString().equals(binding.edtConfirmPassword.getText().toString())) {
                 Toasty.info(RegistrationActivity.this, "Both password should match", Toasty.LENGTH_SHORT, true).show();
+            } else if (!binding.cbterms.isChecked()) {
+                Toasty.info(RegistrationActivity.this, "Accept terms and condition", Toasty.LENGTH_SHORT, true).show();
             } else {
                /* Intent intent = new Intent(RegistrationActivity.this, OtpVerificationActivity.class);
                 intent.putExtra("mobile_no", binding.edtMobileNo.getText().toString());
@@ -65,7 +69,6 @@ public class RegistrationActivity extends AppCompatActivity {
                 startActivity(intent);*/
 
                 if (Utils.isNetwork(RegistrationActivity.this)) {
-
                     OTPRequestModel model = new OTPRequestModel();
                     model.setMobileNo(binding.edtMobileNo.getText().toString().trim());
                     sendOtp(model);

@@ -86,7 +86,7 @@ public class HomeActivity extends AppCompatActivity implements LocationListener,
     ActivityHomeBinding binding;
     ArrayList<UsersHomeTabModel> homeTabModelArrayList = new ArrayList<>();
     public static int pos = 1;
-    String user_status = "", shop_name = "", shop_id = "", username = "";
+    String user_status = "", shop_name = "", shop_id = "", username = "", shopStatus = "";
     String msgFlagDefault = "0";
     public static final int REQUEST_CHECK_SETTINGS = 125;
     public static final int PERMISSIONS_LOCATION_REQUEST = 124;
@@ -136,7 +136,12 @@ public class HomeActivity extends AppCompatActivity implements LocationListener,
         checkLocationPermission();
 
         binding.lnrLocation.setOnClickListener(view -> {
-            startActivity(new Intent(HomeActivity.this, CityListSearchActivity.class));
+            startActivity(new Intent(HomeActivity.this, StateSearchListActivity.class));
+//            binding.drawerLayout.closeDrawers();
+
+        });
+        binding.searchView.setOnClickListener(view -> {
+            startActivity(new Intent(HomeActivity.this, SearchActivity.class));
 //            binding.drawerLayout.closeDrawers();
 
         });
@@ -188,16 +193,23 @@ public class HomeActivity extends AppCompatActivity implements LocationListener,
                         String mobile = jsonObject1.getString("mobile_no");
                         shop_name = jsonObject1.getString("shop_name");
                         user_status = jsonObject1.getString("user_status");
+                        shopStatus = jsonObject1.getString("shop_status");
                         shop_id = jsonObject1.getString("shop_id");
                         binding.includeLayout.txtname.setText(username);
                         binding.includeLayout.txtmobile.setText(mobile);
 
                         SharedPref.putVal(HomeActivity.this, SharedPref.shop_id, shop_id);
+                        SharedPref.putVal(HomeActivity.this, SharedPref.userName, username);
+                        SharedPref.putVal(HomeActivity.this, SharedPref.shopName, shop_name);
 
                         if (binding.includeLayout.lnrCustomerNavigation.getVisibility() == View.VISIBLE) {
                             binding.includeLayout.txtname.setText(username);
+                            binding.includeLayout.relEditProfile.setVisibility(View.VISIBLE);
+                            binding.includeLayout.relShopArrow.setVisibility(View.GONE);
                         } else {
                             binding.includeLayout.txtname.setText(shop_name);
+                            binding.includeLayout.relEditProfile.setVisibility(View.GONE);
+                            binding.includeLayout.relShopArrow.setVisibility(View.VISIBLE);
                         }
                     } else {
                         binding.includeLayout.txtname.setText("username");
@@ -239,7 +251,6 @@ public class HomeActivity extends AppCompatActivity implements LocationListener,
 
     }
 
-
     public class NavigationClick {
 
         public void onCustomerClick(View view) {
@@ -250,6 +261,8 @@ public class HomeActivity extends AppCompatActivity implements LocationListener,
             msgFlagDefault = "0";
             SharedPref.putVal(HomeActivity.this, SharedPref.msgFlag, msgFlagDefault);
             binding.includeLayout.txtname.setText(username);
+            binding.includeLayout.relEditProfile.setVisibility(View.VISIBLE);
+            binding.includeLayout.relShopArrow.setVisibility(View.GONE);
         }
 
 
@@ -257,23 +270,58 @@ public class HomeActivity extends AppCompatActivity implements LocationListener,
             if (binding.includeLayout.lnrCustomerNavigation.getVisibility() == View.VISIBLE) {
                 startActivity(new Intent(HomeActivity.this, EditProfileActivity.class));
             } else {
-                startActivity(new Intent(HomeActivity.this, ShopDetailsActivity.class).putExtra("shop_id", shop_id));
+                if (shopStatus.equals("0")) {
+                    startActivity(new Intent(HomeActivity.this, ShopDetailsActivity.class).putExtra("shop_id", shop_id));
+                } else {
+                    new AlertDialog.Builder(HomeActivity.this)
+                            .setTitle("Alert!!!")
+                            .setMessage("Waiting for approval.")
+
+                            // Specifying a listener allows you to take an action before dismissing the dialog.
+                            // The dialog is automatically dismissed when a dialog button is clicked.
+                            .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    // Continue with delete operation
+                                    dialog.dismiss();
+                                    binding.drawerLayout.closeDrawers();
+                                }
+                            })
+                            .show();
+                }
             }
 
             binding.drawerLayout.closeDrawers();
-
         }
 
         public void onSellerClick(View view) {
             if (user_status.equals("1")) {
-                binding.includeLayout.lnrCustomerNavigation.setVisibility(View.GONE);
-                binding.includeLayout.lnrSellerNavigation.setVisibility(View.VISIBLE);
-                binding.includeLayout.lnrSellerBackground.setBackgroundColor(Color.parseColor("#FFFFFF"));
-                binding.includeLayout.lnrCustomerBackground.setBackgroundColor(Color.parseColor("#F6B394"));
-                msgFlagDefault = "1";
-                SharedPref.putVal(HomeActivity.this, SharedPref.msgFlag, msgFlagDefault);
+                if (shopStatus.equals("0")) {
+                    binding.includeLayout.lnrCustomerNavigation.setVisibility(View.GONE);
+                    binding.includeLayout.lnrSellerNavigation.setVisibility(View.VISIBLE);
+                    binding.includeLayout.lnrSellerBackground.setBackgroundColor(Color.parseColor("#FFFFFF"));
+                    binding.includeLayout.lnrCustomerBackground.setBackgroundColor(Color.parseColor("#F6B394"));
+                    msgFlagDefault = "1";
+                    SharedPref.putVal(HomeActivity.this, SharedPref.msgFlag, msgFlagDefault);
 
-                binding.includeLayout.txtname.setText(shop_name);
+                    binding.includeLayout.txtname.setText(shop_name);
+                    binding.includeLayout.relEditProfile.setVisibility(View.GONE);
+                    binding.includeLayout.relShopArrow.setVisibility(View.VISIBLE);
+                } else {
+                    new AlertDialog.Builder(HomeActivity.this)
+                            .setTitle("Alert!!!")
+                            .setMessage("Waiting for approval.")
+
+                            // Specifying a listener allows you to take an action before dismissing the dialog.
+                            // The dialog is automatically dismissed when a dialog button is clicked.
+                            .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    // Continue with delete operation
+                                    dialog.dismiss();
+                                    binding.drawerLayout.closeDrawers();
+                                }
+                            })
+                            .show();
+                }
             } else {
                 Toast.makeText(HomeActivity.this, "First Add Your Shop", Toast.LENGTH_SHORT).show();
             }
@@ -322,10 +370,28 @@ public class HomeActivity extends AppCompatActivity implements LocationListener,
 //            binding.drawerLayout.closeDrawers();
             if (user_status.equals("0")) {
                 startActivity(new Intent(HomeActivity.this, AddShopActivity.class));
-                binding.drawerLayout.closeDrawers();
             } else {
-                Toast.makeText(HomeActivity.this, "Shop already Added", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(HomeActivity.this, "Shop already Added", Toast.LENGTH_SHORT).show();
+                if (shopStatus.equals("0")) {
+                    startActivity(new Intent(HomeActivity.this, ShopDetailsActivity.class).putExtra("shop_id", shop_id));
+                } else {
+                    new AlertDialog.Builder(HomeActivity.this)
+                            .setTitle("Alert!!!")
+                            .setMessage("Waiting for approval.")
+
+                            // Specifying a listener allows you to take an action before dismissing the dialog.
+                            // The dialog is automatically dismissed when a dialog button is clicked.
+                            .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    // Continue with delete operation
+                                    dialog.dismiss();
+                                    binding.drawerLayout.closeDrawers();
+                                }
+                            })
+                            .show();
+                }
             }
+            binding.drawerLayout.closeDrawers();
         }
 
         public void onAboutShopClick(View view) {
@@ -340,7 +406,7 @@ public class HomeActivity extends AppCompatActivity implements LocationListener,
         }
 
         public void onMessageClick(View view) {
-            startActivity(new Intent(HomeActivity.this, MessageUsersListActivity.class));
+            startActivity(new Intent(HomeActivity.this, LeadsActivity.class).putExtra("from", "shop"));
             binding.drawerLayout.closeDrawers();
         }
 
@@ -381,7 +447,6 @@ public class HomeActivity extends AppCompatActivity implements LocationListener,
     }
 
     private void navigationDrawer() {
-
         //Navigation Drawer
         binding.navView.bringToFront();
 
@@ -405,6 +470,12 @@ public class HomeActivity extends AppCompatActivity implements LocationListener,
         homeTabModelArrayList = new ArrayList<>();
 
         /*Tab 1*/
+        UsersHomeTabModel model5 = new UsersHomeTabModel();
+        model5.setColor(Color.parseColor("#F65F5F"));
+        model5.setIcon(R.drawable.ic_home_black);
+        model5.setTitle(getString(R.string.home));
+        homeTabModelArrayList.add(model5);
+
         UsersHomeTabModel model = new UsersHomeTabModel();
         model.setColor(Color.parseColor("#FFCD59"));
         model.setIcon(R.drawable.ic_tickets);
@@ -528,20 +599,24 @@ public class HomeActivity extends AppCompatActivity implements LocationListener,
 
                 layoutBinding.cardTab.setOnClickListener(view -> {
                     if (position == 0) {
+                        pos = 1;
+                        loadFragment(new HomeFragment());
+                        binding.nestedScroll.fullScroll(View.FOCUS_UP);
+                    } else if (position == 1) {
                         pos = 2;
                         loadFragment(new TicketFragment());
-                    } else if (position == 1) {
+                    } else if (position == 2) {
                         pos = 3;
                         loadFragment(new SuperShopFragment());
-                    } else if (position == 2) {
+                    } else if (position == 3) {
                         pos = 4;
                         loadFragment(new FavoriteFragment());
-                    } else if (position == 3) {
+                    } else if (position == 4) {
                         pos = 5;
                         loadFragment(new HelpFragment());
-                    } else if (position == 4) {
+                    } else if (position == 5) {
                         pos = 6;
-                        startActivity(new Intent(HomeActivity.this, MessageUsersListActivity.class));
+                        startActivity(new Intent(HomeActivity.this, LeadsActivity.class).putExtra("from", "user"));
                     }
                 });
             }

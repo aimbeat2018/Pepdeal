@@ -76,7 +76,7 @@ public class ResetPasswordActivity extends AppCompatActivity {
             }
         }
 
-        public void onPasswordClick(View view){
+        public void onPasswordClick(View view) {
             if (binding.edtPassword.getTransformationMethod().getClass().getSimpleName().equals("PasswordTransformationMethod")) {
                 binding.edtPassword.setTransformationMethod(new SingleLineTransformationMethod());
                 binding.imgPassword.setImageResource(R.drawable.ic_baseline_visibility_24);
@@ -109,7 +109,7 @@ public class ResetPasswordActivity extends AppCompatActivity {
     }
 
     private void changePassword(ResetPasswordRequestModel model) {
-
+        dialog.show();
         ApiInterface apiInterface = ApiClient.createService(ApiInterface.class, "", "");
         apiInterface.forgot_password(model).enqueue(new Callback<ResponseBody>() {
             @Override

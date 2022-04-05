@@ -2,7 +2,9 @@ package com.pepdeal.in.activity;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
@@ -10,6 +12,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.databinding.DataBindingUtil;
 
 import com.bumptech.glide.Glide;
@@ -22,7 +25,9 @@ import com.pepdeal.in.constants.SharedPref;
 import com.pepdeal.in.constants.Utils;
 import com.pepdeal.in.databinding.ActivityProductDetailsBinding;
 import com.pepdeal.in.model.productdetailsmodel.ProductDetailsDataModel;
+import com.pepdeal.in.model.productdetailsmodel.ShopDetailsModel;
 import com.pepdeal.in.model.requestModel.UserProfileRequestModel;
+import com.pepdeal.in.model.shopdetailsmodel.ShopDetailsDataModel;
 
 import org.json.JSONObject;
 
@@ -45,6 +50,7 @@ public class ProductDetailsActivity extends AppCompatActivity {
     List<ProductDetailsDataModel> productDataModelList = new ArrayList<>();
     String productId = "";
     ProgressDialog dialog;
+    ShopDetailsModel shopDetailsDataModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -126,6 +132,10 @@ public class ProductDetailsActivity extends AppCompatActivity {
                         productDataModelList = new ArrayList<>();
                         productDataModelList.addAll(gson.fromJson(jsonObject.getString("product Detail"), listType));
 
+                        /*Shop Details json*/
+                        Gson gson2 = new Gson();
+                        shopDetailsDataModel = gson2.fromJson(jsonObject.getString("shop_detail"), ShopDetailsModel.class);
+
                         setData();
                     } else {
                     }
@@ -178,7 +188,6 @@ public class ProductDetailsActivity extends AppCompatActivity {
             Glide.with(ProductDetailsActivity.this).load(model.getProductImages().get(1).getProductImage())
                     .error(R.drawable.loader).placeholder(R.drawable.loader).into(binding.imgImage2);
         }
-
 
         if (model.getDescription2().equals("") || model.getDescription2() == null) {
             binding.lnrDesc1.setVisibility(View.GONE);
@@ -282,6 +291,41 @@ public class ProductDetailsActivity extends AppCompatActivity {
             else
                 Toast.makeText(ProductDetailsActivity.this, "Ticket already raised for this product", Toast.LENGTH_SHORT).show();
         });
+
+        binding.txtName.setText(shopDetailsDataModel.getShopName());
+        binding.txtAddress.setText(shopDetailsDataModel.getCity() + "," + shopDetailsDataModel.getState());
+        binding.txtMobile.setText(shopDetailsDataModel.getShopMobileNo());
+        String bgColorName = shopDetailsDataModel.getBgColorName();
+        binding.lnrBack.setBackgroundColor(Color.parseColor(bgColorName));
+        binding.txtName.setTextColor(Color.parseColor(shopDetailsDataModel.getFontColorName()));
+        Typeface typeface = null;
+        if (shopDetailsDataModel.getFontStyleId().equals("1")) {
+            typeface = ResourcesCompat.getFont(ProductDetailsActivity.this, R.font.anton_regular);
+        } else if (shopDetailsDataModel.getFontStyleId().equals("2")) {
+            typeface = ResourcesCompat.getFont(ProductDetailsActivity.this, R.font.berkshireswash_regular);
+        } else if (shopDetailsDataModel.getFontStyleId().equals("3")) {
+            typeface = ResourcesCompat.getFont(ProductDetailsActivity.this, R.font.brasika_display);
+        } else if (shopDetailsDataModel.getFontStyleId().equals("4")) {
+            typeface = ResourcesCompat.getFont(ProductDetailsActivity.this, R.font.carterone_regular);
+        } else if (shopDetailsDataModel.getFontStyleId().equals("5")) {
+            typeface = ResourcesCompat.getFont(ProductDetailsActivity.this, R.font.fredokaone_regular);
+        } else if (shopDetailsDataModel.getFontStyleId().equals("6")) {
+            typeface = ResourcesCompat.getFont(ProductDetailsActivity.this, R.font.gagalin_regular);
+        } else if (shopDetailsDataModel.getFontStyleId().equals("7")) {
+            typeface = ResourcesCompat.getFont(ProductDetailsActivity.this, R.font.lato_regular);
+        } else if (shopDetailsDataModel.getFontStyleId().equals("8")) {
+            typeface = ResourcesCompat.getFont(ProductDetailsActivity.this, R.font.leaguespartan_bold);
+        } else if (shopDetailsDataModel.getFontStyleId().equals("9")) {
+            typeface = ResourcesCompat.getFont(ProductDetailsActivity.this, R.font.lovelo_black);
+        } else if (shopDetailsDataModel.getFontStyleId().equals("10")) {
+            typeface = ResourcesCompat.getFont(ProductDetailsActivity.this, R.font.opensans_bold);
+        } else if (shopDetailsDataModel.getFontStyleId().equals("11")) {
+            typeface = ResourcesCompat.getFont(ProductDetailsActivity.this, R.font.quicksand_bold);
+        } else if (shopDetailsDataModel.getFontStyleId().equals("12")) {
+            typeface = ResourcesCompat.getFont(ProductDetailsActivity.this, R.font.yesevaone_regular);
+        }
+        if (!shopDetailsDataModel.getFontStyleId().equals("") || !shopDetailsDataModel.getFontStyleId().equals("0"))
+            binding.txtName.setTypeface(typeface);
     }
 
     private void raiseTicket(String productId, String shopId) {

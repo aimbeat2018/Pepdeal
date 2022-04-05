@@ -24,25 +24,14 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginTop="@dimen/margin_3"
-                    android:layout_weight="1"
-                    android:fontFamily="@font/roboto_bold"
-                    android:gravity="center"
-                    android:text="Feel free to reach us if you have any query related to the app."
-                    android:textColor="@color/purple_200"
-                    android:textSize="@dimen/text_15" />
-
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
                     android:layout_marginTop="@dimen/margin_5"
                     android:layout_weight="1"
                     android:fontFamily="@font/roboto_bold"
                     android:gravity="center"
                     android:text="Our Support email ID"
                     android:textColor="@color/grayTextColor"
-                    android:textSize="@dimen/text_15" />
+                    android:textSize="@dimen/text_15"
+                    android:visibility="gone" />
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:layout_width="match_parent"
@@ -303,6 +292,18 @@
 
                     </androidx.appcompat.widget.LinearLayoutCompat>
                 </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/margin_3"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/roboto_bold"
+                    android:gravity="center"
+                    android:text="Feel free to reach us if you have any query/complaint."
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text_15" />
             </androidx.appcompat.widget.LinearLayoutCompat>
         </androidx.core.widget.NestedScrollView>
     </androidx.appcompat.widget.LinearLayoutCompat>

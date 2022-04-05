@@ -61,6 +61,9 @@ public class ProductDataModel {
     @SerializedName("isActive")
     @Expose
     private String isActive;
+    @SerializedName("flag")
+    @Expose
+    private String flag;
 
     public String getProductId() {
         return productId;
@@ -204,5 +207,13 @@ public class ProductDataModel {
 
     public void setIsActive(String isActive) {
         this.isActive = isActive;
+    }
+
+    public String getFlag() {
+        return flag;
+    }
+
+    public void setFlag(String flag) {
+        this.flag = flag;
     }
 }

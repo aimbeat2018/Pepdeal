@@ -16,10 +16,14 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -73,14 +77,40 @@ public class SearchActivity extends AppCompatActivity {
         dialog.setTitle("Loading");
         dialog.setMessage("Please wait...");
 
-        key = getIntent().getStringExtra("key");
+      /*  key = getIntent().getStringExtra("key");
+        binding.searchView.setText(key);
+*/
+        binding.searchView.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
-        if (Utils.isNetwork(SearchActivity.this)) {
-            getSearchData(true);
-        } else {
-            binding.lnrMainLayout.setVisibility(View.GONE);
-            Utils.InternetAlertDialog(SearchActivity.this, getString(R.string.no_internet_title), getString(R.string.no_internet_desc));
-        }
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if (Utils.isNetwork(SearchActivity.this)) {
+                    getSearchData(false);
+                } else {
+                    binding.lnrMainLayout.setVisibility(View.GONE);
+                    Utils.InternetAlertDialog(SearchActivity.this, getString(R.string.no_internet_title), getString(R.string.no_internet_desc));
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+        binding.searchView.setOnEditorActionListener((v, actionId, event) -> {
+            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                new Handler().postDelayed(() -> {
+                    key = binding.searchView.getText().toString().trim();
+                    getSearchData(false);
+                }, 1000);
+                return true;
+            }
+            return false;
+        });
     }
 
     public class ClickHandler {
@@ -113,7 +143,7 @@ public class SearchActivity extends AppCompatActivity {
             showShimmer();
         UserProfileRequestModel model = new UserProfileRequestModel();
         model.setUserId(SharedPref.getVal(SearchActivity.this, SharedPref.user_id));
-        model.setSearch_key(key);
+        model.setSearch_key(binding.searchView.getText().toString());
 
         ApiInterface client = ApiClient.createService(ApiInterface.class, "", "");
         client.searchTags(model).enqueue(new Callback<ResponseBody>() {

@@ -35,6 +35,9 @@ public class FavDataModel {
     @SerializedName("created_at")
     @Expose
     private String createdAt;
+    @SerializedName("created")
+    @Expose
+    private String created;
 
     public String getFavouriteId() {
         return favouriteId;
@@ -114,5 +117,13 @@ public class FavDataModel {
 
     public void setCreatedAt(String createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public String getCreated() {
+        return created;
+    }
+
+    public void setCreated(String created) {
+        this.created = created;
     }
 }

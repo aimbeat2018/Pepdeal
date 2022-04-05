@@ -87,7 +87,7 @@ public class CitywiseShopListActivity extends AppCompatActivity {
     }
 
     private void showShimmer() {
-        binding.lnrMainLayout.setVisibility(View.GONE);
+        binding.lnrData.setVisibility(View.GONE);
         binding.shimmerLayout.setVisibility(View.VISIBLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
                 WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
@@ -95,7 +95,7 @@ public class CitywiseShopListActivity extends AppCompatActivity {
     }
 
     private void hideShimmer() {
-        binding.lnrMainLayout.setVisibility(View.VISIBLE);
+        binding.lnrData.setVisibility(View.VISIBLE);
         binding.shimmerLayout.setVisibility(View.GONE);
         getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
     }
@@ -130,14 +130,14 @@ public class CitywiseShopListActivity extends AppCompatActivity {
                             binding.recList.setLayoutManager(new LinearLayoutManager(CitywiseShopListActivity.this));
                             binding.recList.setAdapter(new ShopAdapter());
 
-                            binding.lnrMainLayout.setVisibility(View.VISIBLE);
+                            binding.lnrData.setVisibility(View.VISIBLE);
                             binding.lnrNoData.setVisibility(View.GONE);
                         } else {
-                            binding.lnrMainLayout.setVisibility(View.GONE);
+                            binding.lnrData.setVisibility(View.GONE);
                             binding.lnrNoData.setVisibility(View.VISIBLE);
                         }
                     } else {
-                        binding.lnrMainLayout.setVisibility(View.GONE);
+                        binding.lnrData.setVisibility(View.GONE);
                         binding.lnrNoData.setVisibility(View.VISIBLE);
                     }
                 } catch (Exception e) {

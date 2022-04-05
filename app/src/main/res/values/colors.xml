@@ -31,4 +31,7 @@
     <color name="green">#669900</color>
     <color name="green_light">#A8DC80</color>
     <color name="orange">#FF8800</color>
+
+    <color name="delete_message_text">#b8b8b8</color>
+    <color name="delete_message_bg">#f2f2f2</color>
 </resources>

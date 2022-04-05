@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_8"
+            app:cardCornerRadius="@dimen/margin_5"
+            app:cardElevation="@dimen/margin_5">
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/margin_5"
+                android:layout_marginVertical="@dimen/margin_5"
+                android:orientation="vertical">
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:id="@+id/lnr_status"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginHorizontal="@dimen/margin_2"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
+                        <View
+                            android:id="@+id/view_status"
+                            android:layout_width="@dimen/margin_6"
+                            android:layout_height="@dimen/margin_6"
+                            android:layout_gravity="center"
+                            android:background="@drawable/circular_view_layout" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/txt_status"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginHorizontal="@dimen/margin_4"
+                            android:fontFamily="@font/roboto_condensed"
+                            android:text=""
+                            android:textColor="@color/errorColor"
+                            android:textSize="@dimen/text_10" />
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/img_more"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_baseline_more_horiz_24"
+                        app:tint="@color/black" />
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/txt_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/margin_4"
+                    android:fontFamily="@font/roboto_condensed"
+                    android:text=""
+                    android:textColor="@color/darkGray"
+                    android:textSize="@dimen/text_14"
+                    android:textStyle="bold" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/txt_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/margin_4"
+                    android:fontFamily="@font/roboto_condensed"
+                    android:text=""
+                    android:textColor="@color/gray"
+                    android:textSize="@dimen/text_10" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/margin_1"
+                    android:layout_marginVertical="@dimen/margin_5"
+                    android:background="@color/gray_light" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/txt_msg"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/margin_4"
+                    android:fontFamily="@font/roboto_condensed"
+                    android:paddingVertical="@dimen/margin_3"
+                    android:text=""
+                    android:textColor="@color/darkGray"
+                    android:textSize="@dimen/text_13" />
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:id="@+id/lnr_response"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="@dimen/margin_5"
+                    android:orientation="horizontal">
+
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:id="@+id/lnr_call"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/border_backgorund_layout"
+                        android:orientation="horizontal"
+                        android:paddingHorizontal="@dimen/margin_5"
+                        android:paddingVertical="@dimen/margin_2">
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:layout_width="@dimen/margin_11"
+                            android:layout_height="@dimen/margin_11"
+                            android:layout_gravity="center"
+                            android:src="@drawable/ic_call"
+                            app:tint="@color/purple_500" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginHorizontal="@dimen/margin_4"
+                            android:fontFamily="@font/roboto_condensed"
+                            android:text="Call"
+                            android:textColor="@color/purple_500"
+                            android:textSize="@dimen/text_11" />
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:id="@+id/lnr_message"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/margin_10"
+                        android:background="@drawable/border_backgorund_layout"
+                        android:orientation="horizontal"
+                        android:paddingHorizontal="@dimen/margin_5"
+                        android:paddingVertical="@dimen/margin_2">
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:layout_width="@dimen/margin_11"
+                            android:layout_height="@dimen/margin_11"
+                            android:layout_gravity="center"
+                            android:src="@drawable/ic_baseline_message_24"
+                            app:tint="@color/purple_500" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginHorizontal="@dimen/margin_4"
+                            android:fontFamily="@font/roboto_condensed"
+                            android:text="Message"
+                            android:textColor="@color/purple_500"
+                            android:textSize="@dimen/text_11" />
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:id="@+id/lnr_email"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/border_backgorund_layout"
+                        android:orientation="horizontal"
+                        android:paddingHorizontal="@dimen/margin_5"
+                        android:paddingVertical="@dimen/margin_2">
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:layout_width="@dimen/margin_11"
+                            android:layout_height="@dimen/margin_11"
+                            android:layout_gravity="center"
+                            android:src="@drawable/ic_message"
+                            app:tint="@color/purple_500" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginHorizontal="@dimen/margin_4"
+                            android:fontFamily="@font/roboto_condensed"
+                            android:text="Email"
+                            android:textColor="@color/purple_500"
+                            android:textSize="@dimen/text_11" />
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+            </androidx.appcompat.widget.LinearLayoutCompat>
+        </androidx.cardview.widget.CardView>
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</layout>

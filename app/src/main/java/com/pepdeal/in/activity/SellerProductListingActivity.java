@@ -219,6 +219,17 @@ public class SellerProductListingActivity extends AppCompatActivity {
                 } else {
                     layoutBinding.switchLiveStatus.setOn(true);
                 }
+                if (model.getFlag().equals("1")) {
+                    layoutBinding.relWaiting.setVisibility(View.VISIBLE);
+                    layoutBinding.switchLiveStatus.setVisibility(View.GONE);
+                    layoutBinding.cardDelete.setEnabled(false);
+                    layoutBinding.cardUpdate.setEnabled(false);
+                } else {
+                    layoutBinding.relWaiting.setVisibility(View.GONE);
+                    layoutBinding.switchLiveStatus.setVisibility(View.VISIBLE);
+                    layoutBinding.cardDelete.setEnabled(true);
+                    layoutBinding.cardUpdate.setEnabled(true);
+                }
                 if (model.getDiscountMrp().equals("0") || model.getDiscountMrp().equals("") || model.getDiscountMrp() == null) {
                     layoutBinding.lnrOffer.setVisibility(View.GONE);
                     layoutBinding.txtActualPrice.setVisibility(View.GONE);
@@ -251,8 +262,7 @@ public class SellerProductListingActivity extends AppCompatActivity {
                                     .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                                         public void onClick(DialogInterface dialog, int which) {
                                             // Continue with delete operation
-                                            if (Utils.isNetwork(SellerProductListingActivity.this))
-                                            {
+                                            if (Utils.isNetwork(SellerProductListingActivity.this)) {
                                                 liveProduct(model.getProductId(), "0");
 //                                            getFavList(true);
                                             } else {

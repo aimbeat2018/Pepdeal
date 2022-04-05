@@ -187,8 +187,6 @@ public class HomeFragment extends Fragment {
                                 JSONObject jsonObject1 = bannerArray.getJSONObject(i);
                                 bannerList.add(jsonObject1.getString("banner_image"));
                             }
-                            binding.viewPager2.setAdapter(new ViewPagerAdapter());
-                            binding.viewPager2.startAutoScroll();
 
                             binding.viewPager2.setAdapter(new ViewPagerAdapter());
                             binding.viewPager2.startAutoScroll();
@@ -294,37 +292,37 @@ public class HomeFragment extends Fragment {
                 } else {
                     layoutBinding.lnrShopData.setVisibility(View.VISIBLE);
                     layoutBinding.imgBanner.setVisibility(View.GONE);
-                }
-                layoutBinding.txtName.setText(model.getShopName());
-                if (!model.getFontcolorName().equals(""))
-                    layoutBinding.txtName.setTextColor(Color.parseColor(model.getFontcolorName()));
 
-                Typeface typeface = null;
-                if (model.getFontStyleId().equals("1")) {
-                    typeface = ResourcesCompat.getFont(activity, R.font.anton_regular);
-                } else if (model.getFontStyleId().equals("2")) {
-                    typeface = ResourcesCompat.getFont(activity, R.font.berkshireswash_regular);
-                } else if (model.getFontStyleId().equals("3")) {
-                    typeface = ResourcesCompat.getFont(activity, R.font.brasika_display);
-                } else if (model.getFontStyleId().equals("4")) {
-                    typeface = ResourcesCompat.getFont(activity, R.font.carterone_regular);
-                } else if (model.getFontStyleId().equals("5")) {
-                    typeface = ResourcesCompat.getFont(activity, R.font.fredokaone_regular);
-                } else if (model.getFontStyleId().equals("6")) {
-                    typeface = ResourcesCompat.getFont(activity, R.font.gagalin_regular);
-                } else if (model.getFontStyleId().equals("7")) {
-                    typeface = ResourcesCompat.getFont(activity, R.font.lato_regular);
-                } else if (model.getFontStyleId().equals("8")) {
-                    typeface = ResourcesCompat.getFont(activity, R.font.leaguespartan_bold);
-                } else if (model.getFontStyleId().equals("9")) {
-                    typeface = ResourcesCompat.getFont(activity, R.font.lovelo_black);
-                } else if (model.getFontStyleId().equals("10")) {
-                    typeface = ResourcesCompat.getFont(activity, R.font.opensans_bold);
-                } else if (model.getFontStyleId().equals("11")) {
-                    typeface = ResourcesCompat.getFont(activity, R.font.quicksand_bold);
-                } else if (model.getFontStyleId().equals("12")) {
-                    typeface = ResourcesCompat.getFont(activity, R.font.yesevaone_regular);
-                } /*else if (model.getFontStyleId().equals("13")) {
+                    layoutBinding.txtName.setText(model.getShopName());
+                    if (!model.getFontcolorName().equals(""))
+                        layoutBinding.txtName.setTextColor(Color.parseColor(model.getFontcolorName()));
+
+                    Typeface typeface = null;
+                    if (model.getFontStyleId().equals("1")) {
+                        typeface = ResourcesCompat.getFont(activity, R.font.anton_regular);
+                    } else if (model.getFontStyleId().equals("2")) {
+                        typeface = ResourcesCompat.getFont(activity, R.font.berkshireswash_regular);
+                    } else if (model.getFontStyleId().equals("3")) {
+                        typeface = ResourcesCompat.getFont(activity, R.font.brasika_display);
+                    } else if (model.getFontStyleId().equals("4")) {
+                        typeface = ResourcesCompat.getFont(activity, R.font.carterone_regular);
+                    } else if (model.getFontStyleId().equals("5")) {
+                        typeface = ResourcesCompat.getFont(activity, R.font.fredokaone_regular);
+                    } else if (model.getFontStyleId().equals("6")) {
+                        typeface = ResourcesCompat.getFont(activity, R.font.gagalin_regular);
+                    } else if (model.getFontStyleId().equals("7")) {
+                        typeface = ResourcesCompat.getFont(activity, R.font.lato_regular);
+                    } else if (model.getFontStyleId().equals("8")) {
+                        typeface = ResourcesCompat.getFont(activity, R.font.leaguespartan_bold);
+                    } else if (model.getFontStyleId().equals("9")) {
+                        typeface = ResourcesCompat.getFont(activity, R.font.lovelo_black);
+                    } else if (model.getFontStyleId().equals("10")) {
+                        typeface = ResourcesCompat.getFont(activity, R.font.opensans_bold);
+                    } else if (model.getFontStyleId().equals("11")) {
+                        typeface = ResourcesCompat.getFont(activity, R.font.quicksand_bold);
+                    } else if (model.getFontStyleId().equals("12")) {
+                        typeface = ResourcesCompat.getFont(activity, R.font.yesevaone_regular);
+                    } /*else if (model.getFontStyleId().equals("13")) {
                             typeface = ResourcesCompat.getFont(activity, R.font.roboto_mediumitalic);
                         } else if (model.getFontStyleId().equals("14")) {
                             typeface = ResourcesCompat.getFont(activity, R.font.roboto_regular);
@@ -333,17 +331,18 @@ public class HomeFragment extends Fragment {
                         } else if (model.getFontStyleId().equals("16")) {
                             typeface = ResourcesCompat.getFont(activity, R.font.roboto_thinitalic);
                         }*/
-                if (!model.getFontStyleId().equals("") || !model.getFontStyleId().equals("0")) {
-                    layoutBinding.txtName.setTypeface(typeface);
-                }
-                String address = model.getCity() + ", " + model.getState();
-                layoutBinding.txtAddress.setText(address);
-                layoutBinding.txtMobile.setText(model.getShopMobileNo());
+                    if (!model.getFontStyleId().equals("") || !model.getFontStyleId().equals("0")) {
+                        layoutBinding.txtName.setTypeface(typeface);
+                    }
+                    String address = model.getCity() + ", " + model.getState();
+                    layoutBinding.txtAddress.setText(address);
+                    layoutBinding.txtMobile.setText(model.getShopMobileNo());
 
-                try {
-                    layoutBinding.lnrBack.setBackgroundColor(Color.parseColor(model.getBgcolorName()));
-                } catch (Exception e) {
-                    e.printStackTrace();
+                    try {
+                        layoutBinding.lnrBack.setBackgroundColor(Color.parseColor(model.getBgcolorName()));
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
 
                 layoutBinding.lnrBack.setOnClickListener(view -> {

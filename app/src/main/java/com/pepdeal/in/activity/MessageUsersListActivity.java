@@ -14,9 +14,17 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.pepdeal.in.R;
+import com.pepdeal.in.adapter.AdapterClickListener;
+import com.pepdeal.in.adapter.InboxAdapter;
 import com.pepdeal.in.constants.ApiClient;
 import com.pepdeal.in.constants.ApiInterface;
 import com.pepdeal.in.constants.SharedPref;
@@ -24,6 +32,7 @@ import com.pepdeal.in.constants.Utils;
 import com.pepdeal.in.databinding.ActivityMessageUsersListBinding;
 import com.pepdeal.in.databinding.ItemCategoryListLayoutBinding;
 import com.pepdeal.in.databinding.ItemMessageUsersListLayoutBinding;
+import com.pepdeal.in.model.messagemodel.InboxModel;
 import com.pepdeal.in.model.messagemodel.MessageUsersListModel;
 import com.pepdeal.in.model.requestModel.AddProductCategoryResponseModel;
 import com.pepdeal.in.model.requestModel.UserProfileRequestModel;
@@ -36,6 +45,7 @@ import java.lang.reflect.Type;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -51,15 +61,56 @@ public class MessageUsersListActivity extends AppCompatActivity {
 
     ActivityMessageUsersListBinding binding;
     List<MessageUsersListModel> messageUsersListModelList = new ArrayList<>();
+    DatabaseReference rootRef;
+    ArrayList<InboxModel> inboxArrayList;
+    InboxAdapter inboxAdapter;
+    String from = "";
+    String userId = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_message_users_list);
         binding.setHandler(new ClickHandler());
-
+        from = getIntent().getStringExtra("from");
+        rootRef = FirebaseDatabase.getInstance().getReference();
+        // intialize the arraylist and and inboxlist
+        inboxArrayList = new ArrayList<>();
 //        binding.recList.setLayoutManager(new LinearLayoutManager(MessageUsersListActivity.this));
 //        binding.recList.setAdapter(new MessageAdapter());
+
+        LinearLayoutManager layout = new LinearLayoutManager(this);
+        binding.recList.setLayoutManager(layout);
+        binding.recList.setHasFixedSize(false);
+        inboxAdapter = new InboxAdapter(MessageUsersListActivity.this, inboxArrayList, new AdapterClickListener() {
+            @Override
+            public void onItemClick(int pos, Object object, View view) {
+                InboxModel item = (InboxModel) object;
+//                chatFragment(userId, item.getId(), item.getName(), false);
+                if (from.equals("home")) {
+                    Intent intent = new Intent(MessageUsersListActivity.this, MessageChatActivity.class);
+                    intent.putExtra("shop_id", item.getId());
+                    intent.putExtra("name", item.getName());
+                    intent.putExtra("user_id", SharedPref.getVal(MessageUsersListActivity.this, SharedPref.user_id));
+                    intent.putExtra("from", from);
+                    startActivity(intent);
+                } else {
+                    Intent intent = new Intent(MessageUsersListActivity.this, MessageChatActivity.class);
+                    intent.putExtra("shop_id", SharedPref.getVal(MessageUsersListActivity.this, SharedPref.shop_id));
+                    intent.putExtra("name", item.getName());
+                    intent.putExtra("user_id", item.getId());
+                    intent.putExtra("from", from);
+                    startActivity(intent);
+                }
+
+            }
+
+            @Override
+            public void onLongItemClick(int pos, Object item, View view) {
+            }
+        });
+
+        binding.recList.setAdapter(inboxAdapter);
     }
 
     public class ClickHandler {
@@ -69,14 +120,75 @@ public class MessageUsersListActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onStart() {
+        super.onStart();
+        getInbox();
+    }
+
+    ValueEventListener eventListener2;
+    Query inboxQuery;
+
+    private void getInbox() {
+        if (from.equals("home")) {
+            userId = SharedPref.getVal(MessageUsersListActivity.this, SharedPref.user_id);
+        } else {
+            userId = SharedPref.getVal(MessageUsersListActivity.this, SharedPref.shop_id);
+        }
+        inboxQuery = rootRef.child("Inbox").child(userId).orderByChild("date");
+        eventListener2 = new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                inboxArrayList.clear();
+                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                    InboxModel model = new InboxModel();
+                    model.setId(ds.getKey());
+//                    model.setSid(ds.child("sid").getValue().toString());
+                    model.setName(ds.child("name").getValue().toString());
+                    model.setMessage(ds.child("msg").getValue().toString());
+                    model.setTimestamp(ds.child("date").getValue().toString());
+                    model.setStatus(ds.child("status").getValue().toString());
+                    inboxArrayList.add(model);
+                }
+                Collections.reverse(inboxArrayList);
+                inboxAdapter.notifyDataSetChanged();
+
+                if (inboxArrayList.size() > 0) {
+                    binding.recList.setVisibility(View.VISIBLE);
+                    binding.lnrNoData.setVisibility(View.GONE);
+                } else {
+                    binding.recList.setVisibility(View.GONE);
+                    binding.lnrNoData.setVisibility(View.VISIBLE);
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        };
+
+        inboxQuery.addValueEventListener(eventListener2);
+    }
+
+
+    // on stop we will remove the listener
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (inboxQuery != null)
+            inboxQuery.removeEventListener(eventListener2);
+    }
+
+    @Override
     protected void onResume() {
         super.onResume();
-        if (Utils.isNetwork(MessageUsersListActivity.this)) {
+      /*  if (Utils.isNetwork(MessageUsersListActivity.this)) {
             getMessageUsersList(true);
         } else {
 //            binding.lnrMainLayout.setVisibility(View.GONE);
             Utils.InternetAlertDialog(MessageUsersListActivity.this, getString(R.string.no_internet_title), getString(R.string.no_internet_desc));
-        }
+        }*/
     }
 
     private void getMessageUsersList(boolean loading) {
@@ -168,6 +280,7 @@ public class MessageUsersListActivity extends AppCompatActivity {
             return new ViewHolder(layoutBinding);
         }
 
+
         @Override
         public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
             MessageUsersListModel model = messageUsersListModelList.get(position);
@@ -193,7 +306,7 @@ public class MessageUsersListActivity extends AppCompatActivity {
                 layoutBinding.txtUserName.setText(model.getShopName());
                 layoutBinding.txtLastMessage.setText(model.getMsgs());
 
-                if (model.getMsgCount().equals("") || model.getMsgCount().equals("0") ) {
+                if (model.getMsgCount().equals("") || model.getMsgCount().equals("0")) {
                     layoutBinding.cardCount.setVisibility(View.GONE);
                 } else {
                     layoutBinding.cardCount.setVisibility(View.VISIBLE);

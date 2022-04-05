@@ -22,6 +22,7 @@ import android.text.TextWatcher;
 import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -138,6 +139,40 @@ public class AddProductActivity extends AppCompatActivity {
         }
 
         from = getIntent().getStringExtra("from");
+
+        binding.edtdescription.setOnTouchListener((view, motionEvent) -> {
+
+            view.getParent().requestDisallowInterceptTouchEvent(true);
+            switch (motionEvent.getAction() & MotionEvent.ACTION_MASK) {
+                case MotionEvent.ACTION_UP:
+                    view.getParent().requestDisallowInterceptTouchEvent(false);
+                    break;
+            }
+
+            return false;
+        });
+        binding.edtdescription1.setOnTouchListener((view, motionEvent) -> {
+
+            view.getParent().requestDisallowInterceptTouchEvent(true);
+            switch (motionEvent.getAction() & MotionEvent.ACTION_MASK) {
+                case MotionEvent.ACTION_UP:
+                    view.getParent().requestDisallowInterceptTouchEvent(false);
+                    break;
+            }
+
+            return false;
+        });
+        binding.edtSpecification.setOnTouchListener((view, motionEvent) -> {
+
+            view.getParent().requestDisallowInterceptTouchEvent(true);
+            switch (motionEvent.getAction() & MotionEvent.ACTION_MASK) {
+                case MotionEvent.ACTION_UP:
+                    view.getParent().requestDisallowInterceptTouchEvent(false);
+                    break;
+            }
+
+            return false;
+        });
 
         if (Utils.isNetwork(AddProductActivity.this)) {
             categoryList();
@@ -1275,93 +1310,20 @@ public class AddProductActivity extends AppCompatActivity {
             } else if (resuleCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
                 Exception error = result.getError();
             }
-        } else if (resuleCode == RESULT_OK) {
+        } else if (requestCode == 2404 && resuleCode == RESULT_OK) {
             try {
                 Uri uri = intent.getData();
 //                File file = ImagePicker.Companion.getFile(intent);
 
                 /*image cropping*/
                 CropImage.activity(uri)
-                        .setGuidelines(CropImageView.Guidelines.ON)
+//                        .setGuidelines(CropImageView.Guidelines.ON)
+                        .setCropShape(CropImageView.CropShape.RECTANGLE)
+                        .setAspectRatio(3, 3)
+                        .setAutoZoomEnabled(false)
+                        .setFixAspectRatio(true)
                         .start(this);
 
-
-//                if (uri.getPath().length() > 0) {
-//                    Uri mImageUri = Uri.fromFile(new File(uri.getPath()));
-//                    Bitmap selectedImageBitmap = null;
-//                    try {
-//                        selectedImageBitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), mImageUri);
-//                        selectedImageBitmap = getResizedBitmap(selectedImageBitmap, 500);
-//                    } catch (IOException e) {
-//                        e.printStackTrace();
-//                    }
-//
-//                    ExifInterface ei = new ExifInterface(uri.getPath());
-//                    int orientation = ei.getAttributeInt(ExifInterface.TAG_ORIENTATION,
-//                            ExifInterface.ORIENTATION_UNDEFINED);
-//
-//                    switch (orientation) {
-//
-//                        case ExifInterface.ORIENTATION_ROTATE_90:
-//                            selectedImageBitmap = rotateImage(selectedImageBitmap, 90);
-//                            break;
-//
-//                        case ExifInterface.ORIENTATION_ROTATE_180:
-//                            selectedImageBitmap = rotateImage(selectedImageBitmap, 180);
-//                            break;
-//
-//                        case ExifInterface.ORIENTATION_ROTATE_270:
-//                            selectedImageBitmap = rotateImage(selectedImageBitmap, 270);
-//                            break;
-//
-//                        case ExifInterface.ORIENTATION_NORMAL:
-//                        default:
-//                            selectedImageBitmap = selectedImageBitmap;
-//                    }
-//
-//                    ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-//                    selectedImageBitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
-//                    byte[] byteArrayImage = byteArrayOutputStream.toByteArray();
-//                    encodedImage = Base64.encodeToString(byteArrayImage, Base64.DEFAULT);
-//
-//                    if (var == 1) {
-//                        binding.image1.setImageBitmap(selectedImageBitmap);
-//                        binding.imgCameraimage1.setVisibility(View.GONE);
-//                        binding.image1.setVisibility(View.VISIBLE);
-//                        fileImage1 = file;
-//
-//                        if (from.equals("edit")) {
-//                            imageId = productDataModelList.get(0).getProductImages().get(0).getProductImageID();
-//                            updateProductImage(imageId, fileImage1.getPath());
-//                        }
-////                        binding.image1.setVisibility(View.VISIBLE);
-//                    } else if (var == 2) {
-//                        binding.image2.setImageBitmap(selectedImageBitmap);
-//                        binding.imgCameraimage2.setVisibility(View.GONE);
-//                        binding.image2.setVisibility(View.VISIBLE);
-//                        fileImage2 = file;
-//
-//                        if (from.equals("edit")) {
-//                            imageId = productDataModelList.get(0).getProductImages().get(1).getProductImageID();
-//                            updateProductImage(imageId, fileImage2.getPath());
-//                        }
-////                        binding.image1.setVisibility(View.VISIBLE);
-//                    } else if (var == 3) {
-//                        binding.image3.setImageBitmap(selectedImageBitmap);
-//                        fileImage3 = file;
-//                        binding.imgCameraimage3.setVisibility(View.GONE);
-//                        binding.image3.setVisibility(View.VISIBLE);
-//
-//                        if (from.equals("edit")) {
-//                            imageId = productDataModelList.get(0).getProductImages().get(2).getProductImageID();
-//                            updateProductImage(imageId, fileImage3.getPath());
-//                        }
-////                        binding.image1.setVisibility(View.VISIBLE);
-//                    }
-////                    binding.imgProfile.setImageURI(uri);
-//                } else {
-//                    Toast.makeText(getApplicationContext(), "No Image Captured", Toast.LENGTH_SHORT).show();
-//                }
 
             } catch (Exception e) {
                 e.printStackTrace();

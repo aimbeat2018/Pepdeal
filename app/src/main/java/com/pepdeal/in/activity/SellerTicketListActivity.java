@@ -252,7 +252,7 @@ public class SellerTicketListActivity extends AppCompatActivity {
                 } else if (model.getTicketStatus().equals("1")) {
                     layoutBinding.txtStatus.setText("Status : Confirmed");
                     layoutBinding.txtStatus.setVisibility(View.VISIBLE);
-                    layoutBinding.cardReject.setVisibility(View.VISIBLE);
+                    layoutBinding.cardReject.setVisibility(View.GONE);
                     layoutBinding.cardConfirm.setVisibility(View.VISIBLE);
                     layoutBinding.txtConfirm.setText("Delivered");
                 } else if (model.getTicketStatus().equals("2")) {

@@ -41,6 +41,10 @@ public class UserProfileRequestModel {
     @SerializedName("longitude")
     @Expose
     private String longitude;
+    @SerializedName("flag")
+    @Expose
+    private Integer flag;
+
 
     public String getSearch_key() {
         return search_key;
@@ -136,5 +140,13 @@ public class UserProfileRequestModel {
 
     public void setCity_id(String city_id) {
         this.city_id = city_id;
+    }
+
+    public Integer getFlag() {
+        return flag;
+    }
+
+    public void setFlag(Integer flag) {
+        this.flag = flag;
     }
 }

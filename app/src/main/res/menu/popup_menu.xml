@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/interested"
+        android:title="Interested" />
+
+    <item
+        android:id="@+id/notInterested"
+        android:title="Not Interested" />
+
+    <item
+        android:id="@+id/dealCompleted"
+        android:title="Deal Completed" />
+
+</menu>

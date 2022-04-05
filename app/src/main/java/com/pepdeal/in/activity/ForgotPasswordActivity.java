@@ -1,5 +1,6 @@
 package com.pepdeal.in.activity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -33,12 +34,23 @@ public class ForgotPasswordActivity extends AppCompatActivity {
 
     ActivityForgotPasswordBinding binding;
     String from = "";
+    ProgressDialog dialog;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_forgot_password);
         binding.setHandler(new ClickHandler());
         from = getIntent().getStringExtra("from");
+
+        dialog = new ProgressDialog(this);
+        dialog.setTitle("Loading");
+        dialog.setMessage("Please wait...");
+
+    }
+
+    private void dismissDialog() {
+        if (dialog != null && dialog.isShowing())
+            dialog.dismiss();
     }
 
     public class ClickHandler {
@@ -62,72 +74,69 @@ public class ForgotPasswordActivity extends AppCompatActivity {
             }
         }
 
-        private void sendOtp(ForgotPasswordOTPRequestModel model) {
-            //dialog.show();
-            ApiInterface apiInterface = ApiClient.createService(ApiInterface.class, "", "");
-            apiInterface.forgotpassword_send_otp(model).enqueue(new Callback<ResponseBody>() {
-                @Override
-                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                    try {
+    }
 
-                        JSONObject jsonObject = new JSONObject(response.body().string());
+    private void sendOtp(ForgotPasswordOTPRequestModel model) {
+        dialog.show();
+        ApiInterface apiInterface = ApiClient.createService(ApiInterface.class, "", "");
+        apiInterface.forgotpassword_send_otp(model).enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                try {
 
-                        String status = jsonObject.getString("status");
-                        if (status.equals("1")) {
-                            Toast.makeText(ForgotPasswordActivity.this, jsonObject.getString("msg"), Toast.LENGTH_SHORT).show();
-                            String otp = jsonObject.getString("otp");
-                            Intent intent = new Intent(ForgotPasswordActivity.this, OtpVerificationActivity.class);
-                            intent.putExtra("otp", otp);
-                            intent.putExtra("mobile_no", binding.edtMobileNo.getText().toString());
-                            intent.putExtra("from", "forgot");
-                            startActivity(intent);
-                            finish();
-                        } else {
-                            Toast.makeText(ForgotPasswordActivity.this, jsonObject.getString("msg"), Toast.LENGTH_SHORT).show();
-                        }
+                    JSONObject jsonObject = new JSONObject(response.body().string());
 
-                    } catch (JSONException | IOException jsonException) {
-                        jsonException.printStackTrace();
-                    }
-
-
-                    // dismissDialog();
-
-                }
-
-
-                @Override
-                public void onFailure(Call<ResponseBody> call, Throwable error) {
-
-                    //  dismissDialog();
-                    error.printStackTrace();
-                    if (error instanceof HttpException) {
-                        switch (((HttpException) error).code()) {
-                            case HttpsURLConnection.HTTP_UNAUTHORIZED:
-                                Toast.makeText(ForgotPasswordActivity.this, getString(R.string.unauthorised_user), Toast.LENGTH_SHORT).show();
-                                break;
-                            case HttpsURLConnection.HTTP_FORBIDDEN:
-                                Toast.makeText(ForgotPasswordActivity.this, getString(R.string.forbidden), Toast.LENGTH_SHORT).show();
-                                break;
-                            case HttpsURLConnection.HTTP_INTERNAL_ERROR:
-                                Toast.makeText(ForgotPasswordActivity.this, getString(R.string.internal_server_error), Toast.LENGTH_SHORT).show();
-                                break;
-                            case HttpsURLConnection.HTTP_BAD_REQUEST:
-                                Toast.makeText(ForgotPasswordActivity.this, getString(R.string.bad_request), Toast.LENGTH_SHORT).show();
-                                break;
-                            default:
-                                Toast.makeText(ForgotPasswordActivity.this, error.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
-                        }
+                    String status = jsonObject.getString("status");
+                    if (status.equals("1")) {
+                        Toast.makeText(ForgotPasswordActivity.this, jsonObject.getString("msg"), Toast.LENGTH_SHORT).show();
+                        String otp = jsonObject.getString("otp");
+                        Intent intent = new Intent(ForgotPasswordActivity.this, OtpVerificationActivity.class);
+                        intent.putExtra("otp", otp);
+                        intent.putExtra("mobile_no", binding.edtMobileNo.getText().toString());
+                        intent.putExtra("from", "forgot");
+                        startActivity(intent);
+                        finish();
                     } else {
-                        Toast.makeText(ForgotPasswordActivity.this, getString(R.string.something_went_wrong), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ForgotPasswordActivity.this, jsonObject.getString("msg"), Toast.LENGTH_SHORT).show();
                     }
 
-
+                } catch (JSONException | IOException jsonException) {
+                    jsonException.printStackTrace();
                 }
-            });
+
+                dismissDialog();
+            }
 
 
-        }
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable error) {
+
+                dismissDialog();
+                error.printStackTrace();
+                if (error instanceof HttpException) {
+                    switch (((HttpException) error).code()) {
+                        case HttpsURLConnection.HTTP_UNAUTHORIZED:
+                            Toast.makeText(ForgotPasswordActivity.this, getString(R.string.unauthorised_user), Toast.LENGTH_SHORT).show();
+                            break;
+                        case HttpsURLConnection.HTTP_FORBIDDEN:
+                            Toast.makeText(ForgotPasswordActivity.this, getString(R.string.forbidden), Toast.LENGTH_SHORT).show();
+                            break;
+                        case HttpsURLConnection.HTTP_INTERNAL_ERROR:
+                            Toast.makeText(ForgotPasswordActivity.this, getString(R.string.internal_server_error), Toast.LENGTH_SHORT).show();
+                            break;
+                        case HttpsURLConnection.HTTP_BAD_REQUEST:
+                            Toast.makeText(ForgotPasswordActivity.this, getString(R.string.bad_request), Toast.LENGTH_SHORT).show();
+                            break;
+                        default:
+                            Toast.makeText(ForgotPasswordActivity.this, error.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    Toast.makeText(ForgotPasswordActivity.this, getString(R.string.something_went_wrong), Toast.LENGTH_SHORT).show();
+                }
+
+
+            }
+        });
 
 
     }

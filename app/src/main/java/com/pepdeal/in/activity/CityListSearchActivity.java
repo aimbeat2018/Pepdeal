@@ -58,7 +58,7 @@ public class CityListSearchActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_city_list_search);
         binding.setHandler(new ClickHandler());
-
+        stateId = getIntent().getStringExtra("state_id");
         dialog = new ProgressDialog(this);
         dialog.setTitle("Loading");
         dialog.setMessage("Please wait...");
@@ -103,10 +103,10 @@ public class CityListSearchActivity extends AppCompatActivity {
     private void getCityList() {
         dialog.show();
         UserProfileRequestModel model = new UserProfileRequestModel();
-//        model.setState_id(stateId);
+        model.setState_id(stateId);
 
         ApiInterface client = ApiClient.createService(ApiInterface.class, "", "");
-        client.cityList(model).enqueue(new Callback<ResponseBody>() {
+        client.cityListbystate(model).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
                 try {

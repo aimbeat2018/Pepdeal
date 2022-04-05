@@ -38,9 +38,9 @@
                     <androidx.appcompat.widget.LinearLayoutCompat
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
                         android:layout_gravity="center"
                         android:layout_marginHorizontal="@dimen/margin_8"
+                        android:layout_weight="1"
                         android:orientation="vertical">
 
                         <androidx.appcompat.widget.AppCompatTextView
@@ -153,8 +153,10 @@
                             android:fontFamily="@font/roboto_medium"
                             android:gravity="start"
                             android:text=""
+                            android:textAllCaps="true"
                             android:textColor="@color/black"
-                            android:textSize="@dimen/text_12" />
+                            android:textSize="@dimen/text_12"
+                            android:textStyle="bold" />
 
                     </androidx.appcompat.widget.LinearLayoutCompat>
 

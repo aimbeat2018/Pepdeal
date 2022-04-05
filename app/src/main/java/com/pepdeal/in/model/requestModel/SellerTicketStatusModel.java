@@ -13,6 +13,12 @@ public class SellerTicketStatusModel {
     @SerializedName("ticket_status")
     @Expose
     private String ticketStatus;
+    @SerializedName("id")
+    @Expose
+    private String id;
+    @SerializedName("flag")
+    @Expose
+    private String flag;
 
     public String getUserId() {
         return userId;
@@ -36,5 +42,21 @@ public class SellerTicketStatusModel {
 
     public void setTicketStatus(String ticketStatus) {
         this.ticketStatus = ticketStatus;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getFlag() {
+        return flag;
+    }
+
+    public void setFlag(String flag) {
+        this.flag = flag;
     }
 }

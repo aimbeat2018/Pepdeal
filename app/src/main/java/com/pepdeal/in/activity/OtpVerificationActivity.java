@@ -19,6 +19,7 @@ import com.pepdeal.in.constants.ApiClient;
 import com.pepdeal.in.constants.ApiInterface;
 import com.pepdeal.in.constants.Utils;
 import com.pepdeal.in.databinding.ActivityOtpVerificationBinding;
+import com.pepdeal.in.model.ForgotPasswordOTPRequestModel;
 import com.pepdeal.in.model.requestModel.LoginRequestModel;
 import com.pepdeal.in.model.requestModel.UserRegisterModel;
 
@@ -83,7 +84,7 @@ public class OtpVerificationActivity extends AppCompatActivity {
     public class ClickHandler {
         public void onEditClick(View view) {
            /* if (from.equals("forgot")) {
-                startActivity(new Intent(OtpVerificationActivity.this, ForgotPasswordActivity.class));
+                startActivity(new Intent(OtpVerificationActivity.this, OtpVerificationActivity.class));
             } else {
                 startActivity(new Intent(OtpVerificationActivity.this, RegistrationActivity.class));
             }*/
@@ -133,73 +134,145 @@ public class OtpVerificationActivity extends AppCompatActivity {
             }
         }
 
-
-        private void dismissDialog() {
-            if (dialog != null && dialog.isShowing())
-                dialog.dismiss();
+        public void resendOTP(View view) {
+            if (Utils.isNetwork(OtpVerificationActivity.this)) {
+                ForgotPasswordOTPRequestModel model = new ForgotPasswordOTPRequestModel();
+                model.setMobileNo(mobileNo);
+                sendOtp(model);
+            } else {
+                Utils.InternetAlertDialog(OtpVerificationActivity.this, getString(R.string.no_internet_title), getString(R.string.no_internet_desc));
+            }
         }
+    }
+
+    private void dismissDialog() {
+        if (dialog != null && dialog.isShowing())
+            dialog.dismiss();
+    }
 
 
-        // private void saveuserdata(String name, String mobileNo, String password,String devicetoken)
-        private void saveUserData(UserRegisterModel model) {
-            dialog.show();
+    // private void saveuserdata(String name, String mobileNo, String password,String devicetoken)
+    private void saveUserData(UserRegisterModel model) {
+        dialog.show();
 
-            ApiInterface apiInterface = ApiClient.createService(ApiInterface.class, "", "");
+        ApiInterface apiInterface = ApiClient.createService(ApiInterface.class, "", "");
 
-            apiInterface.registerUser(model).enqueue(new Callback<ResponseBody>() {
+        apiInterface.registerUser(model).enqueue(new Callback<ResponseBody>() {
 
-                @Override
-                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                    try {
-                        JSONObject jsonObject = new JSONObject(response.body().string());
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                try {
+                    JSONObject jsonObject = new JSONObject(response.body().string());
 
-                        String status = jsonObject.getString("code");
+                    String status = jsonObject.getString("code");
 
-                        if (status.equals("200")) {
-                            Toast.makeText(OtpVerificationActivity.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
+                    if (status.equals("200")) {
+                        Toast.makeText(OtpVerificationActivity.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
 
-                            Intent intent = new Intent(OtpVerificationActivity.this, LoginActivity.class);
-                            startActivity(intent);
-                            finishAffinity();
+                        Intent intent = new Intent(OtpVerificationActivity.this, LoginActivity.class);
+                        startActivity(intent);
+                        finishAffinity();
 
-                        } else {
-                            Toast.makeText(OtpVerificationActivity.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
-                        }
-
-                    } catch (JSONException | NumberFormatException | IOException e) {
-                        e.printStackTrace();
-                    }
-                    dismissDialog();
-                }
-
-                @Override
-                public void onFailure(Call<ResponseBody> call, Throwable error) {
-                    dismissDialog();
-                    error.printStackTrace();
-                    if (error instanceof HttpException) {
-                        switch (((HttpException) error).code()) {
-                            case HttpsURLConnection.HTTP_UNAUTHORIZED:
-                                Toast.makeText(OtpVerificationActivity.this, getString(R.string.unauthorised_user), Toast.LENGTH_SHORT).show();
-                                break;
-                            case HttpsURLConnection.HTTP_FORBIDDEN:
-                                Toast.makeText(OtpVerificationActivity.this, getString(R.string.forbidden), Toast.LENGTH_SHORT).show();
-                                break;
-                            case HttpsURLConnection.HTTP_INTERNAL_ERROR:
-                                Toast.makeText(OtpVerificationActivity.this, getString(R.string.internal_server_error), Toast.LENGTH_SHORT).show();
-                                break;
-                            case HttpsURLConnection.HTTP_BAD_REQUEST:
-                                Toast.makeText(OtpVerificationActivity.this, getString(R.string.bad_request), Toast.LENGTH_SHORT).show();
-                                break;
-                            default:
-                                Toast.makeText(OtpVerificationActivity.this, error.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
-                        }
                     } else {
-                        Toast.makeText(OtpVerificationActivity.this, getString(R.string.something_went_wrong), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(OtpVerificationActivity.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
                     }
-                }
-            });
 
-        }
+                } catch (JSONException | NumberFormatException | IOException e) {
+                    e.printStackTrace();
+                }
+                dismissDialog();
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable error) {
+                dismissDialog();
+                error.printStackTrace();
+                if (error instanceof HttpException) {
+                    switch (((HttpException) error).code()) {
+                        case HttpsURLConnection.HTTP_UNAUTHORIZED:
+                            Toast.makeText(OtpVerificationActivity.this, getString(R.string.unauthorised_user), Toast.LENGTH_SHORT).show();
+                            break;
+                        case HttpsURLConnection.HTTP_FORBIDDEN:
+                            Toast.makeText(OtpVerificationActivity.this, getString(R.string.forbidden), Toast.LENGTH_SHORT).show();
+                            break;
+                        case HttpsURLConnection.HTTP_INTERNAL_ERROR:
+                            Toast.makeText(OtpVerificationActivity.this, getString(R.string.internal_server_error), Toast.LENGTH_SHORT).show();
+                            break;
+                        case HttpsURLConnection.HTTP_BAD_REQUEST:
+                            Toast.makeText(OtpVerificationActivity.this, getString(R.string.bad_request), Toast.LENGTH_SHORT).show();
+                            break;
+                        default:
+                            Toast.makeText(OtpVerificationActivity.this, error.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    Toast.makeText(OtpVerificationActivity.this, getString(R.string.something_went_wrong), Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+    }
+
+    private void sendOtp(ForgotPasswordOTPRequestModel model) {
+        dialog.show();
+        ApiInterface apiInterface = ApiClient.createService(ApiInterface.class, "", "");
+        apiInterface.forgotpassword_send_otp(model).enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                try {
+
+                    JSONObject jsonObject = new JSONObject(response.body().string());
+
+                    String status = jsonObject.getString("status");
+                    if (status.equals("1")) {
+                        Toast.makeText(OtpVerificationActivity.this, jsonObject.getString("msg"), Toast.LENGTH_SHORT).show();
+                        Intentotp = jsonObject.getString("otp");
+                        /*Intent intent = new Intent(OtpVerificationActivity.this, OtpVerificationActivity.class);
+                        intent.putExtra("otp", otp);
+                        intent.putExtra("mobile_no", mobileNo);
+                        intent.putExtra("from", from);
+                        startActivity(intent);
+                        finish();*/
+                    } else {
+                        Toast.makeText(OtpVerificationActivity.this, jsonObject.getString("msg"), Toast.LENGTH_SHORT).show();
+                    }
+
+                } catch (JSONException | IOException jsonException) {
+                    jsonException.printStackTrace();
+                }
+
+                dismissDialog();
+            }
+
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable error) {
+
+                dismissDialog();
+                error.printStackTrace();
+                if (error instanceof HttpException) {
+                    switch (((HttpException) error).code()) {
+                        case HttpsURLConnection.HTTP_UNAUTHORIZED:
+                            Toast.makeText(OtpVerificationActivity.this, getString(R.string.unauthorised_user), Toast.LENGTH_SHORT).show();
+                            break;
+                        case HttpsURLConnection.HTTP_FORBIDDEN:
+                            Toast.makeText(OtpVerificationActivity.this, getString(R.string.forbidden), Toast.LENGTH_SHORT).show();
+                            break;
+                        case HttpsURLConnection.HTTP_INTERNAL_ERROR:
+                            Toast.makeText(OtpVerificationActivity.this, getString(R.string.internal_server_error), Toast.LENGTH_SHORT).show();
+                            break;
+                        case HttpsURLConnection.HTTP_BAD_REQUEST:
+                            Toast.makeText(OtpVerificationActivity.this, getString(R.string.bad_request), Toast.LENGTH_SHORT).show();
+                            break;
+                        default:
+                            Toast.makeText(OtpVerificationActivity.this, error.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    Toast.makeText(OtpVerificationActivity.this, getString(R.string.something_went_wrong), Toast.LENGTH_SHORT).show();
+                }
+
+
+            }
+        });
 
 
     }

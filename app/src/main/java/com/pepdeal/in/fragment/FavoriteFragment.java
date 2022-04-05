@@ -205,7 +205,7 @@ public class FavoriteFragment extends Fragment {
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                 SimpleDateFormat formatted = new SimpleDateFormat("dd MMM yyyy");
                 try {
-                    Date date = simpleDateFormat.parse(model.getFavouriteCreatedAt());
+                    Date date = simpleDateFormat.parse(model.getCreated());
                     String dateFormatted = formatted.format(date);
                     layoutBinding.txtDate.setText("Date : " + dateFormatted);
                 } catch (ParseException e) {

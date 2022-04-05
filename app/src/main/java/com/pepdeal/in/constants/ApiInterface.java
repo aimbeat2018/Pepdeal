@@ -126,6 +126,9 @@ public interface ApiInterface {
     @POST("removeSupershop")
     Call<ResponseBody> removeSupershop(@Body UserProfileRequestModel model);
 
+    @POST("userinterest")
+    Call<ResponseBody> userinterest(@Body UserProfileRequestModel model);
+
     @POST("supershopList")
     Call<ResponseBody> supershopList(@Body UserProfileRequestModel model);
 
@@ -140,6 +143,9 @@ public interface ApiInterface {
 
     @POST("sellerticketStatus")
     Call<ResponseBody> sellerticketStatus(@Body SellerTicketStatusModel model);
+
+    @POST("userstatusChange")
+    Call<ResponseBody> userstatusChange(@Body SellerTicketStatusModel model);
 
     @POST("searchTags")
     Call<ResponseBody> searchTags(@Body UserProfileRequestModel model);
@@ -213,4 +219,7 @@ public interface ApiInterface {
 
     @POST("cityList")
     Call<ResponseBody> cityList(@Body UserProfileRequestModel model);
+
+    @POST("chatListsponse")
+    Call<ResponseBody> chatListsponse(@Body UserProfileRequestModel model);
 }

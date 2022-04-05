@@ -75,11 +75,28 @@
 
         </androidx.appcompat.widget.LinearLayoutCompat>
 
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/searchView"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/margin_35"
+            android:elevation="@dimen/margin_5"
+            android:layout_marginHorizontal="@dimen/margin_10"
+            android:layout_marginVertical="@dimen/margin_5"
+            android:background="@drawable/search_edittext_background_layout"
+            android:drawableLeft="@drawable/ic_baseline_search_24"
+            android:focusableInTouchMode="true"
+            android:focusedByDefault="false"
+            android:hint="Search"
+            android:imeOptions="actionSearch"
+            android:inputType="text"
+            android:lineSpacingExtra="@dimen/margin_10"
+            android:paddingStart="@dimen/margin_10" />
+
         <com.facebook.shimmer.ShimmerFrameLayout
             android:id="@+id/shimmer_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:visibility="visible">
+            android:visibility="gone">
 
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="match_parent"

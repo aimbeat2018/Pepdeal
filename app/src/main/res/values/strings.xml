@@ -147,5 +147,7 @@ Hole.</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="state_list">Select State</string>
     <string name="city_list">Select City</string>
+    <!--    <string name="txt_accept_terms_conditions">You agree to our <a href="http://captureandtalk.com/capturetalk/index.php/termandcondition">Terms &amp; Condition</a> of use and <a href="http://captureandtalk.com/capturetalk/index.php/privacypolicy">Privacy Policy</a>.</string>-->
+    <string name="txt_accept_terms_conditions">Agree to our Terms &amp; Condition.</string>
 
 </resources>

@@ -8,8 +8,11 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.text.TextUtils;
 
+import java.text.SimpleDateFormat;
+import java.util.Locale;
+
 public class Utils {
-    public  static  String BaseUrl="https://pepdeal.in/pepdeal-admin/Appjson/";
+    public static String BaseUrl = "https://pepdeal.in/pepdeal-admin/Appjson/";
 
     public static void InternetAlertDialog(final Activity mContext, String title, String msg) {
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(mContext);
@@ -35,7 +38,6 @@ public class Utils {
     }
 
 
-
     public static boolean isNetwork(Context context) {
         ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo netInfo = cm.getActiveNetworkInfo();
@@ -49,4 +51,16 @@ public class Utils {
     public static boolean isValidEmail(CharSequence target) {
         return !TextUtils.isEmpty(target) && android.util.Patterns.EMAIL_ADDRESS.matcher(target).matches();
     }
+
+    public static SimpleDateFormat df =
+            new SimpleDateFormat("dd-MM-yyyy HH:mm:ssZZ", Locale.ENGLISH);
+
+    public static SimpleDateFormat df2 =
+            new SimpleDateFormat("HH:mmZZ", Locale.ENGLISH);
+
+    public static SimpleDateFormat inboxDateFormat =
+            new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH);
+
+    public static SimpleDateFormat newdf =
+            new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH);
 }

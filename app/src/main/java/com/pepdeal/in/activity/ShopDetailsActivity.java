@@ -8,7 +8,9 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -153,43 +155,43 @@ public class ShopDetailsActivity extends AppCompatActivity {
                             binding.lnrCod.setBackgroundColor(getResources().getColor(R.color.white));
                             binding.txtCod.setTextColor(getResources().getColor(R.color.gray));
                         } else {
-                            binding.lnrCod.setBackgroundColor(getResources().getColor(R.color.purple_500));
-                            binding.txtCod.setTextColor(getResources().getColor(R.color.white));
+                            binding.lnrCod.setBackgroundColor(Color.parseColor("#F65F5F"));
+                            binding.txtCod.setTextColor(getResources().getColor(R.color.black));
                         }
                         if (serviceAvailableModel.getDoorStep().equals("0")) {
                             binding.lnrDoorStep.setBackgroundColor(getResources().getColor(R.color.white));
                             binding.txtDoorStep.setTextColor(getResources().getColor(R.color.gray));
                         } else {
-                            binding.lnrDoorStep.setBackgroundColor(getResources().getColor(R.color.purple_500));
-                            binding.txtDoorStep.setTextColor(getResources().getColor(R.color.white));
+                            binding.lnrDoorStep.setBackgroundColor(Color.parseColor("#FFCD59"));
+                            binding.txtDoorStep.setTextColor(getResources().getColor(R.color.black));
                         }
                         if (serviceAvailableModel.getHomeDelivery().equals("0")) {
                             binding.lnrHomeDelivery.setBackgroundColor(getResources().getColor(R.color.white));
                             binding.txtHomeDelivery.setTextColor(getResources().getColor(R.color.gray));
                         } else {
-                            binding.lnrHomeDelivery.setBackgroundColor(getResources().getColor(R.color.purple_500));
-                            binding.txtHomeDelivery.setTextColor(getResources().getColor(R.color.white));
+                            binding.lnrHomeDelivery.setBackgroundColor(Color.parseColor("#B3FAA6"));
+                            binding.txtHomeDelivery.setTextColor(getResources().getColor(R.color.black));
                         }
                         if (serviceAvailableModel.getLiveDemo().equals("0")) {
                             binding.lnrLiveDemo.setBackgroundColor(getResources().getColor(R.color.white));
                             binding.txtLiveDemo.setTextColor(getResources().getColor(R.color.gray));
                         } else {
-                            binding.lnrLiveDemo.setBackgroundColor(getResources().getColor(R.color.purple_500));
+                            binding.lnrLiveDemo.setBackgroundColor(Color.parseColor("#A9B8FA"));
                             binding.txtLiveDemo.setTextColor(getResources().getColor(R.color.white));
                         }
                         if (serviceAvailableModel.getOffers().equals("0")) {
                             binding.lnrOffers.setBackgroundColor(getResources().getColor(R.color.white));
                             binding.txtOffers.setTextColor(getResources().getColor(R.color.gray));
                         } else {
-                            binding.lnrOffers.setBackgroundColor(getResources().getColor(R.color.purple_500));
-                            binding.txtOffers.setTextColor(getResources().getColor(R.color.white));
+                            binding.lnrOffers.setBackgroundColor(Color.parseColor("#FFBAE4"));
+                            binding.txtOffers.setTextColor(getResources().getColor(R.color.black));
                         }
                         if (serviceAvailableModel.getBargain().equals("0")) {
                             binding.lnrBargain.setBackgroundColor(getResources().getColor(R.color.white));
                             binding.txtBargain.setTextColor(getResources().getColor(R.color.gray));
                         } else {
-                            binding.lnrBargain.setBackgroundColor(getResources().getColor(R.color.purple_500));
-                            binding.txtBargain.setTextColor(getResources().getColor(R.color.white));
+                            binding.lnrBargain.setBackgroundColor(Color.parseColor("#8FEDED"));
+                            binding.txtBargain.setTextColor(getResources().getColor(R.color.black));
                         }
 
 
@@ -247,15 +249,27 @@ public class ShopDetailsActivity extends AppCompatActivity {
                             binding.txtName.setTypeface(typeface);
 
                         if (shopDetailsDataModel.getSuperShopTatus().equals("1")) {
-                            Glide.with(ShopDetailsActivity.this).load(R.drawable.ic_fav_selected).into(binding.imgSuperShop);
+                            Glide.with(ShopDetailsActivity.this).load(R.drawable.ic_super_shop_filled).into(binding.imgSuperShop);
                         } else {
-                            Glide.with(ShopDetailsActivity.this).load(R.drawable.ic_add_super_shop).into(binding.imgSuperShop);
+                            Glide.with(ShopDetailsActivity.this).load(R.drawable.ic_super_shop_outlined).into(binding.imgSuperShop);
                         }
 
-                        binding.imgMessage.setOnClickListener(view -> startActivity(new Intent(ShopDetailsActivity.this, MessageChatActivity.class)
+                        binding.imgMessage.setOnClickListener(view -> new AlertDialog.Builder(ShopDetailsActivity.this)
+                                .setTitle("Alert!!!")
+                                .setMessage("Would you like to send interest in this shop?")
+
+                                // Specifying a listener allows you to take an action before dismissing the dialog.
+                                // The dialog is automatically dismissed when a dialog button is clicked.
+                                .setPositiveButton(android.R.string.yes, (dialog, which) -> {
+                                    sendInterest();
+                                    dialog.dismiss();
+                                })
+                                .setNegativeButton(android.R.string.no, (dialogInterface, i) -> dialogInterface.dismiss())
+                                .show());
+                      /*  binding.imgMessage.setOnClickListener(view -> startActivity(new Intent(ShopDetailsActivity.this, MessageChatActivity.class)
                                 .putExtra("shop_id", shopDetailsDataModel.getShopId())
                                 .putExtra("name", shopDetailsDataModel.getShopName())
-                                .putExtra("user_id", SharedPref.getVal(ShopDetailsActivity.this, SharedPref.user_id))));
+                                .putExtra("user_id", SharedPref.getVal(ShopDetailsActivity.this, SharedPref.user_id)).putExtra("from", "home")));*/
 
                         /*Product list*/
                         Gson gson = new Gson();
@@ -402,6 +416,64 @@ public class ShopDetailsActivity extends AppCompatActivity {
             public void onFailure(@NonNull Call<ResponseBody> call, @NonNull Throwable error) {
                 // binding.recProductlist.hideShimmer();
 //                    dismissDialog();
+                error.printStackTrace();
+                if (error instanceof HttpException) {
+                    switch (((HttpException) error).code()) {
+                        case HttpsURLConnection.HTTP_UNAUTHORIZED:
+                            Toast.makeText(ShopDetailsActivity.this, getString(R.string.unauthorised_user), Toast.LENGTH_SHORT).show();
+                            break;
+                        case HttpsURLConnection.HTTP_FORBIDDEN:
+                            Toast.makeText(ShopDetailsActivity.this, getString(R.string.forbidden), Toast.LENGTH_SHORT).show();
+                            break;
+                        case HttpsURLConnection.HTTP_INTERNAL_ERROR:
+                            Toast.makeText(ShopDetailsActivity.this, getString(R.string.internal_server_error), Toast.LENGTH_SHORT).show();
+                            break;
+                        case HttpsURLConnection.HTTP_BAD_REQUEST:
+                            Toast.makeText(ShopDetailsActivity.this, getString(R.string.bad_request), Toast.LENGTH_SHORT).show();
+                            break;
+                        default:
+                            Toast.makeText(ShopDetailsActivity.this, error.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    Toast.makeText(ShopDetailsActivity.this, getString(R.string.something_went_wrong), Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
+
+    private void sendInterest() {
+        dialog.show();
+        UserProfileRequestModel model = new UserProfileRequestModel();
+        model.setUserId(SharedPref.getVal(ShopDetailsActivity.this, SharedPref.user_id));
+        model.setShop_id(shop_id);
+        model.setFlag(1);
+
+        ApiInterface client = ApiClient.createService(ApiInterface.class, "", "");
+        client.userinterest(model).enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
+                try {
+                    JSONObject jsonObject = new JSONObject(response.body().string());
+                    String code = jsonObject.getString("code");
+                    if (code.equals("200")) {
+                        String status = jsonObject.getString("status");
+                        if (status.equals("0") || status.equals(""))
+                            Toast.makeText(ShopDetailsActivity.this, "Interest send successfully", Toast.LENGTH_SHORT).show();
+                        else
+                            Toast.makeText(ShopDetailsActivity.this, "Interest already send", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(ShopDetailsActivity.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                dismissDialog();
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<ResponseBody> call, @NonNull Throwable error) {
+                // binding.recProductlist.hideShimmer();
+                dismissDialog();
                 error.printStackTrace();
                 if (error instanceof HttpException) {
                     switch (((HttpException) error).code()) {

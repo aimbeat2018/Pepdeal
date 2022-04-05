@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_8"
+        app:cardCornerRadius="@dimen/margin_5"
+        app:cardElevation="@dimen/margin_5">
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/margin_5"
+            android:layout_marginVertical="@dimen/margin_5"
+            android:orientation="vertical">
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginHorizontal="@dimen/margin_2"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+
+                    <View
+                        android:id="@+id/view_status"
+                        android:layout_width="@dimen/margin_6"
+                        android:layout_height="@dimen/margin_6"
+                        android:layout_gravity="center"
+                        android:background="@drawable/circular_view_layout"
+                        android:backgroundTint="@color/gray_light" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="@dimen/margin_40"
+                        android:layout_height="@dimen/margin_10"
+                        android:layout_marginHorizontal="@dimen/margin_5"
+                        android:background="@color/gray_light" />
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <View
+                    android:layout_width="@dimen/margin_20"
+                    android:layout_height="@dimen/margin_20"
+                    android:background="@color/gray_light" />
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/margin_15"
+                android:layout_marginHorizontal="@dimen/margin_4"
+                android:layout_marginTop="@dimen/margin_5"
+                android:background="@color/gray_light" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/margin_10"
+                android:layout_marginHorizontal="@dimen/margin_4"
+                android:layout_marginTop="@dimen/margin_2"
+                android:background="@color/gray_light" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/margin_1"
+                android:layout_marginVertical="@dimen/margin_5"
+                android:background="@color/gray_light" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/margin_15"
+                android:layout_marginHorizontal="@dimen/margin_4"
+                android:layout_marginTop="@dimen/margin_5"
+                android:background="@color/gray_light" />
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="@dimen/margin_5"
+                android:orientation="horizontal">
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:id="@+id/lnr_call"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/border_backgorund_layout"
+                    android:backgroundTint="@color/gray_light"
+                    android:orientation="horizontal"
+                    android:paddingHorizontal="@dimen/margin_5"
+                    android:paddingVertical="@dimen/margin_2">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:layout_width="@dimen/margin_9"
+                        android:layout_height="@dimen/margin_9"
+                        android:layout_gravity="center"
+                        android:src="@drawable/ic_call"
+                        android:visibility="invisible"
+                        app:tint="@color/purple_500" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginHorizontal="@dimen/margin_4"
+                        android:fontFamily="@font/roboto_condensed"
+                        android:text="Call"
+                        android:textColor="@color/purple_500"
+                        android:textSize="@dimen/text_9"
+                        android:visibility="invisible" />
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:id="@+id/lnr_message"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/margin_10"
+                    android:background="@drawable/border_backgorund_layout"
+                    android:backgroundTint="@color/gray_light"
+                    android:orientation="horizontal"
+                    android:paddingHorizontal="@dimen/margin_5"
+                    android:paddingVertical="@dimen/margin_2">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:layout_width="@dimen/margin_9"
+                        android:layout_height="@dimen/margin_9"
+                        android:layout_gravity="center"
+                        android:src="@drawable/ic_baseline_message_24"
+                        android:visibility="invisible"
+                        app:tint="@color/purple_500" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginHorizontal="@dimen/margin_4"
+                        android:fontFamily="@font/roboto_condensed"
+                        android:text="Message"
+                        android:textColor="@color/purple_500"
+                        android:textSize="@dimen/text_9"
+                        android:visibility="invisible" />
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:id="@+id/lnr_email"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/border_backgorund_layout"
+                    android:backgroundTint="@color/gray_light"
+                    android:orientation="horizontal"
+                    android:paddingHorizontal="@dimen/margin_5"
+                    android:paddingVertical="@dimen/margin_2">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:layout_width="@dimen/margin_9"
+                        android:layout_height="@dimen/margin_9"
+                        android:layout_gravity="center"
+                        android:src="@drawable/ic_message"
+                        android:visibility="invisible"
+                        app:tint="@color/purple_500" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginHorizontal="@dimen/margin_4"
+                        android:fontFamily="@font/roboto_condensed"
+                        android:text="Email"
+                        android:textColor="@color/purple_500"
+                        android:textSize="@dimen/text_9"
+                        android:visibility="invisible" />
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+        </androidx.appcompat.widget.LinearLayoutCompat>
+    </androidx.cardview.widget.CardView>
+</androidx.appcompat.widget.LinearLayoutCompat>
