@@ -791,7 +791,7 @@
                                 android:layout_height="@dimen/margin_20"
                                 android:layout_gravity="center"
                                 android:src="@drawable/ic_message"
-                                app:tint="@color/white"/>
+                                app:tint="@color/white" />
 
                             <androidx.appcompat.widget.AppCompatTextView
                                 android:layout_width="match_parent"
@@ -805,6 +805,20 @@
                                 android:text="@string/message"
                                 android:textColor="@color/white"
                                 android:textSize="@dimen/text_14" />
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:id="@+id/txt_new_message"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginVertical="@dimen/margin_5"
+                                android:layout_marginEnd="@dimen/margin_30"
+                                android:fontFamily="@font/roboto_bold"
+                                android:paddingHorizontal="@dimen/margin_3"
+                                android:singleLine="true"
+                                android:text="\u25CF"
+                                android:textColor="@color/red"
+                                android:textSize="@dimen/text_14"
+                                android:visibility="gone" />
 
                         </androidx.appcompat.widget.LinearLayoutCompat>
 

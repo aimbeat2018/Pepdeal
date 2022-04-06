@@ -116,6 +116,8 @@ public class LeadsActivity extends AppCompatActivity {
                 getLeadsForSeller(true);
             else
                 getLeadsForUser(true);
+
+            updateLeadCount(false);
         } else {
             binding.lnrData.setVisibility(View.GONE);
             Utils.InternetAlertDialog(LeadsActivity.this, getString(R.string.no_internet_title), getString(R.string.no_internet_desc));
@@ -161,6 +163,61 @@ public class LeadsActivity extends AppCompatActivity {
                     e.printStackTrace();
                     binding.lnrData.setVisibility(View.GONE);
                     binding.lnrNoData.setVisibility(View.VISIBLE);
+                }
+
+                hideShimmer();
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<ResponseBody> call, @NonNull Throwable error) {
+                hideShimmer();
+                error.printStackTrace();
+                if (error instanceof HttpException) {
+                    switch (((HttpException) error).code()) {
+                        case HttpsURLConnection.HTTP_UNAUTHORIZED:
+                            Toast.makeText(LeadsActivity.this, getString(R.string.unauthorised_user), Toast.LENGTH_SHORT).show();
+                            break;
+                        case HttpsURLConnection.HTTP_FORBIDDEN:
+                            Toast.makeText(LeadsActivity.this, getString(R.string.forbidden), Toast.LENGTH_SHORT).show();
+                            break;
+                        case HttpsURLConnection.HTTP_INTERNAL_ERROR:
+                            Toast.makeText(LeadsActivity.this, getString(R.string.internal_server_error), Toast.LENGTH_SHORT).show();
+                            break;
+                        case HttpsURLConnection.HTTP_BAD_REQUEST:
+                            Toast.makeText(LeadsActivity.this, getString(R.string.bad_request), Toast.LENGTH_SHORT).show();
+                            break;
+                        default:
+                            Toast.makeText(LeadsActivity.this, error.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    Toast.makeText(LeadsActivity.this, getString(R.string.something_went_wrong), Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
+
+    private void updateLeadCount(boolean isLoading) {
+        if (isLoading)
+            showShimmer();
+        UserProfileRequestModel model = new UserProfileRequestModel();
+        if (from.equals("user")) {
+            model.setUserId(SharedPref.getVal(LeadsActivity.this, SharedPref.user_id));
+            model.setShop_id("");
+        } else {
+            model.setUserId("");
+            model.setShop_id(SharedPref.getVal(LeadsActivity.this, SharedPref.shop_id));
+        }
+
+        ApiInterface client = ApiClient.createService(ApiInterface.class, "", "");
+        client.msgscountStatuschange(model).enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
+                try {
+                    JSONObject jsonObject = new JSONObject(response.body().string());
+                    String code = jsonObject.getString("code");
+
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
 
                 hideShimmer();

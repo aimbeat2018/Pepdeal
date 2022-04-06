@@ -78,11 +78,13 @@
     <string name="shop_address">Shop Address</string>
     <string name="shop_lat_long">Shop Lat,Long</string>
     <string name="shop_city">Shop City</string>
+    <string name="shop_area">Shop Area</string>
     <string name="about_Shop">About Shop</string>
     <string name="shop_state">Shop State</string>
     <string name="enter_shop_name">Enter Shop Name</string>
     <string name="enter_shop_address">Enter Shop Address</string>
     <string name="enter_shop_city">Enter Shop City</string>
+    <string name="enter_shop_area">Enter Shop Area</string>
     <string name="enter_about_shop">Enter About Shop</string>
     <string name="enter_shop_state">Enter Shop State</string>
     <string name="enter_mobile_number">Enter Mobile Number</string>

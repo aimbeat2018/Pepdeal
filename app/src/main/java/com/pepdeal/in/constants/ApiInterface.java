@@ -60,7 +60,6 @@ public interface ApiInterface {
     Call<ResponseBody> enquiryForm(@Body HelpRequestModel model);
 
     @POST("aboutshopupdate")
-
     Call<ResponseBody> aboutshopupdate(@Body AddShopRequestModel model);
 
     @POST("bgcolorupdate")
@@ -109,7 +108,7 @@ public interface ApiInterface {
     Call<ResponseBody> deleteproduct(@Body UserProfileRequestModel model);
 
     @POST("productstatusChange ")
-    Call<ResponseBody> productstatusChange (@Body UserProfileRequestModel model);
+    Call<ResponseBody> productstatusChange(@Body UserProfileRequestModel model);
 
     @POST("productDetail")
     Call<ResponseBody> productDetail(@Body UserProfileRequestModel model);
@@ -197,7 +196,6 @@ public interface ApiInterface {
                                      @Part("isActive") RequestBody isActive,
                                      @Part List<MultipartBody.Part> productImages);
 
-    /*user_id  product_id image_id product_images*/
     @Multipart
     @POST("productImageupdate")
     Call<ResponseBody> productImageupdate(@Part("product_id") RequestBody product_id,
@@ -222,4 +220,10 @@ public interface ApiInterface {
 
     @POST("chatListsponse")
     Call<ResponseBody> chatListsponse(@Body UserProfileRequestModel model);
+
+    @POST("msgsCount")
+    Call<ResponseBody> msgsCount(@Body UserProfileRequestModel model);
+
+    @POST("msgscountStatuschange")
+    Call<ResponseBody> msgscountStatuschange(@Body UserProfileRequestModel model);
 }

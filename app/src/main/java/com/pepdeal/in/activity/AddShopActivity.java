@@ -336,6 +336,7 @@ public class AddShopActivity extends AppCompatActivity implements LocationListen
         model.setShopAddress(Objects.requireNonNull(binding.edtShopAddress.getText()).toString());
         model.setShopMobileNo(Objects.requireNonNull(binding.edtMobileNumber.getText()).toString());
         model.setShopDescription(Objects.requireNonNull(binding.edtAbout.getText()).toString());
+        model.setShopArea(Objects.requireNonNull(binding.edtShopArea.getText()).toString());
         model.setCity(cityId);
         model.setState(stateId);
         model.setBgColorId(backgroundColor);
@@ -761,6 +762,8 @@ public class AddShopActivity extends AppCompatActivity implements LocationListen
                 Toast.makeText(AddShopActivity.this, "Enter Shop Address", Toast.LENGTH_SHORT).show();
             } else if (binding.edtShopCity.getText().toString().equals("")) {
                 Toast.makeText(AddShopActivity.this, "Enter Shop City", Toast.LENGTH_SHORT).show();
+            } else if (binding.edtShopArea.getText().toString().equals("")) {
+                Toast.makeText(AddShopActivity.this, "Enter Shop Area", Toast.LENGTH_SHORT).show();
             } else if (binding.edtShopState.getText().toString().equals("")) {
                 Toast.makeText(AddShopActivity.this, "Enter Shop State", Toast.LENGTH_SHORT).show();
             } else if (binding.edtMobileNumber.getText().toString().equals("")) {

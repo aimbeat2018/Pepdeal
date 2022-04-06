@@ -46,7 +46,17 @@ public class AddShopRequestModel {
     @SerializedName("longitude")
     @Expose
     private String longitude;
+    @SerializedName("shop_area")
+    @Expose
+    private String shopArea;
 
+    public String getShopArea() {
+        return shopArea;
+    }
+
+    public void setShopArea(String shopArea) {
+        this.shopArea = shopArea;
+    }
 
     /*shop_description, city , state*/
     public String getUserId() {

@@ -28,6 +28,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
@@ -99,12 +100,16 @@ public class HomeActivity extends AppCompatActivity implements LocationListener,
     public static double longitude = 0.0;
     public static double latitude = 0.0;
     String address = "";
+    String newLeadCount = "";
+    CardView cardNewMessage;
+    UsersTabAdapter adapter;
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_home);
         binding.includeLayout.setHandler(new NavigationClick());
+        binding.setHandler(new ClickHandler());
         SharedPref.putVal(HomeActivity.this, SharedPref.msgFlag, msgFlagDefault);
 
         geocoder = new Geocoder(this, Locale.getDefault());
@@ -157,6 +162,7 @@ public class HomeActivity extends AppCompatActivity implements LocationListener,
 
         if (Utils.isNetwork(HomeActivity.this)) {
             requestUsersProfileParams();
+            getLeadCount("user");
         } else {
             Utils.InternetAlertDialog(HomeActivity.this, getString(R.string.no_internet_title), getString(R.string.no_internet_desc));
         }
@@ -263,6 +269,12 @@ public class HomeActivity extends AppCompatActivity implements LocationListener,
             binding.includeLayout.txtname.setText(username);
             binding.includeLayout.relEditProfile.setVisibility(View.VISIBLE);
             binding.includeLayout.relShopArrow.setVisibility(View.GONE);
+            if (Utils.isNetwork(HomeActivity.this)) {
+                getLeadCount("user");
+            } else {
+                Utils.InternetAlertDialog(HomeActivity.this, getString(R.string.no_internet_title), getString(R.string.no_internet_desc));
+            }
+
         }
 
 
@@ -306,6 +318,12 @@ public class HomeActivity extends AppCompatActivity implements LocationListener,
                     binding.includeLayout.txtname.setText(shop_name);
                     binding.includeLayout.relEditProfile.setVisibility(View.GONE);
                     binding.includeLayout.relShopArrow.setVisibility(View.VISIBLE);
+
+                    if (Utils.isNetwork(HomeActivity.this)) {
+                        getLeadCount("shop");
+                    } else {
+                        Utils.InternetAlertDialog(HomeActivity.this, getString(R.string.no_internet_title), getString(R.string.no_internet_desc));
+                    }
                 } else {
                     new AlertDialog.Builder(HomeActivity.this)
                             .setTitle("Alert!!!")
@@ -446,6 +464,39 @@ public class HomeActivity extends AppCompatActivity implements LocationListener,
         }
     }
 
+    public class ClickHandler {
+        public void onHomeClick(View view) {
+            pos = 1;
+            loadFragment(new HomeFragment());
+            binding.nestedScroll.fullScroll(View.FOCUS_UP);
+        }
+
+        public void onTicketClick(View view) {
+            pos = 2;
+            loadFragment(new TicketFragment());
+        }
+
+        public void onSuperShopClick(View view) {
+            pos = 3;
+            loadFragment(new SuperShopFragment());
+        }
+
+        public void onFavoriteClick(View view) {
+            pos = 4;
+            loadFragment(new FavoriteFragment());
+        }
+
+        public void onHelpClick(View view) {
+            pos = 5;
+            loadFragment(new HelpFragment());
+        }
+
+        public void onMessageClick(View view) {
+            pos = 6;
+            startActivity(new Intent(HomeActivity.this, LeadsActivity.class).putExtra("from", "user"));
+        }
+    }
+
     private void navigationDrawer() {
         //Navigation Drawer
         binding.navView.bringToFront();
@@ -507,7 +558,76 @@ public class HomeActivity extends AppCompatActivity implements LocationListener,
         homeTabModelArrayList.add(model4);
 
         binding.recTab.setLayoutManager(new LinearLayoutManager(HomeActivity.this, LinearLayoutManager.HORIZONTAL, false));
-        binding.recTab.setAdapter(new UsersTabAdapter());
+        adapter = new UsersTabAdapter();
+        binding.recTab.setAdapter(adapter);
+    }
+
+    /*new Lead*/
+    private void getLeadCount(String from) {
+        UserProfileRequestModel model = new UserProfileRequestModel();
+        if (from.equals("user")) {
+            model.setUserId(SharedPref.getVal(HomeActivity.this, SharedPref.user_id));
+            model.setShop_id("");
+        } else {
+            model.setUserId("");
+            model.setShop_id(SharedPref.getVal(HomeActivity.this, SharedPref.shop_id));
+        }
+
+        ApiInterface client = ApiClient.createService(ApiInterface.class, "", "");
+        client.msgsCount(model).enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
+                try {
+                    JSONObject jsonObject = new JSONObject(response.body().string());
+                    String code = jsonObject.getString("code");
+                    if (code.equals("200")) {
+//                        newLeadCount = jsonObject.getString("count");
+
+
+                        if (from.equals("user")) {
+//                                newLeadCount = jsonObject.getString("count");
+//                                if (!newLeadCount.equals("")) {
+                            if (!jsonObject.getString("status").equals("")) {
+                                binding.cardNewMessage.setVisibility(View.VISIBLE);
+                            }
+//                                }
+                        } else {
+                            if (Integer.parseInt(jsonObject.getString("count")) > 0) {
+                                binding.includeLayout.txtNewMessage.setVisibility(View.VISIBLE);
+                            }
+                        }
+                    }
+                } catch (
+                        Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<ResponseBody> call, @NonNull Throwable error) {
+                error.printStackTrace();
+                if (error instanceof HttpException) {
+                    switch (((HttpException) error).code()) {
+                        case HttpsURLConnection.HTTP_UNAUTHORIZED:
+                            Toast.makeText(HomeActivity.this, getString(R.string.unauthorised_user), Toast.LENGTH_SHORT).show();
+                            break;
+                        case HttpsURLConnection.HTTP_FORBIDDEN:
+                            Toast.makeText(HomeActivity.this, getString(R.string.forbidden), Toast.LENGTH_SHORT).show();
+                            break;
+                        case HttpsURLConnection.HTTP_INTERNAL_ERROR:
+                            Toast.makeText(HomeActivity.this, getString(R.string.internal_server_error), Toast.LENGTH_SHORT).show();
+                            break;
+                        case HttpsURLConnection.HTTP_BAD_REQUEST:
+                            Toast.makeText(HomeActivity.this, getString(R.string.bad_request), Toast.LENGTH_SHORT).show();
+                            break;
+                        default:
+                            Toast.makeText(HomeActivity.this, error.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    Toast.makeText(HomeActivity.this, getString(R.string.something_went_wrong), Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 
     /*LogoutUser*/
@@ -591,6 +711,7 @@ public class HomeActivity extends AppCompatActivity implements LocationListener,
             public ViewHolder(@NonNull ItemCategoryHomeLayoutBinding itemView) {
                 super(itemView.getRoot());
                 this.layoutBinding = itemView;
+                cardNewMessage = layoutBinding.cardNewMessage;
             }
 
             public void bind(UsersHomeTabModel model, int position) {
@@ -621,6 +742,7 @@ public class HomeActivity extends AppCompatActivity implements LocationListener,
                 });
             }
         }
+
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)

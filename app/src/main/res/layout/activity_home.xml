@@ -5,7 +5,7 @@
 
         <variable
             name="handler"
-            type="com.pepdeal.in.activity.HomeActivity" />
+            type="com.pepdeal.in.activity.HomeActivity.ClickHandler" />
     </data>
 
 
@@ -138,13 +138,309 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="#EDE4E4"
-                android:gravity="center">
+                android:gravity="center"
+                android:visibility="gone">
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rec_tab"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center" />
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#EDE4E4"
+                android:gravity="center">
+
+                <HorizontalScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:scrollbars="none">
+
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="@dimen/margin_65"
+                            android:layout_height="@dimen/margin_65"
+                            android:layout_marginHorizontal="@dimen/margin_5"
+                            android:layout_marginVertical="@dimen/margin_10"
+                            android:onClick="@{handler::onHomeClick}"
+                            app:cardCornerRadius="@dimen/margin_35"
+                            app:cardElevation="@dimen/margin_5">
+
+                            <androidx.appcompat.widget.LinearLayoutCompat
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="#F65F5F">
+
+                                <androidx.appcompat.widget.LinearLayoutCompat
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:orientation="vertical">
+
+                                    <androidx.appcompat.widget.AppCompatImageView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="@dimen/margin_20"
+                                        android:layout_gravity="center"
+                                        android:src="@drawable/ic_home"
+                                        app:tint="@color/black" />
+
+                                    <androidx.appcompat.widget.AppCompatTextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:layout_marginTop="@dimen/margin_3"
+                                        android:fontFamily="@font/roboto_medium"
+                                        android:gravity="center"
+                                        android:text="@string/home"
+                                        android:textColor="@color/black"
+                                        android:textSize="@dimen/text_13" />
+                                </androidx.appcompat.widget.LinearLayoutCompat>
+                            </androidx.appcompat.widget.LinearLayoutCompat>
+                        </androidx.cardview.widget.CardView>
+
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="@dimen/margin_65"
+                            android:layout_height="@dimen/margin_65"
+                            android:layout_marginHorizontal="@dimen/margin_5"
+                            android:layout_marginVertical="@dimen/margin_10"
+                            android:onClick="@{handler::onTicketClick}"
+                            app:cardCornerRadius="@dimen/margin_35"
+                            app:cardElevation="@dimen/margin_5">
+
+                            <androidx.appcompat.widget.LinearLayoutCompat
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="#FFCD59">
+
+                                <androidx.appcompat.widget.LinearLayoutCompat
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:orientation="vertical">
+
+                                    <androidx.appcompat.widget.AppCompatImageView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="@dimen/margin_20"
+                                        android:layout_gravity="center"
+                                        android:src="@drawable/ic_tickets"
+                                        app:tint="@color/black" />
+
+                                    <androidx.appcompat.widget.AppCompatTextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:layout_marginTop="@dimen/margin_3"
+                                        android:fontFamily="@font/roboto_medium"
+                                        android:gravity="center"
+                                        android:text="@string/ticket"
+                                        android:textColor="@color/black"
+                                        android:textSize="@dimen/text_13" />
+                                </androidx.appcompat.widget.LinearLayoutCompat>
+                            </androidx.appcompat.widget.LinearLayoutCompat>
+                        </androidx.cardview.widget.CardView>
+
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="@dimen/margin_65"
+                            android:layout_height="@dimen/margin_65"
+                            android:layout_marginHorizontal="@dimen/margin_5"
+                            android:layout_marginVertical="@dimen/margin_10"
+                            android:onClick="@{handler::onSuperShopClick}"
+                            app:cardCornerRadius="@dimen/margin_35"
+                            app:cardElevation="@dimen/margin_5">
+
+                            <androidx.appcompat.widget.LinearLayoutCompat
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="#B3FAA6">
+
+                                <androidx.appcompat.widget.LinearLayoutCompat
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:orientation="vertical">
+
+                                    <androidx.appcompat.widget.AppCompatImageView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="@dimen/margin_20"
+                                        android:layout_gravity="center"
+                                        android:src="@drawable/ic_super_shop"
+                                        app:tint="@color/black" />
+
+                                    <androidx.appcompat.widget.AppCompatTextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:layout_marginTop="@dimen/margin_3"
+                                        android:fontFamily="@font/roboto_medium"
+                                        android:gravity="center"
+                                        android:text="@string/super_shop"
+                                        android:textColor="@color/black"
+                                        android:textSize="@dimen/text_13" />
+                                </androidx.appcompat.widget.LinearLayoutCompat>
+                            </androidx.appcompat.widget.LinearLayoutCompat>
+                        </androidx.cardview.widget.CardView>
+
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="@dimen/margin_65"
+                            android:layout_height="@dimen/margin_65"
+                            android:layout_marginHorizontal="@dimen/margin_5"
+                            android:layout_marginVertical="@dimen/margin_10"
+                            android:onClick="@{handler::onFavoriteClick}"
+                            app:cardCornerRadius="@dimen/margin_35"
+                            app:cardElevation="@dimen/margin_5">
+
+                            <androidx.appcompat.widget.LinearLayoutCompat
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="#A9B8FA">
+
+                                <androidx.appcompat.widget.LinearLayoutCompat
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:orientation="vertical">
+
+                                    <androidx.appcompat.widget.AppCompatImageView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="@dimen/margin_20"
+                                        android:layout_gravity="center"
+                                        android:src="@drawable/ic_favorite"
+                                        app:tint="@color/black" />
+
+                                    <androidx.appcompat.widget.AppCompatTextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:layout_marginTop="@dimen/margin_3"
+                                        android:fontFamily="@font/roboto_medium"
+                                        android:gravity="center"
+                                        android:text="@string/favorite"
+                                        android:textColor="@color/black"
+                                        android:textSize="@dimen/text_13" />
+                                </androidx.appcompat.widget.LinearLayoutCompat>
+                            </androidx.appcompat.widget.LinearLayoutCompat>
+                        </androidx.cardview.widget.CardView>
+
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="@dimen/margin_65"
+                            android:layout_height="@dimen/margin_65"
+                            android:layout_marginHorizontal="@dimen/margin_5"
+                            android:layout_marginVertical="@dimen/margin_10"
+                            android:onClick="@{handler::onHelpClick}"
+                            app:cardCornerRadius="@dimen/margin_35"
+                            app:cardElevation="@dimen/margin_5">
+
+                            <androidx.appcompat.widget.LinearLayoutCompat
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="#FFBAE4">
+
+                                <androidx.appcompat.widget.LinearLayoutCompat
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:orientation="vertical">
+
+                                    <androidx.appcompat.widget.AppCompatImageView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="@dimen/margin_20"
+                                        android:layout_gravity="center"
+                                        android:src="@drawable/ic_help"
+                                        app:tint="@color/black" />
+
+                                    <androidx.appcompat.widget.AppCompatTextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:layout_marginTop="@dimen/margin_3"
+                                        android:fontFamily="@font/roboto_medium"
+                                        android:gravity="center"
+                                        android:text="@string/help"
+                                        android:textColor="@color/black"
+                                        android:textSize="@dimen/text_13" />
+                                </androidx.appcompat.widget.LinearLayoutCompat>
+                            </androidx.appcompat.widget.LinearLayoutCompat>
+                        </androidx.cardview.widget.CardView>
+
+                        <RelativeLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="@dimen/margin_5"
+                            android:onClick="@{handler::onMessageClick}">
+
+                            <RelativeLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content">
+
+                                <androidx.cardview.widget.CardView
+                                    android:layout_width="@dimen/margin_65"
+                                    android:layout_height="@dimen/margin_65"
+                                    android:layout_marginHorizontal="@dimen/margin_5"
+                                    android:layout_marginVertical="@dimen/margin_10"
+                                    app:cardCornerRadius="@dimen/margin_35"
+                                    app:cardElevation="@dimen/margin_5">
+
+                                    <androidx.appcompat.widget.LinearLayoutCompat
+                                        android:id="@+id/lnr_back"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:background="#FFCD59">
+
+                                        <androidx.appcompat.widget.LinearLayoutCompat
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_gravity="center"
+                                            android:orientation="vertical">
+
+                                            <androidx.appcompat.widget.AppCompatImageView
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="@dimen/margin_20"
+                                                android:layout_gravity="center"
+                                                android:src="@drawable/ic_message"
+                                                app:tint="@color/black" />
+
+                                            <androidx.appcompat.widget.AppCompatTextView
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:layout_gravity="center"
+                                                android:layout_marginTop="@dimen/margin_3"
+                                                android:fontFamily="@font/roboto_medium"
+                                                android:gravity="center"
+                                                android:text="@string/message"
+                                                android:textColor="@color/black"
+                                                android:textSize="@dimen/text_13" />
+                                        </androidx.appcompat.widget.LinearLayoutCompat>
+                                    </androidx.appcompat.widget.LinearLayoutCompat>
+                                </androidx.cardview.widget.CardView>
+                            </RelativeLayout>
+
+                            <androidx.cardview.widget.CardView
+                                android:id="@+id/card_new_message"
+                                android:layout_width="@dimen/margin_15"
+                                android:layout_height="@dimen/margin_15"
+                                android:layout_alignParentEnd="true"
+                                android:layout_marginStart="@dimen/margin_50"
+                                android:layout_marginTop="@dimen/margin_10"
+                                android:layout_marginEnd="@dimen/margin_16"
+                                android:visibility="gone"
+                                app:cardBackgroundColor="@color/red"
+                                app:cardCornerRadius="@dimen/margin_40" />
+
+
+                        </RelativeLayout>
+
+
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+
+                </HorizontalScrollView>
+
             </androidx.appcompat.widget.LinearLayoutCompat>
 
             <androidx.core.widget.NestedScrollView

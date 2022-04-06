@@ -148,7 +148,7 @@
                                 android:layout_marginEnd="@dimen/margin_5"
                                 android:adjustViewBounds="true"
                                 android:padding="@dimen/margin_5"
-                                android:src="@drawable/ic_message" />
+                                android:src="@drawable/sms" />
                         </RelativeLayout>
 
                     </androidx.appcompat.widget.LinearLayoutCompat>

@@ -8,52 +8,69 @@
             type="com.pepdeal.in.model.UsersHomeTabModel" />
     </data>
 
-    <androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_width="@dimen/margin_85"
+        android:layout_height="@dimen/margin_85">
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/card_tab"
-            android:layout_width="@dimen/margin_65"
-            android:layout_height="@dimen/margin_65"
-            android:layout_marginHorizontal="@dimen/margin_5"
-            android:layout_marginVertical="@dimen/margin_10"
-            app:cardCornerRadius="@dimen/margin_35"
-            app:cardElevation="@dimen/margin_5">
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
 
-            <androidx.appcompat.widget.LinearLayoutCompat
-                android:id="@+id/lnr_back"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="#FFCD59">
+            <androidx.cardview.widget.CardView
+                android:id="@+id/card_tab"
+                android:layout_width="@dimen/margin_65"
+                android:layout_height="@dimen/margin_65"
+                android:layout_marginHorizontal="@dimen/margin_5"
+                android:layout_marginVertical="@dimen/margin_10"
+                app:cardCornerRadius="@dimen/margin_35"
+                app:cardElevation="@dimen/margin_5">
 
                 <androidx.appcompat.widget.LinearLayoutCompat
+                    android:id="@+id/lnr_back"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:orientation="vertical">
+                    android:layout_height="match_parent"
+                    android:background="#FFCD59">
 
-                    <androidx.appcompat.widget.AppCompatImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="@dimen/margin_20"
-                        android:layout_gravity="center"
-                        android:src="@{model.icon}"
-                        app:tint="@color/black" />
-
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:layout_width="wrap_content"
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:layout_marginTop="@dimen/margin_3"
-                        android:fontFamily="@font/roboto_medium"
-                        android:gravity="center"
-                        android:text="@{model.title}"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/text_13" />
-                </androidx.appcompat.widget.LinearLayoutCompat>
-            </androidx.appcompat.widget.LinearLayoutCompat>
-        </androidx.cardview.widget.CardView>
+                        android:orientation="vertical">
 
-    </androidx.appcompat.widget.LinearLayoutCompat>
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="@dimen/margin_20"
+                            android:layout_gravity="center"
+                            android:src="@{model.icon}"
+                            app:tint="@color/black" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="@dimen/margin_3"
+                            android:fontFamily="@font/roboto_medium"
+                            android:gravity="center"
+                            android:text="@{model.title}"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/text_13" />
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+                </androidx.appcompat.widget.LinearLayoutCompat>
+            </androidx.cardview.widget.CardView>
+
+        </RelativeLayout>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card_new_message"
+            android:layout_width="@dimen/margin_15"
+            android:layout_height="@dimen/margin_15"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="@dimen/margin_8"
+            android:layout_marginEnd="@dimen/margin_16"
+            app:cardBackgroundColor="@color/red"
+            android:visibility="gone"
+            app:cardCornerRadius="@dimen/margin_40" />
+
+    </RelativeLayout>
 </layout>

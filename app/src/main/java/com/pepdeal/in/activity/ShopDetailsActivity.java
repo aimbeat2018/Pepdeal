@@ -249,7 +249,7 @@ public class ShopDetailsActivity extends AppCompatActivity {
                             binding.txtName.setTypeface(typeface);
 
                         if (shopDetailsDataModel.getSuperShopTatus().equals("1")) {
-                            Glide.with(ShopDetailsActivity.this).load(R.drawable.ic_super_shop_filled).into(binding.imgSuperShop);
+                            Glide.with(ShopDetailsActivity.this).load(R.drawable.star).into(binding.imgSuperShop);
                         } else {
                             Glide.with(ShopDetailsActivity.this).load(R.drawable.ic_super_shop_outlined).into(binding.imgSuperShop);
                         }
