@@ -150,6 +150,8 @@ Hole.</string>
     <string name="state_list">Select State</string>
     <string name="city_list">Select City</string>
     <!--    <string name="txt_accept_terms_conditions">You agree to our <a href="http://captureandtalk.com/capturetalk/index.php/termandcondition">Terms &amp; Condition</a> of use and <a href="http://captureandtalk.com/capturetalk/index.php/privacypolicy">Privacy Policy</a>.</string>-->
-    <string name="txt_accept_terms_conditions">Agree to our Terms &amp; Condition.</string>
+    <!--    <string name="txt_accept_terms_conditions">Agree to our Terms &amp; Condition.</string>-->
+
+    <string name="txt_accept_terms_conditions"><![CDATA[By continuing, I agree to the?<b><font color=#F87F48> Terms of use </font></b>and<b><font color=#F87F48> privacy policy</font></b>.]]></string>
 
 </resources>

@@ -3,6 +3,7 @@ package com.pepdeal.in.activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Html;
 import android.text.method.PasswordTransformationMethod;
 import android.text.method.SingleLineTransformationMethod;
 import android.view.View;
@@ -45,7 +46,7 @@ public class RegistrationActivity extends AppCompatActivity {
         dialog = new ProgressDialog(this);
         dialog.setTitle("Loading");
         dialog.setMessage("Please wait...");
-
+        binding.tvtermsconditionn.setText(Html.fromHtml(getString(R.string.txt_accept_terms_conditions)));
         binding.tvtermsconditionn.setOnClickListener(view -> startActivity(new Intent(RegistrationActivity.this, AboutUsActivity.class).putExtra("from", "terms")));
     }
 

@@ -216,6 +216,7 @@ public class AddProductActivity extends AppCompatActivity {
                         double discount = Double.parseDouble(binding.edtdiscount.getText().toString());
 
                         double calculatedDiscount = mrp * discount / 100;
+
                         double sellingPrice = mrp - calculatedDiscount;
                         long displaySellingPrice = Math.round(sellingPrice);
 
