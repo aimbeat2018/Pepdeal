@@ -47,7 +47,14 @@ public class RegistrationActivity extends AppCompatActivity {
         dialog.setTitle("Loading");
         dialog.setMessage("Please wait...");
         binding.tvtermsconditionn.setText(Html.fromHtml(getString(R.string.txt_accept_terms_conditions)));
-        binding.tvtermsconditionn.setOnClickListener(view -> startActivity(new Intent(RegistrationActivity.this, AboutUsActivity.class).putExtra("from", "terms")));
+
+        if (getString(R.string.txt_accept_terms_conditions).contains("Terms & Condition")) {
+            Utils.setClickableHighLightedText(binding.tvtermsconditionn, "Terms & Condition", v -> startActivity(new Intent(RegistrationActivity.this, AboutUsActivity.class).putExtra("from", "terms")));
+        }
+        if(getString(R.string.txt_accept_terms_conditions).contains("Privacy policy")){
+            Utils.setClickableHighLightedText(binding.tvtermsconditionn, "Privacy policy", v -> startActivity(new Intent(RegistrationActivity.this, AboutUsActivity.class).putExtra("from", "privacy")));
+        }
+//        binding.tvtermsconditionn.setOnClickListener(view -> startActivity(new Intent(RegistrationActivity.this, AboutUsActivity.class).putExtra("from", "terms")));
     }
 
     public class ClickHandler {
