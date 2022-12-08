@@ -2,6 +2,7 @@ package com.pepdeal.in.activity;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -79,7 +80,9 @@ import retrofit2.Callback;
 import retrofit2.HttpException;
 import retrofit2.Response;
 
-public class AddShopActivity extends AppCompatActivity implements LocationListener, GpsStatus.Listener {
+public class AddShopActivity extends AppCompatActivity implements
+
+        LocationListener, GpsStatus.Listener {
 
     ActivityAddShopBinding binding;
     ArrayList<AddBackgroundColorResponseModel> backgroundcolorModelList = new ArrayList<>();
@@ -337,8 +340,8 @@ public class AddShopActivity extends AppCompatActivity implements LocationListen
         model.setShopMobileNo(Objects.requireNonNull(binding.edtMobileNumber.getText()).toString());
         model.setShopDescription(Objects.requireNonNull(binding.edtAbout.getText()).toString());
         model.setShopArea(Objects.requireNonNull(binding.edtShopArea.getText()).toString());
-        model.setCity(cityId);
-        model.setState(stateId);
+        model.setCity(cityName);
+        model.setState(stateName);
         model.setBgColorId(backgroundColor);
         model.setFontStyleId(fontStyle);
         model.setFontSizeId(fontSize);
@@ -751,6 +754,14 @@ public class AddShopActivity extends AppCompatActivity implements LocationListen
     }
 
     public class ClickHandler {
+
+        public void onSelectAddress(View view) {
+            Intent destinationIntent = new Intent(AddShopActivity.this, SelectCurrentLocationActivity.class);
+//                Intent destinationIntent = new Intent(this, SelectLocationActivity.class);
+            destinationIntent.putExtra("data", true);
+            startActivityForResult(destinationIntent, 100);
+        }
+
         public void onBackClick(View view) {
             onBackPressed();
         }
@@ -1047,7 +1058,7 @@ public class AddShopActivity extends AppCompatActivity implements LocationListen
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == SELECT_STATE) {
+        /*if (requestCode == SELECT_STATE) {
             if (resultCode == RESULT_OK) {
                 stateId = data.getStringExtra("state_id");
                 stateName = data.getStringExtra("state_name");
@@ -1061,6 +1072,24 @@ public class AddShopActivity extends AppCompatActivity implements LocationListen
 
                 binding.edtShopCity.setText(cityName);
             }
+        }else */
+        if (requestCode == 100) {
+            if (resultCode == Activity.RESULT_OK && data != null) {
+                String address = data.getStringExtra("d_address");
+                binding.edtShopAddress.setText(address);
+                latitude = Double.parseDouble(data.getStringExtra("lat"));
+                longitude = Double.parseDouble(data.getStringExtra("long"));
+                stateName = data.getStringExtra("state");
+                cityName = data.getStringExtra("city");
+                String area = data.getStringExtra("area");
+                binding.edtShopCity.setText(cityName);
+                binding.edtShopState.setText(stateName);
+                binding.edtShopArea.setText(area);
+                binding.edtShopLatLong.setText(String.valueOf(latitude) + "," + String.valueOf(longitude));
+            }
+
         }
     }
+
+
 }

@@ -5,7 +5,7 @@
 
         <variable
             name="handler"
-            type="com.pepdeal.in.activity.SearchActivity.ClickHandler" />
+            type="com.pepdeal.in.activity.SelectCurrentLocationActivity.ClickHandler" />
     </data>
 
     <androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
@@ -86,7 +86,7 @@
             android:drawableLeft="@drawable/ic_baseline_search_24"
             android:focusableInTouchMode="true"
             android:focusedByDefault="false"
-            android:hint="Search"
+            android:hint="Search your location"
             android:imeOptions="actionSearch"
             android:inputType="text"
             android:lineSpacingExtra="@dimen/margin_10"
@@ -150,18 +150,12 @@
                         android:orientation="vertical">
 
                         <androidx.recyclerview.widget.RecyclerView
-                            android:id="@+id/rec_shoplist"
+                            android:id="@+id/rec_locationList"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/margin_10"
                             android:nestedScrollingEnabled="false" />
 
-                        <androidx.recyclerview.widget.RecyclerView
-                            android:id="@+id/rec_productlist"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/margin_10"
-                            android:nestedScrollingEnabled="false" />
                     </androidx.appcompat.widget.LinearLayoutCompat>
                 </androidx.appcompat.widget.LinearLayoutCompat>
 

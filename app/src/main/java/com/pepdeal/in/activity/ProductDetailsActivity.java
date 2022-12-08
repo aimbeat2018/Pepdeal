@@ -293,7 +293,8 @@ public class ProductDetailsActivity extends AppCompatActivity {
         });
 
         binding.txtName.setText(shopDetailsDataModel.getShopName());
-        binding.txtAddress.setText(shopDetailsDataModel.getCity() + "," + shopDetailsDataModel.getState());
+//        binding.txtAddress.setText(shopDetailsDataModel.getCity() + "," + shopDetailsDataModel.getState());
+        binding.txtAddress.setText(shopDetailsDataModel.getShopAddress());
         binding.txtMobile.setText(shopDetailsDataModel.getShopMobileNo());
         String bgColorName = shopDetailsDataModel.getBgColorName();
         binding.lnrBack.setBackgroundColor(Color.parseColor(bgColorName));

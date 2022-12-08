@@ -2,6 +2,7 @@ package com.pepdeal.in.activity;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -26,6 +27,7 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
@@ -99,7 +101,7 @@ public class HomeActivity extends AppCompatActivity implements LocationListener,
     Location myLocation;
     public static double longitude = 0.0;
     public static double latitude = 0.0;
-    String address = "";
+    public static String address = "";
     String newLeadCount = "";
     CardView cardNewMessage;
     UsersTabAdapter adapter;
@@ -108,8 +110,10 @@ public class HomeActivity extends AppCompatActivity implements LocationListener,
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_home);
+
         binding.includeLayout.setHandler(new NavigationClick());
         binding.setHandler(new ClickHandler());
+
         SharedPref.putVal(HomeActivity.this, SharedPref.msgFlag, msgFlagDefault);
 
         geocoder = new Geocoder(this, Locale.getDefault());
@@ -141,11 +145,16 @@ public class HomeActivity extends AppCompatActivity implements LocationListener,
         checkLocationPermission();
 
         binding.lnrLocation.setOnClickListener(view -> {
-            startActivity(new Intent(HomeActivity.this, StateSearchListActivity.class));
+//            startActivity(new Intent(HomeActivity.this, StateSearchListActivity.class));
+//            startActivity(new Intent(HomeActivity.this, SelectCurrentLocationActivity.class));
+            Intent destinationIntent = new Intent(this, SelectCurrentLocationActivity.class);
+//                Intent destinationIntent = new Intent(this, SelectLocationActivity.class);
+            destinationIntent.putExtra("data", true);
+            startActivityForResult(destinationIntent, 100);
 //            binding.drawerLayout.closeDrawers();
 
         });
-        binding.searchView.setOnClickListener(view -> {
+        binding.ivSearch.setOnClickListener(view -> {
             startActivity(new Intent(HomeActivity.this, SearchActivity.class));
 //            binding.drawerLayout.closeDrawers();
 
@@ -258,7 +267,6 @@ public class HomeActivity extends AppCompatActivity implements LocationListener,
     }
 
     public class NavigationClick {
-
         public void onCustomerClick(View view) {
             binding.includeLayout.lnrCustomerNavigation.setVisibility(View.VISIBLE);
             binding.includeLayout.lnrSellerNavigation.setVisibility(View.GONE);
@@ -532,6 +540,7 @@ public class HomeActivity extends AppCompatActivity implements LocationListener,
         model.setIcon(R.drawable.ic_tickets);
         model.setTitle(getString(R.string.ticket));
         homeTabModelArrayList.add(model);
+
         /*Tab 2*/
         UsersHomeTabModel model1 = new UsersHomeTabModel();
         model1.setColor(Color.parseColor("#B3FAA6"));
@@ -796,6 +805,7 @@ public class HomeActivity extends AppCompatActivity implements LocationListener,
                         addresses = geocoder.getFromLocation(latitude, longitude, 1); // Here 1 represent max location result to returned, by documents it recommended 1 to 5
 
                         if (addresses.size() == 0) {
+                            address = addresses.get(0).getAddressLine(0);
                             Toast.makeText(HomeActivity.this, "unable to get location", Toast.LENGTH_SHORT).show();
                         } else {
                             address = addresses.get(0).getAddressLine(0); // If any additional address line present than only, check with max available address lines by getMaxAddressLineIndex()
@@ -805,7 +815,7 @@ public class HomeActivity extends AppCompatActivity implements LocationListener,
                         String country = addresses.get(0).getCountryName();
                         String postalCode = addresses.get(0).getPostalCode();
                         String knownName = addresses.get(0).getFeatureName();
-                        binding.txtLocation.setText(city);
+                        binding.txtLocation.setText(address);
 //                        binding.txtLocation.setText(address + " " + city + " " + state + " " + country + " " + knownName + " "  + postalCode);
 //                        binding.txtLocation.setText(city + " " + state + " " + country + " " + knownName + " "  + postalCode);
 //                        String name = getRegionName(latitude, longitude);
@@ -1013,6 +1023,20 @@ public class HomeActivity extends AppCompatActivity implements LocationListener,
             }, 2000);
         } else {
             loadFragment(new HomeFragment());
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 100) {
+            if (resultCode == Activity.RESULT_OK && data != null) {
+                address = data.getStringExtra("d_address");
+                binding.txtLocation.setText(address);
+                latitude = Double.parseDouble(data.getStringExtra("lat"));
+                longitude = Double.parseDouble(data.getStringExtra("long"));
+            }
+
         }
     }
 }

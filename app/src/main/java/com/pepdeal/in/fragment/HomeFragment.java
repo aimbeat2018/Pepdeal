@@ -67,6 +67,7 @@ import com.pepdeal.in.constants.ApiClient;
 import com.pepdeal.in.constants.ApiInterface;
 import com.pepdeal.in.constants.GPSTracker;
 import com.pepdeal.in.constants.LocationTrack;
+import com.pepdeal.in.constants.Log;
 import com.pepdeal.in.constants.SharedPref;
 import com.pepdeal.in.constants.Utils;
 import com.pepdeal.in.databinding.FragmentHomeBinding;
@@ -168,6 +169,9 @@ public class HomeFragment extends Fragment {
         showShimmer();
         UserProfileRequestModel model = new UserProfileRequestModel();
         model.setUserId(SharedPref.getVal(activity, SharedPref.user_id));
+//        Log.d("home_lat", String.valueOf(HomeActivity.latitude));
+//        Log.d("home_long", String.valueOf(HomeActivity.longitude));
+//        Log.d("home_address", String.valueOf(HomeActivity.address));
         model.setLatitude(String.valueOf(HomeActivity.latitude));
         model.setLongitude(String.valueOf(HomeActivity.longitude));
 
@@ -261,7 +265,8 @@ public class HomeFragment extends Fragment {
         @NonNull
         @Override
         public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            ItemHomeShopsListBinding layoutBinding = DataBindingUtil.inflate(LayoutInflater.from(activity), R.layout.item_home_shops_list, parent, false);
+            ItemHomeShopsListBinding layoutBinding = DataBindingUtil.inflate(LayoutInflater.from(activity),
+                    R.layout.item_home_shops_list, parent, false);
             return new ViewHolder(layoutBinding);
         }
 
@@ -335,7 +340,7 @@ public class HomeFragment extends Fragment {
                         layoutBinding.txtName.setTypeface(typeface);
                     }
                     String address = model.getCity() + ", " + model.getState();
-                    layoutBinding.txtAddress.setText(address);
+                    layoutBinding.txtAddress.setText(model.getShopAddress());
                     layoutBinding.txtMobile.setText(model.getShopMobileNo());
 
                     try {

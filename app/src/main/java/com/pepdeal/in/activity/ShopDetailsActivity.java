@@ -205,7 +205,10 @@ public class ShopDetailsActivity extends AppCompatActivity {
                             binding.txtName.setTextSize(Float.parseFloat(shopDetailsDataModel.getFontsizeName().replace("px", "")));
                         }*/
 
-                        binding.txtAddress.setText(shopDetailsDataModel.getShopAddress() + "," + shopDetailsDataModel.getCity() + "," + shopDetailsDataModel.getState());
+//                        binding.txtAddress.setText(shopDetailsDataModel.getShopAddress() + "," +
+//                                shopDetailsDataModel.getCity() + "," + shopDetailsDataModel.getState());
+
+                        binding.txtAddress.setText(shopDetailsDataModel.getShopAddress());
                         binding.txtMobile.setText(shopDetailsDataModel.getShopMobileNo());
 
                         binding.lnrBack.setBackgroundColor(Color.parseColor(shopDetailsDataModel.getBgcolorName()));

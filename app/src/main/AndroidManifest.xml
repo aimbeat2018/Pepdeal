@@ -29,6 +29,9 @@
         android:theme="@style/Theme.Pepdeal"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".activity.SelectCurrentLocationActivity"
+            android:exported="false"/>
+        <activity
             android:name=".activity.LeadsActivity"
             android:exported="false" />
         <activity
