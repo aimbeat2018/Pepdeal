@@ -80,7 +80,7 @@ public class NotificationHelper {
 
         PendingIntent resultPendingIntent = PendingIntent.getActivity(mContext,
                 0 /* Request code */, resultIntent,
-                PendingIntent.FLAG_UPDATE_CURRENT);
+                PendingIntent.FLAG_UPDATE_CURRENT|PendingIntent.FLAG_IMMUTABLE);
 
 
         mBuilder = new NotificationCompat.Builder(mContext);
@@ -121,7 +121,7 @@ public class NotificationHelper {
 
         PendingIntent resultPendingIntent = PendingIntent.getActivity(mContext,
                 0 /* Request code */, resultIntent,
-                PendingIntent.FLAG_UPDATE_CURRENT);
+                PendingIntent.FLAG_UPDATE_CURRENT|PendingIntent.FLAG_IMMUTABLE);
 
 
         mBuilder = new NotificationCompat.Builder(mContext);
@@ -159,13 +159,13 @@ public class NotificationHelper {
             StrictMode.setThreadPolicy(policy);
         }
         mBuilder = new NotificationCompat.Builder(mContext);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP|PendingIntent.FLAG_IMMUTABLE);
         final PendingIntent resultPendingIntent =
                 PendingIntent.getActivity(
                         mContext,
                         0,
                         intent,
-                        PendingIntent.FLAG_CANCEL_CURRENT
+                        PendingIntent.FLAG_CANCEL_CURRENT|PendingIntent.FLAG_IMMUTABLE
                 );
 
         if (!TextUtils.isEmpty(imageUrl)) {

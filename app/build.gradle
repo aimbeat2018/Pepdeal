@@ -5,14 +5,14 @@ plugins {
 }
 
 android {
-    compileSdk 30
+    compileSdk 31
 
     defaultConfig {
         applicationId "com.pepdeal.in"
         minSdk 21
-        targetSdk 30
-        versionCode 2
-        versionName "1.1"
+        targetSdk 31
+        versionCode 3
+        versionName "1.2"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -86,5 +86,6 @@ dependencies {
 
     // New Places SDK Client for Android
     implementation 'com.google.android.libraries.places:places:2.6.0'
+    implementation 'androidx.work:work-runtime:2.7.1'
 
 }

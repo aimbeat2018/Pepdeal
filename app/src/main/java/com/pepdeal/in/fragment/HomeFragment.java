@@ -169,9 +169,6 @@ public class HomeFragment extends Fragment {
         showShimmer();
         UserProfileRequestModel model = new UserProfileRequestModel();
         model.setUserId(SharedPref.getVal(activity, SharedPref.user_id));
-//        Log.d("home_lat", String.valueOf(HomeActivity.latitude));
-//        Log.d("home_long", String.valueOf(HomeActivity.longitude));
-//        Log.d("home_address", String.valueOf(HomeActivity.address));
         model.setLatitude(String.valueOf(HomeActivity.latitude));
         model.setLongitude(String.valueOf(HomeActivity.longitude));
 

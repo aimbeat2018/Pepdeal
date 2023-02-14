@@ -84,7 +84,7 @@ import retrofit2.Callback;
 import retrofit2.HttpException;
 import retrofit2.Response;
 
-public class HomeActivity extends AppCompatActivity implements LocationListener, GpsStatus.Listener {
+public class HomeActivity extends AppCompatActivity implements LocationListener/*, GpsStatus.Listener*/ {
 
     ActivityHomeBinding binding;
     ArrayList<UsersHomeTabModel> homeTabModelArrayList = new ArrayList<>();
@@ -791,7 +791,7 @@ public class HomeActivity extends AppCompatActivity implements LocationListener,
             }
         } else {
             // write your logic code if permission already granted
-            mLocationManager.addGpsStatusListener(this);
+//            mLocationManager.add(this);
             boolean isclick = true;
             if (isclick) {
                 locationTrack = new LocationTrack(HomeActivity.this);
@@ -947,18 +947,18 @@ public class HomeActivity extends AppCompatActivity implements LocationListener,
         ActivityCompat.requestPermissions(HomeActivity.this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, 11);
     }
 
-    @Override
-    public void onGpsStatusChanged(int i) {
-        switch (i) {
-            case GpsStatus.GPS_EVENT_STOPPED:
-                if (!mLocationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-                    switchOnGPS();
-                }
-                break;
-            case GpsStatus.GPS_EVENT_FIRST_FIX:
-                break;
-        }
-    }
+//    @Override
+//    public void onGpsStatusChanged(int i) {
+//        switch (i) {
+//            case GpsStatus.GPS_EVENT_STOPPED:
+//                if (!mLocationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+//                    switchOnGPS();
+//                }
+//                break;
+//            case GpsStatus.GPS_EVENT_FIRST_FIX:
+//                break;
+//        }
+//    }
 
     @Override
     public void onLocationChanged(@NonNull Location location) {

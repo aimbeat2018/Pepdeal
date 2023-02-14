@@ -78,7 +78,7 @@ public class SelectCurrentLocationActivity extends AppCompatActivity
         GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener,
         RecyclerItemClickListener.OnItemClickListener,
-        LocationListener, GpsStatus.Listener{
+        LocationListener, GpsStatus.Listener {
 
     ActivitySelectCurrentLocationBinding binding;
     private LocationManager mLocationManager;
@@ -147,7 +147,7 @@ public class SelectCurrentLocationActivity extends AppCompatActivity
 
     private void getAutocompleteLocations(String query) {
         String searchRequest = placesApi + query + "&components=country:in&radius=500&location=" +
-                lat + "," + longi + "&key=AIzaSyCzKGcIt8zhR27g3luGG4Vk3BSWLTxjbC0";
+                lat + "," + longi + "&key=AIzaSyA02jlAg47Fz7_aCZV_HVWyVp76Eg0E8r8";
         StringRequest stringRequest = new StringRequest(Request.Method.GET, searchRequest, response ->
         {
             try {
@@ -160,7 +160,7 @@ public class SelectCurrentLocationActivity extends AppCompatActivity
                     }.getType();
                     predictions = new ArrayList<>();
                     predictions.addAll(gson.fromJson(jsonObject.getString("predictions"), listType));
-                    Collections.reverse(predictions);
+//                    Collections.reverse(predictions);
 
                     mAutoCompleteAdapter.setPredictions(predictions);
                     mAutoCompleteAdapter.notifyDataSetChanged();
@@ -179,7 +179,7 @@ public class SelectCurrentLocationActivity extends AppCompatActivity
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
         stringRequest.setRetryPolicy(retryPolicy);
         requestQueue.add(stringRequest);
-        Log.e("request-getUrl",stringRequest.getUrl());
+        Log.e("request-getUrl", stringRequest.getUrl());
 
       /*  RectangularBounds bounds = RectangularBounds.newInstance(new LatLng(23.63936, 68.14712),
                 new LatLng(28.20453, 97.34466));
@@ -255,8 +255,8 @@ public class SelectCurrentLocationActivity extends AppCompatActivity
                 setLocationText(locationName,
                         new LatLng(addresses.get(0).getLatitude(),
                                 addresses.get(0).getLongitude()),
-                        ""+addresses.get(0).getLatitude(),
-                        ""+addresses.get(0).getLongitude(),
+                        "" + addresses.get(0).getLatitude(),
+                        "" + addresses.get(0).getLongitude(),
                         addresses.get(0).getLocality(),
                         addresses.get(0).getAdminArea(),
                         addresses.get(0).getFeatureName());
@@ -268,8 +268,8 @@ public class SelectCurrentLocationActivity extends AppCompatActivity
         }
     }
 
-    private void setLocationText(String address, LatLng latLng, String lat,String lng,
-                                 String city,String state,String area) {
+    private void setLocationText(String address, LatLng latLng, String lat, String lng,
+                                 String city, String state, String area) {
         if (address != null && latLng != null) {
 
             Intent intent = new Intent();
