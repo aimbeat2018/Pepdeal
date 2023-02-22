@@ -103,7 +103,9 @@ public class LoginActivity extends AppCompatActivity implements ConnectivityRece
                 Toasty.info(LoginActivity.this, "Enter valid mobile number", Toasty.LENGTH_SHORT, true).show();
             } else if (binding.edtPassword.getText().toString().equals("")) {
                 Toasty.info(LoginActivity.this, "Enter valid password", Toasty.LENGTH_SHORT, true).show();
-            } else {
+            } /*else if (!validatePassword()) {
+                Toasty.info(LoginActivity.this, "Password should be alphanumerical with minimum 8 characters", Toasty.LENGTH_SHORT, true).show();
+            }*/ else {
                 if (Utils.isNetwork(LoginActivity.this)) {
                     requestParams();
                 } else {
@@ -112,7 +114,7 @@ public class LoginActivity extends AppCompatActivity implements ConnectivityRece
             }
         }
 
-        public void onPasswordClick(View view){
+        public void onPasswordClick(View view) {
             if (binding.edtPassword.getTransformationMethod().getClass().getSimpleName().equals("PasswordTransformationMethod")) {
                 binding.edtPassword.setTransformationMethod(new SingleLineTransformationMethod());
                 binding.imgPassword.setImageResource(R.drawable.ic_baseline_visibility_24);
@@ -143,6 +145,32 @@ public class LoginActivity extends AppCompatActivity implements ConnectivityRece
     private void dismissDialog() {
         if (dialog != null && dialog.isShowing())
             dialog.dismiss();
+    }
+
+    private boolean validatePassword() {
+        String passwordInput = binding.edtPassword.getText().toString().trim();
+
+        if (!passwordInput.matches(".*[0-9].*")) {
+            Toast.makeText(LoginActivity.this, "Password should contain at least 1 digit", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        /*else if (!passwordInput.matches(".*[a-z].*")) {
+            Toast.makeText(RegistrationActivity.this, "Password should contain at least 1 lower case letter", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        else if (!passwordInput.matches(".*[A-Z].*")) {
+            Toast.makeText(RegistrationActivity.this, "Password should contain at least 1 upper case letter", Toast.LENGTH_SHORT).show();
+            return false;
+        }*/
+        else if (!passwordInput.matches(".*[a-zA-Z].*")) {
+            Toast.makeText(LoginActivity.this, "Password should contain a letter", Toast.LENGTH_SHORT).show();
+            return false;
+        } else if (!passwordInput.matches(".{8,}")) {
+            Toast.makeText(LoginActivity.this, "Password should contain 8 characters", Toast.LENGTH_SHORT).show();
+            return false;
+        } else {
+            return true;
+        }
     }
 
     private void loginUser(LoginRequestModel model) {

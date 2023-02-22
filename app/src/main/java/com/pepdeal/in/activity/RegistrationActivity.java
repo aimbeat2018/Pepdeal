@@ -51,7 +51,7 @@ public class RegistrationActivity extends AppCompatActivity {
         if (getString(R.string.txt_accept_terms_conditions).contains("Terms & Condition")) {
             Utils.setClickableHighLightedText(binding.tvtermsconditionn, "Terms & Condition", v -> startActivity(new Intent(RegistrationActivity.this, AboutUsActivity.class).putExtra("from", "terms")));
         }
-        if(getString(R.string.txt_accept_terms_conditions).contains("Privacy policy")){
+        if (getString(R.string.txt_accept_terms_conditions).contains("Privacy policy")) {
             Utils.setClickableHighLightedText(binding.tvtermsconditionn, "Privacy policy", v -> startActivity(new Intent(RegistrationActivity.this, AboutUsActivity.class).putExtra("from", "privacy")));
         }
 //        binding.tvtermsconditionn.setOnClickListener(view -> startActivity(new Intent(RegistrationActivity.this, AboutUsActivity.class).putExtra("from", "terms")));
@@ -66,6 +66,8 @@ public class RegistrationActivity extends AppCompatActivity {
                 Toasty.info(RegistrationActivity.this, "Enter valid mobile number", Toasty.LENGTH_SHORT, true).show();
             } else if (binding.edtPassword.getText().toString().equals("")) {
                 Toasty.info(RegistrationActivity.this, "Enter valid password", Toasty.LENGTH_SHORT, true).show();
+            } else if (!validatePassword()) {
+                Toasty.info(RegistrationActivity.this, "Password should be alphanumerical with minimum 8 characters", Toasty.LENGTH_SHORT, true).show();
             } else if (!binding.edtPassword.getText().toString().equals(binding.edtConfirmPassword.getText().toString())) {
                 Toasty.info(RegistrationActivity.this, "Both password should match", Toasty.LENGTH_SHORT, true).show();
             } else if (!binding.cbterms.isChecked()) {
@@ -118,6 +120,32 @@ public class RegistrationActivity extends AppCompatActivity {
     private void dismissDialog() {
         if (dialog != null && dialog.isShowing())
             dialog.dismiss();
+    }
+
+    private boolean validatePassword() {
+        String passwordInput = binding.edtPassword.getText().toString().trim();
+
+        if (!passwordInput.matches(".*[0-9].*")) {
+            Toast.makeText(RegistrationActivity.this, "Password should contain at least 1 digit", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        /*else if (!passwordInput.matches(".*[a-z].*")) {
+            Toast.makeText(RegistrationActivity.this, "Password should contain at least 1 lower case letter", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        else if (!passwordInput.matches(".*[A-Z].*")) {
+            Toast.makeText(RegistrationActivity.this, "Password should contain at least 1 upper case letter", Toast.LENGTH_SHORT).show();
+            return false;
+        }*/
+        else if (!passwordInput.matches(".*[a-zA-Z].*")) {
+            Toast.makeText(RegistrationActivity.this, "Password should contain a letter", Toast.LENGTH_SHORT).show();
+            return false;
+        } else if (!passwordInput.matches(".{8,}")) {
+            Toast.makeText(RegistrationActivity.this, "Password should contain 8 characters", Toast.LENGTH_SHORT).show();
+            return false;
+        } else {
+            return true;
+        }
     }
 
     private void sendOtp(OTPRequestModel model) {
