@@ -78,10 +78,10 @@ public class SelectCurrentLocationActivity extends AppCompatActivity
         GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener,
         RecyclerItemClickListener.OnItemClickListener,
-        LocationListener, GpsStatus.Listener {
+        LocationListener/*, GpsStatus.Listener*/ {
 
     ActivitySelectCurrentLocationBinding binding;
-    private LocationManager mLocationManager;
+//    private LocationManager mLocationManager;
 
     private PlaceAutoCompleteAdapter mAutoCompleteAdapter;
     private PlacesClient placesClient;
@@ -112,7 +112,7 @@ public class SelectCurrentLocationActivity extends AppCompatActivity
 //        bounds = RectangularBounds.newInstance(BOUNDS_INDIA);
 
         mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
-        mLocationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
+//        mLocationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
 
         mAutoCompleteAdapter = new PlaceAutoCompleteAdapter(this);
         binding.recLocationList.setLayoutManager(new LinearLayoutManager(this));
@@ -317,8 +317,7 @@ public class SelectCurrentLocationActivity extends AppCompatActivity
         ActivityCompat.requestPermissions(SelectCurrentLocationActivity.this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, 11);
     }
 
-
-    @Override
+    /*@Override
     public void onGpsStatusChanged(int i) {
         switch (i) {
             case GpsStatus.GPS_EVENT_STOPPED:
@@ -329,7 +328,7 @@ public class SelectCurrentLocationActivity extends AppCompatActivity
             case GpsStatus.GPS_EVENT_FIRST_FIX:
                 break;
         }
-    }
+    }*/
 
     @Override
     public void onLocationChanged(@NonNull Location location) {

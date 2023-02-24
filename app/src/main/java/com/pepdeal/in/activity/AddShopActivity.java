@@ -82,7 +82,7 @@ import retrofit2.Response;
 
 public class AddShopActivity extends AppCompatActivity implements
 
-        LocationListener, GpsStatus.Listener {
+        LocationListener/*, GpsStatus.Listener*/ {
 
     ActivityAddShopBinding binding;
     ArrayList<AddBackgroundColorResponseModel> backgroundcolorModelList = new ArrayList<>();
@@ -113,7 +113,7 @@ public class AddShopActivity extends AppCompatActivity implements
         binding.setHandler(new ClickHandler());
         geocoder = new Geocoder(this, Locale.getDefault());
         gpsTracker = new GPSTracker(this);
-        mLocationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
+//        mLocationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
 
         dialog = new ProgressDialog(this);
         dialog.setTitle("Loading");
@@ -853,7 +853,7 @@ public class AddShopActivity extends AppCompatActivity implements
             }
         } else {
             // write your logic code if permission already granted
-            mLocationManager.addGpsStatusListener(this);
+//            mLocationManager.addGpsStatusListener(this);
             boolean isclick = true;
             if (isclick) {
                 locationTrack = new LocationTrack(AddShopActivity.this);
@@ -1009,18 +1009,18 @@ public class AddShopActivity extends AppCompatActivity implements
         ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, 11);
     }
 
-    @Override
-    public void onGpsStatusChanged(int i) {
-        switch (i) {
-            case GpsStatus.GPS_EVENT_STOPPED:
-                if (!mLocationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-                    switchOnGPS();
-                }
-                break;
-            case GpsStatus.GPS_EVENT_FIRST_FIX:
-                break;
-        }
-    }
+//    @Override
+//    public void onGpsStatusChanged(int i) {
+//        switch (i) {
+//            case GpsStatus.GPS_EVENT_STOPPED:
+//                if (!mLocationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+//                    switchOnGPS();
+//                }
+//                break;
+//            case GpsStatus.GPS_EVENT_FIRST_FIX:
+//                break;
+//        }
+//    }
 
     @Override
     public void onLocationChanged(@NonNull Location location) {
