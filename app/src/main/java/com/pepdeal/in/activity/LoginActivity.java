@@ -103,9 +103,9 @@ public class LoginActivity extends AppCompatActivity implements ConnectivityRece
                 Toasty.info(LoginActivity.this, "Enter valid mobile number", Toasty.LENGTH_SHORT, true).show();
             } else if (binding.edtPassword.getText().toString().equals("")) {
                 Toasty.info(LoginActivity.this, "Enter valid password", Toasty.LENGTH_SHORT, true).show();
-            } /*else if (!validatePassword()) {
+            } else if (!validatePassword()) {
                 Toasty.info(LoginActivity.this, "Password should be alphanumerical with minimum 8 characters", Toasty.LENGTH_SHORT, true).show();
-            }*/ else {
+            } else {
                 if (Utils.isNetwork(LoginActivity.this)) {
                     requestParams();
                 } else {
