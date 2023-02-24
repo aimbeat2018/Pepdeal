@@ -60,6 +60,8 @@ public class ResetPasswordActivity extends AppCompatActivity {
         public void onResetClick(View view) {
             if (binding.edtPassword.getText().toString().equals("")) {
                 Toasty.info(ResetPasswordActivity.this, "Enter valid password", Toasty.LENGTH_SHORT, true).show();
+            } else if (!validatePassword()) {
+                Toasty.info(ResetPasswordActivity.this, "Password should be alphanumerical with minimum 8 characters", Toasty.LENGTH_SHORT, true).show();
             } else if (!binding.edtPassword.getText().toString().equals(binding.edtConfirmPassword.getText().toString())) {
                 Toasty.info(ResetPasswordActivity.this, "Both password should match", Toasty.LENGTH_SHORT, true).show();
             } else {
@@ -106,6 +108,32 @@ public class ResetPasswordActivity extends AppCompatActivity {
     private void dismissDialog() {
         if (dialog != null && dialog.isShowing())
             dialog.dismiss();
+    }
+
+    private boolean validatePassword() {
+        String passwordInput = binding.edtPassword.getText().toString().trim();
+
+        if (!passwordInput.matches(".*[0-9].*")) {
+            Toast.makeText(ResetPasswordActivity.this, "Password should contain at least 1 digit", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        /*else if (!passwordInput.matches(".*[a-z].*")) {
+            Toast.makeText(RegistrationActivity.this, "Password should contain at least 1 lower case letter", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        else if (!passwordInput.matches(".*[A-Z].*")) {
+            Toast.makeText(RegistrationActivity.this, "Password should contain at least 1 upper case letter", Toast.LENGTH_SHORT).show();
+            return false;
+        }*/
+        else if (!passwordInput.matches(".*[a-zA-Z].*")) {
+            Toast.makeText(ResetPasswordActivity.this, "Password should contain a letter", Toast.LENGTH_SHORT).show();
+            return false;
+        } else if (!passwordInput.matches(".{8,}")) {
+            Toast.makeText(ResetPasswordActivity.this, "Password should contain 8 characters", Toast.LENGTH_SHORT).show();
+            return false;
+        } else {
+            return true;
+        }
     }
 
     private void changePassword(ResetPasswordRequestModel model) {
