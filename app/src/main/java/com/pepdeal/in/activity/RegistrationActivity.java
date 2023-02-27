@@ -64,6 +64,10 @@ public class RegistrationActivity extends AppCompatActivity {
                 Toasty.info(RegistrationActivity.this, "Enter name to continue", Toasty.LENGTH_SHORT, true).show();
             } else if (binding.edtMobileNo.getText().toString().equals("") || binding.edtMobileNo.getText().length() != 10) {
                 Toasty.info(RegistrationActivity.this, "Enter valid mobile number", Toasty.LENGTH_SHORT, true).show();
+            } else if (binding.edtEmail.getText().toString().equals("")) {
+                Toasty.info(RegistrationActivity.this, "Enter email id", Toasty.LENGTH_SHORT, true).show();
+            } else if (!Utils.isValidEmail(binding.edtEmail.getText())) {
+                Toasty.info(RegistrationActivity.this, "Enter valid email id", Toasty.LENGTH_SHORT, true).show();
             } else if (binding.edtPassword.getText().toString().equals("")) {
                 Toasty.info(RegistrationActivity.this, "Enter valid password", Toasty.LENGTH_SHORT, true).show();
             } else if (!validatePassword()) {
@@ -126,7 +130,7 @@ public class RegistrationActivity extends AppCompatActivity {
         String passwordInput = binding.edtPassword.getText().toString().trim();
 
         if (!passwordInput.matches(".*[0-9].*")) {
-            Toast.makeText(RegistrationActivity.this, "Password should contain at least 1 digit", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(RegistrationActivity.this, "Password should contain at least 1 digit", Toast.LENGTH_SHORT).show();
             return false;
         }
         /*else if (!passwordInput.matches(".*[a-z].*")) {
@@ -138,10 +142,10 @@ public class RegistrationActivity extends AppCompatActivity {
             return false;
         }*/
         else if (!passwordInput.matches(".*[a-zA-Z].*")) {
-            Toast.makeText(RegistrationActivity.this, "Password should contain a letter", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(RegistrationActivity.this, "Password should contain a letter", Toast.LENGTH_SHORT).show();
             return false;
         } else if (!passwordInput.matches(".{8,}")) {
-            Toast.makeText(RegistrationActivity.this, "Password should contain 8 characters", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(RegistrationActivity.this, "Password should contain 8 characters", Toast.LENGTH_SHORT).show();
             return false;
         } else {
             return true;

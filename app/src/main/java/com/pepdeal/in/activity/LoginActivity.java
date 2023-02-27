@@ -151,7 +151,7 @@ public class LoginActivity extends AppCompatActivity implements ConnectivityRece
         String passwordInput = binding.edtPassword.getText().toString().trim();
 
         if (!passwordInput.matches(".*[0-9].*")) {
-            Toast.makeText(LoginActivity.this, "Password should contain at least 1 digit", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(LoginActivity.this, "Password should contain at least 1 digit", Toast.LENGTH_SHORT).show();
             return false;
         }
         /*else if (!passwordInput.matches(".*[a-z].*")) {
@@ -163,10 +163,10 @@ public class LoginActivity extends AppCompatActivity implements ConnectivityRece
             return false;
         }*/
         else if (!passwordInput.matches(".*[a-zA-Z].*")) {
-            Toast.makeText(LoginActivity.this, "Password should contain a letter", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(LoginActivity.this, "Password should contain a letter", Toast.LENGTH_SHORT).show();
             return false;
         } else if (!passwordInput.matches(".{8,}")) {
-            Toast.makeText(LoginActivity.this, "Password should contain 8 characters", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(LoginActivity.this, "Password should contain 8 characters", Toast.LENGTH_SHORT).show();
             return false;
         } else {
             return true;
