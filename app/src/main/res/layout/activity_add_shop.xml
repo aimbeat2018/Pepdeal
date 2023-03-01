@@ -154,6 +154,7 @@
                                 android:fontFamily="@font/roboto_regular"
                                 android:hint="@string/enter_shop_name"
                                 android:paddingStart="@dimen/margin_5"
+                                android:focusable="false"
                                 android:textColor="@color/black"
                                 android:textColorHint="@color/lightGrayColor"
                                 android:textSize="@dimen/text_14" />
@@ -205,6 +206,7 @@
                                 android:fontFamily="@font/roboto_regular"
                                 android:hint="@string/shop_lat_long"
                                 android:paddingStart="@dimen/margin_5"
+                                android:focusable="false"
                                 android:textColor="@color/black"
                                 android:textColorHint="@color/lightGrayColor"
                                 android:textSize="@dimen/text_14" />
@@ -474,6 +476,7 @@
                                 android:inputType="number"
                                 android:maxLength="10"
                                 android:paddingStart="@dimen/margin_5"
+                                android:focusable="false"
                                 android:textColor="@color/black"
                                 android:textColorHint="@color/lightGrayColor"
                                 android:textSize="@dimen/text_14" />
@@ -662,6 +665,7 @@
                                 android:hint="@string/enter_about_shop"
                                 android:inputType="textCapWords"
                                 android:maxLength="150"
+                                android:focusable="false"
                                 android:paddingStart="@dimen/margin_5"
                                 android:textColor="@color/black"
                                 android:textColorHint="@color/lightGrayColor"

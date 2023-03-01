@@ -119,8 +119,8 @@ public class EditProfileActivity extends AppCompatActivity {
                         String status = jsonObject.getString("status");
                         if (status.equals("1")) {
                             Toast.makeText(EditProfileActivity.this, jsonObject.getString("msg"), Toast.LENGTH_SHORT).show();
-
-                            requestUsersProfileParams();
+                            finish();
+                           // requestUsersProfileParams();
                         } else {
                             Toast.makeText(EditProfileActivity.this, jsonObject.getString("msg"), Toast.LENGTH_SHORT).show();
                         }

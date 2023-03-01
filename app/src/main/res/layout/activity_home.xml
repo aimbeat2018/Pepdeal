@@ -154,7 +154,7 @@
                         android:layout_gravity="center"
                         android:fontFamily="@font/roboto_regular"
                         android:gravity="center"
-                        android:text="Mumbai"
+                        android:text=""
                         android:textColor="@color/white"
                         android:textSize="@dimen/text_13"
                         android:singleLine="true"/>
@@ -204,7 +204,7 @@
                             <androidx.appcompat.widget.LinearLayoutCompat
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:background="#F65F5F">
+                                android:background="#FFCD59">
 
                                 <androidx.appcompat.widget.LinearLayoutCompat
                                     android:layout_width="match_parent"
@@ -245,7 +245,7 @@
                             <androidx.appcompat.widget.LinearLayoutCompat
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:background="#FFCD59">
+                                android:background="#B3FAA6">
 
                                 <androidx.appcompat.widget.LinearLayoutCompat
                                     android:layout_width="match_parent"
@@ -286,7 +286,7 @@
                             <androidx.appcompat.widget.LinearLayoutCompat
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:background="#B3FAA6">
+                                android:background="#A9B8FA">
 
                                 <androidx.appcompat.widget.LinearLayoutCompat
                                     android:layout_width="match_parent"
@@ -327,7 +327,7 @@
                             <androidx.appcompat.widget.LinearLayoutCompat
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:background="#A9B8FA">
+                                android:background="#FFBAE4">
 
                                 <androidx.appcompat.widget.LinearLayoutCompat
                                     android:layout_width="match_parent"
@@ -368,7 +368,7 @@
                             <androidx.appcompat.widget.LinearLayoutCompat
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:background="#FFBAE4">
+                                android:background="#8FEDED">
 
                                 <androidx.appcompat.widget.LinearLayoutCompat
                                     android:layout_width="match_parent"
@@ -419,7 +419,7 @@
                                         android:id="@+id/lnr_back"
                                         android:layout_width="match_parent"
                                         android:layout_height="match_parent"
-                                        android:background="#FFCD59">
+                                        android:background="#FFFFCC">
 
                                         <androidx.appcompat.widget.LinearLayoutCompat
                                             android:layout_width="match_parent"
