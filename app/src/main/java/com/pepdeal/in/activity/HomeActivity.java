@@ -462,7 +462,7 @@ public class HomeActivity extends AppCompatActivity implements LocationListener/
         }*/
 
         public void onContactUs(View view) {
-            startActivity(new Intent(HomeActivity.this, AboutUsActivity.class).putExtra("from", "contact"));
+            startActivity(new Intent(HomeActivity.this, ContactUsActivity.class));
             binding.drawerLayout.closeDrawers();
         }
 

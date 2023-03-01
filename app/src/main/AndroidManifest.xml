@@ -29,8 +29,11 @@
         android:theme="@style/Theme.Pepdeal"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".activity.ContactUsActivity"
+            android:exported="false" />
+        <activity
             android:name=".activity.SelectCurrentLocationActivity"
-            android:exported="false"/>
+            android:exported="false" />
         <activity
             android:name=".activity.LeadsActivity"
             android:exported="false" />

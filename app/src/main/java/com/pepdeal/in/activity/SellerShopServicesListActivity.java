@@ -171,8 +171,8 @@ public class SellerShopServicesListActivity extends AppCompatActivity {
                     String code = jsonObject.getString("code");
                     if (code.equals("200")) {
                         Toast.makeText(SellerShopServicesListActivity.this, "Services Updated Successfully", Toast.LENGTH_SHORT).show();
-//                        finish();
-                        getServiceList(false);
+                        finish();
+//                        getServiceList(false);
                     } else {
                         Toast.makeText(SellerShopServicesListActivity.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
                     }

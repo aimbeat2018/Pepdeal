@@ -357,9 +357,6 @@ public class AddShopActivity extends AppCompatActivity implements
                     JSONObject jsonObject = new JSONObject(response.body().string());
                     String code = jsonObject.getString("code");
                     if (code.equals("200")) {
-                       /* Toast.makeText(AddShopActivity.this, "Shop Added Successfully", Toast.LENGTH_SHORT).show();
-                        finish();*/
-
 
                         new AlertDialog.Builder(AddShopActivity.this)
                                 .setTitle("Alert!!!")
@@ -812,6 +809,10 @@ public class AddShopActivity extends AppCompatActivity implements
                 intent.putExtra("state_id", stateId);
                 startActivityForResult(intent, SELECT_CITY);
             }
+
+        }
+
+        public void onMobileVerifyClick(View view) {
 
         }
     }

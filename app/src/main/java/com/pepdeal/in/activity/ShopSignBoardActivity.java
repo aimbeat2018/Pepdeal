@@ -81,7 +81,7 @@ public class ShopSignBoardActivity extends AppCompatActivity {
             requestBackgroundColor();
 //            requestShopFont();
             setFontStyle();
-            requestShopFontSize();
+
         } else {
             Utils.InternetAlertDialog(ShopSignBoardActivity.this, getString(R.string.no_internet_title), getString(R.string.no_internet_desc));
         }
@@ -102,7 +102,10 @@ public class ShopSignBoardActivity extends AppCompatActivity {
 
                 if (!backgroundcolorModelList.get(i).getBgColorName().equals("Select Background Color")) {
                     binding.lnrBack.setBackgroundColor(Color.parseColor(backgroundcolorModelList.get(i).getBgColorName()));
+
                 }
+
+                requestShopFontSize(backgroundcolorModelList.get(i).getBgColorId());
 
             }
 
@@ -412,7 +415,7 @@ public class ShopSignBoardActivity extends AppCompatActivity {
 
                         binding.txtName.setText(shopDetailsDataModel.getShopName());
 
-                        binding.txtAddress.setText(shopDetailsDataModel.getCity() + "," + shopDetailsDataModel.getState());
+                        binding.txtAddress.setText(shopDetailsDataModel.getShopAddress());
                         binding.txtMobile.setText(shopDetailsDataModel.getShopMobileNo());
 
                         binding.lnrBack.setBackgroundColor(Color.parseColor(shopDetailsDataModel.getBgcolorName()));
@@ -586,9 +589,9 @@ public class ShopSignBoardActivity extends AppCompatActivity {
 
     }*/
 
-    private void requestShopFontSize() {
+    private void requestShopFontSize(String bgColorId) {
         UserProfileRequestModel model = new UserProfileRequestModel();
-        model.setUserId("");
+        model.setBgColorId(bgColorId);
 
         ApiInterface client = ApiClient.createService(ApiInterface.class, "", "");
         client.fontcolorList(model).enqueue(new Callback<ResponseBody>() {
@@ -628,6 +631,11 @@ public class ShopSignBoardActivity extends AppCompatActivity {
                     }
 
                 } catch (Exception e) {
+                    ShopFontColorModel model1 = new ShopFontColorModel();
+
+                    model1.setFontColorId("");
+                    model1.setFontColorName("Select Font Color");
+                    model1.setFontColorName2("Select Font Color");
                     e.printStackTrace();
                 }
             }

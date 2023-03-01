@@ -44,7 +44,9 @@ public class UserProfileRequestModel {
     @SerializedName("flag")
     @Expose
     private Integer flag;
-
+    @SerializedName("bg_color_id")
+    @Expose
+    private String bgColorId;
 
     public String getSearch_key() {
         return search_key;
@@ -148,5 +150,13 @@ public class UserProfileRequestModel {
 
     public void setFlag(Integer flag) {
         this.flag = flag;
+    }
+
+    public String getBgColorId() {
+        return bgColorId;
+    }
+
+    public void setBgColorId(String bgColorId) {
+        this.bgColorId = bgColorId;
     }
 }
