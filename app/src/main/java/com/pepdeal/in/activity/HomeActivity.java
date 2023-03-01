@@ -509,13 +509,10 @@ public class HomeActivity extends AppCompatActivity implements LocationListener/
         //Navigation Drawer
         binding.navView.bringToFront();
 
-        binding.ivMenu.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (binding.drawerLayout.isDrawerVisible(GravityCompat.START))
-                    binding.drawerLayout.closeDrawer(GravityCompat.START);
-                else binding.drawerLayout.openDrawer(GravityCompat.START);
-            }
+        binding.ivMenu.setOnClickListener(view -> {
+            if (binding.drawerLayout.isDrawerVisible(GravityCompat.START))
+                binding.drawerLayout.closeDrawer(GravityCompat.START);
+            else binding.drawerLayout.openDrawer(GravityCompat.START);
         });
     }
 
