@@ -765,6 +765,7 @@ public class AddShopActivity extends AppCompatActivity implements
 
         public void onAddShop(View view) {
             if (binding.edtShopName.getText().toString().equals("")) {
+
                 Toast.makeText(AddShopActivity.this, "Enter Shop Name", Toast.LENGTH_SHORT).show();
             } else if (binding.edtShopAddress.getText().toString().equals("")) {
                 Toast.makeText(AddShopActivity.this, "Enter Shop Address", Toast.LENGTH_SHORT).show();

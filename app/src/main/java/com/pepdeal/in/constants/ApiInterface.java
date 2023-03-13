@@ -30,7 +30,7 @@ import retrofit2.http.Part;
 public interface ApiInterface {
 
     @POST("send_otp")
-    Call<ResponseBody> send_otp(@Body OTPRequestModel requestModel);
+    Call<ResponseBody>  send_otp(@Body OTPRequestModel requestModel);
 
     @POST("forgotpassword_send_otp")
     Call<ResponseBody> forgotpassword_send_otp(@Body ForgotPasswordOTPRequestModel requestModel);
