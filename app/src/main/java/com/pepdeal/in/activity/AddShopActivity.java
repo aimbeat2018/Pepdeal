@@ -123,7 +123,7 @@ public class AddShopActivity extends AppCompatActivity implements
             requestBackgroundColor();
 //            requestShopFont();
             setFontStyle();
-            requestShopFontSize();
+       //     requestShopFontSize();
         } else {
             Utils.InternetAlertDialog(AddShopActivity.this, getString(R.string.no_internet_title), getString(R.string.no_internet_desc));
         }
@@ -143,6 +143,8 @@ public class AddShopActivity extends AppCompatActivity implements
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
                 backgroundColor = backgroundcolorModelList.get(i).getBgColorId();
+
+                requestShopFontSize(backgroundcolorModelList.get(i).getBgColorId());
             }
 
             @Override
@@ -480,9 +482,9 @@ public class AddShopActivity extends AppCompatActivity implements
 
     }*/
 
-    private void requestShopFontSize() {
+    private void requestShopFontSize(String bgColorId) {
         UserProfileRequestModel model = new UserProfileRequestModel();
-        model.setUserId("");
+        model.setBgColorId(bgColorId);
 
         ApiInterface client = ApiClient.createService(ApiInterface.class, "", "");
         client.fontcolorList(model).enqueue(new Callback<ResponseBody>() {
