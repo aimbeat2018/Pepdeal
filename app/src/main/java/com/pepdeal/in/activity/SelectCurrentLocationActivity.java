@@ -17,6 +17,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.graphics.Typeface;
+import android.location.Address;
 import android.location.Geocoder;
 import android.location.GpsStatus;
 import android.location.Location;
@@ -47,6 +48,7 @@ import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.LocationSettingsRequest;
 import com.google.android.gms.location.LocationSettingsResponse;
 import com.google.android.gms.location.LocationSettingsStatusCodes;
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.tasks.Task;
 import com.google.android.libraries.places.api.Places;
@@ -87,6 +89,7 @@ public class SelectCurrentLocationActivity extends AppCompatActivity
     private PlacesClient placesClient;
     private AutocompleteSessionToken token;
     private FusedLocationProviderClient mFusedLocationProviderClient;
+    public static Location mLastKnownLocation;
 
     private String placesApi = "https://maps.googleapis.com/maps/api/place/autocomplete/json?input=";
     String lat = "";
@@ -120,6 +123,12 @@ public class SelectCurrentLocationActivity extends AppCompatActivity
         binding.recLocationList.setAdapter(mAutoCompleteAdapter);
 
         binding.recLocationList.addOnItemTouchListener(new RecyclerItemClickListener(this, this));
+        binding.txtSelectCurrent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getDeviceLocation();
+            }
+        });
 
         binding.searchView.addTextChangedListener(new TextWatcher() {
             @Override
@@ -342,4 +351,53 @@ public class SelectCurrentLocationActivity extends AppCompatActivity
             onBackPressed();
         }
     }
+    void getDeviceLocation() {
+        /*
+         * Get the best and most recent location of the device, which may be null in rare
+         * cases when a location is not available.
+         */
+        try {
+                Task<Location> locationResult = mFusedLocationProviderClient.getLastLocation();
+                locationResult.addOnCompleteListener(this, task -> {
+//                        if (RIDE_REQUEST.get("s_address").equals("")) {
+                    if (task.isSuccessful() && task.getResult() != null) {
+                        // Set the map's camera position to the current location of the device.
+                        mLastKnownLocation=task.getResult();
+                        String s_address = getAddress(new LatLng(mLastKnownLocation.getLatitude(), mLastKnownLocation.getLongitude()));
+                        Intent intent = new Intent();
+                        intent.putExtra("d_address", s_address);
+                        String lati= String.valueOf(mLastKnownLocation.getLatitude());
+                        String longi= String.valueOf(mLastKnownLocation.getLongitude());
+                        intent.putExtra("lat", lati);
+                        intent.putExtra("long",longi);
+                        setResult(Activity.RESULT_OK, intent);
+                        finish();
+                    } else {
+                        Log.d("Map", "Current location is null. Using defaults.");
+                        Log.e("Map", "Exception: %s", task.getException());
+
+                    }
+
+                });
+
+        } catch (
+                SecurityException e) {
+            Log.e("Exception: %s", e.getMessage());
+        }
+    }
+    public String getAddress(LatLng currentLocation) {
+        try {
+            Geocoder geocoder = new Geocoder(this, Locale.US);
+            List<Address> addresses = geocoder.getFromLocation(currentLocation.latitude, currentLocation.longitude, 1);
+            if ((addresses != null) && !addresses.isEmpty()) {
+                return addresses.get(0).getAddressLine(0);
+            } else {
+                return null;
+            }
+        } catch (Exception e) {
+            Log.e("MAP", "getAddress: " + e);
+            return null;
+        }
+    }
+
 }

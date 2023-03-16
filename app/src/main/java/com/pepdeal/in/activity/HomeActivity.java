@@ -399,7 +399,9 @@ public class HomeActivity extends AppCompatActivity implements LocationListener/
             } else {
 //                Toast.makeText(HomeActivity.this, "Shop already Added", Toast.LENGTH_SHORT).show();
                 if (shopStatus.equals("0")) {
-                    startActivity(new Intent(HomeActivity.this, ShopDetailsActivity.class).putExtra("shop_id", shop_id));
+                    startActivity(new Intent(HomeActivity.this, AddShopActivity.class));
+
+                    //     startActivity(new Intent(HomeActivity.this, ShopDetailsActivity.class).putExtra("shop_id", shop_id));
                 } else {
                     new AlertDialog.Builder(HomeActivity.this)
                             .setTitle("Alert!!!")

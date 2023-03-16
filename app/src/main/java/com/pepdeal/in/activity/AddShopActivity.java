@@ -869,7 +869,7 @@ public class AddShopActivity extends AppCompatActivity implements
 
 
                     try {
-                        binding.edtShopLatLong.setText(String.valueOf(latitude) + "," + String.valueOf(longitude));
+                     //   binding.edtShopLatLong.setText(String.valueOf(latitude) + "," + String.valueOf(longitude));
                         /*addresses = geocoder.getFromLocation(latitude, longitude, 1); // Here 1 represent max location result to returned, by documents it recommended 1 to 5
 
                         if (addresses.size() == 0) {
@@ -930,7 +930,7 @@ public class AddShopActivity extends AppCompatActivity implements
                                 latitude = locationTrack.getLatitude();
 
                                 try {
-                                    binding.edtShopLatLong.setText(String.valueOf(latitude) + "," + String.valueOf(longitude));
+                               //     binding.edtShopLatLong.setText(String.valueOf(latitude) + "," + String.valueOf(longitude));
                                     /*addresses = geocoder.getFromLocation(latitude, longitude, 1); // Here 1 represent max location result to returned, by documents it recommended 1 to 5
 
                                     if (addresses.size() == 0) {
@@ -1035,7 +1035,7 @@ public class AddShopActivity extends AppCompatActivity implements
 
 
         try {
-            binding.edtShopLatLong.setText(String.valueOf(latitude) + "," + String.valueOf(longitude));
+         //   binding.edtShopLatLong.setText(String.valueOf(latitude) + "," + String.valueOf(longitude));
             /*addresses = geocoder.getFromLocation(latitude, longitude, 1); // Here 1 represent max location result to returned, by documents it recommended 1 to 5
 
             if (addresses.size() == 0) {
@@ -1080,16 +1080,18 @@ public class AddShopActivity extends AppCompatActivity implements
         if (requestCode == 100) {
             if (resultCode == Activity.RESULT_OK && data != null) {
                 String address = data.getStringExtra("d_address");
-                binding.edtShopAddress.setText(address);
+                binding.edtShopLatLong.setText(address);
                 latitude = Double.parseDouble(data.getStringExtra("lat"));
                 longitude = Double.parseDouble(data.getStringExtra("long"));
+          /*      binding.edtShopAddress.setText(address);
+
                 stateName = data.getStringExtra("state");
                 cityName = data.getStringExtra("city");
                 String area = data.getStringExtra("area");
                 binding.edtShopCity.setText(cityName);
                 binding.edtShopState.setText(stateName);
                 binding.edtShopArea.setText(area);
-                binding.edtShopLatLong.setText(String.valueOf(latitude) + "," + String.valueOf(longitude));
+                binding.edtShopLatLong.setText(String.valueOf(latitude) + "," + String.valueOf(longitude));*/
             }
 
         }

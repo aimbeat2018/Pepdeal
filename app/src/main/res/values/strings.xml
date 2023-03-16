@@ -76,7 +76,7 @@
     <string name="shop_services">Shop Services</string>
     <string name="shop_name">Shop Name</string>
     <string name="shop_address">Shop Address</string>
-    <string name="shop_lat_long">Shop Lat,Long</string>
+    <string name="shop_lat_long">Shop Location</string>
     <string name="shop_city">Shop City</string>
     <string name="shop_area">Shop Area</string>
     <string name="about_Shop">About Shop</string>
