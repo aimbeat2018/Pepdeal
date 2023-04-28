@@ -105,6 +105,7 @@ public class HomeActivity extends AppCompatActivity implements LocationListener/
     String newLeadCount = "";
     CardView cardNewMessage;
     UsersTabAdapter adapter;
+    String seacrh_By;
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     protected void onCreate(Bundle savedInstanceState) {
@@ -132,6 +133,7 @@ public class HomeActivity extends AppCompatActivity implements LocationListener/
 
                     @Override
                     public void run() {
+
                         // This method will be executed once the timer is over
                         Intent intent = new Intent(HomeActivity.this, SearchActivity.class);
                         intent.putExtra("key", binding.searchView.getText().toString());
@@ -155,10 +157,43 @@ public class HomeActivity extends AppCompatActivity implements LocationListener/
 
         });
         binding.ivSearch.setOnClickListener(view -> {
-            startActivity(new Intent(HomeActivity.this, SearchActivity.class));
+            onSearchbutton();
+        //    startActivity(new Intent(HomeActivity.this, SearchActivity.class));
 //            binding.drawerLayout.closeDrawers();
 
         });
+    }
+
+    private void onSearchbutton() {
+
+        new AlertDialog.Builder(HomeActivity.this)
+                .setTitle("Search")
+                .setMessage("How do you want to search?")
+
+                // Specifying a listener allows you to take an action before dismissing the dialog.
+                // The dialog is automatically dismissed when a dialog button is clicked.
+                .setPositiveButton(R.string.search_by_shop, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        seacrh_By="shop";
+                        Intent intent = new Intent(HomeActivity.this, SearchActivity.class);
+                       // intent.putExtra("key", binding.searchView.getText().toString());
+                        intent.putExtra("searchby", seacrh_By);
+                        startActivity(intent);
+                    }
+                })
+
+                // A null listener allows the button to dismiss the dialog and take no further action.
+                .setNegativeButton(R.string.search_by_product, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        seacrh_By="product";
+                        Intent intent = new Intent(HomeActivity.this, SearchActivity.class);
+                    //    intent.putExtra("key", binding.searchView.getText().toString());
+                        intent.putExtra("searchby", seacrh_By);
+                        startActivity(intent);
+                    }
+                })
+                .show();
     }
 
     @Override
@@ -352,6 +387,8 @@ public class HomeActivity extends AppCompatActivity implements LocationListener/
                 Toast.makeText(HomeActivity.this, "First Add Your Shop", Toast.LENGTH_SHORT).show();
             }
         }
+
+
 
         public void onLogout(View view) {
             new AlertDialog.Builder(HomeActivity.this)
@@ -590,8 +627,6 @@ public class HomeActivity extends AppCompatActivity implements LocationListener/
                     String code = jsonObject.getString("code");
                     if (code.equals("200")) {
 //                        newLeadCount = jsonObject.getString("count");
-
-
                         if (from.equals("user")) {
 //                                newLeadCount = jsonObject.getString("count");
 //                                if (!newLeadCount.equals("")) {
@@ -604,6 +639,9 @@ public class HomeActivity extends AppCompatActivity implements LocationListener/
                                 binding.includeLayout.txtNewMessage.setVisibility(View.VISIBLE);
                             }
                         }
+                    }
+                    else {
+                        binding.includeLayout.txtNewMessage.setVisibility(View.GONE);
                     }
                 } catch (
                         Exception e) {

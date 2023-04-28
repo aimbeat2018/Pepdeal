@@ -342,13 +342,14 @@ public class AddShopActivity extends AppCompatActivity implements
         model.setShopMobileNo(Objects.requireNonNull(binding.edtMobileNumber.getText()).toString());
         model.setShopDescription(Objects.requireNonNull(binding.edtAbout.getText()).toString());
         model.setShopArea(Objects.requireNonNull(binding.edtShopArea.getText()).toString());
-        model.setCity(cityName);
-        model.setState(stateName);
+        model.setCity(Objects.requireNonNull(binding.edtShopCity.getText()).toString());
+        model.setState(Objects.requireNonNull(binding.edtShopState.getText()).toString());
         model.setBgColorId(backgroundColor);
         model.setFontStyleId(fontStyle);
         model.setFontSizeId(fontSize);
         model.setFontColorId(fontColor);
         model.setLatitude(String.valueOf(latitude));
+        model.setShopaddress2(Objects.requireNonNull(binding.edtShopLatLong.getText()).toString());
         model.setLongitude(String.valueOf(longitude));
 
         ApiInterface client = ApiClient.createService(ApiInterface.class, "", "");

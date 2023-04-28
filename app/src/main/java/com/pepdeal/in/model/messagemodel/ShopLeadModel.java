@@ -19,12 +19,12 @@ public class ShopLeadModel {
     @SerializedName("created_at")
     @Expose
     private String createdAt;
-    @SerializedName("created")
-    @Expose
-    private String created;
     @SerializedName("updated_at")
     @Expose
     private String updatedAt;
+    @SerializedName("created")
+    @Expose
+    private String created;
     @SerializedName("shop_name")
     @Expose
     private String shopName;
@@ -40,42 +40,6 @@ public class ShopLeadModel {
     @SerializedName("shop_flag")
     @Expose
     private String shopFlag;
-    @SerializedName("bg_color_id")
-    @Expose
-    private String bgColorId;
-    @SerializedName("bg_color_name")
-    @Expose
-    private String bgColorName;
-    @SerializedName("bg_color_name2")
-    @Expose
-    private String bgColorName2;
-    @SerializedName("isActive")
-    @Expose
-    private String isActive;
-    @SerializedName("font_size_id")
-    @Expose
-    private String fontSizeId;
-    @SerializedName("font_size_name")
-    @Expose
-    private String fontSizeName;
-    @SerializedName("font_color_id")
-    @Expose
-    private String fontColorId;
-    @SerializedName("font_color_name")
-    @Expose
-    private String fontColorName;
-    @SerializedName("font_color_name2")
-    @Expose
-    private String fontColorName2;
-    @SerializedName("font_style_id")
-    @Expose
-    private String fontStyleId;
-    @SerializedName("font_style_name")
-    @Expose
-    private String fontStyleName;
-    @SerializedName("city_name")
-    @Expose
-    private String cityName;
     @SerializedName("state_name")
     @Expose
     private String stateName;
@@ -128,6 +92,14 @@ public class ShopLeadModel {
         this.updatedAt = updatedAt;
     }
 
+    public String getCreated() {
+        return created;
+    }
+
+    public void setCreated(String created) {
+        this.created = created;
+    }
+
     public String getShopName() {
         return shopName;
     }
@@ -168,115 +140,11 @@ public class ShopLeadModel {
         this.shopFlag = shopFlag;
     }
 
-    public String getBgColorId() {
-        return bgColorId;
-    }
-
-    public void setBgColorId(String bgColorId) {
-        this.bgColorId = bgColorId;
-    }
-
-    public String getBgColorName() {
-        return bgColorName;
-    }
-
-    public void setBgColorName(String bgColorName) {
-        this.bgColorName = bgColorName;
-    }
-
-    public String getBgColorName2() {
-        return bgColorName2;
-    }
-
-    public void setBgColorName2(String bgColorName2) {
-        this.bgColorName2 = bgColorName2;
-    }
-
-    public String getIsActive() {
-        return isActive;
-    }
-
-    public void setIsActive(String isActive) {
-        this.isActive = isActive;
-    }
-
-    public String getFontSizeId() {
-        return fontSizeId;
-    }
-
-    public void setFontSizeId(String fontSizeId) {
-        this.fontSizeId = fontSizeId;
-    }
-
-    public String getFontSizeName() {
-        return fontSizeName;
-    }
-
-    public void setFontSizeName(String fontSizeName) {
-        this.fontSizeName = fontSizeName;
-    }
-
-    public String getFontColorId() {
-        return fontColorId;
-    }
-
-    public void setFontColorId(String fontColorId) {
-        this.fontColorId = fontColorId;
-    }
-
-    public String getFontColorName() {
-        return fontColorName;
-    }
-
-    public void setFontColorName(String fontColorName) {
-        this.fontColorName = fontColorName;
-    }
-
-    public String getFontColorName2() {
-        return fontColorName2;
-    }
-
-    public void setFontColorName2(String fontColorName2) {
-        this.fontColorName2 = fontColorName2;
-    }
-
-    public String getFontStyleId() {
-        return fontStyleId;
-    }
-
-    public void setFontStyleId(String fontStyleId) {
-        this.fontStyleId = fontStyleId;
-    }
-
-    public String getFontStyleName() {
-        return fontStyleName;
-    }
-
-    public void setFontStyleName(String fontStyleName) {
-        this.fontStyleName = fontStyleName;
-    }
-
-    public String getCityName() {
-        return cityName;
-    }
-
-    public void setCityName(String cityName) {
-        this.cityName = cityName;
-    }
-
     public String getStateName() {
         return stateName;
     }
 
     public void setStateName(String stateName) {
         this.stateName = stateName;
-    }
-
-    public String getCreated() {
-        return created;
-    }
-
-    public void setCreated(String created) {
-        this.created = created;
     }
 }

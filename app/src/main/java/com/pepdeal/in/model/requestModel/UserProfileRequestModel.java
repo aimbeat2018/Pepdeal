@@ -47,6 +47,9 @@ public class UserProfileRequestModel {
     @SerializedName("bg_color_id")
     @Expose
     private String bgColorId;
+    @SerializedName("search_type")
+    @Expose
+    private String search_type;
 
     public String getSearch_key() {
         return search_key;
@@ -158,5 +161,13 @@ public class UserProfileRequestModel {
 
     public void setBgColorId(String bgColorId) {
         this.bgColorId = bgColorId;
+    }
+
+    public String getSearch_type() {
+        return search_type;
+    }
+
+    public void setSearch_type(String search_type) {
+        this.search_type = search_type;
     }
 }

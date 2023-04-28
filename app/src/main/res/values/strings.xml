@@ -157,4 +157,7 @@ Hole.</string>
     <string name="verifyNumber">Verify mobile number</string>
     <string name="enter_otp">Enter Otp</string>
 
+    <string name="search_by_shop">By Shop</string>
+    <string name="search_by_product">By Product</string>
+
 </resources>

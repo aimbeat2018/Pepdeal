@@ -49,6 +49,9 @@ public class AddShopRequestModel {
     @SerializedName("shop_area")
     @Expose
     private String shopArea;
+    @SerializedName("shop_address2")
+    @Expose
+    private String shopaddress2;
 
     public String getShopArea() {
         return shopArea;
@@ -169,5 +172,13 @@ public class AddShopRequestModel {
 
     public void setLongitude(String longitude) {
         this.longitude = longitude;
+    }
+
+    public String getShopaddress2() {
+        return shopaddress2;
+    }
+
+    public void setShopaddress2(String shopaddress2) {
+        this.shopaddress2 = shopaddress2;
     }
 }

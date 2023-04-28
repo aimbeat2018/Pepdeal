@@ -63,6 +63,7 @@ public class SearchActivity extends AppCompatActivity {
 
     ActivitySearchBinding binding;
     String key = "";
+    String search_by;
     ProgressDialog dialog;
     List<SearchShopModel> searchShopModelArrayList = new ArrayList<>();
     List<SearchProductModel> searchProductModelArrayList = new ArrayList<>();
@@ -76,10 +77,12 @@ public class SearchActivity extends AppCompatActivity {
         dialog = new ProgressDialog(this);
         dialog.setTitle("Loading");
         dialog.setMessage("Please wait...");
+        search_by = getIntent().getStringExtra("searchby");
 
       /*  key = getIntent().getStringExtra("key");
         binding.searchView.setText(key);
 */
+
         binding.searchView.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -144,6 +147,7 @@ public class SearchActivity extends AppCompatActivity {
         UserProfileRequestModel model = new UserProfileRequestModel();
         model.setUserId(SharedPref.getVal(SearchActivity.this, SharedPref.user_id));
         model.setSearch_key(binding.searchView.getText().toString());
+        model.setSearch_type(search_by);
 
         ApiInterface client = ApiClient.createService(ApiInterface.class, "", "");
         client.searchTags(model).enqueue(new Callback<ResponseBody>() {
@@ -155,42 +159,48 @@ public class SearchActivity extends AppCompatActivity {
                     if (code.equals("200")) {
 
                         JSONObject jsonObject1 = jsonObject.getJSONObject("Data");
+
                         /*Shop array json*/
-                        Gson gson1 = new Gson();
-                        Type listType = new TypeToken<List<SearchShopModel>>() {
-                        }.getType();
-                        searchShopModelArrayList = new ArrayList<>();
-                        searchShopModelArrayList.addAll(gson1.fromJson(jsonObject1.getString("shopData"), listType));
+                        if(jsonObject1.has("shopData")) {
+                            Gson gson1 = new Gson();
+                            Type listType = new TypeToken<List<SearchShopModel>>() {
+                            }.getType();
+                            searchShopModelArrayList = new ArrayList<>();
+                            searchShopModelArrayList.addAll(gson1.fromJson(jsonObject1.getString("shopData"), listType));
 
-                        if (searchShopModelArrayList.size() > 0) {
-                            binding.recShoplist.setLayoutManager(new LinearLayoutManager(SearchActivity.this));
-                            binding.recShoplist.setAdapter(new ShopAdapter());
+                            if (searchShopModelArrayList.size() > 0) {
+                                binding.recShoplist.setLayoutManager(new LinearLayoutManager(SearchActivity.this));
+                                binding.recShoplist.setAdapter(new ShopAdapter());
 
-                            binding.recShoplist.setVisibility(View.VISIBLE);
-                            binding.lnrMainLayout.setVisibility(View.VISIBLE);
-                        } else {
-                            binding.recShoplist.setVisibility(View.GONE);
+                                binding.recShoplist.setVisibility(View.VISIBLE);
+                                binding.lnrMainLayout.setVisibility(View.VISIBLE);
+                            } else {
+                                binding.recShoplist.setVisibility(View.GONE);
 //                            binding.lnrNoData.setVisibility(View.VISIBLE);
+                            }
                         }
 
                         /*Product array json*/
-                        Gson gson2 = new Gson();
-                        Type listType1 = new TypeToken<List<SearchProductModel>>() {
-                        }.getType();
-                        searchProductModelArrayList = new ArrayList<>();
-                        searchProductModelArrayList.addAll(gson2.fromJson(jsonObject1.getString("productData"), listType1));
+                        if(jsonObject1.has("productData")) {
+                            Gson gson2 = new Gson();
+                            Type listType1 = new TypeToken<List<SearchProductModel>>() {
+                            }.getType();
+                            searchProductModelArrayList = new ArrayList<>();
+                            searchProductModelArrayList.addAll(gson2.fromJson(jsonObject1.getString("productData"), listType1));
 
-                        if (searchProductModelArrayList.size() > 0) {
-                            binding.recProductlist.setLayoutManager(new GridLayoutManager(SearchActivity.this, 3));
-                            binding.recProductlist.setAdapter(new ProductAdapter(SearchActivity.this, searchProductModelArrayList, "search", "", ""));
+                            if (searchProductModelArrayList.size() > 0) {
+                                binding.recProductlist.setLayoutManager(new GridLayoutManager(SearchActivity.this, 3));
+                                binding.recProductlist.setAdapter(new ProductAdapter(SearchActivity.this, searchProductModelArrayList, "search", "", ""));
 
-                            binding.recProductlist.setVisibility(View.VISIBLE);
-                            binding.lnrMainLayout.setVisibility(View.VISIBLE);
+                                binding.recProductlist.setVisibility(View.VISIBLE);
+                                binding.lnrMainLayout.setVisibility(View.VISIBLE);
 //                            binding.lnrNoData.setVisibility(View.GONE);
-                        } else {
-                            binding.recProductlist.setVisibility(View.GONE);
+                            } else {
+                                binding.recProductlist.setVisibility(View.GONE);
 //                            binding.lnrNoData.setVisibility(View.VISIBLE);
+                            }
                         }
+
                     } else {
                         binding.lnrMainLayout.setVisibility(View.GONE);
                         binding.lnrNoData.setVisibility(View.VISIBLE);
