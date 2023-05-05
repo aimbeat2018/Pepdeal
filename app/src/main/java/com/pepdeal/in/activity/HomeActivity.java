@@ -162,6 +162,9 @@ public class HomeActivity extends AppCompatActivity implements LocationListener/
 //            binding.drawerLayout.closeDrawers();
 
         });
+        /*By Default Home fragment load*/
+        pos = 1;
+        loadFragment(new HomeFragment());
     }
 
     private void onSearchbutton() {
@@ -199,11 +202,6 @@ public class HomeActivity extends AppCompatActivity implements LocationListener/
     @Override
     protected void onResume() {
         super.onResume();
-
-        /*By Default Home fragment load*/
-        pos = 1;
-        loadFragment(new HomeFragment());
-
         if (Utils.isNetwork(HomeActivity.this)) {
             requestUsersProfileParams();
             getLeadCount("user");

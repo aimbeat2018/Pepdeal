@@ -79,11 +79,11 @@
             android:id="@+id/searchView"
             android:layout_width="match_parent"
             android:layout_height="@dimen/margin_50"
-            android:elevation="@dimen/margin_5"
             android:layout_marginHorizontal="@dimen/margin_10"
             android:layout_marginVertical="@dimen/margin_5"
             android:background="@drawable/search_edittext_background_layout"
             android:drawableLeft="@drawable/ic_baseline_search_24"
+            android:elevation="@dimen/margin_5"
             android:focusableInTouchMode="true"
             android:focusedByDefault="false"
             android:hint="Search your location"
@@ -91,14 +91,16 @@
             android:inputType="text"
             android:lineSpacingExtra="@dimen/margin_10"
             android:paddingStart="@dimen/margin_10" />
+
         <TextView
             android:id="@+id/txt_selectCurrent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Select your current Location"
-            android:textColor="@color/blue"
             android:layout_marginHorizontal="@dimen/margin_10"
             android:drawableLeft="@drawable/ic_baseline_gps_fixed_24"
+            android:drawablePadding="5dp"
+            android:text="Select your current Location"
+            android:textColor="@color/blue"
             android:textSize="16dp" />
 
 

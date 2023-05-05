@@ -159,5 +159,9 @@ Hole.</string>
 
     <string name="search_by_shop">By Shop</string>
     <string name="search_by_product">By Product</string>
+    <string name="enter_search_tag">Enter Search Tag</string>
+    <string name="shop_address_for_sign_board">Shop Address For Sign Board</string>
+    <string name="enter_shop_address_for_sign_board">Enter Shop Address For Sign Board</string>
+    <string name="sub_category">Sub category</string>
 
 </resources>

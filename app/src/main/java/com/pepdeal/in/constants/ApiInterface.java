@@ -30,7 +30,7 @@ import retrofit2.http.Part;
 public interface ApiInterface {
 
     @POST("send_otp")
-    Call<ResponseBody>  send_otp(@Body OTPRequestModel requestModel);
+    Call<ResponseBody> send_otp(@Body OTPRequestModel requestModel);
 
     @POST("forgotpassword_send_otp")
     Call<ResponseBody> forgotpassword_send_otp(@Body ForgotPasswordOTPRequestModel requestModel);
@@ -181,6 +181,7 @@ public interface ApiInterface {
                                      @Part("product_name") RequestBody product_name,
                                      @Part("brand_id") RequestBody brand_id,
                                      @Part("category_id") RequestBody category_id,
+                                     @Part("search_tag") RequestBody search_tag,
                                      @Part("description") RequestBody description,
                                      @Part("description2") RequestBody description2,
                                      @Part("specification") RequestBody specification,

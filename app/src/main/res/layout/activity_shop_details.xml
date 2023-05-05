@@ -249,7 +249,7 @@
                                         android:id="@+id/card_cod"
                                         android:layout_width="@dimen/margin_55"
                                         android:layout_height="@dimen/margin_55"
-                                        android:layout_marginVertical="@dimen/margin_10"
+                                        android:layout_marginVertical="@dimen/margin_2"
                                         android:layout_marginEnd="@dimen/margin_8"
                                         app:cardCornerRadius="@dimen/margin_35"
                                         app:cardElevation="@dimen/margin_5">
@@ -285,7 +285,7 @@
                                         android:id="@+id/card_door_step"
                                         android:layout_width="@dimen/margin_55"
                                         android:layout_height="@dimen/margin_55"
-                                        android:layout_marginVertical="@dimen/margin_10"
+                                        android:layout_marginVertical="@dimen/margin_2"
                                         android:layout_marginEnd="@dimen/margin_8"
                                         app:cardCornerRadius="@dimen/margin_35"
                                         app:cardElevation="@dimen/margin_5">
@@ -321,7 +321,7 @@
                                         android:id="@+id/card_home_delivery"
                                         android:layout_width="@dimen/margin_55"
                                         android:layout_height="@dimen/margin_55"
-                                        android:layout_marginVertical="@dimen/margin_10"
+                                        android:layout_marginVertical="@dimen/margin_2"
                                         android:layout_marginEnd="@dimen/margin_8"
                                         app:cardCornerRadius="@dimen/margin_35"
                                         app:cardElevation="@dimen/margin_5">
@@ -357,7 +357,7 @@
                                         android:id="@+id/card_live_demo"
                                         android:layout_width="@dimen/margin_55"
                                         android:layout_height="@dimen/margin_55"
-                                        android:layout_marginVertical="@dimen/margin_10"
+                                        android:layout_marginVertical="@dimen/margin_2"
                                         android:layout_marginEnd="@dimen/margin_8"
                                         app:cardCornerRadius="@dimen/margin_35"
                                         app:cardElevation="@dimen/margin_5">
@@ -393,7 +393,7 @@
                                         android:id="@+id/card_offers"
                                         android:layout_width="@dimen/margin_55"
                                         android:layout_height="@dimen/margin_55"
-                                        android:layout_marginVertical="@dimen/margin_10"
+                                        android:layout_marginVertical="@dimen/margin_2"
                                         android:layout_marginEnd="@dimen/margin_8"
                                         app:cardCornerRadius="@dimen/margin_35"
                                         app:cardElevation="@dimen/margin_5">
@@ -429,7 +429,7 @@
                                         android:id="@+id/card_bargain"
                                         android:layout_width="@dimen/margin_55"
                                         android:layout_height="@dimen/margin_55"
-                                        android:layout_marginVertical="@dimen/margin_10"
+                                        android:layout_marginVertical="@dimen/margin_2"
                                         app:cardCornerRadius="@dimen/margin_35"
                                         app:cardElevation="@dimen/margin_5">
 

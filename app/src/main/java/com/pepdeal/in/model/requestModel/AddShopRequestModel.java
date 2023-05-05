@@ -13,6 +13,9 @@ public class AddShopRequestModel {
     @SerializedName("shop_name")
     @Expose
     private String shopName;
+    @SerializedName("search_tag")
+    @Expose
+    private String searchTag;
     @SerializedName("shop_address")
     @Expose
     private String shopAddress;
@@ -180,5 +183,13 @@ public class AddShopRequestModel {
 
     public void setShopaddress2(String shopaddress2) {
         this.shopaddress2 = shopaddress2;
+    }
+
+    public String getSearchTag() {
+        return searchTag;
+    }
+
+    public void setSearchTag(String searchTag) {
+        this.searchTag = searchTag;
     }
 }

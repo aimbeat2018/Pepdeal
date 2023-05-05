@@ -119,11 +119,13 @@ public class AddShopActivity extends AppCompatActivity implements
         dialog.setTitle("Loading");
         dialog.setMessage("Please wait...");
 
+        binding.edtMobileNumber.setText(SharedPref.getVal(AddShopActivity.this, SharedPref.mobile_no));
+        binding.edtMobileNumber.setEnabled(false);
+
         if (Utils.isNetwork(AddShopActivity.this)) {
             requestBackgroundColor();
-//            requestShopFont();
             setFontStyle();
-       //     requestShopFontSize();
+            //     requestShopFontSize();
         } else {
             Utils.InternetAlertDialog(AddShopActivity.this, getString(R.string.no_internet_title), getString(R.string.no_internet_desc));
         }
@@ -344,6 +346,7 @@ public class AddShopActivity extends AppCompatActivity implements
         model.setShopArea(Objects.requireNonNull(binding.edtShopArea.getText()).toString());
         model.setCity(Objects.requireNonNull(binding.edtShopCity.getText()).toString());
         model.setState(Objects.requireNonNull(binding.edtShopState.getText()).toString());
+        model.setSearchTag(Objects.requireNonNull(binding.edtSearchTag.getText()).toString());
         model.setBgColorId(backgroundColor);
         model.setFontStyleId(fontStyle);
         model.setFontSizeId(fontSize);
@@ -768,7 +771,6 @@ public class AddShopActivity extends AppCompatActivity implements
 
         public void onAddShop(View view) {
             if (binding.edtShopName.getText().toString().equals("")) {
-
                 Toast.makeText(AddShopActivity.this, "Enter Shop Name", Toast.LENGTH_SHORT).show();
             } else if (binding.edtShopAddress.getText().toString().equals("")) {
                 Toast.makeText(AddShopActivity.this, "Enter Shop Address", Toast.LENGTH_SHORT).show();
@@ -782,6 +784,8 @@ public class AddShopActivity extends AppCompatActivity implements
                 Toast.makeText(AddShopActivity.this, "Enter Mobile Number", Toast.LENGTH_SHORT).show();
             } else if (binding.edtMobileNumber.getText().length() != 10) {
                 Toast.makeText(AddShopActivity.this, "Enter valid Mobile Number", Toast.LENGTH_SHORT).show();
+            } else if (binding.edtSearchTag.getText().toString().equals("")) {
+                Toast.makeText(AddShopActivity.this, "Enter Search Tag", Toast.LENGTH_SHORT).show();
             } else if (backgroundColor.equals("")) {
                 Toast.makeText(AddShopActivity.this, "Select Background Color", Toast.LENGTH_SHORT).show();
             } else if (fontStyle.equals("")) {
@@ -870,7 +874,7 @@ public class AddShopActivity extends AppCompatActivity implements
 
 
                     try {
-                     //   binding.edtShopLatLong.setText(String.valueOf(latitude) + "," + String.valueOf(longitude));
+                        //   binding.edtShopLatLong.setText(String.valueOf(latitude) + "," + String.valueOf(longitude));
                         /*addresses = geocoder.getFromLocation(latitude, longitude, 1); // Here 1 represent max location result to returned, by documents it recommended 1 to 5
 
                         if (addresses.size() == 0) {
@@ -931,7 +935,7 @@ public class AddShopActivity extends AppCompatActivity implements
                                 latitude = locationTrack.getLatitude();
 
                                 try {
-                               //     binding.edtShopLatLong.setText(String.valueOf(latitude) + "," + String.valueOf(longitude));
+                                    //     binding.edtShopLatLong.setText(String.valueOf(latitude) + "," + String.valueOf(longitude));
                                     /*addresses = geocoder.getFromLocation(latitude, longitude, 1); // Here 1 represent max location result to returned, by documents it recommended 1 to 5
 
                                     if (addresses.size() == 0) {
@@ -1036,7 +1040,7 @@ public class AddShopActivity extends AppCompatActivity implements
 
 
         try {
-         //   binding.edtShopLatLong.setText(String.valueOf(latitude) + "," + String.valueOf(longitude));
+            //   binding.edtShopLatLong.setText(String.valueOf(latitude) + "," + String.valueOf(longitude));
             /*addresses = geocoder.getFromLocation(latitude, longitude, 1); // Here 1 represent max location result to returned, by documents it recommended 1 to 5
 
             if (addresses.size() == 0) {

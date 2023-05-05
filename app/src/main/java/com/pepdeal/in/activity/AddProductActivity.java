@@ -861,11 +861,13 @@ public class AddProductActivity extends AppCompatActivity {
                 RequestBody.create(MediaType.parse("text/plain"), Objects.requireNonNull(binding.edtdiscount.getText()).toString());
         RequestBody selling_price =
                 RequestBody.create(MediaType.parse("text/plain"), Objects.requireNonNull(binding.edtsale.getText()).toString());
+        RequestBody searchTag =
+                RequestBody.create(MediaType.parse("text/plain"), Objects.requireNonNull(binding.edtsearchtag.getText()).toString());
         RequestBody isActive =
                 RequestBody.create(MediaType.parse("text/plain"), is_active);
 
         ApiInterface client = ApiClient.createService(ApiInterface.class, "", "");
-        client.updateProduct(product_id, product_name, brand_id, category_id, description, description2, specification, warranty, size_id, color, search_tags, mrp,
+        client.updateProduct(product_id, product_name, brand_id, category_id, searchTag, description, description2, specification, warranty, size_id, color, search_tags, mrp,
                 discount_mrp, selling_price, user_id, shop_id, isActive, list).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {

@@ -155,12 +155,12 @@
                                 android:layout_height="@dimen/margin_35"
                                 android:layout_marginHorizontal="@dimen/margin_5"
                                 android:background="@null"
-                                android:maxLength="35"
-                                android:inputType="textCapCharacters"
-                                android:textAllCaps="true"
                                 android:fontFamily="@font/roboto_regular"
                                 android:hint="@string/enter_product_name"
+                                android:inputType="textCapCharacters"
+                                android:maxLength="35"
                                 android:paddingStart="@dimen/margin_5"
+                                android:textAllCaps="true"
                                 android:textColor="@color/black"
                                 android:textColorHint="@color/lightGrayColor"
                                 android:textSize="@dimen/text_14" />
@@ -232,12 +232,12 @@
                                 android:layout_height="@dimen/margin_35"
                                 android:layout_marginHorizontal="@dimen/margin_5"
                                 android:background="@null"
-                                android:maxLength="35"
-                                android:inputType="textCapCharacters"
-                                android:textAllCaps="true"
                                 android:fontFamily="@font/roboto_regular"
                                 android:hint="@string/enter_brand_name"
+                                android:inputType="textCapCharacters"
+                                android:maxLength="35"
                                 android:paddingStart="@dimen/margin_5"
+                                android:textAllCaps="true"
                                 android:textColor="@color/black"
                                 android:textColorHint="@color/lightGrayColor"
                                 android:textSize="@dimen/text_14" />
@@ -323,6 +323,137 @@
                             android:layout_marginStart="@dimen/margin_10"
                             android:fontFamily="@font/roboto_regular"
                             android:gravity="center"
+                            android:text="@string/sub_category"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/text_15" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/roboto_regular"
+                            android:gravity="center"
+                            android:paddingHorizontal="@dimen/margin_8"
+                            android:text="*"
+                            android:textColor="@color/red"
+                            android:textSize="@dimen/text_15"
+                            android:visibility="gone" />
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/margin_5"
+                        android:layout_marginTop="@dimen/margin_7"
+                        android:layout_marginBottom="@dimen/margin_5"
+                        app:cardCornerRadius="@dimen/margin_20"
+                        app:cardElevation="@dimen/margin_5">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="@dimen/margin_5"
+                            android:layout_marginVertical="@dimen/margin_6"
+                            android:gravity="center"
+                            android:orientation="horizontal"
+                            app:layout_gravity="center">
+
+                            <androidx.appcompat.widget.AppCompatSpinner
+                                android:id="@+id/spinproductsubcategory"
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/margin_35"
+                                android:layout_marginHorizontal="@dimen/margin_5" />
+                        </LinearLayout>
+                    </androidx.cardview.widget.CardView>
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/margin_13"
+                    android:layout_marginTop="@dimen/margin_10"
+                    android:orientation="vertical">
+
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/margin_10"
+                            android:fontFamily="@font/roboto_regular"
+                            android:gravity="center"
+                            android:text="@string/search_tag"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/text_15" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/roboto_regular"
+                            android:gravity="center"
+                            android:paddingHorizontal="@dimen/margin_8"
+                            android:text="*"
+                            android:textColor="@color/red"
+                            android:textSize="@dimen/text_15" />
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/margin_5"
+                        android:layout_marginTop="@dimen/margin_7"
+                        android:layout_marginBottom="@dimen/margin_5"
+                        app:cardCornerRadius="@dimen/margin_20"
+                        app:cardElevation="@dimen/margin_5">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="@dimen/margin_5"
+                            android:layout_marginVertical="@dimen/margin_6"
+                            android:gravity="center"
+                            android:orientation="horizontal"
+                            app:layout_gravity="center">
+
+                            <androidx.appcompat.widget.AppCompatEditText
+                                android:id="@+id/edt_search_tag"
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/margin_35"
+                                android:layout_marginHorizontal="@dimen/margin_5"
+                                android:background="@null"
+                                android:fontFamily="@font/roboto_regular"
+                                android:gravity="center_vertical"
+                                android:hint="@string/enter_search_tag"
+                                android:inputType="number"
+                                android:maxLength="10"
+                                android:paddingStart="@dimen/margin_5"
+                                android:textColor="@color/black"
+                                android:textColorHint="@color/lightGrayColor"
+                                android:textSize="@dimen/text_14" />
+                        </LinearLayout>
+                    </androidx.cardview.widget.CardView>
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/margin_13"
+                    android:layout_marginTop="@dimen/margin_10"
+                    android:orientation="vertical">
+
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/margin_10"
+                            android:fontFamily="@font/roboto_regular"
+                            android:gravity="center"
                             android:text="@string/description"
                             android:textColor="@color/black"
                             android:textSize="@dimen/text_15" />
@@ -362,17 +493,17 @@
                                 android:layout_height="@dimen/margin_120"
                                 android:layout_marginHorizontal="@dimen/margin_5"
                                 android:background="@null"
-                                android:overScrollMode="always"
-                                android:scrollbarStyle="insideInset"
-                                android:scrollbars="vertical"
                                 android:fontFamily="@font/roboto_regular"
                                 android:gravity="start"
                                 android:hint="@string/enter_text"
-                                android:maxLength="150"
                                 android:inputType="textCapWords|textMultiLine"
+                                android:maxLength="150"
                                 android:maxLines="5"
+                                android:overScrollMode="always"
                                 android:paddingStart="@dimen/margin_5"
                                 android:paddingTop="@dimen/margin_5"
+                                android:scrollbarStyle="insideInset"
+                                android:scrollbars="vertical"
                                 android:textColor="@color/black"
                                 android:textColorHint="@color/lightGrayColor"
                                 android:textSize="@dimen/text_14" />
@@ -424,14 +555,14 @@
                                 android:fontFamily="@font/roboto_regular"
                                 android:gravity="start"
                                 android:hint="@string/enter_text"
-                                android:overScrollMode="always"
-                                android:scrollbarStyle="insideInset"
-                                android:scrollbars="vertical"
-                                android:maxLength="250"
                                 android:inputType="textCapWords|textMultiLine"
+                                android:maxLength="250"
                                 android:maxLines="5"
+                                android:overScrollMode="always"
                                 android:paddingStart="@dimen/margin_5"
                                 android:paddingTop="@dimen/margin_5"
+                                android:scrollbarStyle="insideInset"
+                                android:scrollbars="vertical"
                                 android:textColor="@color/black"
                                 android:textColorHint="@color/lightGrayColor"
                                 android:textSize="@dimen/text_14" />
@@ -483,14 +614,14 @@
                                 android:fontFamily="@font/roboto_regular"
                                 android:gravity="start"
                                 android:hint="@string/enter_text"
-                                android:overScrollMode="always"
-                                android:scrollbarStyle="insideInset"
-                                android:scrollbars="vertical"
-                                android:maxLength="500"
                                 android:inputType="textCapWords|textMultiLine"
+                                android:maxLength="500"
                                 android:maxLines="5"
+                                android:overScrollMode="always"
                                 android:paddingStart="@dimen/margin_5"
                                 android:paddingTop="@dimen/margin_5"
+                                android:scrollbarStyle="insideInset"
+                                android:scrollbars="vertical"
                                 android:textColor="@color/black"
                                 android:textColorHint="@color/lightGrayColor"
                                 android:textSize="@dimen/text_14" />
@@ -541,10 +672,10 @@
                                 android:background="@null"
                                 android:fontFamily="@font/roboto_regular"
                                 android:hint="@string/enter_warranty"
-                                android:maxLength="15"
                                 android:inputType="textCapCharacters"
-                                android:textAllCaps="true"
+                                android:maxLength="15"
                                 android:paddingStart="@dimen/margin_5"
+                                android:textAllCaps="true"
                                 android:textColor="@color/black"
                                 android:textColorHint="@color/lightGrayColor"
                                 android:textSize="@dimen/text_14" />
@@ -640,10 +771,10 @@
                                 android:background="@null"
                                 android:fontFamily="@font/roboto_regular"
                                 android:hint="@string/colour"
-                                android:maxLength="18"
                                 android:inputType="textCapCharacters"
-                                android:textAllCaps="true"
+                                android:maxLength="18"
                                 android:paddingStart="@dimen/margin_5"
+                                android:textAllCaps="true"
                                 android:textColor="@color/black"
                                 android:textColorHint="@color/lightGrayColor"
                                 android:textSize="@dimen/text_14" />
@@ -786,8 +917,8 @@
                                         android:fontFamily="@font/roboto_regular"
                                         android:gravity="center"
                                         android:hint="@string/mrp"
-                                        android:maxLength="5"
                                         android:inputType="number"
+                                        android:maxLength="5"
                                         android:textColor="@color/black"
                                         android:textColorHint="@color/lightGrayColor"
                                         android:textSize="@dimen/text_14" />
@@ -838,8 +969,8 @@
                                         android:background="@null"
                                         android:fontFamily="@font/roboto_regular"
                                         android:gravity="center"
-                                        android:inputType="number"
                                         android:hint="@string/discount"
+                                        android:inputType="number"
                                         android:textColor="@color/black"
                                         android:textColorHint="@color/lightGrayColor"
                                         android:textSize="@dimen/text_14" />
@@ -891,9 +1022,9 @@
                                         android:focusable="false"
                                         android:fontFamily="@font/roboto_regular"
                                         android:gravity="center"
-                                        android:maxLength="5"
-                                        android:inputType="number"
                                         android:hint="@string/sale"
+                                        android:inputType="number"
+                                        android:maxLength="5"
                                         android:textColor="@color/black"
                                         android:textColorHint="@color/lightGrayColor"
                                         android:textSize="@dimen/text_14" />

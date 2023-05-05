@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:tools="http://schemas.android.com/tools"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -174,7 +174,7 @@
                         android:layout_marginHorizontal="@dimen/margin_10"
                         android:fontFamily="@font/roboto_regular"
                         android:gravity="center"
-                        android:text="@string/shop_lat_long"
+                        android:text="@string/shop_address"
                         android:textColor="@color/black"
                         android:textSize="@dimen/text_15" />
 
@@ -228,7 +228,7 @@
                         android:layout_marginHorizontal="@dimen/margin_10"
                         android:fontFamily="@font/roboto_regular"
                         android:gravity="center"
-                        android:text="@string/shop_address"
+                        android:text="@string/shop_address_for_sign_board"
                         android:textColor="@color/black"
                         android:textSize="@dimen/text_15" />
 
@@ -256,11 +256,10 @@
                                 android:layout_height="match_parent"
                                 android:layout_marginHorizontal="@dimen/margin_5"
                                 android:background="@null"
-                                android:editable="false"
                                 android:focusable="true"
                                 android:fontFamily="@font/roboto_regular"
                                 android:gravity="top"
-                                android:hint="@string/enter_shop_address"
+                                android:hint="@string/enter_shop_address_for_sign_board"
                                 android:inputType="textCapCharacters|textMultiLine"
                                 android:paddingStart="@dimen/margin_5"
                                 android:textAllCaps="false"
@@ -473,6 +472,60 @@
                                 android:fontFamily="@font/roboto_regular"
                                 android:gravity="center_vertical"
                                 android:hint="@string/enter_mobile_number"
+                                android:inputType="number"
+                                android:maxLength="10"
+                                android:paddingStart="@dimen/margin_5"
+                                android:textColor="@color/black"
+                                android:textColorHint="@color/lightGrayColor"
+                                android:textSize="@dimen/text_14" />
+                        </LinearLayout>
+                    </androidx.cardview.widget.CardView>
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/margin_13"
+                    android:layout_marginTop="@dimen/margin_10"
+                    android:orientation="vertical">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/margin_10"
+                        android:fontFamily="@font/roboto_regular"
+                        android:gravity="center"
+                        android:text="@string/search_tag"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/text_15" />
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/margin_5"
+                        android:layout_marginTop="@dimen/margin_7"
+                        android:layout_marginBottom="@dimen/margin_5"
+                        app:cardCornerRadius="@dimen/margin_20"
+                        app:cardElevation="@dimen/margin_5">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="@dimen/margin_5"
+                            android:layout_marginVertical="@dimen/margin_6"
+                            android:gravity="center"
+                            android:orientation="horizontal"
+                            app:layout_gravity="center">
+
+                            <androidx.appcompat.widget.AppCompatEditText
+                                android:id="@+id/edt_search_tag"
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/margin_35"
+                                android:layout_marginHorizontal="@dimen/margin_5"
+                                android:background="@null"
+                                android:fontFamily="@font/roboto_regular"
+                                android:gravity="center_vertical"
+                                android:hint="@string/enter_search_tag"
                                 android:inputType="number"
                                 android:maxLength="10"
                                 android:paddingStart="@dimen/margin_5"
