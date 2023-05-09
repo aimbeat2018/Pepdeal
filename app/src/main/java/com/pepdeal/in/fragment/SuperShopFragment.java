@@ -241,9 +241,9 @@ public class SuperShopFragment extends Fragment {
                         }*/
                 if (!model.getFontStyleId().equals("") || !model.getFontStyleId().equals("0"))
                     layoutBinding.txtName.setTypeface(typeface);
-                layoutBinding.txtAddress.setText(model.getCity() + ", " + model.getState());
+//                layoutBinding.txtAddress.setText(model.getCity() + ", " + model.getState());
 
-                layoutBinding.txtAddress.setText(model.getShopAddress());
+                layoutBinding.txtAddress.setText(model.getShopAddress2());
                 layoutBinding.txtMobile.setText(model.getShopMobileNo());
 
                 layoutBinding.lnrBack.setBackgroundColor(Color.parseColor(model.getBgColorName()));

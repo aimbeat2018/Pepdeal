@@ -57,6 +57,7 @@ import com.pepdeal.in.model.requestModel.AddBackgroundColorResponseModel;
 import com.pepdeal.in.model.requestModel.AddProductCategoryResponseModel;
 import com.pepdeal.in.model.requestModel.AddProductListRequestModel;
 import com.pepdeal.in.model.requestModel.AddShopFontResponseModel;
+import com.pepdeal.in.model.requestModel.SubCategoryModel;
 import com.pepdeal.in.model.requestModel.UserProfileRequestModel;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
@@ -94,8 +95,9 @@ public class AddProductActivity extends AppCompatActivity {
     ActivityAddProductBinding binding;
     public static final int PERMISSIONS_MULTIPLE_REQUEST = 123;
     ArrayList<AddProductCategoryResponseModel> productCategoryModelList = new ArrayList<>();
+    ArrayList<SubCategoryModel> subCategoryModelArrayList = new ArrayList<>();
     ArrayList<AddProductCategoryResponseModel> productBrandModelList = new ArrayList<>();
-    String categoryId = "", brandId = "";
+    String categoryId = "", brandId = "", subCategoryId = "";
     ProgressDialog dialog;
     File directory;
     String tempImageName = "";
@@ -460,6 +462,23 @@ public class AddProductActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
                 categoryId = productCategoryModelList.get(i).getCategoryId();
+                if (categoryId.equals(""))
+                    Toast.makeText(AddProductActivity.this, "Select Category", Toast.LENGTH_SHORT).show();
+                else
+                    subCategoryList(categoryId);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+        binding.spinproductsubcategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+                subCategoryId = subCategoryModelArrayList.get(i).getSubCategoryId();
+
             }
 
             @Override
@@ -512,6 +531,73 @@ public class AddProductActivity extends AppCompatActivity {
                         }
                     }
                     setCategory(productCategoryModelList, binding.spinproductcategory);
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<ResponseBody> call, @NonNull Throwable error) {
+                // binding.recProductlist.hideShimmer();
+                error.printStackTrace();
+                if (error instanceof HttpException) {
+                    switch (((HttpException) error).code()) {
+                        case HttpsURLConnection.HTTP_UNAUTHORIZED:
+                            Toast.makeText(AddProductActivity.this, getString(R.string.unauthorised_user), Toast.LENGTH_SHORT).show();
+                            break;
+                        case HttpsURLConnection.HTTP_FORBIDDEN:
+                            Toast.makeText(AddProductActivity.this, getString(R.string.forbidden), Toast.LENGTH_SHORT).show();
+                            break;
+                        case HttpsURLConnection.HTTP_INTERNAL_ERROR:
+                            Toast.makeText(AddProductActivity.this, getString(R.string.internal_server_error), Toast.LENGTH_SHORT).show();
+                            break;
+                        case HttpsURLConnection.HTTP_BAD_REQUEST:
+                            Toast.makeText(AddProductActivity.this, getString(R.string.bad_request), Toast.LENGTH_SHORT).show();
+                            break;
+                        default:
+                            Toast.makeText(AddProductActivity.this, error.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    Toast.makeText(AddProductActivity.this, getString(R.string.something_went_wrong), Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+
+    }
+
+    private void subCategoryList(String categoryId) {
+        UserProfileRequestModel model = new UserProfileRequestModel();
+        model.setCategory_id(categoryId);
+
+        ApiInterface client = ApiClient.createService(ApiInterface.class, "", "");
+        client.subCategoryList(categoryId).enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
+                try {
+                    JSONObject jsonObject = new JSONObject(response.body().string());
+                    subCategoryModelArrayList = new ArrayList<>();
+                    SubCategoryModel model1 = new SubCategoryModel();
+
+                    model1.setSubCategoryId("");
+                    model1.setSubCategoryName("Select Sub Category");
+                    subCategoryModelArrayList.add(model1);
+
+                    JSONArray jsonArray = jsonObject.getJSONArray("data");
+                    if (jsonArray.length() > 0) {
+                        for (int i = 0; i < jsonArray.length(); i++) {
+                            JSONObject jsonObject1 = jsonArray.getJSONObject(i);
+
+                            SubCategoryModel model = new SubCategoryModel();
+
+                            model.setSubCategoryId(jsonObject1.getString("sub_category_id"));
+                            model.setSubCategoryName(jsonObject1.getString("sub_category_name"));
+
+                            subCategoryModelArrayList.add(model);
+                        }
+                    }
+                    setSubCategory(subCategoryModelArrayList, binding.spinproductsubcategory);
 
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -728,6 +814,8 @@ public class AddProductActivity extends AppCompatActivity {
                 RequestBody.create(MediaType.parse("text/plain"), Objects.requireNonNull(binding.edtBrandName.getText()).toString());
         RequestBody category_id =
                 RequestBody.create(MediaType.parse("text/plain"), categoryId);
+        RequestBody sub_category_id =
+                RequestBody.create(MediaType.parse("text/plain"), subCategoryId);
         RequestBody description =
                 RequestBody.create(MediaType.parse("text/plain"), Objects.requireNonNull(binding.edtdescription.getText()).toString());
         RequestBody description2 =
@@ -752,7 +840,7 @@ public class AddProductActivity extends AppCompatActivity {
                 RequestBody.create(MediaType.parse("text/plain"), is_active);
 
         ApiInterface client = ApiClient.createService(ApiInterface.class, "", "");
-        client.addproduct(product_name, brand_id, category_id, description, description2, specification, warranty, size_id, color, search_tags, mrp,
+        client.addproduct(product_name, brand_id, category_id, sub_category_id, description, description2, specification, warranty, size_id, color, search_tags, mrp,
                 discount_mrp, selling_price, user_id, shop_id, isActive, list).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
@@ -1119,6 +1207,72 @@ public class AddProductActivity extends AppCompatActivity {
                 TextView font_name = (TextView) v.findViewById(R.id.fontname);
 
                 font_name.setText(arrayList.get(position).getCategoryName());
+
+
+//                image.setImageResource(paymentModeArrayList.get(position).getImage());
+
+                switch (position) {
+                    case 0:
+                        font_name.setTextColor(Color.GRAY);
+                        break;
+                    default:
+                        font_name.setTextColor(Color.BLACK);
+                        break;
+                }
+                return v;
+            }
+        };
+        spinnershopfont.setAdapter(modelArrayAdapter);
+        modelArrayAdapter.notifyDataSetChanged();
+
+
+    }
+
+    private void setSubCategory(ArrayList<SubCategoryModel> arrayList, AppCompatSpinner spinnershopfont) {
+
+        ArrayAdapter<SubCategoryModel> modelArrayAdapter = new ArrayAdapter<SubCategoryModel>(AddProductActivity.this,
+                R.layout.custom_spinner_shopfont, arrayList) {
+
+            @Override
+            public View getView(int position, View convertView, ViewGroup parent) {
+                View v = convertView;
+                if (v == null) {
+                    Context mContext = this.getContext();
+                    LayoutInflater vi = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                    v = vi.inflate(R.layout.custom_spinner_shopfont, null);
+                }
+
+                TextView font_name = (TextView) v.findViewById(R.id.fontname);
+                //  colorid.setText(backgroundcolorModelList.get(position).getIsActive());
+                font_name.setText(arrayList.get(position).getSubCategoryName());
+                //font_name.setBackgroundColor(Color.parseColor(shopFontModelList.get(position).getBgColorName()));
+
+
+//                image.setImageResource(paymentModeArrayList.get(position).getImage());
+
+                switch (position) {
+                    case 0:
+                        font_name.setTextColor(Color.GRAY);
+                        break;
+                    default:
+                        font_name.setTextColor(Color.BLACK);
+                        break;
+                }
+                return v;
+            }
+
+            @Override
+            public View getDropDownView(int position, View convertView, ViewGroup parent) {
+                View v = convertView;
+                if (v == null) {
+                    Context mContext = this.getContext();
+                    LayoutInflater vi = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                    v = vi.inflate(R.layout.custom_spinner_shopfont1, null);
+                }
+
+                TextView font_name = (TextView) v.findViewById(R.id.fontname);
+
+                font_name.setText(arrayList.get(position).getSubCategoryName());
 
 
 //                image.setImageResource(paymentModeArrayList.get(position).getImage());

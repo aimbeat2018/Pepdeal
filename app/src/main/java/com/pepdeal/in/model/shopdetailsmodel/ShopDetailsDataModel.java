@@ -16,6 +16,9 @@ public class ShopDetailsDataModel {
     @SerializedName("shop_address")
     @Expose
     private String shopAddress;
+    @SerializedName("shop_address2")
+    @Expose
+    private String shopAddress2;
     @SerializedName("bgcolor_name")
     @Expose
     private String bgcolorName;
@@ -201,5 +204,13 @@ public class ShopDetailsDataModel {
 
     public void setFontColorId(String fontColorId) {
         this.fontColorId = fontColorId;
+    }
+
+    public String getShopAddress2() {
+        return shopAddress2;
+    }
+
+    public void setShopAddress2(String shopAddress2) {
+        this.shopAddress2 = shopAddress2;
     }
 }

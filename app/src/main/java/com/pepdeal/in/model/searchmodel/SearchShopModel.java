@@ -16,6 +16,9 @@ public class SearchShopModel {
     @SerializedName("shop_address")
     @Expose
     private String shopAddress;
+    @SerializedName("shop_address2")
+    @Expose
+    private String shopAddress2;
     @SerializedName("shop_statusId")
     @Expose
     private String shopStatusId;
@@ -157,5 +160,13 @@ public class SearchShopModel {
 
     public void setState(String state) {
         this.state = state;
+    }
+
+    public String getShopAddress2() {
+        return shopAddress2;
+    }
+
+    public void setShopAddress2(String shopAddress2) {
+        this.shopAddress2 = shopAddress2;
     }
 }

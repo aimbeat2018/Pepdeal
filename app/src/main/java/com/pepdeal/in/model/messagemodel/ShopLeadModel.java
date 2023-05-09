@@ -34,6 +34,9 @@ public class ShopLeadModel {
     @SerializedName("shop_address")
     @Expose
     private String shopAddress;
+    @SerializedName("shop_address2")
+    @Expose
+    private String shopAddress2;
     @SerializedName("shop_description")
     @Expose
     private String shopDescription;
@@ -146,5 +149,13 @@ public class ShopLeadModel {
 
     public void setStateName(String stateName) {
         this.stateName = stateName;
+    }
+
+    public String getShopAddress2() {
+        return shopAddress2;
+    }
+
+    public void setShopAddress2(String shopAddress2) {
+        this.shopAddress2 = shopAddress2;
     }
 }

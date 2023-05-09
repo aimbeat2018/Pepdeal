@@ -355,7 +355,7 @@ public class SearchActivity extends AppCompatActivity {
                 if (!model.getFontStyleId().equals("") || !model.getFontStyleId().equals("0")) {
                     layoutBinding.txtName.setTypeface(typeface);
                 }
-                String address = model.getShopAddress();
+                String address = model.getShopAddress2();
                 layoutBinding.txtAddress.setText(address);
                 layoutBinding.txtMobile.setText(model.getShopMobileNo());
 

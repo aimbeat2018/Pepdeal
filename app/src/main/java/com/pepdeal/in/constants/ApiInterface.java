@@ -23,6 +23,8 @@ import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
@@ -76,6 +78,10 @@ public interface ApiInterface {
 
     @POST("categoryList")
     Call<ResponseBody> categoryList(@Body UserProfileRequestModel model);
+
+    @FormUrlEncoded
+    @POST("subCategoryList")
+    Call<ResponseBody> subCategoryList(@Field("category_id") String category_id);
 
     @POST("shopMsgForUser")
     Call<ResponseBody> shopMsgForUser(@Body UserProfileRequestModel model);
@@ -160,6 +166,7 @@ public interface ApiInterface {
     Call<ResponseBody> addproduct(@Part("product_name") RequestBody product_name,
                                   @Part("brand_id") RequestBody brand_id,
                                   @Part("category_id") RequestBody category_id,
+                                  @Part("sub_category_id") RequestBody sub_category_id,
                                   @Part("description") RequestBody description,
                                   @Part("description2") RequestBody description2,
                                   @Part("specification") RequestBody specification,

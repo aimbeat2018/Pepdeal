@@ -337,7 +337,7 @@ public class HomeFragment extends Fragment {
                         layoutBinding.txtName.setTypeface(typeface);
                     }
                     String address = model.getCity() + ", " + model.getState();
-                    layoutBinding.txtAddress.setText(model.getShopAddress());
+                    layoutBinding.txtAddress.setText(model.getShopAddress2());
                     layoutBinding.txtMobile.setText(model.getShopMobileNo());
 
                     try {

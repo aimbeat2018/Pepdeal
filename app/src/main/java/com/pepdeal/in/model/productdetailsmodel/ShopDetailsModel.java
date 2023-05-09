@@ -13,6 +13,9 @@ public class ShopDetailsModel {
     @SerializedName("shop_address")
     @Expose
     private String shopAddress;
+    @SerializedName("shop_address2")
+    @Expose
+    private String shopAddress2;
     @SerializedName("shop_description")
     @Expose
     private String shopDescription;
@@ -201,5 +204,13 @@ public class ShopDetailsModel {
 
     public void setSuperShopTatus(String superShopTatus) {
         this.superShopTatus = superShopTatus;
+    }
+
+    public String getShopAddress2() {
+        return shopAddress2;
+    }
+
+    public void setShopAddress2(String shopAddress2) {
+        this.shopAddress2 = shopAddress2;
     }
 }

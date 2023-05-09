@@ -20,6 +20,9 @@ public class SuperShopDataModel {
     @SerializedName("shop_address")
     @Expose
     private String shopAddress;
+    @SerializedName("shop_address2")
+    @Expose
+    private String shopAddress2;
     @SerializedName("shop_mobile_no")
     @Expose
     private String shopMobileNo;
@@ -192,5 +195,13 @@ public class SuperShopDataModel {
 
     public void setFontStyleName(String fontStyleName) {
         this.fontStyleName = fontStyleName;
+    }
+
+    public String getShopAddress2() {
+        return shopAddress2;
+    }
+
+    public void setShopAddress2(String shopAddress2) {
+        this.shopAddress2 = shopAddress2;
     }
 }

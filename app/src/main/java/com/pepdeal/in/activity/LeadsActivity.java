@@ -380,7 +380,7 @@ public class LeadsActivity extends AppCompatActivity {
                 try {
                     Date date = simpleDateFormat.parse(model.getCreated());
                     String dateFormatted = formatted.format(date);
-                    layoutBinding.txtDate.setText(model.getShopAddress() + "-" + dateFormatted);
+                    layoutBinding.txtDate.setText(model.getShopAddress2() + "-" + dateFormatted);
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }

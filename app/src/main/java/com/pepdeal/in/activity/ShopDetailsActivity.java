@@ -208,7 +208,7 @@ public class ShopDetailsActivity extends AppCompatActivity {
 //                        binding.txtAddress.setText(shopDetailsDataModel.getShopAddress() + "," +
 //                                shopDetailsDataModel.getCity() + "," + shopDetailsDataModel.getState());
 
-                        binding.txtAddress.setText(shopDetailsDataModel.getShopAddress());
+                        binding.txtAddress.setText(shopDetailsDataModel.getShopAddress2());
                         binding.txtMobile.setText(shopDetailsDataModel.getShopMobileNo());
 
                         binding.lnrBack.setBackgroundColor(Color.parseColor(shopDetailsDataModel.getBgcolorName()));

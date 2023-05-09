@@ -415,7 +415,7 @@ public class ShopSignBoardActivity extends AppCompatActivity {
 
                         binding.txtName.setText(shopDetailsDataModel.getShopName());
 
-                        binding.txtAddress.setText(shopDetailsDataModel.getShopAddress());
+                        binding.txtAddress.setText(shopDetailsDataModel.getShopAddress2());
                         binding.txtMobile.setText(shopDetailsDataModel.getShopMobileNo());
 
                         binding.lnrBack.setBackgroundColor(Color.parseColor(shopDetailsDataModel.getBgcolorName()));
