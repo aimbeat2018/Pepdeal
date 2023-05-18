@@ -351,46 +351,99 @@ public class SelectCurrentLocationActivity extends AppCompatActivity
             onBackPressed();
         }
     }
+
     void getDeviceLocation() {
         /*
          * Get the best and most recent location of the device, which may be null in rare
          * cases when a location is not available.
          */
         try {
-                Task<Location> locationResult = mFusedLocationProviderClient.getLastLocation();
-                locationResult.addOnCompleteListener(this, task -> {
+            Task<Location> locationResult = mFusedLocationProviderClient.getLastLocation();
+            locationResult.addOnCompleteListener(this, task -> {
 //                        if (RIDE_REQUEST.get("s_address").equals("")) {
-                    if (task.isSuccessful() && task.getResult() != null) {
-                        // Set the map's camera position to the current location of the device.
-                        mLastKnownLocation=task.getResult();
-                        String s_address = getAddress(new LatLng(mLastKnownLocation.getLatitude(), mLastKnownLocation.getLongitude()));
-                        Intent intent = new Intent();
-                        intent.putExtra("d_address", s_address);
-                        String lati= String.valueOf(mLastKnownLocation.getLatitude());
-                        String longi= String.valueOf(mLastKnownLocation.getLongitude());
-                        intent.putExtra("lat", lati);
-                        intent.putExtra("long",longi);
-                        setResult(Activity.RESULT_OK, intent);
-                        finish();
-                    } else {
-                        Log.d("Map", "Current location is null. Using defaults.");
-                        Log.e("Map", "Exception: %s", task.getException());
+                if (task.isSuccessful() && task.getResult() != null) {
+                    // Set the map's camera position to the current location of the device.
+                    mLastKnownLocation = task.getResult();
+                    String s_address = getAddress(new LatLng(mLastKnownLocation.getLatitude(), mLastKnownLocation.getLongitude()));
+                    String state = getState(new LatLng(mLastKnownLocation.getLatitude(), mLastKnownLocation.getLongitude()));
+                    String city = getCity(new LatLng(mLastKnownLocation.getLatitude(), mLastKnownLocation.getLongitude()));
+                    String area = getArea(new LatLng(mLastKnownLocation.getLatitude(), mLastKnownLocation.getLongitude()));
+                    Intent intent = new Intent();
+                    intent.putExtra("d_address", s_address);
+                    intent.putExtra("state", state);
+                    intent.putExtra("city", city);
+                    intent.putExtra("area", area);
+                    String lati = String.valueOf(mLastKnownLocation.getLatitude());
+                    String longi = String.valueOf(mLastKnownLocation.getLongitude());
+                    intent.putExtra("lat", lati);
+                    intent.putExtra("long", longi);
+                    setResult(Activity.RESULT_OK, intent);
+                    finish();
+                } else {
+                    Log.d("Map", "Current location is null. Using defaults.");
+                    Log.e("Map", "Exception: %s", task.getException());
 
-                    }
+                }
 
-                });
+            });
 
         } catch (
                 SecurityException e) {
             Log.e("Exception: %s", e.getMessage());
         }
     }
+
     public String getAddress(LatLng currentLocation) {
         try {
             Geocoder geocoder = new Geocoder(this, Locale.US);
             List<Address> addresses = geocoder.getFromLocation(currentLocation.latitude, currentLocation.longitude, 1);
             if ((addresses != null) && !addresses.isEmpty()) {
                 return addresses.get(0).getAddressLine(0);
+            } else {
+                return null;
+            }
+        } catch (Exception e) {
+            Log.e("MAP", "getAddress: " + e);
+            return null;
+        }
+    }
+
+    public String getState(LatLng currentLocation) {
+        try {
+            Geocoder geocoder = new Geocoder(this, Locale.US);
+            List<Address> addresses = geocoder.getFromLocation(currentLocation.latitude, currentLocation.longitude, 1);
+            if ((addresses != null) && !addresses.isEmpty()) {
+                return addresses.get(0).getAdminArea();
+            } else {
+                return null;
+            }
+        } catch (Exception e) {
+            Log.e("MAP", "getAddress: " + e);
+            return null;
+        }
+    }
+
+    public String getCity(LatLng currentLocation) {
+        try {
+            Geocoder geocoder = new Geocoder(this, Locale.US);
+            List<Address> addresses = geocoder.getFromLocation(currentLocation.latitude, currentLocation.longitude, 1);
+            if ((addresses != null) && !addresses.isEmpty()) {
+                return addresses.get(0).getLocality();
+            } else {
+                return null;
+            }
+        } catch (Exception e) {
+            Log.e("MAP", "getAddress: " + e);
+            return null;
+        }
+    }
+
+    public String getArea(LatLng currentLocation) {
+        try {
+            Geocoder geocoder = new Geocoder(this, Locale.US);
+            List<Address> addresses = geocoder.getFromLocation(currentLocation.latitude, currentLocation.longitude, 1);
+            if ((addresses != null) && !addresses.isEmpty()) {
+                return addresses.get(0).getSubLocality();
             } else {
                 return null;
             }

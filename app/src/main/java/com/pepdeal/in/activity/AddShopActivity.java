@@ -340,7 +340,7 @@ public class AddShopActivity extends AppCompatActivity implements
         AddShopRequestModel model = new AddShopRequestModel();
         model.setUserId(SharedPref.getVal(AddShopActivity.this, SharedPref.user_id));
         model.setShopName(Objects.requireNonNull(binding.edtShopName.getText()).toString());
-        model.setShopAddress(Objects.requireNonNull(binding.edtShopAddress.getText()).toString());
+        model.setShopAddress(Objects.requireNonNull(binding.edtShopLatLong.getText()).toString());
         model.setShopMobileNo(Objects.requireNonNull(binding.edtMobileNumber.getText()).toString());
         model.setShopDescription(Objects.requireNonNull(binding.edtAbout.getText()).toString());
         model.setShopArea(Objects.requireNonNull(binding.edtShopArea.getText()).toString());
@@ -352,7 +352,7 @@ public class AddShopActivity extends AppCompatActivity implements
         model.setFontSizeId(fontSize);
         model.setFontColorId(fontColor);
         model.setLatitude(String.valueOf(latitude));
-        model.setShopaddress2(Objects.requireNonNull(binding.edtShopLatLong.getText()).toString());
+        model.setShopaddress2(Objects.requireNonNull(binding.edtShopAddress.getText()).toString());
         model.setLongitude(String.valueOf(longitude));
 
         ApiInterface client = ApiClient.createService(ApiInterface.class, "", "");
@@ -1088,6 +1088,12 @@ public class AddShopActivity extends AppCompatActivity implements
                 binding.edtShopLatLong.setText(address);
                 latitude = Double.parseDouble(data.getStringExtra("lat"));
                 longitude = Double.parseDouble(data.getStringExtra("long"));
+                stateName = data.getStringExtra("state");
+                cityName = data.getStringExtra("city");
+                String area = data.getStringExtra("area");
+                binding.edtShopCity.setText(cityName);
+                binding.edtShopState.setText(stateName);
+                binding.edtShopArea.setText(area);
           /*      binding.edtShopAddress.setText(address);
 
                 stateName = data.getStringExtra("state");

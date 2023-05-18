@@ -158,7 +158,7 @@ public class HomeActivity extends AppCompatActivity implements LocationListener/
         });
         binding.ivSearch.setOnClickListener(view -> {
             onSearchbutton();
-        //    startActivity(new Intent(HomeActivity.this, SearchActivity.class));
+            //    startActivity(new Intent(HomeActivity.this, SearchActivity.class));
 //            binding.drawerLayout.closeDrawers();
 
         });
@@ -177,9 +177,9 @@ public class HomeActivity extends AppCompatActivity implements LocationListener/
                 // The dialog is automatically dismissed when a dialog button is clicked.
                 .setPositiveButton(R.string.search_by_shop, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                        seacrh_By="shop";
+                        seacrh_By = "shop";
                         Intent intent = new Intent(HomeActivity.this, SearchActivity.class);
-                       // intent.putExtra("key", binding.searchView.getText().toString());
+                        // intent.putExtra("key", binding.searchView.getText().toString());
                         intent.putExtra("searchby", seacrh_By);
                         startActivity(intent);
                     }
@@ -189,9 +189,9 @@ public class HomeActivity extends AppCompatActivity implements LocationListener/
                 .setNegativeButton(R.string.search_by_product, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        seacrh_By="product";
+                        seacrh_By = "product";
                         Intent intent = new Intent(HomeActivity.this, SearchActivity.class);
-                    //    intent.putExtra("key", binding.searchView.getText().toString());
+                        //    intent.putExtra("key", binding.searchView.getText().toString());
                         intent.putExtra("searchby", seacrh_By);
                         startActivity(intent);
                     }
@@ -387,7 +387,6 @@ public class HomeActivity extends AppCompatActivity implements LocationListener/
         }
 
 
-
         public void onLogout(View view) {
             new AlertDialog.Builder(HomeActivity.this)
                     .setTitle("Logout")
@@ -434,9 +433,9 @@ public class HomeActivity extends AppCompatActivity implements LocationListener/
             } else {
 //                Toast.makeText(HomeActivity.this, "Shop already Added", Toast.LENGTH_SHORT).show();
                 if (shopStatus.equals("0")) {
-                    startActivity(new Intent(HomeActivity.this, AddShopActivity.class));
+//                    startActivity(new Intent(HomeActivity.this, AddShopActivity.class));
 
-                    //     startActivity(new Intent(HomeActivity.this, ShopDetailsActivity.class).putExtra("shop_id", shop_id));
+                    startActivity(new Intent(HomeActivity.this, ShopDetailsActivity.class).putExtra("shop_id", shop_id));
                 } else {
                     new AlertDialog.Builder(HomeActivity.this)
                             .setTitle("Alert!!!")
@@ -513,7 +512,7 @@ public class HomeActivity extends AppCompatActivity implements LocationListener/
         public void onHomeClick(View view) {
             pos = 1;
             loadFragment(new HomeFragment());
-            binding.nestedScroll.fullScroll(View.FOCUS_UP);
+//            binding.nestedScroll.fullScroll(View.FOCUS_UP);
         }
 
         public void onTicketClick(View view) {
@@ -637,8 +636,7 @@ public class HomeActivity extends AppCompatActivity implements LocationListener/
                                 binding.includeLayout.txtNewMessage.setVisibility(View.VISIBLE);
                             }
                         }
-                    }
-                    else {
+                    } else {
                         binding.includeLayout.txtNewMessage.setVisibility(View.GONE);
                     }
                 } catch (
@@ -766,7 +764,7 @@ public class HomeActivity extends AppCompatActivity implements LocationListener/
                     if (position == 0) {
                         pos = 1;
                         loadFragment(new HomeFragment());
-                        binding.nestedScroll.fullScroll(View.FOCUS_UP);
+//                        binding.nestedScroll.fullScroll(View.FOCUS_UP);
                     } else if (position == 1) {
                         pos = 2;
                         loadFragment(new TicketFragment());

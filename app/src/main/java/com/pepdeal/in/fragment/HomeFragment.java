@@ -26,6 +26,7 @@ import androidx.annotation.RequiresApi;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
+import androidx.core.widget.NestedScrollView;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -104,11 +105,13 @@ public class HomeFragment extends Fragment {
     List<HomeShopDataModel> homeShopDataModelList = new ArrayList<>();
     List<String> bannerList = new ArrayList<>();
     ProgressDialog dialog;
+    private int start = 1;
+    private int lastPosition = 0;
+
    /* public HomeFragment(Activity activity) {
         // Required empty public constructor
         this.activity = activity;
     }*/
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -127,11 +130,13 @@ public class HomeFragment extends Fragment {
                 getResources().getColor(R.color.orange));*/
 
         if (Utils.isNetwork(activity)) {
-            getHomeData();
+            getHomeData(false);
         } else {
             binding.lnrMainLayout.setVisibility(View.GONE);
             Utils.InternetAlertDialog(activity, getString(R.string.no_internet_title), getString(R.string.no_internet_desc));
         }
+
+        initLister();
 
        /* binding.swipeRefresh.setOnRefreshListener(() -> {
             if (Utils.isNetwork(activity)) {
@@ -165,12 +170,43 @@ public class HomeFragment extends Fragment {
             dialog.dismiss();
     }
 
-    private void getHomeData() {
-        showShimmer();
+    private void initLister() {
+
+        binding.swipeRefresh.setOnRefreshListener((refreshLayout) -> {
+            getHomeData(false);
+        });
+        binding.swipeRefresh.setOnLoadMoreListener(refreshLayout -> {
+            getHomeData(true);
+        });
+
+        binding.nestedScroll.setOnScrollChangeListener((NestedScrollView.OnScrollChangeListener) (v, scrollX, scrollY, oldScrollX, oldScrollY) -> {
+//
+            if (v.getChildAt(v.getChildCount() - 1) != null) {
+                if ((scrollY >= (v.getChildAt(v.getChildCount() - 1).getMeasuredHeight() - v.getMeasuredHeight())) &&
+                        scrollY > oldScrollY) {
+                    binding.swipeRefresh.setEnableLoadMore(true);
+                    getHomeData(true);
+                }
+            }
+        });
+    }
+
+    private void getHomeData(boolean isLoadMore) {
+
+        if (isLoadMore) {
+            start = start + 10;
+            lastPosition = homeShopDataModelList.size();
+        } else {
+            showShimmer();
+            start = 1;
+            homeShopDataModelList = new ArrayList<>();
+
+        }
         UserProfileRequestModel model = new UserProfileRequestModel();
         model.setUserId(SharedPref.getVal(activity, SharedPref.user_id));
         model.setLatitude(String.valueOf(HomeActivity.latitude));
         model.setLongitude(String.valueOf(HomeActivity.longitude));
+        model.setPage(String.valueOf(start));
 
         ApiInterface client = ApiClient.createService(ApiInterface.class, "", "");
         client.homePage(model).enqueue(new Callback<ResponseBody>() {
@@ -210,12 +246,18 @@ public class HomeFragment extends Fragment {
                             binding.recList.setLayoutManager(new LinearLayoutManager(activity));
                             binding.recList.setAdapter(new ShopAdapter());
 
+                            binding.recList.scrollToPosition(lastPosition);
+
 //                            binding.lnrMainLayout.setVisibility(View.VISIBLE);
 //                            binding.lnrNoData.setVisibility(View.GONE);
                         } else {
 //                            binding.lnrMainLayout.setVisibility(View.GONE);
 //                            binding.lnrNoData.setVisibility(View.VISIBLE);
                         }
+
+                        binding.swipeRefresh.finishRefresh();
+                        binding.swipeRefresh.finishLoadMore();
+
                     } else {
 //                        binding.lnrMainLayout.setVisibility(View.GONE);
 //                        binding.lnrNoData.setVisibility(View.VISIBLE);
@@ -288,9 +330,14 @@ public class HomeFragment extends Fragment {
 
             public void bind(HomeShopDataModel model, int position) {
                 if (model.getFlag().equals("1")) {
-                    layoutBinding.lnrShopData.setVisibility(View.GONE);
-                    layoutBinding.imgBanner.setVisibility(View.VISIBLE);
-                    Glide.with(activity).load(model.getAdvertiseImage()).error(R.drawable.loader).placeholder(R.drawable.loader).into(layoutBinding.imgBanner);
+                    if (model.getAdvertiseImage().equals("")) {
+                        layoutBinding.lnrShopData.setVisibility(View.GONE);
+                        layoutBinding.imgBanner.setVisibility(View.GONE);
+                    } else {
+                        layoutBinding.lnrShopData.setVisibility(View.GONE);
+                        layoutBinding.imgBanner.setVisibility(View.VISIBLE);
+                        Glide.with(activity).load(model.getAdvertiseImage()).error(R.drawable.loader).placeholder(R.drawable.loader).into(layoutBinding.imgBanner);
+                    }
                 } else {
                     layoutBinding.lnrShopData.setVisibility(View.VISIBLE);
                     layoutBinding.imgBanner.setVisibility(View.GONE);
@@ -410,7 +457,7 @@ public class HomeFragment extends Fragment {
                                 Toast.makeText(activity, "Shop added in super shop", Toast.LENGTH_SHORT).show();
                                 layoutBinding.imgSuperShop.setImageDrawable(getResources().getDrawable(R.drawable.ic_fav_selected));
 //                                binding.txtFav.setText("Remove Favourite");
-                                getHomeData();
+                                getHomeData(false);
                             } else {
                                 Toast.makeText(activity, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
                             }
@@ -464,7 +511,7 @@ public class HomeFragment extends Fragment {
                             if (code.equals("200")) {
                                 Toast.makeText(activity, "Shop Removed from Super shop", Toast.LENGTH_SHORT).show();
                                 layoutBinding.imgSuperShop.setImageDrawable(getResources().getDrawable(R.drawable.ic_add_super_shop));
-                                getHomeData();
+                                getHomeData(false);
 
                             } else {
                                 Toast.makeText(activity, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
@@ -938,6 +985,5 @@ public class HomeFragment extends Fragment {
             }
         }
     }
-
 
 }

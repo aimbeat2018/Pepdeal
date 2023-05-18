@@ -53,6 +53,9 @@ public class UserProfileRequestModel {
     @SerializedName("category_id")
     @Expose
     private String category_id;
+    @SerializedName("page")
+    @Expose
+    private String page;
 
     public String getSearch_key() {
         return search_key;
@@ -180,5 +183,13 @@ public class UserProfileRequestModel {
 
     public void setCategory_id(String category_id) {
         this.category_id = category_id;
+    }
+
+    public String getPage() {
+        return page;
+    }
+
+    public void setPage(String page) {
+        this.page = page;
     }
 }
