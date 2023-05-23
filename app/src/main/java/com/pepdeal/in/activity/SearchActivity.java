@@ -63,7 +63,7 @@ public class SearchActivity extends AppCompatActivity {
 
     ActivitySearchBinding binding;
     String key = "";
-    String search_by;
+    String search_by="";
     ProgressDialog dialog;
     List<SearchShopModel> searchShopModelArrayList = new ArrayList<>();
     List<SearchProductModel> searchProductModelArrayList = new ArrayList<>();
@@ -78,6 +78,13 @@ public class SearchActivity extends AppCompatActivity {
         dialog.setTitle("Loading");
         dialog.setMessage("Please wait...");
         search_by = getIntent().getStringExtra("searchby");
+        if(search_by.equalsIgnoreCase("shop"))
+        {
+            binding.searchView.setText("Enter Shop Name");
+        }
+        else {
+            binding.searchView.setText("Enter Product Name");
+        }
 
       /*  key = getIntent().getStringExtra("key");
         binding.searchView.setText(key);

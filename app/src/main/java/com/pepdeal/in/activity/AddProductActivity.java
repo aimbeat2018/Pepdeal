@@ -1339,9 +1339,12 @@ public class AddProductActivity extends AppCompatActivity {
             if (isclick) {
 //                imgUri = openCameraIntent();
                 ImagePicker.Companion.with(this)
-                        .saveDir(directory)
                         .compress(1024)
                         .start();
+               /* ImagePicker.Companion.with(this)
+                        .saveDir(directory)
+                        .compress(1024)
+                        .start();*/
                 isclick = false;
             } else {
 //                dialog.dismiss();
@@ -1509,9 +1512,12 @@ public class AddProductActivity extends AppCompatActivity {
                         if (isclick) {
 //                            imgUri = openCameraIntent();
                             ImagePicker.Companion.with(this)
-                                    .saveDir(directory)
                                     .compress(1024)
                                     .start();
+                         /*   ImagePicker.Companion.with(this)
+                                    .saveDir(directory)
+                                    .compress(1024)
+                                    .start();*/
                             isclick = false;
                         } else {
 //                            dialog.dismiss();
