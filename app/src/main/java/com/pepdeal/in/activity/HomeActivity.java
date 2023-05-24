@@ -165,6 +165,8 @@ public class HomeActivity extends AppCompatActivity implements LocationListener/
         /*By Default Home fragment load*/
         pos = 1;
         loadFragment(new HomeFragment());
+
+
     }
 
     private void onSearchbutton() {
@@ -506,6 +508,8 @@ public class HomeActivity extends AppCompatActivity implements LocationListener/
             startActivity(new Intent(HomeActivity.this, LegalActivity.class));
             binding.drawerLayout.closeDrawers();
         }
+
+
     }
 
     public class ClickHandler {

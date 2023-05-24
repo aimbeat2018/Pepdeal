@@ -194,7 +194,8 @@ public class HomeFragment extends Fragment {
     private void getHomeData(boolean isLoadMore) {
 
         if (isLoadMore) {
-            start = start + 10;
+            binding.prograssbar.setVisibility(View.VISIBLE);
+            start = start + 15;
             lastPosition = homeShopDataModelList.size();
         } else {
             showShimmer();
@@ -257,12 +258,13 @@ public class HomeFragment extends Fragment {
 
                         binding.swipeRefresh.finishRefresh();
                         binding.swipeRefresh.finishLoadMore();
-
+                        binding.prograssbar.setVisibility(View.GONE);
                     } else {
 //                        binding.lnrMainLayout.setVisibility(View.GONE);
 //                        binding.lnrNoData.setVisibility(View.VISIBLE);
                     }
                 } catch (Exception e) {
+                    binding.prograssbar.setVisibility(View.GONE);
                     e.printStackTrace();
 //                    binding.lnrMainLayout.setVisibility(View.GONE);
 //                    binding.lnrNoData.setVisibility(View.VISIBLE);
@@ -273,6 +275,7 @@ public class HomeFragment extends Fragment {
 
             @Override
             public void onFailure(@NonNull Call<ResponseBody> call, @NonNull Throwable error) {
+                binding.prograssbar.setVisibility(View.GONE);
                 hideShimmer();
                 error.printStackTrace();
                 if (error instanceof HttpException) {

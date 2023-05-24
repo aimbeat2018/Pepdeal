@@ -86,6 +86,9 @@ public class ProductDetailsDataModel implements Serializable {
     @SerializedName("ticket_status")
     @Expose
     private String ticketStatus;
+    @SerializedName("on_call")
+    @Expose
+    private String onCall;
 
     public String getShopId() {
         return shopId;
@@ -293,5 +296,13 @@ public class ProductDetailsDataModel implements Serializable {
 
     public void setTicketStatus(String ticketStatus) {
         this.ticketStatus = ticketStatus;
+    }
+
+    public String getOnCall() {
+        return onCall;
+    }
+
+    public void setOnCall(String onCall) {
+        this.onCall = onCall;
     }
 }

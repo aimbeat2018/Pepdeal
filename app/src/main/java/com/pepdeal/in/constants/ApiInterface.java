@@ -180,6 +180,7 @@ public interface ApiInterface {
                                   @Part("user_id") RequestBody user_id,
                                   @Part("shop_id") RequestBody shop_id,
                                   @Part("isActive") RequestBody isActive,
+                                  @Part("on_call") RequestBody onflag,
                                   @Part List<MultipartBody.Part> productImages);
 
     @Multipart
@@ -202,6 +203,7 @@ public interface ApiInterface {
                                      @Part("user_id") RequestBody user_id,
                                      @Part("shop_id") RequestBody shop_id,
                                      @Part("isActive") RequestBody isActive,
+                                     @Part("on_call") RequestBody onflag,
                                      @Part List<MultipartBody.Part> productImages);
 
     @Multipart

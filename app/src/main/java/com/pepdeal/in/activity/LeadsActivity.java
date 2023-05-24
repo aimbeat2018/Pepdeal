@@ -24,6 +24,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
@@ -507,6 +508,14 @@ public class LeadsActivity extends AppCompatActivity {
                     }
 
                 });
+
+                layoutBinding.cardMsg.setOnLongClickListener(new View.OnLongClickListener() {
+                    @Override
+                    public boolean onLongClick(View view) {
+                        showDeleteDialog(model.getId());
+                        return true;
+                    }
+                });
             }
 
             private void updateStatus(String id, String status, boolean isLoading) {
@@ -567,6 +576,25 @@ public class LeadsActivity extends AppCompatActivity {
                         }
                     }
                 });
+            }
+            private void showDeleteDialog(String id) {
+                Dialog dialog = new Dialog(LeadsActivity.this);
+                dialog.setContentView(R.layout.delete_popup);
+                dialog.setCanceledOnTouchOutside(false);
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+
+
+                Button yes = dialog.findViewById(R.id.yes);
+                Button no = dialog.findViewById(R.id.no);
+
+                yes.setOnClickListener(v -> {
+                    Toast.makeText(getApplicationContext(),"Call API here",Toast.LENGTH_SHORT).show();
+                    dialog.dismiss();
+                });
+
+                no.setOnClickListener(v -> dialog.dismiss());
+
+                dialog.show();
             }
 
             private void showMessageDialog(String id, String number) {

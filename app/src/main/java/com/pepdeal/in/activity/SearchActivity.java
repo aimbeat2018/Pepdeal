@@ -80,10 +80,10 @@ public class SearchActivity extends AppCompatActivity {
         search_by = getIntent().getStringExtra("searchby");
         if(search_by.equalsIgnoreCase("shop"))
         {
-            binding.searchView.setText("Enter Shop Name");
+            binding.searchView.setHint("Enter Shop Name");
         }
         else {
-            binding.searchView.setText("Enter Product Name");
+            binding.searchView.setHint("Enter Product Name");
         }
 
       /*  key = getIntent().getStringExtra("key");

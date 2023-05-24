@@ -97,7 +97,7 @@ public class AddProductActivity extends AppCompatActivity {
     ArrayList<AddProductCategoryResponseModel> productCategoryModelList = new ArrayList<>();
     ArrayList<SubCategoryModel> subCategoryModelArrayList = new ArrayList<>();
     ArrayList<AddProductCategoryResponseModel> productBrandModelList = new ArrayList<>();
-    String categoryId = "", brandId = "", subCategoryId = "";
+    String categoryId = "", brandId = "", subCategoryId = "",flag = "0";
     ProgressDialog dialog;
     File directory;
     String tempImageName = "";
@@ -232,6 +232,19 @@ public class AddProductActivity extends AppCompatActivity {
 
             }
         });
+        binding.cboncall.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+               if(binding.cboncall.isChecked()) {
+                   flag="1";
+                   binding.llPrice.setVisibility(View.GONE);
+               }
+               else {
+                   flag="0";
+                   binding.llPrice.setVisibility(View.VISIBLE);
+               }
+            }
+        });
     }
 
     private void dismissDialog() {
@@ -266,15 +279,19 @@ public class AddProductActivity extends AppCompatActivity {
                     Toasty.info(AddProductActivity.this, "Enter Category ", Toasty.LENGTH_SHORT, true).show();
                 } else if (binding.edtdescription.getText().toString().equals("")) {
                     Toasty.info(AddProductActivity.this, "Enter description ", Toasty.LENGTH_SHORT, true).show();
-                } /*else if (binding.edtdescription1.getText().toString().equals("")) {
+                }
+                else if(flag.equalsIgnoreCase("0") &&  binding.edtmrp.getText().toString().equals(""))
+                {
+                    Toasty.info(AddProductActivity.this, "Enter MRP", Toasty.LENGTH_SHORT, true).show();
+                }
+
+                /*else if (binding.edtdescription1.getText().toString().equals("")) {
                     Toasty.info(AddProductActivity.this, "Enter description 1", Toasty.LENGTH_SHORT, true).show();
                 } else if (binding.edtSpecification.getText().toString().equals("")) {
                     Toasty.info(AddProductActivity.this, "Enter Specification", Toasty.LENGTH_SHORT, true).show();
                 }*/ /*else if (binding.entwarranty.getText().toString().equals("")) {
                 Toasty.info(AddProductActivity.this, "Enter Warranty ", Toasty.LENGTH_SHORT, true).show();
-            } */ else if (binding.edtmrp.getText().toString().equals("")) {
-                    Toasty.info(AddProductActivity.this, "Enter MRP", Toasty.LENGTH_SHORT, true).show();
-                } /*else if (binding.entmrp.getText().toString().equals("")) {
+            } */ /*else if (binding.entmrp.getText().toString().equals("")) {
                 Toasty.info(AddProductActivity.this, "Enter Colour", Toasty.LENGTH_SHORT, true).show();
             } else if (binding.edtsearchtag.getText().toString().equals("")) {
                 Toasty.info(AddProductActivity.this, "Enter Colour ", Toasty.LENGTH_SHORT, true).show();
@@ -312,15 +329,23 @@ public class AddProductActivity extends AppCompatActivity {
                     Toasty.info(AddProductActivity.this, "Enter Category ", Toasty.LENGTH_SHORT, true).show();
                 } else if (binding.edtdescription.getText().toString().equals("")) {
                     Toasty.info(AddProductActivity.this, "Enter description ", Toasty.LENGTH_SHORT, true).show();
-                } /*else if (binding.edtdescription1.getText().toString().equals("")) {
+                }
+                else if(flag.equalsIgnoreCase("0") &&  binding.edtmrp.getText().toString().equals(""))
+                {
+                        Toasty.info(AddProductActivity.this, "Enter MRP", Toasty.LENGTH_SHORT, true).show();
+                }
+                /*else if (binding.edtdescription1.getText().toString().equals("")) {
                     Toasty.info(AddProductActivity.this, "Enter description 1", Toasty.LENGTH_SHORT, true).show();
                 } else if (binding.edtSpecification.getText().toString().equals("")) {
                     Toasty.info(AddProductActivity.this, "Enter Specification", Toasty.LENGTH_SHORT, true).show();
                 }*/ /*else if (binding.entwarranty.getText().toString().equals("")) {
                 Toasty.info(AddProductActivity.this, "Enter Warranty ", Toasty.LENGTH_SHORT, true).show();
-            } */ else if (binding.edtmrp.getText().toString().equals("")) {
-                    Toasty.info(AddProductActivity.this, "Enter MRP", Toasty.LENGTH_SHORT, true).show();
-                } /*else if (binding.entmrp.getText().toString().equals("")) {
+            } */
+//                else if (binding.edtmrp.getText().toString().equals("")) {
+//                    Toasty.info(AddProductActivity.this, "Enter MRP", Toasty.LENGTH_SHORT, true).show();
+//                }
+
+                /*else if (binding.entmrp.getText().toString().equals("")) {
                 Toasty.info(AddProductActivity.this, "Enter Colour", Toasty.LENGTH_SHORT, true).show();
             } else if (binding.edtsearchtag.getText().toString().equals("")) {
                 Toasty.info(AddProductActivity.this, "Enter Colour ", Toasty.LENGTH_SHORT, true).show();
@@ -362,15 +387,26 @@ public class AddProductActivity extends AppCompatActivity {
                     Toasty.info(AddProductActivity.this, "Enter Category ", Toasty.LENGTH_SHORT, true).show();
                 } else if (binding.edtdescription.getText().toString().equals("")) {
                     Toasty.info(AddProductActivity.this, "Enter description ", Toasty.LENGTH_SHORT, true).show();
-                } /*else if (binding.edtdescription1.getText().toString().equals("")) {
+                }
+
+                else if(flag.equalsIgnoreCase("0") &&  binding.edtmrp.getText().toString().equals(""))
+                {
+                        Toasty.info(AddProductActivity.this, "Enter MRP", Toasty.LENGTH_SHORT, true).show();
+                }
+                /*else if (binding.edtdescription1.getText().toString().equals("")) {
                     Toasty.info(AddProductActivity.this, "Enter description 1", Toasty.LENGTH_SHORT, true).show();
                 } else if (binding.edtSpecification.getText().toString().equals("")) {
                     Toasty.info(AddProductActivity.this, "Enter Specification", Toasty.LENGTH_SHORT, true).show();
                 } *//*else if (binding.entwarranty.getText().toString().equals("")) {
                 Toasty.info(AddProductActivity.this, "Enter Warranty ", Toasty.LENGTH_SHORT, true).show();
-            } */ else if (binding.edtmrp.getText().toString().equals("")) {
-                    Toasty.info(AddProductActivity.this, "Enter MRP", Toasty.LENGTH_SHORT, true).show();
-                } /*else if (binding.entmrp.getText().toString().equals("")) {
+            } */
+
+
+//                else if (binding.edtmrp.getText().toString().equals("")) {
+//                    Toasty.info(AddProductActivity.this, "Enter MRP", Toasty.LENGTH_SHORT, true).show();
+//                }
+
+                /*else if (binding.entmrp.getText().toString().equals("")) {
                 Toasty.info(AddProductActivity.this, "Enter Colour", Toasty.LENGTH_SHORT, true).show();
             } else if (binding.edtsearchtag.getText().toString().equals("")) {
                 Toasty.info(AddProductActivity.this, "Enter Colour ", Toasty.LENGTH_SHORT, true).show();
@@ -408,15 +444,26 @@ public class AddProductActivity extends AppCompatActivity {
                     Toasty.info(AddProductActivity.this, "Enter Category ", Toasty.LENGTH_SHORT, true).show();
                 } else if (binding.edtdescription.getText().toString().equals("")) {
                     Toasty.info(AddProductActivity.this, "Enter description ", Toasty.LENGTH_SHORT, true).show();
-                } /*else if (binding.edtdescription1.getText().toString().equals("")) {
+                }
+                else if(flag.equalsIgnoreCase("0") &&  binding.edtmrp.getText().toString().equals(""))
+                {
+                        Toasty.info(AddProductActivity.this, "Enter MRP", Toasty.LENGTH_SHORT, true).show();
+                }
+
+                /*else if (binding.edtdescription1.getText().toString().equals("")) {
                     Toasty.info(AddProductActivity.this, "Enter description 1", Toasty.LENGTH_SHORT, true).show();
                 } else if (binding.edtSpecification.getText().toString().equals("")) {
                     Toasty.info(AddProductActivity.this, "Enter Specification", Toasty.LENGTH_SHORT, true).show();
                 }*/ /*else if (binding.entwarranty.getText().toString().equals("")) {
                 Toasty.info(AddProductActivity.this, "Enter Warranty ", Toasty.LENGTH_SHORT, true).show();
-            } */ else if (binding.edtmrp.getText().toString().equals("")) {
-                    Toasty.info(AddProductActivity.this, "Enter MRP", Toasty.LENGTH_SHORT, true).show();
-                } /*else if (binding.entmrp.getText().toString().equals("")) {
+            } */
+
+
+//                else if (binding.edtmrp.getText().toString().equals("")) {
+//                    Toasty.info(AddProductActivity.this, "Enter MRP", Toasty.LENGTH_SHORT, true).show();
+//                }
+
+                /*else if (binding.entmrp.getText().toString().equals("")) {
                 Toasty.info(AddProductActivity.this, "Enter Colour", Toasty.LENGTH_SHORT, true).show();
             } else if (binding.edtsearchtag.getText().toString().equals("")) {
                 Toasty.info(AddProductActivity.this, "Enter Colour ", Toasty.LENGTH_SHORT, true).show();
@@ -462,10 +509,11 @@ public class AddProductActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
                 categoryId = productCategoryModelList.get(i).getCategoryId();
-                if (categoryId.equals(""))
-                    Toast.makeText(AddProductActivity.this, "Select Category", Toast.LENGTH_SHORT).show();
-                else
+                if (categoryId.equals("")) {
+                    //    Toast.makeText(AddProductActivity.this, "Select Category", Toast.LENGTH_SHORT).show();
+                } else {
                     subCategoryList(categoryId);
+                }
             }
 
             @Override
@@ -722,6 +770,16 @@ public class AddProductActivity extends AppCompatActivity {
         binding.edtColour.setText(model.getColor());
         binding.edtBrandName.setText(model.getBrandId());
 
+        if(model.getOnCall().equalsIgnoreCase("1"))
+        {
+            binding.llPrice.setVisibility(View.GONE);
+            binding.cboncall.setChecked(true);
+        }
+        else {
+            binding.llPrice.setVisibility(View.VISIBLE);
+            binding.cboncall.setChecked(false);
+        }
+
         for (int i = 0; i < productCategoryModelList.size(); i++) {
             if (productCategoryModelList.get(i).getCategoryId().equals(model.getCategoryId())) {
                 binding.spinproductcategory.setSelection(i);
@@ -838,10 +896,12 @@ public class AddProductActivity extends AppCompatActivity {
                 RequestBody.create(MediaType.parse("text/plain"), Objects.requireNonNull(binding.edtsale.getText()).toString());
         RequestBody isActive =
                 RequestBody.create(MediaType.parse("text/plain"), is_active);
+        RequestBody flag_on =
+                RequestBody.create(MediaType.parse("text/plain"), flag);
 
         ApiInterface client = ApiClient.createService(ApiInterface.class, "", "");
         client.addproduct(product_name, brand_id, category_id, sub_category_id, description, description2, specification, warranty, size_id, color, search_tags, mrp,
-                discount_mrp, selling_price, user_id, shop_id, isActive, list).enqueue(new Callback<ResponseBody>() {
+                discount_mrp, selling_price, user_id, shop_id, isActive,flag_on, list).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
                 try {
@@ -953,10 +1013,13 @@ public class AddProductActivity extends AppCompatActivity {
                 RequestBody.create(MediaType.parse("text/plain"), Objects.requireNonNull(binding.edtsearchtag.getText()).toString());
         RequestBody isActive =
                 RequestBody.create(MediaType.parse("text/plain"), is_active);
+        RequestBody flag_onu =
+                RequestBody.create(MediaType.parse("text/plain"), flag);
+
 
         ApiInterface client = ApiClient.createService(ApiInterface.class, "", "");
         client.updateProduct(product_id, product_name, brand_id, category_id, searchTag, description, description2, specification, warranty, size_id, color, search_tags, mrp,
-                discount_mrp, selling_price, user_id, shop_id, isActive, list).enqueue(new Callback<ResponseBody>() {
+                discount_mrp, selling_price, user_id, shop_id, isActive, flag_onu, list).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
                 try {
@@ -1339,7 +1402,6 @@ public class AddProductActivity extends AppCompatActivity {
             if (isclick) {
 //                imgUri = openCameraIntent();
                 ImagePicker.Companion.with(this)
-                        .compress(1024)
                         .start();
                /* ImagePicker.Companion.with(this)
                         .saveDir(directory)
@@ -1512,7 +1574,6 @@ public class AddProductActivity extends AppCompatActivity {
                         if (isclick) {
 //                            imgUri = openCameraIntent();
                             ImagePicker.Companion.with(this)
-                                    .compress(1024)
                                     .start();
                          /*   ImagePicker.Companion.with(this)
                                     .saveDir(directory)

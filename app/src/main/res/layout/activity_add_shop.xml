@@ -474,6 +474,7 @@
                                 android:hint="@string/enter_mobile_number"
                                 android:inputType="number"
                                 android:maxLength="10"
+                                android:editable="false"
                                 android:paddingStart="@dimen/margin_5"
                                 android:textColor="@color/black"
                                 android:textColorHint="@color/lightGrayColor"

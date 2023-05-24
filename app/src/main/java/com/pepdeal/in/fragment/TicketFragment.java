@@ -1,10 +1,12 @@
 package com.pepdeal.in.fragment;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -17,6 +19,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -24,6 +27,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.pepdeal.in.R;
 import com.pepdeal.in.activity.HomeActivity;
+import com.pepdeal.in.activity.LeadsActivity;
 import com.pepdeal.in.activity.ProductDetailsActivity;
 import com.pepdeal.in.constants.ApiClient;
 import com.pepdeal.in.constants.ApiInterface;
@@ -255,6 +259,33 @@ public class TicketFragment extends Fragment {
                         activity.startActivity(intent);
                     }
                 });
+
+                layoutBinding.cardDetails.setOnLongClickListener(new View.OnLongClickListener() {
+                    @Override
+                    public boolean onLongClick(View view) {
+                        showDeleteDialog(model.getTicketId());
+                        return true;
+                    }
+                });
+            }
+            private void showDeleteDialog(String id) {
+                Dialog dialog = new Dialog(getActivity());
+                dialog.setContentView(R.layout.delete_popup);
+                dialog.setCanceledOnTouchOutside(false);
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+
+
+                Button yes = dialog.findViewById(R.id.yes);
+                Button no = dialog.findViewById(R.id.no);
+
+                yes.setOnClickListener(v -> {
+                    Toast.makeText(getActivity(),"Call API here",Toast.LENGTH_SHORT).show();
+                    dialog.dismiss();
+                });
+
+                no.setOnClickListener(v -> dialog.dismiss());
+
+                dialog.show();
             }
         }
     }
