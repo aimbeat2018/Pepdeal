@@ -46,6 +46,9 @@ public class SearchProductModel {
     @SerializedName("fav_status")
     @Expose
     private Integer favStatus;
+    @SerializedName("on_call")
+    @Expose
+    private String onCall;
 
     public String getProductId() {
         return productId;
@@ -157,5 +160,13 @@ public class SearchProductModel {
 
     public void setFavStatus(Integer favStatus) {
         this.favStatus = favStatus;
+    }
+
+    public String getOnCall() {
+        return onCall;
+    }
+
+    public void setOnCall(String onCall) {
+        this.onCall = onCall;
     }
 }

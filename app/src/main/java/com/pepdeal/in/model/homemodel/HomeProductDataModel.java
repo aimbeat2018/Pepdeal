@@ -70,6 +70,11 @@ public class HomeProductDataModel {
     @SerializedName("favourite_id")
     @Expose
     private String favouriteId;
+    @SerializedName("on_call")
+    @Expose
+    private String onCall;
+
+
 
     public String getProductId() {
         return productId;
@@ -245,5 +250,13 @@ public class HomeProductDataModel {
 
     public void setFavouriteId(String favouriteId) {
         this.favouriteId = favouriteId;
+    }
+
+    public String getOnCall() {
+        return onCall;
+    }
+
+    public void setOnCall(String onCall) {
+        this.onCall = onCall;
     }
 }

@@ -58,6 +58,10 @@ public class SellerWiseTicketDataModel {
     @SerializedName("ticket_id")
     @Expose
     private String ticketId;
+    @SerializedName("on_call")
+    @Expose
+    private String onCall;
+
 
     public String getTicketId() {
         return ticketId;
@@ -201,5 +205,13 @@ public class SellerWiseTicketDataModel {
 
     public void setTicketStatus(String ticketStatus) {
         this.ticketStatus = ticketStatus;
+    }
+
+    public String getOnCall() {
+        return onCall;
+    }
+
+    public void setOnCall(String onCall) {
+        this.onCall = onCall;
     }
 }

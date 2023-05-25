@@ -44,6 +44,9 @@ public class TicketDataModel {
     @SerializedName("created")
     @Expose
     private String created;
+    @SerializedName("on_call")
+    @Expose
+    private String onCall;
 
     public String getCreated() {
         return created;
@@ -147,5 +150,13 @@ public class TicketDataModel {
 
     public void setShopName(String shopName) {
         this.shopName = shopName;
+    }
+
+    public String getOnCall() {
+        return onCall;
+    }
+
+    public void setOnCall(String onCall) {
+        this.onCall = onCall;
     }
 }

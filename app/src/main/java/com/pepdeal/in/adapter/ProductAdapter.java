@@ -149,19 +149,29 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
                     .error(R.drawable.loader).placeholder(R.drawable.loader).into(layoutBinding.imgProductImage);
             layoutBinding.txtProductName.setText(model.getProductName());
 
-            if (model.getDiscountMrp().equals("0") || model.getDiscountMrp().equals("") || model.getDiscountMrp() == null) {
+
+            if(model.getOnCall().equalsIgnoreCase("1")) {
                 layoutBinding.cardOffer.setVisibility(View.GONE);
                 layoutBinding.txtActualPrice.setVisibility(View.GONE);
-                layoutBinding.txtDiscountPrice.setText("₹ " + model.getMrp());
-            } else {
-                layoutBinding.cardOffer.setVisibility(View.VISIBLE);
-                layoutBinding.txtActualPrice.setVisibility(View.VISIBLE);
+                layoutBinding.txtDiscountPrice.setVisibility(View.GONE);
+                layoutBinding.txtOff.setVisibility(View.GONE);
 
-                layoutBinding.txtActualPrice.setText("₹ " + model.getMrp());
-                layoutBinding.txtActualPrice.setPaintFlags(layoutBinding.txtActualPrice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-                layoutBinding.txtDiscountPrice.setText("₹ " + model.getSellingPrice());
+            }
+            else {
+                if (model.getDiscountMrp().equals("0") || model.getDiscountMrp().equals("") || model.getDiscountMrp() == null) {
+                    layoutBinding.cardOffer.setVisibility(View.GONE);
+                    layoutBinding.txtActualPrice.setVisibility(View.GONE);
+                    layoutBinding.txtDiscountPrice.setText("₹ " + model.getMrp());
+                } else {
+                    layoutBinding.cardOffer.setVisibility(View.VISIBLE);
+                    layoutBinding.txtActualPrice.setVisibility(View.VISIBLE);
 
-                layoutBinding.txtOff.setText(model.getDiscountMrp() + "% OFF");
+                    layoutBinding.txtActualPrice.setText("₹ " + model.getMrp());
+                    layoutBinding.txtActualPrice.setPaintFlags(layoutBinding.txtActualPrice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+                    layoutBinding.txtDiscountPrice.setText("₹ " + model.getSellingPrice());
+
+                    layoutBinding.txtOff.setText(model.getDiscountMrp() + "% OFF");
+                }
             }
 
             layoutBinding.lnrDetails.setOnClickListener(view -> {
@@ -203,20 +213,28 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
                     .into(new DrawableImageViewTarget(layoutBinding.imgProductImage));*/
 
             layoutBinding.txtProductName.setText(model.getProductName());
-
-            if (model.getDiscountMrp().equals("0") || model.getDiscountMrp().equals("") || model.getDiscountMrp() == null) {
+            if(model.getOnCall().equalsIgnoreCase("1")) {
                 layoutBinding.cardOffer.setVisibility(View.GONE);
                 layoutBinding.txtActualPrice.setVisibility(View.GONE);
-                layoutBinding.txtDiscountPrice.setText("₹ " + model.getMrp());
-            } else {
-                layoutBinding.cardOffer.setVisibility(View.VISIBLE);
-                layoutBinding.txtActualPrice.setVisibility(View.VISIBLE);
+                layoutBinding.txtDiscountPrice.setVisibility(View.GONE);
+                layoutBinding.txtOff.setVisibility(View.GONE);
 
-                layoutBinding.txtActualPrice.setText("₹ " + model.getMrp());
-                layoutBinding.txtActualPrice.setPaintFlags(layoutBinding.txtActualPrice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-                layoutBinding.txtDiscountPrice.setText("₹ " + model.getSellingPrice());
+            }
+            else {
+                if (model.getDiscountMrp().equals("0") || model.getDiscountMrp().equals("") || model.getDiscountMrp() == null) {
+                    layoutBinding.cardOffer.setVisibility(View.GONE);
+                    layoutBinding.txtActualPrice.setVisibility(View.GONE);
+                    layoutBinding.txtDiscountPrice.setText("₹ " + model.getMrp());
+                } else {
+                    layoutBinding.cardOffer.setVisibility(View.VISIBLE);
+                    layoutBinding.txtActualPrice.setVisibility(View.VISIBLE);
 
-                layoutBinding.txtOff.setText(model.getDiscountMrp() + "% OFF");
+                    layoutBinding.txtActualPrice.setText("₹ " + model.getMrp());
+                    layoutBinding.txtActualPrice.setPaintFlags(layoutBinding.txtActualPrice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+                    layoutBinding.txtDiscountPrice.setText("₹ " + model.getSellingPrice());
+
+                    layoutBinding.txtOff.setText(model.getDiscountMrp() + "% OFF");
+                }
             }
 
             layoutBinding.lnrDetails.setOnClickListener(view -> {
@@ -252,19 +270,28 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
                     .error(R.drawable.loader).placeholder(R.drawable.loader).into(layoutBinding.imgProductImage);
             layoutBinding.txtProductName.setText(model.getProductName());
 
-            if (model.getDiscountMrp().equals("0") || model.getDiscountMrp().equals("") || model.getDiscountMrp() == null) {
+            if(model.getOnCall().equalsIgnoreCase("1")) {
                 layoutBinding.cardOffer.setVisibility(View.GONE);
                 layoutBinding.txtActualPrice.setVisibility(View.GONE);
-                layoutBinding.txtDiscountPrice.setText("₹ " + model.getMrp());
-            } else {
-                layoutBinding.cardOffer.setVisibility(View.VISIBLE);
-                layoutBinding.txtActualPrice.setVisibility(View.VISIBLE);
+                layoutBinding.txtDiscountPrice.setVisibility(View.GONE);
+                layoutBinding.txtOff.setVisibility(View.GONE);
 
-                layoutBinding.txtActualPrice.setText("₹ " + model.getMrp());
-                layoutBinding.txtActualPrice.setPaintFlags(layoutBinding.txtActualPrice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-                layoutBinding.txtDiscountPrice.setText("₹ " + model.getSellingPrice());
+            }
+            else {
+                if (model.getDiscountMrp().equals("0") || model.getDiscountMrp().equals("") || model.getDiscountMrp() == null) {
+                    layoutBinding.cardOffer.setVisibility(View.GONE);
+                    layoutBinding.txtActualPrice.setVisibility(View.GONE);
+                    layoutBinding.txtDiscountPrice.setText("₹ " + model.getMrp());
+                } else {
+                    layoutBinding.cardOffer.setVisibility(View.VISIBLE);
+                    layoutBinding.txtActualPrice.setVisibility(View.VISIBLE);
 
-                layoutBinding.txtOff.setText(model.getDiscountMrp() + "% OFF");
+                    layoutBinding.txtActualPrice.setText("₹ " + model.getMrp());
+                    layoutBinding.txtActualPrice.setPaintFlags(layoutBinding.txtActualPrice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+                    layoutBinding.txtDiscountPrice.setText("₹ " + model.getSellingPrice());
+
+                    layoutBinding.txtOff.setText(model.getDiscountMrp() + "% OFF");
+                }
             }
 
             layoutBinding.lnrDetails.setOnClickListener(view -> {

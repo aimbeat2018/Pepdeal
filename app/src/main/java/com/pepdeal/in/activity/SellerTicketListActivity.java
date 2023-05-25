@@ -228,21 +228,29 @@ public class SellerTicketListActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
 
-                if (model.getDiscountMrp().equals("0") || model.getDiscountMrp().equals("") || model.getDiscountMrp() == null) {
+                if(model.getOnCall().equalsIgnoreCase("1")) {
                     layoutBinding.lnrOffer.setVisibility(View.GONE);
                     layoutBinding.txtActualPrice.setVisibility(View.GONE);
-                    layoutBinding.txtDiscountPrice.setText("₹ " + model.getMrp());
-                } else {
-                    layoutBinding.lnrOffer.setVisibility(View.VISIBLE);
-                    layoutBinding.txtActualPrice.setVisibility(View.VISIBLE);
+                    layoutBinding.txtDiscountPrice.setVisibility(View.GONE);
+                    layoutBinding.txtOff.setVisibility(View.GONE);
 
-                    layoutBinding.txtActualPrice.setText("₹ " + model.getMrp());
-                    layoutBinding.txtActualPrice.setPaintFlags(layoutBinding.txtActualPrice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-                    layoutBinding.txtDiscountPrice.setText("₹ " + model.getSellingPrice());
-
-                    layoutBinding.txtOff.setText(model.getDiscountMrp() + "% OFF");
                 }
+                else {
+                    if (model.getDiscountMrp().equals("0") || model.getDiscountMrp().equals("") || model.getDiscountMrp() == null) {
+                        layoutBinding.lnrOffer.setVisibility(View.GONE);
+                        layoutBinding.txtActualPrice.setVisibility(View.GONE);
+                        layoutBinding.txtDiscountPrice.setText("₹ " + model.getMrp());
+                    } else {
+                        layoutBinding.lnrOffer.setVisibility(View.VISIBLE);
+                        layoutBinding.txtActualPrice.setVisibility(View.VISIBLE);
 
+                        layoutBinding.txtActualPrice.setText("₹ " + model.getMrp());
+                        layoutBinding.txtActualPrice.setPaintFlags(layoutBinding.txtActualPrice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+                        layoutBinding.txtDiscountPrice.setText("₹ " + model.getSellingPrice());
+
+                        layoutBinding.txtOff.setText(model.getDiscountMrp() + "% OFF");
+                    }
+                }
                 /*Ticket Status 0 = Delivered , 1 = Approved , 2 = Waiting ,3 =Rejected*/
                 if (model.getTicketStatus().equals("0")) {
                     layoutBinding.txtStatus.setText("Status : Delivered");

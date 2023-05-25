@@ -226,20 +226,26 @@ public class ProductDetailsActivity extends AppCompatActivity {
             binding.txtSize.setVisibility(View.VISIBLE);
             binding.txtSize.setText("Size : " + model.getSizeName());
         }
-
-        if (model.getDiscountMrp().equals("0") || model.getDiscountMrp().equals("") || model.getDiscountMrp() == null) {
+        if(model.getOnCall().equalsIgnoreCase("1")) {
             binding.txtOff.setVisibility(View.GONE);
             binding.txtActualPrice.setVisibility(View.GONE);
-            binding.txtDiscountPrice.setText("₹ " + model.getMrp());
-        } else {
-            binding.txtOff.setVisibility(View.VISIBLE);
-            binding.txtActualPrice.setVisibility(View.VISIBLE);
+            binding.txtDiscountPrice.setVisibility(View.GONE);
+        }
+        else {
+            if (model.getDiscountMrp().equals("0") || model.getDiscountMrp().equals("") || model.getDiscountMrp() == null) {
+                binding.txtOff.setVisibility(View.GONE);
+                binding.txtActualPrice.setVisibility(View.GONE);
+                binding.txtDiscountPrice.setText("₹ " + model.getMrp());
+            } else {
+                binding.txtOff.setVisibility(View.VISIBLE);
+                binding.txtActualPrice.setVisibility(View.VISIBLE);
 
-            binding.txtActualPrice.setText("₹ " + model.getMrp());
-            binding.txtActualPrice.setPaintFlags(binding.txtActualPrice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-            binding.txtDiscountPrice.setText("₹ " + model.getSellingPrice());
+                binding.txtActualPrice.setText("₹ " + model.getMrp());
+                binding.txtActualPrice.setPaintFlags(binding.txtActualPrice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+                binding.txtDiscountPrice.setText("₹ " + model.getSellingPrice());
 
-            binding.txtOff.setText(model.getDiscountMrp() + "% OFF");
+                binding.txtOff.setText(model.getDiscountMrp() + "% OFF");
+            }
         }
 
         if (model.getSpecification().equals("") || model.getSpecification() == null) {

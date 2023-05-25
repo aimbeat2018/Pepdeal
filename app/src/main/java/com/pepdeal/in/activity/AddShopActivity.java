@@ -121,6 +121,8 @@ public class AddShopActivity extends AppCompatActivity implements
 
         binding.edtMobileNumber.setText(SharedPref.getVal(AddShopActivity.this, SharedPref.mobile_no));
         binding.edtMobileNumber.setEnabled(false);
+        binding.edtMobileNumber.setFocusable(false);
+        binding.edtMobileNumber.setClickable(false);
 
         if (Utils.isNetwork(AddShopActivity.this)) {
             requestBackgroundColor();

@@ -64,6 +64,9 @@ public class ProductDataModel {
     @SerializedName("flag")
     @Expose
     private String flag;
+    @SerializedName("on_call")
+    @Expose
+    private String onCall;
 
     public String getProductId() {
         return productId;
@@ -215,5 +218,13 @@ public class ProductDataModel {
 
     public void setFlag(String flag) {
         this.flag = flag;
+    }
+
+    public String getOnCall() {
+        return onCall;
+    }
+
+    public void setOnCall(String onCall) {
+        this.onCall = onCall;
     }
 }

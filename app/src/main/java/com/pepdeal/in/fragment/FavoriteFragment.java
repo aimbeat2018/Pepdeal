@@ -212,21 +212,29 @@ public class FavoriteFragment extends Fragment {
                     e.printStackTrace();
                 }
 
-                if (model.getDiscountMrp().equals("0") || model.getDiscountMrp().equals("") || model.getDiscountMrp() == null) {
+                if(model.getOnCall().equalsIgnoreCase("1")) {
                     layoutBinding.lnrOffer.setVisibility(View.GONE);
                     layoutBinding.txtActualPrice.setVisibility(View.GONE);
-                    layoutBinding.txtDiscountPrice.setText("₹ " + model.getMrp());
-                } else {
-                    layoutBinding.lnrOffer.setVisibility(View.VISIBLE);
-                    layoutBinding.txtActualPrice.setVisibility(View.VISIBLE);
+                    layoutBinding.txtDiscountPrice.setVisibility(View.GONE);
+                    layoutBinding.txtOff.setVisibility(View.GONE);
 
-                    layoutBinding.txtActualPrice.setText("₹ " + model.getMrp());
-                    layoutBinding.txtActualPrice.setPaintFlags(layoutBinding.txtActualPrice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-                    layoutBinding.txtDiscountPrice.setText("₹ " + model.getSellingPrice());
-
-                    layoutBinding.txtOff.setText(model.getDiscountMrp() + "% OFF");
                 }
+                else {
+                    if (model.getDiscountMrp().equals("0") || model.getDiscountMrp().equals("") || model.getDiscountMrp() == null) {
+                        layoutBinding.lnrOffer.setVisibility(View.GONE);
+                        layoutBinding.txtActualPrice.setVisibility(View.GONE);
+                        layoutBinding.txtDiscountPrice.setText("₹ " + model.getMrp());
+                    } else {
+                        layoutBinding.lnrOffer.setVisibility(View.VISIBLE);
+                        layoutBinding.txtActualPrice.setVisibility(View.VISIBLE);
 
+                        layoutBinding.txtActualPrice.setText("₹ " + model.getMrp());
+                        layoutBinding.txtActualPrice.setPaintFlags(layoutBinding.txtActualPrice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+                        layoutBinding.txtDiscountPrice.setText("₹ " + model.getSellingPrice());
+
+                        layoutBinding.txtOff.setText(model.getDiscountMrp() + "% OFF");
+                    }
+                }
                 layoutBinding.imgDelete.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {

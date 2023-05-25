@@ -38,6 +38,9 @@ public class FavDataModel {
     @SerializedName("created")
     @Expose
     private String created;
+    @SerializedName("on_call")
+    @Expose
+    private String onCall;
 
     public String getFavouriteId() {
         return favouriteId;
@@ -125,5 +128,13 @@ public class FavDataModel {
 
     public void setCreated(String created) {
         this.created = created;
+    }
+
+    public String getOnCall() {
+        return onCall;
+    }
+
+    public void setOnCall(String onCall) {
+        this.onCall = onCall;
     }
 }

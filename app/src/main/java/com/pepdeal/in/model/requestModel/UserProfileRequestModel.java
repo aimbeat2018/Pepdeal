@@ -57,6 +57,7 @@ public class UserProfileRequestModel {
     @Expose
     private String page;
 
+
     public String getSearch_key() {
         return search_key;
     }
@@ -192,4 +193,6 @@ public class UserProfileRequestModel {
     public void setPage(String page) {
         this.page = page;
     }
+
+
 }

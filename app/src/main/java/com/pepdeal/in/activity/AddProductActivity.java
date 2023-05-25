@@ -445,6 +445,9 @@ public class AddProductActivity extends AppCompatActivity {
                 } else if (binding.edtdescription.getText().toString().equals("")) {
                     Toasty.info(AddProductActivity.this, "Enter description ", Toasty.LENGTH_SHORT, true).show();
                 }
+                else if (binding.edtSearchTagm.getText().toString().equals("")) {
+                    Toasty.info(AddProductActivity.this, "Enter Search Tags ", Toasty.LENGTH_SHORT, true).show();
+                }
                 else if(flag.equalsIgnoreCase("0") &&  binding.edtmrp.getText().toString().equals(""))
                 {
                         Toasty.info(AddProductActivity.this, "Enter MRP", Toasty.LENGTH_SHORT, true).show();
@@ -766,7 +769,7 @@ public class AddProductActivity extends AppCompatActivity {
         binding.edtsale.setText(model.getSellingPrice());
         binding.edtdiscount.setText(model.getDiscountMrp());
         binding.entwarranty.setText(model.getWarranty());
-        binding.edtsearchtag.setText(model.getSearchTags());
+        binding.edtSearchTagm.setText(model.getSearchTags());
         binding.edtColour.setText(model.getColor());
         binding.edtBrandName.setText(model.getBrandId());
 
@@ -887,7 +890,7 @@ public class AddProductActivity extends AppCompatActivity {
         RequestBody color =
                 RequestBody.create(MediaType.parse("text/plain"), Objects.requireNonNull(binding.edtColour.getText()).toString());
         RequestBody search_tags =
-                RequestBody.create(MediaType.parse("text/plain"), Objects.requireNonNull(binding.edtsearchtag.getText()).toString());
+                RequestBody.create(MediaType.parse("text/plain"), Objects.requireNonNull(binding.edtSearchTagm.getText()).toString());
         RequestBody mrp =
                 RequestBody.create(MediaType.parse("text/plain"), Objects.requireNonNull(binding.edtmrp.getText()).toString());
         RequestBody discount_mrp =
@@ -1002,7 +1005,7 @@ public class AddProductActivity extends AppCompatActivity {
         RequestBody color =
                 RequestBody.create(MediaType.parse("text/plain"), Objects.requireNonNull(binding.edtColour.getText()).toString());
         RequestBody search_tags =
-                RequestBody.create(MediaType.parse("text/plain"), Objects.requireNonNull(binding.edtsearchtag.getText()).toString());
+                RequestBody.create(MediaType.parse("text/plain"), Objects.requireNonNull(binding.edtSearchTagm.getText()).toString());
         RequestBody mrp =
                 RequestBody.create(MediaType.parse("text/plain"), Objects.requireNonNull(binding.edtmrp.getText()).toString());
         RequestBody discount_mrp =
@@ -1010,7 +1013,7 @@ public class AddProductActivity extends AppCompatActivity {
         RequestBody selling_price =
                 RequestBody.create(MediaType.parse("text/plain"), Objects.requireNonNull(binding.edtsale.getText()).toString());
         RequestBody searchTag =
-                RequestBody.create(MediaType.parse("text/plain"), Objects.requireNonNull(binding.edtsearchtag.getText()).toString());
+                RequestBody.create(MediaType.parse("text/plain"), Objects.requireNonNull(binding.edtSearchTagm.getText()).toString());
         RequestBody isActive =
                 RequestBody.create(MediaType.parse("text/plain"), is_active);
         RequestBody flag_onu =
