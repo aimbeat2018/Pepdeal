@@ -707,7 +707,9 @@ public class HomeFragment extends Fragment {
 
                 if(model.getOnCall().equalsIgnoreCase("1")) {
                     layoutBinding.cardOffer.setVisibility(View.GONE);
-                    layoutBinding.txtActualPrice.setVisibility(View.GONE);
+                    layoutBinding.txtActualPrice.setText("On call");
+
+//                    layoutBinding.txtActualPrice.setVisibility(View.GONE);
                     layoutBinding.txtDiscountPrice.setVisibility(View.GONE);
                 }
                 else {

@@ -2,6 +2,7 @@ package com.pepdeal.in.constants;
 
 import com.pepdeal.in.model.ForgotPasswordOTPRequestModel;
 import com.pepdeal.in.model.UserProfileUpdateModel;
+import com.pepdeal.in.model.messagemodel.UserLeadModel;
 import com.pepdeal.in.model.requestModel.AddBackgroundColorResponseModel;
 import com.pepdeal.in.model.requestModel.AddProductCategoryResponseModel;
 import com.pepdeal.in.model.requestModel.AddShopFontResponseModel;
@@ -15,6 +16,7 @@ import com.pepdeal.in.model.requestModel.SellerTicketStatusModel;
 import com.pepdeal.in.model.requestModel.SendMessageRequestModel;
 import com.pepdeal.in.model.requestModel.UserProfileRequestModel;
 import com.pepdeal.in.model.requestModel.UserRegisterModel;
+import com.pepdeal.in.model.ticketmodel.TicketDataModel;
 
 import java.util.List;
 
@@ -124,6 +126,12 @@ public interface ApiInterface {
 
     @POST("ticketList")
     Call<ResponseBody> ticketList(@Body UserProfileRequestModel model);
+
+    @POST("removeTicket")
+    Call<ResponseBody> deleteTicket(@Body TicketDataModel model);
+
+    @POST("removeMessage")
+    Call<ResponseBody> deleteMessage(@Body UserLeadModel model);
 
     @POST("addSupershop")
     Call<ResponseBody> addSupershop(@Body UserProfileRequestModel model);

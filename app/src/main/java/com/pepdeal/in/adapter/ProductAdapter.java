@@ -152,7 +152,9 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
 
             if(model.getOnCall().equalsIgnoreCase("1")) {
                 layoutBinding.cardOffer.setVisibility(View.GONE);
-                layoutBinding.txtActualPrice.setVisibility(View.GONE);
+                layoutBinding.txtActualPrice.setText("On call");
+
+                //layoutBinding.txtActualPrice.setVisibility(View.GONE);
                 layoutBinding.txtDiscountPrice.setVisibility(View.GONE);
                 layoutBinding.txtOff.setVisibility(View.GONE);
 
@@ -215,7 +217,9 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
             layoutBinding.txtProductName.setText(model.getProductName());
             if(model.getOnCall().equalsIgnoreCase("1")) {
                 layoutBinding.cardOffer.setVisibility(View.GONE);
-                layoutBinding.txtActualPrice.setVisibility(View.GONE);
+                layoutBinding.txtActualPrice.setText("On call");
+
+//                layoutBinding.txtActualPrice.setVisibility(View.GONE);
                 layoutBinding.txtDiscountPrice.setVisibility(View.GONE);
                 layoutBinding.txtOff.setVisibility(View.GONE);
 
@@ -272,7 +276,9 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
 
             if(model.getOnCall().equalsIgnoreCase("1")) {
                 layoutBinding.cardOffer.setVisibility(View.GONE);
-                layoutBinding.txtActualPrice.setVisibility(View.GONE);
+                layoutBinding.txtActualPrice.setText("On call");
+
+                // layoutBinding.txtActualPrice.setVisibility(View.GONE);
                 layoutBinding.txtDiscountPrice.setVisibility(View.GONE);
                 layoutBinding.txtOff.setVisibility(View.GONE);
 

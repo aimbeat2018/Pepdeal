@@ -21,6 +21,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -73,7 +75,17 @@ public class ShopDetailsActivity extends AppCompatActivity {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_shop_details);
         binding.setHandler(new ClickHandler());
         shop_id = getIntent().getStringExtra("shop_id");
+        // loading Animation from
+        Animation animation = AnimationUtils.loadAnimation(this, R.anim.bouce);
+        binding.imgMessage.setAnimation(animation);
+        binding.imgSuperShop.setAnimation(animation);
 
+        if(animation.hasEnded())
+        {
+            binding.imgMessage.setAnimation(animation);
+            binding.imgSuperShop.setAnimation(animation);
+
+        }
         dialog = new ProgressDialog(this);
         dialog.setTitle("Loading");
         dialog.setMessage("Please wait...");
@@ -254,7 +266,7 @@ public class ShopDetailsActivity extends AppCompatActivity {
                         if (shopDetailsDataModel.getSuperShopTatus().equals("1")) {
                             Glide.with(ShopDetailsActivity.this).load(R.drawable.star).into(binding.imgSuperShop);
                         } else {
-                            Glide.with(ShopDetailsActivity.this).load(R.drawable.ic_super_shop_outlined).into(binding.imgSuperShop);
+                            Glide.with(ShopDetailsActivity.this).load(R.drawable.super_shop_new).into(binding.imgSuperShop);
                         }
 
                         binding.imgMessage.setOnClickListener(view -> new AlertDialog.Builder(ShopDetailsActivity.this)

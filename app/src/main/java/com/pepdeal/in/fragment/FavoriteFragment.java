@@ -214,7 +214,9 @@ public class FavoriteFragment extends Fragment {
 
                 if(model.getOnCall().equalsIgnoreCase("1")) {
                     layoutBinding.lnrOffer.setVisibility(View.GONE);
-                    layoutBinding.txtActualPrice.setVisibility(View.GONE);
+                    layoutBinding.txtActualPrice.setText("On call");
+
+                    // layoutBinding.txtActualPrice.setVisibility(View.GONE);
                     layoutBinding.txtDiscountPrice.setVisibility(View.GONE);
                     layoutBinding.txtOff.setVisibility(View.GONE);
 

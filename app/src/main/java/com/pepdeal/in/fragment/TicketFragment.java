@@ -26,6 +26,7 @@ import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.pepdeal.in.R;
+import com.pepdeal.in.activity.AddProductActivity;
 import com.pepdeal.in.activity.HomeActivity;
 import com.pepdeal.in.activity.LeadsActivity;
 import com.pepdeal.in.activity.ProductDetailsActivity;
@@ -39,6 +40,7 @@ import com.pepdeal.in.databinding.ItemHomeShopsListBinding;
 import com.pepdeal.in.databinding.ItemProductListLayoutBinding;
 import com.pepdeal.in.databinding.ItemTicketLayoutBinding;
 import com.pepdeal.in.model.UsersHomeTabModel;
+import com.pepdeal.in.model.messagemodel.ShopLeadModel;
 import com.pepdeal.in.model.requestModel.UserProfileRequestModel;
 import com.pepdeal.in.model.ticketmodel.TicketDataModel;
 
@@ -48,6 +50,7 @@ import java.lang.reflect.Type;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -219,7 +222,8 @@ public class TicketFragment extends Fragment {
 
                 if(model.getOnCall().equalsIgnoreCase("1")) {
                     layoutBinding.lnrOffer.setVisibility(View.GONE);
-                    layoutBinding.txtActualPrice.setVisibility(View.GONE);
+                    //layoutBinding.txtActualPrice.setVisibility(View.GONE);
+                    layoutBinding.txtActualPrice.setText("On call");
                     layoutBinding.txtDiscountPrice.setVisibility(View.GONE);
                     layoutBinding.txtOff.setVisibility(View.GONE);
 
@@ -289,7 +293,7 @@ public class TicketFragment extends Fragment {
 
 
                 yes.setOnClickListener(v -> {
-                    Toast.makeText(getActivity(),"Call API here",Toast.LENGTH_SHORT).show();
+                    deleteTicketAPI(id);
                     dialog.dismiss();
                 });
 
@@ -299,4 +303,61 @@ public class TicketFragment extends Fragment {
             }
         }
     }
+    private void deleteTicketAPI(String ticketid) {
+        showShimmer();
+        String userIdStr = SharedPref.getVal(activity, SharedPref.user_id);
+
+        TicketDataModel model = new TicketDataModel();
+        model.setUserid(SharedPref.getVal(getActivity(), SharedPref.user_id));
+        model.setTicketId(ticketid);
+
+        ApiInterface client = ApiClient.createService(ApiInterface.class, "", "");
+        client.deleteTicket(model).enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
+                try {
+                    JSONObject jsonObject = new JSONObject(response.body().string());
+                    String code = jsonObject.getString("code");
+                    if (code.equals("200")) {
+                       Toast.makeText(activity,jsonObject.getString("message"),Toast.LENGTH_SHORT).show();
+                        getTicketsList();
+                    } else {
+                        Toast.makeText(activity,jsonObject.getString("message"),Toast.LENGTH_SHORT).show();
+                    }
+                } catch (Exception e) {
+                    hideShimmer();
+                    e.printStackTrace();
+                }
+
+                hideShimmer();
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<ResponseBody> call, @NonNull Throwable error) {
+                hideShimmer();
+                error.printStackTrace();
+                if (error instanceof HttpException) {
+                    switch (((HttpException) error).code()) {
+                        case HttpsURLConnection.HTTP_UNAUTHORIZED:
+                            Toast.makeText(activity, getString(R.string.unauthorised_user), Toast.LENGTH_SHORT).show();
+                            break;
+                        case HttpsURLConnection.HTTP_FORBIDDEN:
+                            Toast.makeText(activity, getString(R.string.forbidden), Toast.LENGTH_SHORT).show();
+                            break;
+                        case HttpsURLConnection.HTTP_INTERNAL_ERROR:
+                            Toast.makeText(activity, getString(R.string.internal_server_error), Toast.LENGTH_SHORT).show();
+                            break;
+                        case HttpsURLConnection.HTTP_BAD_REQUEST:
+                            Toast.makeText(activity, getString(R.string.bad_request), Toast.LENGTH_SHORT).show();
+                            break;
+                        default:
+                            Toast.makeText(activity, error.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    Toast.makeText(activity, getString(R.string.something_went_wrong), Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
+
 }

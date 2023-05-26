@@ -228,7 +228,9 @@ public class ProductDetailsActivity extends AppCompatActivity {
         }
         if(model.getOnCall().equalsIgnoreCase("1")) {
             binding.txtOff.setVisibility(View.GONE);
-            binding.txtActualPrice.setVisibility(View.GONE);
+            binding.txtActualPrice.setText("On call");
+
+         //   binding.txtActualPrice.setVisibility(View.GONE);
             binding.txtDiscountPrice.setVisibility(View.GONE);
         }
         else {

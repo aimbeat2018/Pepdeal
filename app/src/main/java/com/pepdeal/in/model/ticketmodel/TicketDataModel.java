@@ -47,6 +47,10 @@ public class TicketDataModel {
     @SerializedName("on_call")
     @Expose
     private String onCall;
+    @SerializedName("user_id")
+    @Expose
+    private String userid;
+
 
     public String getCreated() {
         return created;
@@ -158,5 +162,13 @@ public class TicketDataModel {
 
     public void setOnCall(String onCall) {
         this.onCall = onCall;
+    }
+
+    public String getUserid() {
+        return userid;
+    }
+
+    public void setUserid(String userid) {
+        this.userid = userid;
     }
 }

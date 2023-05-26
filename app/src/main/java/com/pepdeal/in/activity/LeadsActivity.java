@@ -44,6 +44,7 @@ import com.pepdeal.in.model.messagemodel.UserLeadModel;
 import com.pepdeal.in.model.requestModel.SellerTicketStatusModel;
 import com.pepdeal.in.model.requestModel.UserProfileRequestModel;
 import com.pepdeal.in.model.sellerwiseticketmodel.SellerWiseTicketDataModel;
+import com.pepdeal.in.model.ticketmodel.TicketDataModel;
 
 import org.json.JSONObject;
 
@@ -588,7 +589,7 @@ public class LeadsActivity extends AppCompatActivity {
                 Button no = dialog.findViewById(R.id.no);
 
                 yes.setOnClickListener(v -> {
-                    Toast.makeText(getApplicationContext(),"Call API here",Toast.LENGTH_SHORT).show();
+                    deleteMessage(id);
                     dialog.dismiss();
                 });
 
@@ -642,5 +643,66 @@ public class LeadsActivity extends AppCompatActivity {
 
             }
         }
+
+        private void deleteMessage(String msgid) {
+            showShimmer();
+            String userIdStr = SharedPref.getVal(LeadsActivity.this, SharedPref.user_id);
+
+            UserLeadModel model = new UserLeadModel();
+            model.setUserId(SharedPref.getVal(LeadsActivity.this, SharedPref.user_id));
+            model.setId(msgid);
+
+            ApiInterface client = ApiClient.createService(ApiInterface.class, "", "");
+            client.deleteMessage(model).enqueue(new Callback<ResponseBody>() {
+                @Override
+                public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
+                    try {
+                        JSONObject jsonObject = new JSONObject(response.body().string());
+                        String code = jsonObject.getString("code");
+                        if (code.equals("200")) {
+                            Toast.makeText(LeadsActivity.this,jsonObject.getString("message"),Toast.LENGTH_SHORT).show();
+                            if (from.equals("user"))
+                                getLeadsForSeller(false);
+                            else
+                                getLeadsForUser(false);
+                        } else {
+                            Toast.makeText(LeadsActivity.this,jsonObject.getString("message"),Toast.LENGTH_SHORT).show();
+                        }
+                    } catch (Exception e) {
+                        hideShimmer();
+                        e.printStackTrace();
+                    }
+
+                    hideShimmer();
+                }
+
+                @Override
+                public void onFailure(@NonNull Call<ResponseBody> call, @NonNull Throwable error) {
+                    hideShimmer();
+                    error.printStackTrace();
+                    if (error instanceof HttpException) {
+                        switch (((HttpException) error).code()) {
+                            case HttpsURLConnection.HTTP_UNAUTHORIZED:
+                                Toast.makeText(LeadsActivity.this, getString(R.string.unauthorised_user), Toast.LENGTH_SHORT).show();
+                                break;
+                            case HttpsURLConnection.HTTP_FORBIDDEN:
+                                Toast.makeText(LeadsActivity.this, getString(R.string.forbidden), Toast.LENGTH_SHORT).show();
+                                break;
+                            case HttpsURLConnection.HTTP_INTERNAL_ERROR:
+                                Toast.makeText(LeadsActivity.this, getString(R.string.internal_server_error), Toast.LENGTH_SHORT).show();
+                                break;
+                            case HttpsURLConnection.HTTP_BAD_REQUEST:
+                                Toast.makeText(LeadsActivity.this, getString(R.string.bad_request), Toast.LENGTH_SHORT).show();
+                                break;
+                            default:
+                                Toast.makeText(LeadsActivity.this, error.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    } else {
+                        Toast.makeText(LeadsActivity.this, getString(R.string.something_went_wrong), Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+        }
+
     }
 }

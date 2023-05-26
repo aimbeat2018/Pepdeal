@@ -137,7 +137,7 @@
                                 android:adjustViewBounds="true"
                                 android:onClick="@{handler::onAddSuperShopClick}"
                                 android:padding="@dimen/margin_5"
-                                android:src="@drawable/ic_super_shop_outlined" />
+                                android:src="@drawable/super_shop_new" />
 
                             <androidx.appcompat.widget.AppCompatImageView
                                 android:id="@+id/img_message"
@@ -148,7 +148,7 @@
                                 android:layout_marginEnd="@dimen/margin_5"
                                 android:adjustViewBounds="true"
                                 android:padding="@dimen/margin_5"
-                                android:src="@drawable/sms" />
+                                android:src="@drawable/msg_news" />
                         </RelativeLayout>
 
                     </androidx.appcompat.widget.LinearLayoutCompat>

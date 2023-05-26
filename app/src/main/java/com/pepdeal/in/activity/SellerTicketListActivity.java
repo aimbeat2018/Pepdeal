@@ -7,16 +7,19 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -230,7 +233,8 @@ public class SellerTicketListActivity extends AppCompatActivity {
 
                 if(model.getOnCall().equalsIgnoreCase("1")) {
                     layoutBinding.lnrOffer.setVisibility(View.GONE);
-                    layoutBinding.txtActualPrice.setVisibility(View.GONE);
+                  //  layoutBinding.txtActualPrice.setVisibility(View.GONE);
+                    layoutBinding.txtActualPrice.setText("On call");
                     layoutBinding.txtDiscountPrice.setVisibility(View.GONE);
                     layoutBinding.txtOff.setVisibility(View.GONE);
 
@@ -283,7 +287,13 @@ public class SellerTicketListActivity extends AppCompatActivity {
                         startActivity(intent);
                     }
                 });*/
-
+                layoutBinding.cardDetails.setOnLongClickListener(new View.OnLongClickListener() {
+                    @Override
+                    public boolean onLongClick(View view) {
+                        showDeleteDialog(model.getTicketId());
+                        return true;
+                    }
+                });
                 layoutBinding.cardConfirm.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -422,4 +432,82 @@ public class SellerTicketListActivity extends AppCompatActivity {
             }
         }
     }
+    private void showDeleteDialog(String id) {
+        Dialog dialog = new Dialog(SellerTicketListActivity.this);
+        dialog.setContentView(R.layout.delete_popup);
+        dialog.setCanceledOnTouchOutside(false);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+
+
+        Button yes = dialog.findViewById(R.id.yes);
+        Button no = dialog.findViewById(R.id.no);
+
+
+        yes.setOnClickListener(v -> {
+            deleteTicketAPI(id);
+            dialog.dismiss();
+        });
+
+        no.setOnClickListener(v -> dialog.dismiss());
+
+        dialog.show();
+    }
+    private void deleteTicketAPI(String ticketid) {
+        showShimmer();
+        String userIdStr = SharedPref.getVal(SellerTicketListActivity.this, SharedPref.user_id);
+
+        TicketDataModel model = new TicketDataModel();
+        model.setUserid(SharedPref.getVal(SellerTicketListActivity.this, SharedPref.user_id));
+        model.setTicketId(ticketid);
+
+        ApiInterface client = ApiClient.createService(ApiInterface.class, "", "");
+        client.deleteTicket(model).enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
+                try {
+                    JSONObject jsonObject = new JSONObject(response.body().string());
+                    String code = jsonObject.getString("code");
+                    if (code.equals("200")) {
+                        Toast.makeText(SellerTicketListActivity.this,jsonObject.getString("message"),Toast.LENGTH_SHORT).show();
+                        getTicketsList(true);
+                    } else {
+                        Toast.makeText(SellerTicketListActivity.this,jsonObject.getString("message"),Toast.LENGTH_SHORT).show();
+                    }
+                } catch (Exception e) {
+                    hideShimmer();
+                    e.printStackTrace();
+                }
+
+                hideShimmer();
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<ResponseBody> call, @NonNull Throwable error) {
+                hideShimmer();
+                error.printStackTrace();
+                if (error instanceof HttpException) {
+                    switch (((HttpException) error).code()) {
+                        case HttpsURLConnection.HTTP_UNAUTHORIZED:
+                            Toast.makeText(SellerTicketListActivity.this, getString(R.string.unauthorised_user), Toast.LENGTH_SHORT).show();
+                            break;
+                        case HttpsURLConnection.HTTP_FORBIDDEN:
+                            Toast.makeText(SellerTicketListActivity.this, getString(R.string.forbidden), Toast.LENGTH_SHORT).show();
+                            break;
+                        case HttpsURLConnection.HTTP_INTERNAL_ERROR:
+                            Toast.makeText(SellerTicketListActivity.this, getString(R.string.internal_server_error), Toast.LENGTH_SHORT).show();
+                            break;
+                        case HttpsURLConnection.HTTP_BAD_REQUEST:
+                            Toast.makeText(SellerTicketListActivity.this, getString(R.string.bad_request), Toast.LENGTH_SHORT).show();
+                            break;
+                        default:
+                            Toast.makeText(SellerTicketListActivity.this, error.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    Toast.makeText(SellerTicketListActivity.this, getString(R.string.something_went_wrong), Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
+
+
 }
