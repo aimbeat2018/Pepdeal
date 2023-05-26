@@ -129,8 +129,8 @@
 
                             <androidx.appcompat.widget.AppCompatImageView
                                 android:id="@+id/img_super_shop"
-                                android:layout_width="@dimen/margin_30"
-                                android:layout_height="@dimen/margin_30"
+                                android:layout_width="@dimen/margin_35"
+                                android:layout_height="@dimen/margin_35"
                                 android:layout_alignParentStart="true"
                                 android:layout_gravity="start"
                                 android:layout_marginEnd="@dimen/margin_5"
@@ -141,8 +141,8 @@
 
                             <androidx.appcompat.widget.AppCompatImageView
                                 android:id="@+id/img_message"
-                                android:layout_width="@dimen/margin_30"
-                                android:layout_height="@dimen/margin_30"
+                                android:layout_width="@dimen/margin_35"
+                                android:layout_height="@dimen/margin_35"
                                 android:layout_alignParentEnd="true"
                                 android:layout_gravity="end"
                                 android:layout_marginEnd="@dimen/margin_5"
