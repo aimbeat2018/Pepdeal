@@ -16,10 +16,8 @@ public class UserLeadModel {
     @SerializedName("flag")
     @Expose
     private String flag;
+
     @SerializedName("created_at")
-    @Expose
-    private String createdAt;
-    @SerializedName("created")
     @Expose
     private String created;
     @SerializedName("updated_at")
@@ -87,13 +85,7 @@ public class UserLeadModel {
         this.flag = flag;
     }
 
-    public String getCreatedAt() {
-        return createdAt;
-    }
 
-    public void setCreatedAt(String createdAt) {
-        this.createdAt = createdAt;
-    }
 
     public String getUpdatedAt() {
         return updatedAt;

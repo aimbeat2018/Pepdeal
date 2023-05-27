@@ -16,13 +16,11 @@ public class ShopLeadModel {
     @SerializedName("flag")
     @Expose
     private String flag;
-    @SerializedName("created_at")
-    @Expose
-    private String createdAt;
+
     @SerializedName("updated_at")
     @Expose
     private String updatedAt;
-    @SerializedName("created")
+    @SerializedName("created_at")
     @Expose
     private String created;
     @SerializedName("shop_name")
@@ -79,13 +77,7 @@ public class ShopLeadModel {
         this.flag = flag;
     }
 
-    public String getCreatedAt() {
-        return createdAt;
-    }
 
-    public void setCreatedAt(String createdAt) {
-        this.createdAt = createdAt;
-    }
 
     public String getUpdatedAt() {
         return updatedAt;

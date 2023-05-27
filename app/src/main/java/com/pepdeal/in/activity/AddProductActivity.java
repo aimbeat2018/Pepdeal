@@ -280,9 +280,20 @@ public class AddProductActivity extends AppCompatActivity {
                 } else if (binding.edtdescription.getText().toString().equals("")) {
                     Toasty.info(AddProductActivity.this, "Enter description ", Toasty.LENGTH_SHORT, true).show();
                 }
-                else if(flag.equalsIgnoreCase("0") &&  binding.edtmrp.getText().toString().equals(""))
-                {
-                    Toasty.info(AddProductActivity.this, "Enter MRP", Toasty.LENGTH_SHORT, true).show();
+                else if (binding.edtSearchTagm.getText().toString().equals("")) {
+                    Toasty.info(AddProductActivity.this, "Enter Search Tags ", Toasty.LENGTH_SHORT, true).show();
+                }
+                else if(flag.equalsIgnoreCase("0")) {
+                    if (binding.edtmrp.getText().toString().equals("")) {
+                        Toasty.info(AddProductActivity.this, "Enter MRP", Toasty.LENGTH_SHORT, true).show();
+                    }
+                    else if(binding.edtmrp.getText().toString().equals("0"))
+                    {
+                        Toasty.info(AddProductActivity.this, "Enter MRP", Toasty.LENGTH_SHORT, true).show();
+                    }
+                    else {
+                        updateProduct("1");
+                    }
                 }
 
                 /*else if (binding.edtdescription1.getText().toString().equals("")) {
@@ -330,9 +341,20 @@ public class AddProductActivity extends AppCompatActivity {
                 } else if (binding.edtdescription.getText().toString().equals("")) {
                     Toasty.info(AddProductActivity.this, "Enter description ", Toasty.LENGTH_SHORT, true).show();
                 }
-                else if(flag.equalsIgnoreCase("0") &&  binding.edtmrp.getText().toString().equals(""))
-                {
+                else if (binding.edtSearchTagm.getText().toString().equals("")) {
+                    Toasty.info(AddProductActivity.this, "Enter Search Tags ", Toasty.LENGTH_SHORT, true).show();
+                }
+                else if(flag.equalsIgnoreCase("0")) {
+                    if (binding.edtmrp.getText().toString().equals("")) {
                         Toasty.info(AddProductActivity.this, "Enter MRP", Toasty.LENGTH_SHORT, true).show();
+                    }
+                    else if(binding.edtmrp.getText().toString().equals("0"))
+                    {
+                        Toasty.info(AddProductActivity.this, "Enter MRP", Toasty.LENGTH_SHORT, true).show();
+                    }
+                    else {
+                        addProduct("1");
+                    }
                 }
                 /*else if (binding.edtdescription1.getText().toString().equals("")) {
                     Toasty.info(AddProductActivity.this, "Enter description 1", Toasty.LENGTH_SHORT, true).show();
@@ -388,10 +410,20 @@ public class AddProductActivity extends AppCompatActivity {
                 } else if (binding.edtdescription.getText().toString().equals("")) {
                     Toasty.info(AddProductActivity.this, "Enter description ", Toasty.LENGTH_SHORT, true).show();
                 }
-
-                else if(flag.equalsIgnoreCase("0") &&  binding.edtmrp.getText().toString().equals(""))
-                {
+                else if (binding.edtSearchTagm.getText().toString().equals("")) {
+                    Toasty.info(AddProductActivity.this, "Enter Search Tags ", Toasty.LENGTH_SHORT, true).show();
+                }
+                else if(flag.equalsIgnoreCase("0")) {
+                    if (binding.edtmrp.getText().toString().equals("")) {
                         Toasty.info(AddProductActivity.this, "Enter MRP", Toasty.LENGTH_SHORT, true).show();
+                    }
+                    else if(binding.edtmrp.getText().toString().equals("0"))
+                    {
+                        Toasty.info(AddProductActivity.this, "Enter MRP", Toasty.LENGTH_SHORT, true).show();
+                    }
+                    else {
+                        updateProduct("0");
+                    }
                 }
                 /*else if (binding.edtdescription1.getText().toString().equals("")) {
                     Toasty.info(AddProductActivity.this, "Enter description 1", Toasty.LENGTH_SHORT, true).show();
@@ -448,9 +480,17 @@ public class AddProductActivity extends AppCompatActivity {
                 else if (binding.edtSearchTagm.getText().toString().equals("")) {
                     Toasty.info(AddProductActivity.this, "Enter Search Tags ", Toasty.LENGTH_SHORT, true).show();
                 }
-                else if(flag.equalsIgnoreCase("0") &&  binding.edtmrp.getText().toString().equals(""))
-                {
+                else if(flag.equalsIgnoreCase("0")) {
+                    if (binding.edtmrp.getText().toString().equals("")) {
                         Toasty.info(AddProductActivity.this, "Enter MRP", Toasty.LENGTH_SHORT, true).show();
+                    }
+                    else if(binding.edtmrp.getText().toString().equals("0"))
+                    {
+                        Toasty.info(AddProductActivity.this, "Enter MRP", Toasty.LENGTH_SHORT, true).show();
+                    }
+                    else {
+                        addProduct("0");
+                    }
                 }
 
                 /*else if (binding.edtdescription1.getText().toString().equals("")) {
@@ -775,10 +815,12 @@ public class AddProductActivity extends AppCompatActivity {
 
         if(model.getOnCall().equalsIgnoreCase("1"))
         {
+            flag="1";
             binding.llPrice.setVisibility(View.GONE);
             binding.cboncall.setChecked(true);
         }
         else {
+            flag="0";
             binding.llPrice.setVisibility(View.VISIBLE);
             binding.cboncall.setChecked(false);
         }
