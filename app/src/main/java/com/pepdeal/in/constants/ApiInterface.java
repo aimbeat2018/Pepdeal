@@ -16,6 +16,7 @@ import com.pepdeal.in.model.requestModel.SellerTicketStatusModel;
 import com.pepdeal.in.model.requestModel.SendMessageRequestModel;
 import com.pepdeal.in.model.requestModel.UserProfileRequestModel;
 import com.pepdeal.in.model.requestModel.UserRegisterModel;
+import com.pepdeal.in.model.searchmodel.SearchHistoryModel;
 import com.pepdeal.in.model.ticketmodel.TicketDataModel;
 
 import java.util.List;
@@ -162,6 +163,15 @@ public interface ApiInterface {
 
     @POST("searchTags")
     Call<ResponseBody> searchTags(@Body UserProfileRequestModel model);
+
+    @POST("searchHistory")
+    Call<ResponseBody> insertSearchHistory(@Body UserProfileRequestModel model);
+
+    @POST("searchList")
+    Call<ResponseBody> getSearchHistory(@Body UserProfileRequestModel model);
+
+    @POST("deleteHistory")
+    Call<ResponseBody> removeHistory(@Body SearchHistoryModel model);
 
     @POST("sendMsgs")
     Call<ResponseBody> sendMsgs(@Body SendMessageRequestModel model);

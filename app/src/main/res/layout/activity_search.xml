@@ -92,6 +92,22 @@
             android:lineSpacingExtra="@dimen/margin_10"
             android:paddingStart="@dimen/margin_10" />
 
+
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/txt_search"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/margin_35"
+                android:fontFamily="@font/roboto_medium"
+                android:gravity="center"
+                android:layout_gravity="right"
+                android:padding="@dimen/margin_5"
+                android:text="Search"
+                android:background="@drawable/button_background_layout"
+                android:backgroundTint="@color/blue"
+                android:layout_marginRight="@dimen/margin_10"
+                android:textColor="@color/white" />
+
         <com.facebook.shimmer.ShimmerFrameLayout
             android:id="@+id/shimmer_layout"
             android:layout_width="match_parent"
@@ -148,6 +164,13 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:orientation="vertical">
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/rec_historyList"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/margin_10"
+                            android:nestedScrollingEnabled="false" />
 
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/rec_shoplist"

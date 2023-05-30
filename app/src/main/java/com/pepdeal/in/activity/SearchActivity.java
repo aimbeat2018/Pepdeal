@@ -36,10 +36,12 @@ import com.pepdeal.in.constants.SharedPref;
 import com.pepdeal.in.constants.Utils;
 import com.pepdeal.in.databinding.ActivitySearchBinding;
 import com.pepdeal.in.databinding.ItemHomeShopsListBinding;
+import com.pepdeal.in.databinding.ItemSearchListBinding;
 import com.pepdeal.in.fragment.HomeFragment;
 import com.pepdeal.in.fragment.SuperShopFragment;
 import com.pepdeal.in.model.homemodel.HomeShopDataModel;
 import com.pepdeal.in.model.requestModel.UserProfileRequestModel;
+import com.pepdeal.in.model.searchmodel.SearchHistoryModel;
 import com.pepdeal.in.model.searchmodel.SearchProductModel;
 import com.pepdeal.in.model.searchmodel.SearchShopModel;
 import com.pepdeal.in.model.supershopmodel.SuperShopDataModel;
@@ -67,6 +69,7 @@ public class SearchActivity extends AppCompatActivity {
     ProgressDialog dialog;
     List<SearchShopModel> searchShopModelArrayList = new ArrayList<>();
     List<SearchProductModel> searchProductModelArrayList = new ArrayList<>();
+    List<SearchHistoryModel> searchHistoryModelArrayList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,7 +93,22 @@ public class SearchActivity extends AppCompatActivity {
         binding.searchView.setText(key);
 */
 
-        binding.searchView.addTextChangedListener(new TextWatcher() {
+        getSearchHistoryList(false);
+        binding.txtSearch.setOnClickListener(view -> {
+            if (Utils.isNetwork(SearchActivity.this)) {
+                if (binding.txtSearch.getText().toString().equals("")) {
+                    Toast.makeText(SearchActivity.this, "Enter search keyword", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    insertSearchData(false);
+                }
+            } else {
+                binding.lnrMainLayout.setVisibility(View.GONE);
+                Utils.InternetAlertDialog(SearchActivity.this, getString(R.string.no_internet_title), getString(R.string.no_internet_desc));
+            }
+
+        });
+      /*  binding.searchView.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
@@ -120,7 +138,7 @@ public class SearchActivity extends AppCompatActivity {
                 return true;
             }
             return false;
-        });
+        });*/
     }
 
     public class ClickHandler {
@@ -148,65 +166,97 @@ public class SearchActivity extends AppCompatActivity {
             dialog.dismiss();
     }
 
-    private void getSearchData(boolean isLoading) {
+    private void insertSearchData(boolean isLoading) {
         if (isLoading)
             showShimmer();
         UserProfileRequestModel model = new UserProfileRequestModel();
         model.setUserId(SharedPref.getVal(SearchActivity.this, SharedPref.user_id));
         model.setSearch_key(binding.searchView.getText().toString());
-        model.setSearch_type(search_by);
+    //    model.setSearch_type(search_by);
 
         ApiInterface client = ApiClient.createService(ApiInterface.class, "", "");
-        client.searchTags(model).enqueue(new Callback<ResponseBody>() {
+        client.insertSearchHistory(model).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
                 try {
                     JSONObject jsonObject = new JSONObject(response.body().string());
                     String code = jsonObject.getString("code");
                     if (code.equals("200")) {
+                      //  Toast.makeText(getApplicationContext(),jsonObject.getString("message"),Toast.LENGTH_SHORT).show();
+                        getSearchData(false);
+                    } else {
+                    //    binding.lnrMainLayout.setVisibility(View.GONE);
+                     //   binding.lnrNoData.setVisibility(View.VISIBLE);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+//                    binding.lnrMainLayout.setVisibility(View.GONE);
+//                    binding.lnrNoData.setVisibility(View.VISIBLE);
+                }
 
-                        JSONObject jsonObject1 = jsonObject.getJSONObject("Data");
+                hideShimmer();
+            }
 
-                        /*Shop array json*/
-                        if(jsonObject1.has("shopData")) {
+            @Override
+            public void onFailure(@NonNull Call<ResponseBody> call, @NonNull Throwable error) {
+                hideShimmer();
+                error.printStackTrace();
+                if (error instanceof HttpException) {
+                    switch (((HttpException) error).code()) {
+                        case HttpsURLConnection.HTTP_UNAUTHORIZED:
+                            Toast.makeText(SearchActivity.this, getString(R.string.unauthorised_user), Toast.LENGTH_SHORT).show();
+                            break;
+                        case HttpsURLConnection.HTTP_FORBIDDEN:
+                            Toast.makeText(SearchActivity.this, getString(R.string.forbidden), Toast.LENGTH_SHORT).show();
+                            break;
+                        case HttpsURLConnection.HTTP_INTERNAL_ERROR:
+                            Toast.makeText(SearchActivity.this, getString(R.string.internal_server_error), Toast.LENGTH_SHORT).show();
+                            break;
+                        case HttpsURLConnection.HTTP_BAD_REQUEST:
+                            Toast.makeText(SearchActivity.this, getString(R.string.bad_request), Toast.LENGTH_SHORT).show();
+                            break;
+                        default:
+                            Toast.makeText(SearchActivity.this, error.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    Toast.makeText(SearchActivity.this, getString(R.string.something_went_wrong), Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
+
+
+    private void getSearchHistoryList(boolean isLoading) {
+        if (isLoading)
+            showShimmer();
+        UserProfileRequestModel model = new UserProfileRequestModel();
+        model.setUserId(SharedPref.getVal(SearchActivity.this, SharedPref.user_id));
+
+        ApiInterface client = ApiClient.createService(ApiInterface.class, "", "");
+        client.getSearchHistory(model).enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
+                try {
+                    JSONObject jsonObject = new JSONObject(response.body().string());
+                    String code = jsonObject.getString("code");
+                    if (code.equals("200")) {
                             Gson gson1 = new Gson();
-                            Type listType = new TypeToken<List<SearchShopModel>>() {
+                            Type listType = new TypeToken<List<SearchHistoryModel>>() {
                             }.getType();
-                            searchShopModelArrayList = new ArrayList<>();
-                            searchShopModelArrayList.addAll(gson1.fromJson(jsonObject1.getString("shopData"), listType));
+                            searchHistoryModelArrayList = new ArrayList<>();
+                            searchHistoryModelArrayList.addAll(gson1.fromJson(jsonObject.getString("data"), listType));
 
-                            if (searchShopModelArrayList.size() > 0) {
-                                binding.recShoplist.setLayoutManager(new LinearLayoutManager(SearchActivity.this));
-                                binding.recShoplist.setAdapter(new ShopAdapter());
+                            if (searchHistoryModelArrayList.size() > 0) {
+                                binding.recHistoryList.setLayoutManager(new LinearLayoutManager(SearchActivity.this));
+                                binding.recHistoryList.setAdapter(new HistoryAdapter());
 
-                                binding.recShoplist.setVisibility(View.VISIBLE);
+                                binding.recHistoryList.setVisibility(View.VISIBLE);
                                 binding.lnrMainLayout.setVisibility(View.VISIBLE);
+
                             } else {
-                                binding.recShoplist.setVisibility(View.GONE);
+                                binding.recHistoryList.setVisibility(View.GONE);
 //                            binding.lnrNoData.setVisibility(View.VISIBLE);
                             }
-                        }
-
-                        /*Product array json*/
-                        if(jsonObject1.has("productData")) {
-                            Gson gson2 = new Gson();
-                            Type listType1 = new TypeToken<List<SearchProductModel>>() {
-                            }.getType();
-                            searchProductModelArrayList = new ArrayList<>();
-                            searchProductModelArrayList.addAll(gson2.fromJson(jsonObject1.getString("productData"), listType1));
-
-                            if (searchProductModelArrayList.size() > 0) {
-                                binding.recProductlist.setLayoutManager(new GridLayoutManager(SearchActivity.this, 3));
-                                binding.recProductlist.setAdapter(new ProductAdapter(SearchActivity.this, searchProductModelArrayList, "search", "", ""));
-
-                                binding.recProductlist.setVisibility(View.VISIBLE);
-                                binding.lnrMainLayout.setVisibility(View.VISIBLE);
-//                            binding.lnrNoData.setVisibility(View.GONE);
-                            } else {
-                                binding.recProductlist.setVisibility(View.GONE);
-//                            binding.lnrNoData.setVisibility(View.VISIBLE);
-                            }
-                        }
 
                     } else {
                         binding.lnrMainLayout.setVisibility(View.GONE);
@@ -248,6 +298,173 @@ public class SearchActivity extends AppCompatActivity {
             }
         });
     }
+
+
+    private void getSearchData(boolean isLoading) {
+        if (isLoading)
+            showShimmer();
+        UserProfileRequestModel model = new UserProfileRequestModel();
+        model.setUserId(SharedPref.getVal(SearchActivity.this, SharedPref.user_id));
+        model.setSearch_key(binding.searchView.getText().toString());
+        model.setSearch_type(search_by);
+
+        ApiInterface client = ApiClient.createService(ApiInterface.class, "", "");
+        client.searchTags(model).enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
+                try {
+                    JSONObject jsonObject = new JSONObject(response.body().string());
+                    String code = jsonObject.getString("code");
+                    if (code.equals("200")) {
+
+                        JSONObject jsonObject1 = jsonObject.getJSONObject("Data");
+
+                        /*Shop array json*/
+                        if(jsonObject1.has("shopData")) {
+                            Gson gson1 = new Gson();
+                            Type listType = new TypeToken<List<SearchShopModel>>() {
+                            }.getType();
+                            searchShopModelArrayList = new ArrayList<>();
+                            searchShopModelArrayList.addAll(gson1.fromJson(jsonObject1.getString("shopData"), listType));
+
+                            if (searchShopModelArrayList.size() > 0) {
+                                binding.recShoplist.setLayoutManager(new LinearLayoutManager(SearchActivity.this));
+                                binding.recShoplist.setAdapter(new ShopAdapter());
+
+                                binding.recShoplist.setVisibility(View.VISIBLE);
+                                binding.recHistoryList.setVisibility(View.GONE);
+                                binding.lnrNoData.setVisibility(View.GONE);
+                                binding.lnrMainLayout.setVisibility(View.VISIBLE);
+                            } else {
+                                binding.recShoplist.setVisibility(View.GONE);
+//                            binding.lnrNoData.setVisibility(View.VISIBLE);
+                            }
+                        }
+
+                        /*Product array json*/
+                        if(jsonObject1.has("productData")) {
+                            Gson gson2 = new Gson();
+                            Type listType1 = new TypeToken<List<SearchProductModel>>() {
+                            }.getType();
+                            searchProductModelArrayList = new ArrayList<>();
+                            searchProductModelArrayList.addAll(gson2.fromJson(jsonObject1.getString("productData"), listType1));
+
+                            if (searchProductModelArrayList.size() > 0) {
+                                binding.recProductlist.setLayoutManager(new GridLayoutManager(SearchActivity.this, 3));
+                                binding.recProductlist.setAdapter(new ProductAdapter(SearchActivity.this, searchProductModelArrayList, "search", "", ""));
+
+                                binding.recProductlist.setVisibility(View.VISIBLE);
+                                binding.recHistoryList.setVisibility(View.GONE);
+                                binding.lnrNoData.setVisibility(View.GONE);
+                                binding.lnrMainLayout.setVisibility(View.VISIBLE);
+//                            binding.lnrNoData.setVisibility(View.GONE);
+                            } else {
+                                binding.recProductlist.setVisibility(View.GONE);
+//                            binding.lnrNoData.setVisibility(View.VISIBLE);
+                            }
+                        }
+
+                    } else {
+                        binding.lnrMainLayout.setVisibility(View.GONE);
+                        binding.lnrNoData.setVisibility(View.VISIBLE);
+
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+//                    binding.lnrMainLayout.setVisibility(View.GONE);
+//                    binding.lnrNoData.setVisibility(View.VISIBLE);
+                }
+
+                hideShimmer();
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<ResponseBody> call, @NonNull Throwable error) {
+                hideShimmer();
+                error.printStackTrace();
+                if (error instanceof HttpException) {
+                    switch (((HttpException) error).code()) {
+                        case HttpsURLConnection.HTTP_UNAUTHORIZED:
+                            Toast.makeText(SearchActivity.this, getString(R.string.unauthorised_user), Toast.LENGTH_SHORT).show();
+                            break;
+                        case HttpsURLConnection.HTTP_FORBIDDEN:
+                            Toast.makeText(SearchActivity.this, getString(R.string.forbidden), Toast.LENGTH_SHORT).show();
+                            break;
+                        case HttpsURLConnection.HTTP_INTERNAL_ERROR:
+                            Toast.makeText(SearchActivity.this, getString(R.string.internal_server_error), Toast.LENGTH_SHORT).show();
+                            break;
+                        case HttpsURLConnection.HTTP_BAD_REQUEST:
+                            Toast.makeText(SearchActivity.this, getString(R.string.bad_request), Toast.LENGTH_SHORT).show();
+                            break;
+                        default:
+                            Toast.makeText(SearchActivity.this, error.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    Toast.makeText(SearchActivity.this, getString(R.string.something_went_wrong), Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
+
+    private void removeSearchData(boolean isLoading,String search_id) {
+        if (isLoading)
+            showShimmer();
+        SearchHistoryModel model = new SearchHistoryModel();
+     //   model.setUserId(SharedPref.getVal(SearchActivity.this, SharedPref.user_id));
+        model.setSearchId(search_id);
+        //    model.setSearch_type(search_by);
+
+        ApiInterface client = ApiClient.createService(ApiInterface.class, "", "");
+        client.removeHistory(model).enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
+                try {
+                    JSONObject jsonObject = new JSONObject(response.body().string());
+                    String code = jsonObject.getString("code");
+                    if (code.equals("200")) {
+                        //  Toast.makeText(getApplicationContext(),jsonObject.getString("message"),Toast.LENGTH_SHORT).show();
+                        getSearchHistoryList(false);
+                    } else {
+                        //    binding.lnrMainLayout.setVisibility(View.GONE);
+                        //   binding.lnrNoData.setVisibility(View.VISIBLE);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+//                    binding.lnrMainLayout.setVisibility(View.GONE);
+//                    binding.lnrNoData.setVisibility(View.VISIBLE);
+                }
+
+                hideShimmer();
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<ResponseBody> call, @NonNull Throwable error) {
+                hideShimmer();
+                error.printStackTrace();
+                if (error instanceof HttpException) {
+                    switch (((HttpException) error).code()) {
+                        case HttpsURLConnection.HTTP_UNAUTHORIZED:
+                            Toast.makeText(SearchActivity.this, getString(R.string.unauthorised_user), Toast.LENGTH_SHORT).show();
+                            break;
+                        case HttpsURLConnection.HTTP_FORBIDDEN:
+                            Toast.makeText(SearchActivity.this, getString(R.string.forbidden), Toast.LENGTH_SHORT).show();
+                            break;
+                        case HttpsURLConnection.HTTP_INTERNAL_ERROR:
+                            Toast.makeText(SearchActivity.this, getString(R.string.internal_server_error), Toast.LENGTH_SHORT).show();
+                            break;
+                        case HttpsURLConnection.HTTP_BAD_REQUEST:
+                            Toast.makeText(SearchActivity.this, getString(R.string.bad_request), Toast.LENGTH_SHORT).show();
+                            break;
+                        default:
+                            Toast.makeText(SearchActivity.this, error.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    Toast.makeText(SearchActivity.this, getString(R.string.something_went_wrong), Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
+
 
     public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.ViewHolder> {
 
@@ -379,4 +596,50 @@ public class SearchActivity extends AppCompatActivity {
 
         }
     }
+
+    public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHolder> {
+
+        @NonNull
+        @Override
+        public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            ItemSearchListBinding layoutBinding = DataBindingUtil.inflate(LayoutInflater.from(SearchActivity.this), R.layout.item_search_list, parent, false);
+            return new ViewHolder(layoutBinding);
+        }
+
+        @Override
+        public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+            SearchHistoryModel model = searchHistoryModelArrayList.get(position);
+            holder.bind(model, position);
+        }
+
+        @Override
+        public int getItemCount() {
+            return searchHistoryModelArrayList.size();
+        }
+
+        public class ViewHolder extends RecyclerView.ViewHolder {
+            ItemSearchListBinding layoutBinding;
+
+            public ViewHolder(@NonNull ItemSearchListBinding itemView) {
+                super(itemView.getRoot());
+                this.layoutBinding = itemView;
+            //    layoutBinding.recProduct.setVisibility(View.GONE);
+               // layoutBinding.imgDelete.setVisibility(View.GONE);
+            }
+
+            public void bind(SearchHistoryModel model, int position) {
+
+                layoutBinding.txtSearchkey.setText(model.getSearchKey());
+                layoutBinding.txtSearchkey.setOnClickListener(view -> {
+                    binding.searchView.setText(layoutBinding.txtSearchkey.getText().toString());
+                });
+                layoutBinding.btnRemove.setOnClickListener(view -> {
+                    removeSearchData(false,model.getSearchId());
+                   // startActivity(new Intent(SearchActivity.this, ShopDetailsActivity.class).putExtra("shop_id", model.getShopId()));
+                });
+            }
+
+        }
+    }
+
 }

@@ -408,6 +408,13 @@ public class LeadsActivity extends AppCompatActivity {
                     layoutBinding.txtStatus.setText("Completed");
                     layoutBinding.txtStatus.setTextColor(getResources().getColor(R.color.green));
                 }
+                layoutBinding.cardMsg.setOnLongClickListener(new View.OnLongClickListener() {
+                    @Override
+                    public boolean onLongClick(View view) {
+                        showDeleteDialog(model.getId());
+                        return true;
+                    }
+                });
 
             }
 
@@ -510,13 +517,7 @@ public class LeadsActivity extends AppCompatActivity {
 
                 });
 
-                layoutBinding.cardMsg.setOnLongClickListener(new View.OnLongClickListener() {
-                    @Override
-                    public boolean onLongClick(View view) {
-                        showDeleteDialog(model.getId());
-                        return true;
-                    }
-                });
+
             }
 
             private void updateStatus(String id, String status, boolean isLoading) {
