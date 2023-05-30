@@ -131,7 +131,7 @@ public interface ApiInterface {
     @POST("removeTicket")
     Call<ResponseBody> deleteTicket(@Body TicketDataModel model);
 
-    @POST("removeMessage")
+    @POST("deleteMessage")
     Call<ResponseBody> deleteMessage(@Body UserLeadModel model);
 
     @POST("addSupershop")

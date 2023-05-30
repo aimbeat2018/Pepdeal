@@ -647,10 +647,9 @@ public class LeadsActivity extends AppCompatActivity {
 
         private void deleteMessage(String msgid) {
             showShimmer();
-            String userIdStr = SharedPref.getVal(LeadsActivity.this, SharedPref.user_id);
 
             UserLeadModel model = new UserLeadModel();
-            model.setUserId(SharedPref.getVal(LeadsActivity.this, SharedPref.user_id));
+         //   model.setUserId(SharedPref.getVal(LeadsActivity.this, SharedPref.user_id));
             model.setId(msgid);
 
             ApiInterface client = ApiClient.createService(ApiInterface.class, "", "");
@@ -662,10 +661,11 @@ public class LeadsActivity extends AppCompatActivity {
                         String code = jsonObject.getString("code");
                         if (code.equals("200")) {
                             Toast.makeText(LeadsActivity.this,jsonObject.getString("message"),Toast.LENGTH_SHORT).show();
-                            if (from.equals("user"))
-                                getLeadsForSeller(false);
+                            finish();
+                            /*  if (from.equals("user"))
+                                getLeadsForSeller(true);
                             else
-                                getLeadsForUser(false);
+                                getLeadsForUser(true);*/
                         } else {
                             Toast.makeText(LeadsActivity.this,jsonObject.getString("message"),Toast.LENGTH_SHORT).show();
                         }
