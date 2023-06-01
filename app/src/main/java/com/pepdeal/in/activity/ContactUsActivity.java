@@ -39,7 +39,7 @@ public class ContactUsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_contact_us);
-
+        binding.setHandler(new ClickHandler());
         dialog = new ProgressDialog(this);
         dialog.setTitle("Loading");
         dialog.setMessage("Please wait...");
@@ -64,6 +64,11 @@ public class ContactUsActivity extends AppCompatActivity {
             }
         });
 
+    }
+    public class ClickHandler {
+        public void onBackClick(View view) {
+            onBackPressed();
+        }
     }
 
     private void addQuery() {

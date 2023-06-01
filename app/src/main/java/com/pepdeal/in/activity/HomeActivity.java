@@ -634,6 +634,9 @@ public class HomeActivity extends AppCompatActivity implements LocationListener/
                             if (!jsonObject.getString("status").equals("")) {
                                 binding.cardNewMessage.setVisibility(View.VISIBLE);
                             }
+                            else{
+                                binding.cardNewMessage.setVisibility(View.GONE);
+                            }
 //                                }
                         } else {
                             if (Integer.parseInt(jsonObject.getString("count")) > 0) {
@@ -642,6 +645,7 @@ public class HomeActivity extends AppCompatActivity implements LocationListener/
                         }
                     } else {
                         binding.includeLayout.txtNewMessage.setVisibility(View.GONE);
+                        binding.cardNewMessage.setVisibility(View.GONE);
                     }
                 } catch (
                         Exception e) {

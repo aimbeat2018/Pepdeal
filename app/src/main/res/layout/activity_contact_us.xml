@@ -5,7 +5,7 @@
 
         <variable
             name="handler"
-            type="com.pepdeal.in.activity.AddShopActivity.ClickHandler" />
+            type="com.pepdeal.in.activity.ContactUsActivity.ClickHandler" />
     </data>
 
     <androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"

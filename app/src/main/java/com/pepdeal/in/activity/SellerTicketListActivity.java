@@ -287,13 +287,13 @@ public class SellerTicketListActivity extends AppCompatActivity {
                         startActivity(intent);
                     }
                 });*/
-                layoutBinding.cardDetails.setOnLongClickListener(new View.OnLongClickListener() {
+                /*layoutBinding.cardDetails.setOnLongClickListener(new View.OnLongClickListener() {
                     @Override
                     public boolean onLongClick(View view) {
                         showDeleteDialog(model.getTicketId());
                         return true;
                     }
-                });
+                });*/
                 layoutBinding.cardConfirm.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
