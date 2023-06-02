@@ -146,7 +146,7 @@ public class LeadsActivity extends AppCompatActivity {
                         }.getType();
                         userLeadModelList = new ArrayList<>();
                         userLeadModelList.addAll(gson.fromJson(jsonObject.getString("data"), listType));
-                        Collections.reverse(userLeadModelList);
+                      //  Collections.reverse(userLeadModelList);
                         if (userLeadModelList.size() > 0) {
                             binding.recList.setLayoutManager(new LinearLayoutManager(LeadsActivity.this));
                             binding.recList.setAdapter(new LeadsAdapter("shop"));
@@ -273,7 +273,7 @@ public class LeadsActivity extends AppCompatActivity {
                         }.getType();
                         sellerLeadModelList = new ArrayList<>();
                         sellerLeadModelList.addAll(gson.fromJson(jsonObject.getString("data"), listType));
-                        Collections.reverse(sellerLeadModelList);
+                       // Collections.reverse(sellerLeadModelList);
                         if (sellerLeadModelList.size() > 0) {
                             binding.recList.setLayoutManager(new LinearLayoutManager(LeadsActivity.this));
                             binding.recList.setAdapter(new LeadsAdapter("user"));
