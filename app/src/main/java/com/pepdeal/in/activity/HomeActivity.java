@@ -171,7 +171,7 @@ public class HomeActivity extends AppCompatActivity implements LocationListener/
 
     private void onSearchbutton() {
 
-        new AlertDialog.Builder(HomeActivity.this)
+        new AlertDialog.Builder(HomeActivity.this,R.style.MyDialogTheme)
                 .setTitle("Search")
                 .setMessage("How do you want to search?")
 

@@ -26,7 +26,7 @@
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="match_parent"
                 android:layout_height="?actionBarSize"
-                android:background="@color/purple_200"
+                android:background="@color/yellow"
                 android:orientation="horizontal"
                 android:paddingHorizontal="@dimen/margin_15">
 
@@ -42,7 +42,7 @@
                         android:layout_height="@dimen/margin_30"
                         android:layout_gravity="center"
                         android:src="@drawable/ic_baseline_keyboard_arrow_left_24"
-                        app:tint="@color/white" />
+                        app:tint="@color/new_gray" />
                 </androidx.appcompat.widget.LinearLayoutCompat>
 
                 <androidx.appcompat.widget.AppCompatTextView
@@ -56,7 +56,7 @@
                     android:singleLine="true"
                     android:text="@string/edit_profile"
                     android:textAllCaps="true"
-                    android:textColor="@color/white"
+                    android:textColor="@color/new_gray"
                     android:textSize="@dimen/text_16"
                     android:textStyle="bold" />
 

@@ -212,34 +212,34 @@ public class CitywiseShopListActivity extends AppCompatActivity {
 
                 Typeface typeface = null;
                 if (model.getFontStyleId().equals("1")) {
-                    typeface = ResourcesCompat.getFont(CitywiseShopListActivity.this, R.font.anton_regular);
+                    typeface = ResourcesCompat.getFont(CitywiseShopListActivity.this, R.font.helios_extended);
                 } else if (model.getFontStyleId().equals("2")) {
-                    typeface = ResourcesCompat.getFont(CitywiseShopListActivity.this, R.font.berkshireswash_regular);
+                    typeface = ResourcesCompat.getFont(CitywiseShopListActivity.this, R.font.black_mango);
                 } else if (model.getFontStyleId().equals("3")) {
-                    typeface = ResourcesCompat.getFont(CitywiseShopListActivity.this, R.font.brasika_display);
+                    typeface = ResourcesCompat.getFont(CitywiseShopListActivity.this, R.font.catchy_mager);
                 } else if (model.getFontStyleId().equals("4")) {
-                    typeface = ResourcesCompat.getFont(CitywiseShopListActivity.this, R.font.carterone_regular);
+                    typeface = ResourcesCompat.getFont(CitywiseShopListActivity.this, R.font.gillsansnova_bold);
                 } else if (model.getFontStyleId().equals("5")) {
-                    typeface = ResourcesCompat.getFont(CitywiseShopListActivity.this, R.font.fredokaone_regular);
+                    typeface = ResourcesCompat.getFont(CitywiseShopListActivity.this, R.font.alyssum);
                 } else if (model.getFontStyleId().equals("6")) {
-                    typeface = ResourcesCompat.getFont(CitywiseShopListActivity.this, R.font.gagalin_regular);
+                    typeface = ResourcesCompat.getFont(CitywiseShopListActivity.this, R.font.modica_semibold);
                 } else if (model.getFontStyleId().equals("7")) {
-                    typeface = ResourcesCompat.getFont(CitywiseShopListActivity.this, R.font.lato_regular);
+                    typeface = ResourcesCompat.getFont(CitywiseShopListActivity.this, R.font.rustica);
                 } else if (model.getFontStyleId().equals("8")) {
-                    typeface = ResourcesCompat.getFont(CitywiseShopListActivity.this, R.font.leaguespartan_bold);
+                    typeface = ResourcesCompat.getFont(CitywiseShopListActivity.this, R.font.knockout_welterweight);
                 } else if (model.getFontStyleId().equals("9")) {
-                    typeface = ResourcesCompat.getFont(CitywiseShopListActivity.this, R.font.lovelo_black);
+                    typeface = ResourcesCompat.getFont(CitywiseShopListActivity.this, R.font.horizon);
                 } else if (model.getFontStyleId().equals("10")) {
-                    typeface = ResourcesCompat.getFont(CitywiseShopListActivity.this, R.font.opensans_bold);
+                    typeface = ResourcesCompat.getFont(CitywiseShopListActivity.this, R.font.garamond);
                 } else if (model.getFontStyleId().equals("11")) {
-                    typeface = ResourcesCompat.getFont(CitywiseShopListActivity.this, R.font.quicksand_bold);
+                    typeface = ResourcesCompat.getFont(CitywiseShopListActivity.this, R.font.gagalin);
                 } else if (model.getFontStyleId().equals("12")) {
-                    typeface = ResourcesCompat.getFont(CitywiseShopListActivity.this, R.font.yesevaone_regular);
-                } /*else if (model.getFontStyleId().equals("13")) {
-                            typeface = ResourcesCompat.getFont(CitywiseShopListActivity.this, R.font.roboto_mediumitalic);
-                        } else if (model.getFontStyleId().equals("14")) {
-                            typeface = ResourcesCompat.getFont(CitywiseShopListActivity.this, R.font.roboto_regular);
-                        } else if (model.getFontStyleId().equals("15")) {
+                    typeface = ResourcesCompat.getFont(CitywiseShopListActivity.this, R.font.copperplategothic_abregular);
+                } else if (model.getFontStyleId().equals("13")) {
+                    typeface = ResourcesCompat.getFont(CitywiseShopListActivity.this, R.font.cardo);
+                } else if (model.getFontStyleId().equals("14")) {
+                    typeface = ResourcesCompat.getFont(CitywiseShopListActivity.this, R.font.calgary);
+                } /*else if (model.getFontStyleId().equals("15")) {
                             typeface = ResourcesCompat.getFont(CitywiseShopListActivity.this, R.font.roboto_thin);
                         } else if (model.getFontStyleId().equals("16")) {
                             typeface = ResourcesCompat.getFont(CitywiseShopListActivity.this, R.font.roboto_thinitalic);

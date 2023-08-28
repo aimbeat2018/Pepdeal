@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+   <!-- <color name="purple_200">#FFF27F</color>
+    <color name="purple_500">#FFF27F</color>
+    <color name="purple_700">#FFF27F</color>-->
     <color name="purple_200">#F87F48</color>
     <color name="purple_500">#EC5F1F</color>
     <color name="purple_700">#D14D11</color>
@@ -16,21 +19,26 @@
     <color name="gray_light_trans">#80E1E1E1</color>
     <color name="off_white">#EDF2F6</color>
     <color name="colorGrayLight">#F5F5F8</color>
-    <color name="colorOrange">#F03E3B</color>
+    <color name="colorOrange">#FFF27F</color>
+    <!--<color name="colorOrange">#F03E3B</color>-->
+
+    <color name="yellow">#FFF27F</color>
+    <color name="dialog_yellow">#FFF6A5</color>
+    <color name="new_gray">#545454</color>
 
     <color name="grayTextColor">#7E7E7E</color>
 
     <color name="colorPrimaryDarkTrans">#50EC5F1F</color>
     <color name="inactiveColor">#F6B394</color>
 
-    <color name="selectedDotColorTrans">#DB3936</color>
+    <color name="selectedDotColorTrans">#FFF27F</color>
     <color name="unselectedDotColor">#DFB8B7</color>
 
     <color name="blue1">#0099CC</color>
     <color name="purple">#9933CC</color>
     <color name="green">#669900</color>
     <color name="green_light">#A8DC80</color>
-    <color name="orange">#FF8800</color>
+    <color name="orange">#FFF27F</color>
 
     <color name="delete_message_text">#b8b8b8</color>
     <color name="delete_message_bg">#f2f2f2</color>

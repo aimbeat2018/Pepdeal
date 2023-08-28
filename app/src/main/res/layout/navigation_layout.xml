@@ -14,6 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/nav_back"
+        android:backgroundTint="@color/yellow"
         android:orientation="vertical">
 
         <androidx.appcompat.widget.LinearLayoutCompat
@@ -88,7 +89,7 @@
                     android:singleLine="true"
                     android:text="@string/app_name"
                     android:textAllCaps="true"
-                    android:textColor="@color/white"
+                    android:textColor="@color/black"
                     android:textSize="@dimen/text_16" />
 
                 <androidx.appcompat.widget.AppCompatTextView
@@ -253,6 +254,7 @@
                                 android:layout_width="@dimen/margin_20"
                                 android:layout_height="@dimen/margin_20"
                                 android:layout_gravity="center"
+                                android:tint="@color/black"
                                 android:src="@drawable/ic_home" />
 
                             <androidx.appcompat.widget.AppCompatTextView
@@ -265,7 +267,7 @@
                                 android:paddingHorizontal="@dimen/margin_3"
                                 android:singleLine="true"
                                 android:text="@string/home"
-                                android:textColor="@color/white"
+                                android:textColor="@color/black"
                                 android:textSize="@dimen/text_14" />
 
                         </androidx.appcompat.widget.LinearLayoutCompat>
@@ -296,6 +298,7 @@
                                 android:layout_width="@dimen/margin_20"
                                 android:layout_height="@dimen/margin_20"
                                 android:layout_gravity="center"
+                                android:tint="@color/black"
                                 android:src="@drawable/ic_about_shop" />
 
                             <androidx.appcompat.widget.AppCompatTextView
@@ -308,7 +311,7 @@
                                 android:paddingHorizontal="@dimen/margin_3"
                                 android:singleLine="true"
                                 android:text="@string/category"
-                                android:textColor="@color/white"
+                                android:textColor="@color/black"
                                 android:textSize="@dimen/text_14" />
 
                         </androidx.appcompat.widget.LinearLayoutCompat>
@@ -341,7 +344,7 @@
                                 android:layout_height="@dimen/margin_20"
                                 android:layout_gravity="center"
                                 android:src="@drawable/ic_super_shop"
-                                app:tint="@color/white" />
+                                app:tint="@color/black" />
 
                             <androidx.appcompat.widget.AppCompatTextView
                                 android:layout_width="match_parent"
@@ -353,7 +356,7 @@
                                 android:paddingHorizontal="@dimen/margin_3"
                                 android:singleLine="true"
                                 android:text="@string/start_your_shop"
-                                android:textColor="@color/white"
+                                android:textColor="@color/black"
                                 android:textSize="@dimen/text_14" />
 
                         </androidx.appcompat.widget.LinearLayoutCompat>
@@ -384,6 +387,7 @@
                                 android:layout_width="@dimen/margin_20"
                                 android:layout_height="@dimen/margin_20"
                                 android:layout_gravity="center"
+                                android:tint="@color/black"
                                 android:src="@drawable/ic_notification" />
 
                             <androidx.appcompat.widget.AppCompatTextView
@@ -396,7 +400,7 @@
                                 android:paddingHorizontal="@dimen/margin_3"
                                 android:singleLine="true"
                                 android:text="@string/notification"
-                                android:textColor="@color/white"
+                                android:textColor="@color/black"
                                 android:textSize="@dimen/text_14" />
 
                         </androidx.appcompat.widget.LinearLayoutCompat>
@@ -428,6 +432,7 @@
                                 android:layout_width="@dimen/margin_20"
                                 android:layout_height="@dimen/margin_20"
                                 android:layout_gravity="center"
+                                android:tint="@color/black"
                                 android:src="@drawable/ic_contact_us" />
 
                             <androidx.appcompat.widget.AppCompatTextView
@@ -440,7 +445,7 @@
                                 android:paddingHorizontal="@dimen/margin_3"
                                 android:singleLine="true"
                                 android:text="@string/contact_us"
-                                android:textColor="@color/white"
+                                android:textColor="@color/black"
                                 android:textSize="@dimen/text_14" />
 
                         </androidx.appcompat.widget.LinearLayoutCompat>
@@ -471,6 +476,7 @@
                                 android:layout_width="@dimen/margin_20"
                                 android:layout_height="@dimen/margin_20"
                                 android:layout_gravity="center"
+                                android:tint="@color/black"
                                 android:src="@drawable/ic_about_us" />
 
                             <androidx.appcompat.widget.AppCompatTextView
@@ -483,7 +489,7 @@
                                 android:paddingHorizontal="@dimen/margin_3"
                                 android:singleLine="true"
                                 android:text="@string/about_us"
-                                android:textColor="@color/white"
+                                android:textColor="@color/black"
                                 android:textSize="@dimen/text_14" />
 
                         </androidx.appcompat.widget.LinearLayoutCompat>
@@ -515,6 +521,7 @@
                                 android:layout_width="@dimen/margin_20"
                                 android:layout_height="@dimen/margin_20"
                                 android:layout_gravity="center"
+                                android:tint="@color/black"
                                 android:src="@drawable/ic_legal" />
 
                             <androidx.appcompat.widget.AppCompatTextView
@@ -527,7 +534,7 @@
                                 android:paddingHorizontal="@dimen/margin_3"
                                 android:singleLine="true"
                                 android:text="@string/legal"
-                                android:textColor="@color/white"
+                                android:textColor="@color/black"
                                 android:textSize="@dimen/text_14" />
 
                         </androidx.appcompat.widget.LinearLayoutCompat>
@@ -558,6 +565,7 @@
                                 android:layout_width="@dimen/margin_20"
                                 android:layout_height="@dimen/margin_20"
                                 android:layout_gravity="center"
+                                android:tint="@color/black"
                                 android:src="@drawable/ic_log_out" />
 
                             <androidx.appcompat.widget.AppCompatTextView
@@ -571,7 +579,7 @@
                                 android:paddingHorizontal="@dimen/margin_3"
                                 android:singleLine="true"
                                 android:text="@string/logout"
-                                android:textColor="@color/white"
+                                android:textColor="@color/black"
                                 android:textSize="@dimen/text_14" />
 
                         </androidx.appcompat.widget.LinearLayoutCompat>
@@ -613,6 +621,7 @@
                                 android:layout_width="@dimen/margin_20"
                                 android:layout_height="@dimen/margin_20"
                                 android:layout_gravity="center"
+                                android:tint="@color/black"
                                 android:src="@drawable/ic_home" />
 
                             <androidx.appcompat.widget.AppCompatTextView
@@ -625,7 +634,7 @@
                                 android:paddingHorizontal="@dimen/margin_3"
                                 android:singleLine="true"
                                 android:text="@string/shop_sign_board"
-                                android:textColor="@color/white"
+                                android:textColor="@color/black"
                                 android:textSize="@dimen/text_14" />
 
                         </androidx.appcompat.widget.LinearLayoutCompat>
@@ -656,6 +665,7 @@
                                 android:layout_width="@dimen/margin_20"
                                 android:layout_height="@dimen/margin_20"
                                 android:layout_gravity="center"
+                                android:tint="@color/black"
                                 android:src="@drawable/ic_about_shop" />
 
                             <androidx.appcompat.widget.AppCompatTextView
@@ -668,7 +678,7 @@
                                 android:paddingHorizontal="@dimen/margin_3"
                                 android:singleLine="true"
                                 android:text="@string/about_shop"
-                                android:textColor="@color/white"
+                                android:textColor="@color/black"
                                 android:textSize="@dimen/text_14" />
 
                         </androidx.appcompat.widget.LinearLayoutCompat>
@@ -701,7 +711,7 @@
                                 android:layout_height="@dimen/margin_20"
                                 android:layout_gravity="center"
                                 android:src="@drawable/ic_super_shop"
-                                app:tint="@color/white" />
+                                app:tint="@color/black" />
 
                             <androidx.appcompat.widget.AppCompatTextView
                                 android:layout_width="match_parent"
@@ -713,7 +723,7 @@
                                 android:paddingHorizontal="@dimen/margin_3"
                                 android:singleLine="true"
                                 android:text="@string/list_product"
-                                android:textColor="@color/white"
+                                android:textColor="@color/black"
                                 android:textSize="@dimen/text_14" />
 
                         </androidx.appcompat.widget.LinearLayoutCompat>
@@ -746,7 +756,7 @@
                                 android:layout_height="@dimen/margin_20"
                                 android:layout_gravity="center"
                                 android:src="@drawable/ic_update_listing"
-                                app:tint="@color/white" />
+                                app:tint="@color/black" />
 
                             <androidx.appcompat.widget.AppCompatTextView
                                 android:layout_width="match_parent"
@@ -758,7 +768,7 @@
                                 android:paddingHorizontal="@dimen/margin_3"
                                 android:singleLine="true"
                                 android:text="@string/update_listing"
-                                android:textColor="@color/white"
+                                android:textColor="@color/black"
                                 android:textSize="@dimen/text_14" />
 
                         </androidx.appcompat.widget.LinearLayoutCompat>
@@ -791,7 +801,7 @@
                                 android:layout_height="@dimen/margin_20"
                                 android:layout_gravity="center"
                                 android:src="@drawable/ic_message"
-                                app:tint="@color/white" />
+                                app:tint="@color/black" />
 
                             <androidx.appcompat.widget.AppCompatTextView
                                 android:layout_width="match_parent"
@@ -803,7 +813,7 @@
                                 android:paddingHorizontal="@dimen/margin_3"
                                 android:singleLine="true"
                                 android:text="@string/message"
-                                android:textColor="@color/white"
+                                android:textColor="@color/black"
                                 android:textSize="@dimen/text_14" />
 
                             <androidx.appcompat.widget.AppCompatTextView
@@ -848,6 +858,7 @@
                                 android:layout_width="@dimen/margin_20"
                                 android:layout_height="@dimen/margin_20"
                                 android:layout_gravity="center"
+                                android:tint="@color/black"
                                 android:src="@drawable/ic_tickets" />
 
                             <androidx.appcompat.widget.AppCompatTextView
@@ -860,7 +871,7 @@
                                 android:paddingHorizontal="@dimen/margin_3"
                                 android:singleLine="true"
                                 android:text="@string/ticket"
-                                android:textColor="@color/white"
+                                android:textColor="@color/black"
                                 android:textSize="@dimen/text_14" />
 
                         </androidx.appcompat.widget.LinearLayoutCompat>
@@ -891,6 +902,7 @@
                                 android:layout_width="@dimen/margin_20"
                                 android:layout_height="@dimen/margin_20"
                                 android:layout_gravity="center"
+                                android:tint="@color/black"
                                 android:src="@drawable/ic_setting" />
 
                             <androidx.appcompat.widget.AppCompatTextView
@@ -903,7 +915,7 @@
                                 android:paddingHorizontal="@dimen/margin_3"
                                 android:singleLine="true"
                                 android:text="@string/setting"
-                                android:textColor="@color/white"
+                                android:textColor="@color/black"
                                 android:textSize="@dimen/text_14" />
 
                         </androidx.appcompat.widget.LinearLayoutCompat>
@@ -935,6 +947,7 @@
                                 android:layout_width="@dimen/margin_20"
                                 android:layout_height="@dimen/margin_20"
                                 android:layout_gravity="center"
+                                android:tint="@color/black"
                                 android:src="@drawable/ic_log_out" />
 
                             <androidx.appcompat.widget.AppCompatTextView
@@ -947,7 +960,7 @@
                                 android:paddingHorizontal="@dimen/margin_3"
                                 android:singleLine="true"
                                 android:text="@string/logout"
-                                android:textColor="@color/white"
+                                android:textColor="@color/black"
                                 android:textSize="@dimen/text_14" />
 
                         </androidx.appcompat.widget.LinearLayoutCompat>
