@@ -330,7 +330,7 @@ public class HomeActivity extends AppCompatActivity implements LocationListener/
                 if (shopStatus.equals("0")) {
                     startActivity(new Intent(HomeActivity.this, ShopDetailsActivity.class).putExtra("shop_id", shop_id));
                 } else {
-                    new AlertDialog.Builder(HomeActivity.this)
+                    new AlertDialog.Builder(HomeActivity.this,R.style.MyDialogTheme)
                             .setTitle("Alert!!!")
                             .setMessage("Waiting for approval.")
 
@@ -372,7 +372,7 @@ public class HomeActivity extends AppCompatActivity implements LocationListener/
                         Utils.InternetAlertDialog(HomeActivity.this, getString(R.string.no_internet_title), getString(R.string.no_internet_desc));
                     }
                 } else {
-                    new AlertDialog.Builder(HomeActivity.this)
+                    new AlertDialog.Builder(HomeActivity.this,R.style.MyDialogTheme)
                             .setTitle("Alert!!!")
                             .setMessage("Waiting for approval.")
 
@@ -394,7 +394,7 @@ public class HomeActivity extends AppCompatActivity implements LocationListener/
 
 
         public void onLogout(View view) {
-            new AlertDialog.Builder(HomeActivity.this)
+            new AlertDialog.Builder(HomeActivity.this,R.style.MyDialogTheme)
                     .setTitle("Logout")
                     .setMessage("Are you sure you want to logout?")
 
@@ -443,7 +443,7 @@ public class HomeActivity extends AppCompatActivity implements LocationListener/
 
                     startActivity(new Intent(HomeActivity.this, ShopDetailsActivity.class).putExtra("shop_id", shop_id));
                 } else {
-                    new AlertDialog.Builder(HomeActivity.this)
+                    new AlertDialog.Builder(HomeActivity.this,R.style.MyDialogTheme)
                             .setTitle("Alert!!!")
                             .setMessage("Waiting for approval.")
 

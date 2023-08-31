@@ -963,7 +963,7 @@ public class AddProductActivity extends AppCompatActivity {
                     if (code.equals("200")) {
 //                        Toast.makeText(AddProductActivity.this, "Product Added successfully", Toast.LENGTH_SHORT).show();
 
-                        new AlertDialog.Builder(AddProductActivity.this)
+                        new AlertDialog.Builder(AddProductActivity.this,R.style.MyDialogTheme)
                                 .setTitle("Alert!!!")
                                 .setMessage("Product added successfully and sent to our team for verification.")
 
@@ -1082,7 +1082,7 @@ public class AddProductActivity extends AppCompatActivity {
 //                        Toast.makeText(AddProductActivity.this, "Product Updated successfully", Toast.LENGTH_SHORT).show();
 
 
-                        new AlertDialog.Builder(AddProductActivity.this)
+                        new AlertDialog.Builder(AddProductActivity.this,R.style.MyDialogTheme)
                                 .setTitle("Alert!!!")
                                 .setMessage("Product updated successfully and sent to our team for verification.")
 

@@ -367,7 +367,7 @@ public class AddShopActivity extends AppCompatActivity implements
                     String code = jsonObject.getString("code");
                     if (code.equals("200")) {
 
-                        new AlertDialog.Builder(AddShopActivity.this)
+                        new AlertDialog.Builder(AddShopActivity.this,R.style.MyDialogTheme)
                                 .setTitle("Alert!!!")
                                 .setMessage("Shop added successfully and sent to our team for verification.")
 

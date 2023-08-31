@@ -24,7 +24,7 @@ public class Utils {
     public static String BaseUrl = "https://pepdeal.in/pepdeal-admin/Appjson/";
 
     public static void InternetAlertDialog(final Activity mContext, String title, String msg) {
-        AlertDialog.Builder alertDialog = new AlertDialog.Builder(mContext);
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(mContext,R.style.MyDialogTheme);
 
         //Setting Dialog Title
         alertDialog.setTitle(title);

@@ -286,7 +286,7 @@ public class SellerProductListingActivity extends AppCompatActivity {
                                     .setNegativeButton(android.R.string.no, null)
                                     .show();
                         } else {
-                            new AlertDialog.Builder(SellerProductListingActivity.this)
+                            new AlertDialog.Builder(SellerProductListingActivity.this,R.style.MyDialogTheme)
                                     .setTitle("Alert!!!")
                                     .setMessage("Are you sure you want to do non live this product?")
 

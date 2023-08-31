@@ -298,7 +298,7 @@ public class SellerTicketListActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View view) {
                         if (model.getTicketStatus().equals("2")) {
-                            new AlertDialog.Builder(SellerTicketListActivity.this)
+                            new AlertDialog.Builder(SellerTicketListActivity.this,R.style.MyDialogTheme)
                                     .setTitle("Alert!!!")
                                     .setMessage("Are you sure you want to confirm this ticket?")
 
@@ -321,7 +321,7 @@ public class SellerTicketListActivity extends AppCompatActivity {
                                     .setNegativeButton(android.R.string.no, null)
                                     .show();
                         } else if (model.getTicketStatus().equals("1")) {
-                            new AlertDialog.Builder(SellerTicketListActivity.this)
+                            new AlertDialog.Builder(SellerTicketListActivity.this,R.style.MyDialogTheme)
                                     .setTitle("Alert!!!")
                                     .setMessage("Are you sure you want to delivered this ticket?")
 
@@ -350,7 +350,7 @@ public class SellerTicketListActivity extends AppCompatActivity {
                 layoutBinding.cardReject.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        new AlertDialog.Builder(SellerTicketListActivity.this)
+                        new AlertDialog.Builder(SellerTicketListActivity.this,R.style.MyDialogTheme)
                                 .setTitle("Alert!!!")
                                 .setMessage("Are you sure you want to reject this ticket?")
 
