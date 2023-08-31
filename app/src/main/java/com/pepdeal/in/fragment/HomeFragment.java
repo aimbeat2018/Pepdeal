@@ -352,33 +352,33 @@ public class HomeFragment extends Fragment {
 
                     Typeface typeface = null;
                     if (model.getFontStyleId().equals("1")) {
-                        typeface = ResourcesCompat.getFont(activity, R.font.helios_extended);
-                    } else if (model.getFontStyleId().equals("2")) {
-                        typeface = ResourcesCompat.getFont(activity, R.font.black_mango);
-                    } else if (model.getFontStyleId().equals("3")) {
-                        typeface = ResourcesCompat.getFont(activity, R.font.catchy_mager);
-                    } else if (model.getFontStyleId().equals("4")) {
-                        typeface = ResourcesCompat.getFont(activity, R.font.gillsansnova_bold);
-                    } else if (model.getFontStyleId().equals("5")) {
-                        typeface = ResourcesCompat.getFont(activity, R.font.alyssum);
-                    } else if (model.getFontStyleId().equals("6")) {
-                        typeface = ResourcesCompat.getFont(activity, R.font.modica_semibold);
-                    } else if (model.getFontStyleId().equals("7")) {
-                        typeface = ResourcesCompat.getFont(activity, R.font.rustica);
-                    } else if (model.getFontStyleId().equals("8")) {
-                        typeface = ResourcesCompat.getFont(activity, R.font.knockout_welterweight);
-                    } else if (model.getFontStyleId().equals("9")) {
-                        typeface = ResourcesCompat.getFont(activity, R.font.horizon);
-                    } else if (model.getFontStyleId().equals("10")) {
-                        typeface = ResourcesCompat.getFont(activity, R.font.garamond);
-                    } else if (model.getFontStyleId().equals("11")) {
                         typeface = ResourcesCompat.getFont(activity, R.font.gagalin);
+                    } else if (model.getFontStyleId().equals("2")) {
+                        typeface = ResourcesCompat.getFont(activity, R.font.anahaw);
+                    } else if (model.getFontStyleId().equals("3")) {
+                        typeface = ResourcesCompat.getFont(activity, R.font.quicksand);
+                    } else if (model.getFontStyleId().equals("4")) {
+                        typeface = ResourcesCompat.getFont(activity, R.font.open_sans_extra);
+                    } else if (model.getFontStyleId().equals("5")) {
+                        typeface = ResourcesCompat.getFont(activity, R.font.lovelo);
+                    } else if (model.getFontStyleId().equals("6")) {
+                        typeface = ResourcesCompat.getFont(activity, R.font.league_spartan);
+                    } else if (model.getFontStyleId().equals("7")) {
+                        typeface = ResourcesCompat.getFont(activity, R.font.lato);
+                    } else if (model.getFontStyleId().equals("8")) {
+                        typeface = ResourcesCompat.getFont(activity, R.font.yeseva_one);
+                    } else if (model.getFontStyleId().equals("9")) {
+                        typeface = ResourcesCompat.getFont(activity, R.font.quando);
+                    } else if (model.getFontStyleId().equals("10")) {
+                        typeface = ResourcesCompat.getFont(activity, R.font.roboto);
+                    } else if (model.getFontStyleId().equals("11")) {
+                        typeface = ResourcesCompat.getFont(activity, R.font.muli);
                     } else if (model.getFontStyleId().equals("12")) {
-                        typeface = ResourcesCompat.getFont(activity, R.font.copperplategothic_abregular);
+                        typeface = ResourcesCompat.getFont(activity, R.font.kollektif);
                     } else if (model.getFontStyleId().equals("13")) {
-                        typeface = ResourcesCompat.getFont(activity, R.font.cardo);
+                        typeface = ResourcesCompat.getFont(activity, R.font.sailors);
                     } else if (model.getFontStyleId().equals("14")) {
-                        typeface = ResourcesCompat.getFont(activity, R.font.calgary);
+                        typeface = ResourcesCompat.getFont(activity, R.font.fredoka_one);
                     }  /*else if (model.getFontStyleId().equals("13")) {
                             typeface = ResourcesCompat.getFont(activity, R.font.roboto_mediumitalic);
                         } else if (model.getFontStyleId().equals("14")) {

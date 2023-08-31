@@ -305,8 +305,10 @@ public class HomeActivity extends AppCompatActivity implements LocationListener/
         public void onCustomerClick(View view) {
             binding.includeLayout.lnrCustomerNavigation.setVisibility(View.VISIBLE);
             binding.includeLayout.lnrSellerNavigation.setVisibility(View.GONE);
-            binding.includeLayout.lnrCustomerBackground.setBackgroundColor(Color.parseColor("#FFFFFF"));
-            binding.includeLayout.lnrSellerBackground.setBackgroundColor(Color.parseColor("#F6B394"));
+            binding.includeLayout.lnrCustomerBackground.setBackgroundColor(Color.parseColor("#000000"));
+            binding.includeLayout.txtCustomer.setTextColor(Color.parseColor("#FFF27F"));
+            binding.includeLayout.lnrSellerBackground.setBackgroundColor(Color.parseColor("#FFFFFF"));
+            binding.includeLayout.txtSeller.setTextColor(Color.parseColor("#000000"));
             msgFlagDefault = "0";
             SharedPref.putVal(HomeActivity.this, SharedPref.msgFlag, msgFlagDefault);
             binding.includeLayout.txtname.setText(username);
@@ -353,8 +355,10 @@ public class HomeActivity extends AppCompatActivity implements LocationListener/
                 if (shopStatus.equals("0")) {
                     binding.includeLayout.lnrCustomerNavigation.setVisibility(View.GONE);
                     binding.includeLayout.lnrSellerNavigation.setVisibility(View.VISIBLE);
-                    binding.includeLayout.lnrSellerBackground.setBackgroundColor(Color.parseColor("#FFFFFF"));
-                    binding.includeLayout.lnrCustomerBackground.setBackgroundColor(Color.parseColor("#F6B394"));
+                    binding.includeLayout.lnrSellerBackground.setBackgroundColor(Color.parseColor("#000000"));
+                    binding.includeLayout.txtSeller.setTextColor(Color.parseColor("#FFF27F"));
+                    binding.includeLayout.lnrCustomerBackground.setBackgroundColor(Color.parseColor("#FFFFFF"));
+                    binding.includeLayout.txtCustomer.setTextColor(Color.parseColor("#000000"));
                     msgFlagDefault = "1";
                     SharedPref.putVal(HomeActivity.this, SharedPref.msgFlag, msgFlagDefault);
 
