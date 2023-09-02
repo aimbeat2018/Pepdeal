@@ -153,7 +153,7 @@
                             android:layout_height="wrap_content"
                             android:layout_margin="@dimen/margin_5"
                             android:layout_weight="1"
-                            app:cardBackgroundColor="@color/blue"
+                            app:cardBackgroundColor="@color/black"
                             app:cardCornerRadius="@dimen/margin_5"
                             app:cardElevation="@dimen/margin_5">
 
@@ -165,7 +165,7 @@
                                 android:fontFamily="@font/roboto_medium"
                                 android:gravity="center"
                                 android:text="@string/update"
-                                android:textColor="@color/white"
+                                android:textColor="@color/yellow"
                                 android:textSize="@dimen/text_15" />
                         </androidx.cardview.widget.CardView>
 

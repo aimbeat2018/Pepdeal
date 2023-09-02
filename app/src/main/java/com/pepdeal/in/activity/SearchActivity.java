@@ -51,6 +51,7 @@ import org.json.JSONObject;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javax.net.ssl.HttpsURLConnection;
@@ -245,8 +246,9 @@ public class SearchActivity extends AppCompatActivity {
                             }.getType();
                             searchHistoryModelArrayList = new ArrayList<>();
                             searchHistoryModelArrayList.addAll(gson1.fromJson(jsonObject.getString("data"), listType));
-
+                            
                             if (searchHistoryModelArrayList.size() > 0) {
+                                Collections.reverse(searchHistoryModelArrayList);
                                 binding.recHistoryList.setLayoutManager(new LinearLayoutManager(SearchActivity.this));
                                 binding.recHistoryList.setAdapter(new HistoryAdapter());
 
@@ -619,7 +621,7 @@ public class SearchActivity extends AppCompatActivity {
 
         @Override
         public int getItemCount() {
-            return searchHistoryModelArrayList.size();
+            return 10;
         }
 
         public class ViewHolder extends RecyclerView.ViewHolder {

@@ -260,9 +260,14 @@ public class ProductDetailsActivity extends AppCompatActivity {
         /*Ticket Status 0 = Delivered , 1 = Approved , 2 = Waiting ,3 =Rejected*/
         if (model.getTicketStatus().equals("") || model.getTicketStatus().equals("0") ||
                 model.getTicketStatus().equals("1") || model.getTicketStatus().equals("3")) {
-            binding.cardTicket.setCardBackgroundColor(getResources().getColor(R.color.blue));
+         //   binding.cardTicket.setCardBackgroundColor(getResources().getColor(R.color.blue));
+            binding.cardTicket.setCardBackgroundColor(getResources().getColor(R.color.black));
+            binding.txtTicket.setTextColor(getResources().getColor(R.color.yellow));
+
         } else {
-            binding.cardTicket.setCardBackgroundColor(getResources().getColor(R.color.bluelight));
+           // binding.cardTicket.setCardBackgroundColor(getResources().getColor(R.color.bluelight));
+            binding.cardTicket.setCardBackgroundColor(getResources().getColor(R.color.white));
+            binding.txtTicket.setTextColor(getResources().getColor(R.color.black));
         }
 
         /*Fav Status 0 = Not in fav , 1 = In Fav*/
@@ -412,6 +417,7 @@ public class ProductDetailsActivity extends AppCompatActivity {
                     if (code.equals("200")) {
                         Toast.makeText(ProductDetailsActivity.this, "Product Added to favourite", Toast.LENGTH_SHORT).show();
                         binding.txtFav.setText("Remove Favourite");
+                        getProductDetails(false);
                     } else {
                         Toast.makeText(ProductDetailsActivity.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
                     }
@@ -467,6 +473,7 @@ public class ProductDetailsActivity extends AppCompatActivity {
 
                         Toast.makeText(ProductDetailsActivity.this, "Product Removed from favourite", Toast.LENGTH_SHORT).show();
                         binding.txtFav.setText("Add To Favourite");
+                        getProductDetails(false);
                     } else {
                         Toast.makeText(ProductDetailsActivity.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
                     }

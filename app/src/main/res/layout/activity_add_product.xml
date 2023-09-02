@@ -1262,7 +1262,7 @@
                         android:layout_marginVertical="@dimen/margin_10"
                         android:layout_weight="1"
                         android:onClick="@{handler::AddProductClick}"
-                        app:cardBackgroundColor="@color/blue"
+                        app:cardBackgroundColor="@color/black"
                         app:cardCornerRadius="@dimen/margin_20">
 
                         <androidx.appcompat.widget.AppCompatTextView
@@ -1273,7 +1273,7 @@
                             android:gravity="center"
                             android:padding="@dimen/margin_15"
                             android:text="@string/save"
-                            android:textColor="@color/white" />
+                            android:textColor="@color/yellow" />
                     </androidx.cardview.widget.CardView>
 
                     <androidx.cardview.widget.CardView
@@ -1283,7 +1283,7 @@
                         android:layout_marginVertical="@dimen/margin_10"
                         android:layout_weight="1"
                         android:onClick="@{handler::AddProductLiveClick}"
-                        app:cardBackgroundColor="@color/blue"
+                        app:cardBackgroundColor="@color/black"
                         app:cardCornerRadius="@dimen/margin_20">
 
                         <androidx.appcompat.widget.AppCompatTextView
@@ -1294,7 +1294,7 @@
                             android:gravity="center"
                             android:padding="@dimen/margin_15"
                             android:text="@string/save_live"
-                            android:textColor="@color/white" />
+                            android:textColor="@color/yellow" />
                     </androidx.cardview.widget.CardView>
                 </androidx.appcompat.widget.LinearLayoutCompat>
 

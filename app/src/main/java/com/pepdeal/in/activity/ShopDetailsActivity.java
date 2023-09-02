@@ -273,7 +273,7 @@ public class ShopDetailsActivity extends AppCompatActivity {
                             Glide.with(ShopDetailsActivity.this).load(R.drawable.super_shop_new).into(binding.imgSuperShop);
                         }
 
-                        binding.imgMessage.setOnClickListener(view -> new AlertDialog.Builder(ShopDetailsActivity.this)
+                        binding.imgMessage.setOnClickListener(view -> new AlertDialog.Builder(ShopDetailsActivity.this,R.style.MyDialogTheme)
                                 .setTitle("Alert!!!")
                                 .setMessage("Would you like to send interest in this shop?")
 

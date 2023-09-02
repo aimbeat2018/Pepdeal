@@ -493,7 +493,8 @@
                                 android:layout_marginHorizontal="@dimen/margin_10"
                                 android:layout_marginVertical="@dimen/margin_10"
                                 android:layout_weight="1"
-                                app:cardBackgroundColor="@color/bluelight"
+                                app:cardElevation="@dimen/margin_5"
+                                app:cardBackgroundColor="@color/white"
                                 app:cardCornerRadius="@dimen/margin_20">
 
                                 <androidx.appcompat.widget.AppCompatTextView
@@ -504,7 +505,7 @@
                                     android:gravity="center"
                                     android:padding="@dimen/margin_10"
                                     android:text="@string/ticket"
-                                    android:textColor="@color/white" />
+                                    android:textColor="@color/black" />
                             </androidx.cardview.widget.CardView>
 
                             <androidx.cardview.widget.CardView
@@ -514,7 +515,8 @@
                                 android:layout_marginHorizontal="@dimen/margin_10"
                                 android:layout_marginVertical="@dimen/margin_10"
                                 android:layout_weight="1"
-                                app:cardBackgroundColor="@color/blue"
+                                app:cardElevation="@dimen/margin_5"
+                                app:cardBackgroundColor="@color/black"
                                 app:cardCornerRadius="@dimen/margin_20">
 
                                 <androidx.appcompat.widget.AppCompatTextView
@@ -525,7 +527,7 @@
                                     android:gravity="center"
                                     android:padding="@dimen/margin_10"
                                     android:text="@string/add_to_fav"
-                                    android:textColor="@color/white" />
+                                    android:textColor="@color/yellow" />
                             </androidx.cardview.widget.CardView>
                         </androidx.appcompat.widget.LinearLayoutCompat>
 

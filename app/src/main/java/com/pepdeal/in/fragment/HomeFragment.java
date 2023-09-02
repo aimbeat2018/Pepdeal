@@ -898,6 +898,8 @@ public class HomeFragment extends Fragment {
                             }*/
                                 Toast.makeText(activity, "Product Added to favourite", Toast.LENGTH_SHORT).show();
                                 layoutBinding.imgAddFav.setImageDrawable(getResources().getDrawable(R.drawable.ic_fav_selected));
+                                getHomeData(false);
+
                             } else {
                                 Toast.makeText(activity, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
                             }
@@ -962,6 +964,8 @@ public class HomeFragment extends Fragment {
                             }*/
                                 Toast.makeText(activity, "Product Removed from favourite", Toast.LENGTH_SHORT).show();
                                 layoutBinding.imgAddFav.setImageDrawable(getResources().getDrawable(R.drawable.ic_favorite));
+                                getHomeData(false);
+
                             } else {
                                 Toast.makeText(activity, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
                             }

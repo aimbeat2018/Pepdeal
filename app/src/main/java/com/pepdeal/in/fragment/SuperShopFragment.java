@@ -253,8 +253,7 @@ public class SuperShopFragment extends Fragment {
                 });
 
                 layoutBinding.imgSuperShop.setVisibility(View.GONE);
-
-                layoutBinding.imgDelete.setOnClickListener(view -> new AlertDialog.Builder(activity)
+                layoutBinding.imgDelete.setOnClickListener(view -> new AlertDialog.Builder(activity,R.style.MyDialogTheme)
                         .setTitle("Alert!!!")
                         .setMessage("Are you sure you want to remove shop from super shop?")
 

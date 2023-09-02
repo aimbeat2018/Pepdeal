@@ -116,7 +116,7 @@ public class AllCategoryListActivity extends AppCompatActivity {
 
                             model.setCategoryId(jsonObject1.getString("category_id"));
                             model.setCategoryName(jsonObject1.getString("category_name"));
-
+                            model.setCategoryImages(jsonObject1.getString("category_images"));
                             productCategoryModelList.add(model);
                         }
                     }
