@@ -2,8 +2,10 @@ package com.pepdeal.in.constants;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.drawable.ColorDrawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.text.SpannableString;
@@ -13,6 +15,7 @@ import android.text.TextUtils;
 import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.pepdeal.in.R;
@@ -24,7 +27,27 @@ public class Utils {
     public static String BaseUrl = "https://pepdeal.in/pepdeal-admin/Appjson/";
 
     public static void InternetAlertDialog(final Activity mContext, String title, String msg) {
-        AlertDialog.Builder alertDialog = new AlertDialog.Builder(mContext,R.style.MyDialogTheme);
+
+        Dialog dialog = new Dialog(mContext);
+        dialog.setContentView(R.layout.ok_item_layout);
+        dialog.setCanceledOnTouchOutside(false);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+
+        TextView txt_title=dialog.findViewById(R.id.txt_title);
+        TextView txt_alert=dialog.findViewById(R.id.txt_alert);
+
+        Button yes = dialog.findViewById(R.id.btn_ok);
+        txt_alert.setText(title);
+        txt_title.setText(msg);
+
+        yes.setOnClickListener(v -> {
+            dialog.dismiss();
+            mContext.finish();
+        });
+
+        dialog.show();
+
+        /*AlertDialog.Builder alertDialog = new AlertDialog.Builder(mContext,R.style.MyDialogTheme);
 
         //Setting Dialog Title
         alertDialog.setTitle(title);
@@ -43,7 +66,7 @@ public class Utils {
 
                     }
                 });
-        alertDialog.show();
+        alertDialog.show();*/
     }
 
 

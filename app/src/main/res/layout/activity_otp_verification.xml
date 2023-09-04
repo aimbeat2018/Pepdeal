@@ -84,7 +84,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/margin_55"
                 android:layout_marginVertical="@dimen/margin_10"
-                app:cardBackgroundColor="@color/purple_500"
+                app:cardBackgroundColor="@color/black"
                 app:cardCornerRadius="@dimen/margin_20">
 
                 <androidx.appcompat.widget.AppCompatTextView
@@ -95,7 +95,7 @@
                     android:onClick="@{handler::onVerifyClick}"
                     android:padding="@dimen/margin_10"
                     android:text="@string/verify"
-                    android:textColor="@color/white" />
+                    android:textColor="@color/yellow" />
             </androidx.cardview.widget.CardView>
 
             <androidx.appcompat.widget.LinearLayoutCompat

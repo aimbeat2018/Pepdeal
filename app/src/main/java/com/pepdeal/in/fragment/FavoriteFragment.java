@@ -2,9 +2,11 @@ package com.pepdeal.in.fragment;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Paint;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -18,6 +20,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -237,6 +241,38 @@ public class FavoriteFragment extends Fragment {
                         layoutBinding.txtOff.setText(model.getDiscountMrp() + "% OFF");
                     }
                 }
+
+                layoutBinding.imgDelete.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Dialog dialog = new Dialog(activity);
+                        dialog.setContentView(R.layout.delete_popup);
+                        dialog.setCanceledOnTouchOutside(false);
+                        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+
+                        TextView txt_title=dialog.findViewById(R.id.txt_title);
+                        Button yes = dialog.findViewById(R.id.yes);
+                        Button no = dialog.findViewById(R.id.no);
+                        txt_title.setText("Are you sure you want to remove product from favourite?");
+
+                        yes.setOnClickListener(v -> {
+                            // Continue with delete operation
+                            if (Utils.isNetwork(activity)) {
+                                removeFav(model.getFavouriteId());
+//                                            getFavList(true);
+                            } else {
+//                                            binding.lnrMainLayout.setVisibility(View.GONE);
+                                Utils.InternetAlertDialog(activity, getString(R.string.no_internet_title), getString(R.string.no_internet_desc));
+                            }
+                            dialog.dismiss();
+                        });
+
+                        no.setOnClickListener(v -> dialog.dismiss());
+
+                        dialog.show();
+                    }
+                });
+/*
                 layoutBinding.imgDelete.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -256,6 +292,7 @@ public class FavoriteFragment extends Fragment {
 //                                            binding.lnrMainLayout.setVisibility(View.GONE);
                                             Utils.InternetAlertDialog(activity, getString(R.string.no_internet_title), getString(R.string.no_internet_desc));
                                         }
+
                                     }
                                 })
 
@@ -264,6 +301,7 @@ public class FavoriteFragment extends Fragment {
                                 .show();
                     }
                 });
+*/
 
                 layoutBinding.imgProductImage.setOnClickListener(new View.OnClickListener() {
                     @Override

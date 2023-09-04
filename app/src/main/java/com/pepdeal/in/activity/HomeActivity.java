@@ -4,6 +4,7 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -11,6 +12,7 @@ import android.content.IntentSender;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.GpsStatus;
@@ -24,6 +26,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -170,8 +175,8 @@ public class HomeActivity extends AppCompatActivity implements LocationListener/
     }
 
     private void onSearchbutton() {
-
-        new AlertDialog.Builder(HomeActivity.this,R.style.MyDialogTheme)
+        showSearchDialog();
+     /*   new AlertDialog.Builder(HomeActivity.this,R.style.MyDialogTheme)
                 .setTitle("Search")
                 .setMessage("How do you want to search?")
 
@@ -198,9 +203,39 @@ public class HomeActivity extends AppCompatActivity implements LocationListener/
                         startActivity(intent);
                     }
                 })
-                .show();
+                .show();*/
     }
+    private void showSearchDialog() {
+        Dialog dialog = new Dialog(HomeActivity.this);
+        dialog.setContentView(R.layout.search_item_layout);
+        dialog.setCanceledOnTouchOutside(false);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
 
+
+        Button btnshop = dialog.findViewById(R.id.btn_byshop);
+        Button btnproduct = dialog.findViewById(R.id.btn_product);
+
+        btnshop.setOnClickListener(v -> {
+            seacrh_By = "shop";
+            Intent intent = new Intent(HomeActivity.this, SearchActivity.class);
+            // intent.putExtra("key", binding.searchView.getText().toString());
+            intent.putExtra("searchby", seacrh_By);
+            startActivity(intent);
+            dialog.dismiss();
+        });
+
+        btnproduct.setOnClickListener(v -> {
+            seacrh_By = "product";
+            Intent intent = new Intent(HomeActivity.this, SearchActivity.class);
+            //    intent.putExtra("key", binding.searchView.getText().toString());
+            intent.putExtra("searchby", seacrh_By);
+            startActivity(intent);
+            dialog.dismiss();
+
+        });
+
+        dialog.show();
+    }
     @Override
     protected void onResume() {
         super.onResume();
@@ -330,7 +365,26 @@ public class HomeActivity extends AppCompatActivity implements LocationListener/
                 if (shopStatus.equals("0")) {
                     startActivity(new Intent(HomeActivity.this, ShopDetailsActivity.class).putExtra("shop_id", shop_id));
                 } else {
-                    new AlertDialog.Builder(HomeActivity.this,R.style.MyDialogTheme)
+                    Dialog dialog = new Dialog(HomeActivity.this);
+                    dialog.setContentView(R.layout.ok_item_layout);
+                    dialog.setCanceledOnTouchOutside(false);
+                    dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+
+                    TextView txt_title=dialog.findViewById(R.id.txt_title);
+                    TextView txt_alert=dialog.findViewById(R.id.txt_alert);
+                    txt_alert.setVisibility(View.VISIBLE);
+                    Button yes = dialog.findViewById(R.id.btn_ok);
+                    txt_title.setText("Waiting for approval.");
+
+                    yes.setOnClickListener(v -> {
+                        dialog.dismiss();
+                        binding.drawerLayout.closeDrawers();
+                    });
+
+                    dialog.show();
+
+
+                 /*   new AlertDialog.Builder(HomeActivity.this,R.style.MyDialogTheme)
                             .setTitle("Alert!!!")
                             .setMessage("Waiting for approval.")
 
@@ -343,7 +397,7 @@ public class HomeActivity extends AppCompatActivity implements LocationListener/
                                     binding.drawerLayout.closeDrawers();
                                 }
                             })
-                            .show();
+                            .show();*/
                 }
             }
 
@@ -372,7 +426,25 @@ public class HomeActivity extends AppCompatActivity implements LocationListener/
                         Utils.InternetAlertDialog(HomeActivity.this, getString(R.string.no_internet_title), getString(R.string.no_internet_desc));
                     }
                 } else {
-                    new AlertDialog.Builder(HomeActivity.this,R.style.MyDialogTheme)
+                    Dialog dialog = new Dialog(HomeActivity.this);
+                    dialog.setContentView(R.layout.ok_item_layout);
+                    dialog.setCanceledOnTouchOutside(false);
+                    dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+
+                    TextView txt_title=dialog.findViewById(R.id.txt_title);
+                    TextView txt_alert=dialog.findViewById(R.id.txt_alert);
+                    txt_alert.setVisibility(View.VISIBLE);
+                    Button yes = dialog.findViewById(R.id.btn_ok);
+                    txt_title.setText("Waiting for approval.");
+
+                    yes.setOnClickListener(v -> {
+                        dialog.dismiss();
+                        binding.drawerLayout.closeDrawers();
+                    });
+
+                    dialog.show();
+
+                /*    new AlertDialog.Builder(HomeActivity.this,R.style.MyDialogTheme)
                             .setTitle("Alert!!!")
                             .setMessage("Waiting for approval.")
 
@@ -385,7 +457,7 @@ public class HomeActivity extends AppCompatActivity implements LocationListener/
                                     binding.drawerLayout.closeDrawers();
                                 }
                             })
-                            .show();
+                            .show();*/
                 }
             } else {
                 Toast.makeText(HomeActivity.this, "First Add Your Shop", Toast.LENGTH_SHORT).show();
@@ -394,7 +466,37 @@ public class HomeActivity extends AppCompatActivity implements LocationListener/
 
 
         public void onLogout(View view) {
-            new AlertDialog.Builder(HomeActivity.this,R.style.MyDialogTheme)
+            Dialog dialog = new Dialog(HomeActivity.this);
+            dialog.setContentView(R.layout.delete_popup);
+            dialog.setCanceledOnTouchOutside(false);
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+
+            TextView txt_title=dialog.findViewById(R.id.txt_title);
+            TextView txt_alert=dialog.findViewById(R.id.txt_alert);
+            ImageView img_delete=dialog.findViewById(R.id.img_delete);
+            img_delete.setVisibility(View.GONE);
+            txt_alert.setVisibility(View.VISIBLE);
+            Button yes = dialog.findViewById(R.id.yes);
+            Button no = dialog.findViewById(R.id.no);
+            txt_alert.setText("Logout");
+            txt_title.setText("Are you sure you want to logout?");
+
+            yes.setOnClickListener(v -> {
+                // Continue with delete operation
+                if (Utils.isNetwork(HomeActivity.this)) {
+                    logoutUser();
+                    dialog.dismiss();
+                } else {
+//                                            binding.lnrMainLayout.setVisibility(View.GONE);
+                    Utils.InternetAlertDialog(HomeActivity.this, getString(R.string.no_internet_title), getString(R.string.no_internet_desc));
+                }
+                dialog.dismiss();
+            });
+
+            no.setOnClickListener(v -> dialog.dismiss());
+
+            dialog.show();
+          /*  new AlertDialog.Builder(HomeActivity.this,R.style.MyDialogTheme)
                     .setTitle("Logout")
                     .setMessage("Are you sure you want to logout?")
 
@@ -408,7 +510,7 @@ public class HomeActivity extends AppCompatActivity implements LocationListener/
 
                     // A null listener allows the button to dismiss the dialog and take no further action.
                     .setNegativeButton(android.R.string.no, null)
-                    .show();
+                    .show();*/
         }
 
         public void onHomeClick(View view) {
@@ -443,7 +545,24 @@ public class HomeActivity extends AppCompatActivity implements LocationListener/
 
                     startActivity(new Intent(HomeActivity.this, ShopDetailsActivity.class).putExtra("shop_id", shop_id));
                 } else {
-                    new AlertDialog.Builder(HomeActivity.this,R.style.MyDialogTheme)
+                    Dialog dialog = new Dialog(HomeActivity.this);
+                    dialog.setContentView(R.layout.ok_item_layout);
+                    dialog.setCanceledOnTouchOutside(false);
+                    dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+
+                    TextView txt_title=dialog.findViewById(R.id.txt_title);
+                    TextView txt_alert=dialog.findViewById(R.id.txt_alert);
+                    txt_alert.setVisibility(View.VISIBLE);
+                    Button yes = dialog.findViewById(R.id.btn_ok);
+                    txt_title.setText("Waiting for approval.");
+
+                    yes.setOnClickListener(v -> {
+                        dialog.dismiss();
+                        binding.drawerLayout.closeDrawers();
+                    });
+
+                    dialog.show();
+                   /* new AlertDialog.Builder(HomeActivity.this,R.style.MyDialogTheme)
                             .setTitle("Alert!!!")
                             .setMessage("Waiting for approval.")
 
@@ -456,7 +575,7 @@ public class HomeActivity extends AppCompatActivity implements LocationListener/
                                     binding.drawerLayout.closeDrawers();
                                 }
                             })
-                            .show();
+                            .show();*/
                 }
             }
             binding.drawerLayout.closeDrawers();

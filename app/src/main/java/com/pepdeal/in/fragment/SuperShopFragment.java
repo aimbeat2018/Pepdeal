@@ -2,16 +2,20 @@ package com.pepdeal.in.fragment;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -26,6 +30,7 @@ import com.google.gson.reflect.TypeToken;
 import com.pepdeal.in.R;
 import com.pepdeal.in.activity.HomeActivity;
 import com.pepdeal.in.activity.MessageChatActivity;
+import com.pepdeal.in.activity.SellerTicketListActivity;
 import com.pepdeal.in.activity.ShopDetailsActivity;
 import com.pepdeal.in.constants.ApiClient;
 import com.pepdeal.in.constants.ApiInterface;
@@ -253,7 +258,36 @@ public class SuperShopFragment extends Fragment {
                 });
 
                 layoutBinding.imgSuperShop.setVisibility(View.GONE);
-                layoutBinding.imgDelete.setOnClickListener(view -> new AlertDialog.Builder(activity,R.style.MyDialogTheme)
+                layoutBinding.imgDelete.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Dialog dialog = new Dialog(activity);
+                        dialog.setContentView(R.layout.delete_popup);
+                        dialog.setCanceledOnTouchOutside(false);
+                        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+
+                        TextView txt_title=dialog.findViewById(R.id.txt_title);
+                        Button yes = dialog.findViewById(R.id.yes);
+                        Button no = dialog.findViewById(R.id.no);
+                        txt_title.setText("Are you sure you want to remove shop from super shop?");
+
+                        yes.setOnClickListener(v -> {
+                            if (Utils.isNetwork(activity)) {
+                                removeSuperShop(model.getSuperId());
+//                                            getFavList(true);
+                            } else {
+//                                            binding.lnrMainLayout.setVisibility(View.GONE);
+                                Utils.InternetAlertDialog(activity, getString(R.string.no_internet_title), getString(R.string.no_internet_desc));
+                            }
+                            dialog.dismiss();
+                        });
+
+                        no.setOnClickListener(v -> dialog.dismiss());
+
+                        dialog.show();
+                    }
+                });
+             /*   layoutBinding.imgDelete.setOnClickListener(view -> new AlertDialog.Builder(activity,R.style.MyDialogTheme)
                         .setTitle("Alert!!!")
                         .setMessage("Are you sure you want to remove shop from super shop?")
 
@@ -274,7 +308,7 @@ public class SuperShopFragment extends Fragment {
 
                         // A null listener allows the button to dismiss the dialog and take no further action.
                         .setNegativeButton(android.R.string.no, null)
-                        .show());
+                        .show());*/
 
                 layoutBinding.imgMessage.setOnClickListener(view -> startActivity(new Intent(activity, MessageChatActivity.class).putExtra("shop_id", model.getShopId())
                         .putExtra("name", model.getShopName()).putExtra("user_id", SharedPref.getVal(activity, SharedPref.user_id))));
@@ -344,4 +378,5 @@ public class SuperShopFragment extends Fragment {
             }
         }
     }
+
 }

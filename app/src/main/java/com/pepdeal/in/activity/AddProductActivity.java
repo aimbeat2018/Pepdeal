@@ -2,6 +2,7 @@ package com.pepdeal.in.activity;
 
 import android.Manifest;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.ClipData;
 import android.content.Context;
@@ -12,6 +13,7 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
+import android.graphics.drawable.ColorDrawable;
 import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.Build;
@@ -27,6 +29,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -963,7 +966,26 @@ public class AddProductActivity extends AppCompatActivity {
                     if (code.equals("200")) {
 //                        Toast.makeText(AddProductActivity.this, "Product Added successfully", Toast.LENGTH_SHORT).show();
 
-                        new AlertDialog.Builder(AddProductActivity.this,R.style.MyDialogTheme)
+
+                        Dialog dialog = new Dialog(AddProductActivity.this);
+                        dialog.setContentView(R.layout.ok_item_layout);
+                        dialog.setCanceledOnTouchOutside(false);
+                        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+
+                        TextView txt_title=dialog.findViewById(R.id.txt_title);
+                        TextView txt_alert=dialog.findViewById(R.id.txt_alert);
+                        txt_alert.setVisibility(View.VISIBLE);
+                        Button yes = dialog.findViewById(R.id.btn_ok);
+                        txt_title.setText("Product added successfully and sent to our team for verification.");
+
+                        yes.setOnClickListener(v -> {
+                            finish();
+                            dialog.dismiss();
+                        });
+
+                        dialog.show();
+
+                       /* new AlertDialog.Builder(AddProductActivity.this,R.style.MyDialogTheme)
                                 .setTitle("Alert!!!")
                                 .setMessage("Product added successfully and sent to our team for verification.")
 
@@ -975,7 +997,7 @@ public class AddProductActivity extends AppCompatActivity {
                                         finish();
                                     }
                                 })
-                                .show();
+                                .show();*/
 
                     } else {
                         Toast.makeText(AddProductActivity.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
@@ -1080,9 +1102,25 @@ public class AddProductActivity extends AppCompatActivity {
                     String code = jsonObject.getString("code");
                     if (code.equals("200")) {
 //                        Toast.makeText(AddProductActivity.this, "Product Updated successfully", Toast.LENGTH_SHORT).show();
+                        Dialog dialog = new Dialog(AddProductActivity.this);
+                        dialog.setContentView(R.layout.ok_item_layout);
+                        dialog.setCanceledOnTouchOutside(false);
+                        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
 
+                        TextView txt_title=dialog.findViewById(R.id.txt_title);
+                        TextView txt_alert=dialog.findViewById(R.id.txt_alert);
+                        txt_alert.setVisibility(View.VISIBLE);
+                        Button yes = dialog.findViewById(R.id.btn_ok);
+                        txt_title.setText("Product updated successfully and sent to our team for verification.");
 
-                        new AlertDialog.Builder(AddProductActivity.this,R.style.MyDialogTheme)
+                        yes.setOnClickListener(v -> {
+                            finish();
+                            dialog.dismiss();
+                        });
+
+                        dialog.show();
+
+                      /*  new AlertDialog.Builder(AddProductActivity.this,R.style.MyDialogTheme)
                                 .setTitle("Alert!!!")
                                 .setMessage("Product updated successfully and sent to our team for verification.")
 
@@ -1094,7 +1132,7 @@ public class AddProductActivity extends AppCompatActivity {
                                         finish();
                                     }
                                 })
-                                .show();
+                                .show();*/
                     } else {
                         Toast.makeText(AddProductActivity.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
                     }

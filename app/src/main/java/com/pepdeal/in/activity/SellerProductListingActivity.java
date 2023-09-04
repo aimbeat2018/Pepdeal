@@ -8,15 +8,20 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Paint;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -286,6 +291,37 @@ public class SellerProductListingActivity extends AppCompatActivity {
                                     .setNegativeButton(android.R.string.no, null)
                                     .show();
                         } else {
+
+                            Dialog dialog = new Dialog(SellerProductListingActivity.this);
+                            dialog.setContentView(R.layout.delete_popup);
+                            dialog.setCanceledOnTouchOutside(false);
+                            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+
+                            TextView txt_title=dialog.findViewById(R.id.txt_title);
+                            TextView txt_alert=dialog.findViewById(R.id.txt_alert);
+                            ImageView img_delete=dialog.findViewById(R.id.img_delete);
+                            img_delete.setVisibility(View.GONE);
+                            txt_alert.setVisibility(View.VISIBLE);
+                            Button yes = dialog.findViewById(R.id.yes);
+                            Button no = dialog.findViewById(R.id.no);
+                            txt_alert.setText("Alert!!!");
+                            txt_title.setText("Are you sure you want to do non live this product?");
+
+                            yes.setOnClickListener(v -> {
+                                // Continue with delete operation
+                                if (Utils.isNetwork(SellerProductListingActivity.this)) {
+                                    liveProduct(model.getProductId(), "1");
+//                                            getFavList(true);
+                                } else {
+//                                            binding.lnrMainLayout.setVisibility(View.GONE);
+                                    Utils.InternetAlertDialog(SellerProductListingActivity.this, getString(R.string.no_internet_title), getString(R.string.no_internet_desc));
+                                }
+                            });
+
+                            no.setOnClickListener(v -> dialog.dismiss());
+
+                            dialog.show();
+/*
                             new AlertDialog.Builder(SellerProductListingActivity.this,R.style.MyDialogTheme)
                                     .setTitle("Alert!!!")
                                     .setMessage("Are you sure you want to do non live this product?")
@@ -307,7 +343,7 @@ public class SellerProductListingActivity extends AppCompatActivity {
 
                                     // A null listener allows the button to dismiss the dialog and take no further action.
                                     .setNegativeButton(android.R.string.no, null)
-                                    .show();
+                                    .show();*/
                         }
                     }
                 });

@@ -435,11 +435,12 @@
                         android:layout_marginHorizontal="@dimen/margin_25"
                         android:layout_marginVertical="@dimen/margin_20"
                         android:background="@drawable/button_background_layout"
+                        android:backgroundTint="@color/black"
                         android:gravity="center"
                         android:onClick="@{handler::onSaveDetailsClick}"
                         android:paddingVertical="@dimen/margin_12"
                         android:text="@string/save_details"
-                        android:textColor="@color/white"
+                        android:textColor="@color/yellow"
                         android:textStyle="bold"
                         app:fontFamily="@font/roboto_bold" />
 

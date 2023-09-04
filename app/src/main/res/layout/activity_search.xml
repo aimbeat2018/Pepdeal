@@ -104,9 +104,9 @@
                 android:padding="@dimen/margin_5"
                 android:text="Search"
                 android:background="@drawable/button_background_layout"
-                android:backgroundTint="@color/blue"
+                android:backgroundTint="@color/black"
                 android:layout_marginRight="@dimen/margin_10"
-                android:textColor="@color/white" />
+                android:textColor="@color/yellow" />
 
         <com.facebook.shimmer.ShimmerFrameLayout
             android:id="@+id/shimmer_layout"

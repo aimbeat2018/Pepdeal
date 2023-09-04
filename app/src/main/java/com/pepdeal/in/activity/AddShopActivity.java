@@ -4,6 +4,7 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -11,6 +12,7 @@ import android.content.Intent;
 import android.content.IntentSender;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.GpsStatus;
@@ -24,6 +26,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -367,7 +370,24 @@ public class AddShopActivity extends AppCompatActivity implements
                     String code = jsonObject.getString("code");
                     if (code.equals("200")) {
 
-                        new AlertDialog.Builder(AddShopActivity.this,R.style.MyDialogTheme)
+                        Dialog dialog = new Dialog(AddShopActivity.this);
+                        dialog.setContentView(R.layout.ok_item_layout);
+                        dialog.setCanceledOnTouchOutside(false);
+                        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+
+                        TextView txt_title=dialog.findViewById(R.id.txt_title);
+                        TextView txt_alert=dialog.findViewById(R.id.txt_alert);
+                        txt_alert.setVisibility(View.VISIBLE);
+                        Button yes = dialog.findViewById(R.id.btn_ok);
+                        txt_title.setText("Shop added successfully and sent to our team for verification.");
+
+                        yes.setOnClickListener(v -> {
+                            finish();
+                            dialog.dismiss();
+                        });
+
+                        dialog.show();
+                    /*    new AlertDialog.Builder(AddShopActivity.this,R.style.MyDialogTheme)
                                 .setTitle("Alert!!!")
                                 .setMessage("Shop added successfully and sent to our team for verification.")
 
@@ -379,7 +399,7 @@ public class AddShopActivity extends AppCompatActivity implements
                                         finish();
                                     }
                                 })
-                                .show();
+                                .show();*/
                     } else {
                         Toast.makeText(AddShopActivity.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
                     }

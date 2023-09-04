@@ -9,12 +9,14 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Typeface;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -23,6 +25,9 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -273,7 +278,42 @@ public class ShopDetailsActivity extends AppCompatActivity {
                             Glide.with(ShopDetailsActivity.this).load(R.drawable.super_shop_new).into(binding.imgSuperShop);
                         }
 
-                        binding.imgMessage.setOnClickListener(view -> new AlertDialog.Builder(ShopDetailsActivity.this,R.style.MyDialogTheme)
+                        binding.imgMessage.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                Dialog dialog = new Dialog(ShopDetailsActivity.this);
+                                dialog.setContentView(R.layout.delete_popup);
+                                dialog.setCanceledOnTouchOutside(false);
+                                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+
+                                TextView txt_title=dialog.findViewById(R.id.txt_title);
+                                TextView txt_alert=dialog.findViewById(R.id.txt_alert);
+                                ImageView img_delete=dialog.findViewById(R.id.img_delete);
+                                img_delete.setVisibility(View.GONE);
+                                txt_alert.setVisibility(View.VISIBLE);
+                                Button yes = dialog.findViewById(R.id.yes);
+                                Button no = dialog.findViewById(R.id.no);
+                                txt_title.setText("Would you like to send interest in this shop?");
+
+                                yes.setOnClickListener(v -> {
+                                    // Continue with delete operation
+                                    if (Utils.isNetwork(ShopDetailsActivity.this)) {
+                                        sendInterest();
+                                        dialog.dismiss();
+                                    } else {
+//                                            binding.lnrMainLayout.setVisibility(View.GONE);
+                                        Utils.InternetAlertDialog(ShopDetailsActivity.this, getString(R.string.no_internet_title), getString(R.string.no_internet_desc));
+                                    }
+                                    dialog.dismiss();
+                                });
+
+                                no.setOnClickListener(v -> dialog.dismiss());
+
+                                dialog.show();
+                            }
+                        });
+
+                      /*  binding.imgMessage.setOnClickListener(view -> new AlertDialog.Builder(ShopDetailsActivity.this,R.style.MyDialogTheme)
                                 .setTitle("Alert!!!")
                                 .setMessage("Would you like to send interest in this shop?")
 
@@ -284,7 +324,10 @@ public class ShopDetailsActivity extends AppCompatActivity {
                                     dialog.dismiss();
                                 })
                                 .setNegativeButton(android.R.string.no, (dialogInterface, i) -> dialogInterface.dismiss())
-                                .show());
+                                .show());*/
+
+
+
                       /*  binding.imgMessage.setOnClickListener(view -> startActivity(new Intent(ShopDetailsActivity.this, MessageChatActivity.class)
                                 .putExtra("shop_id", shopDetailsDataModel.getShopId())
                                 .putExtra("name", shopDetailsDataModel.getShopName())

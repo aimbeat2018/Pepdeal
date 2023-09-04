@@ -20,6 +20,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -298,6 +300,36 @@ public class SellerTicketListActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View view) {
                         if (model.getTicketStatus().equals("2")) {
+                            Dialog dialog = new Dialog(SellerTicketListActivity.this);
+                            dialog.setContentView(R.layout.delete_popup);
+                            dialog.setCanceledOnTouchOutside(false);
+                            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+
+                            TextView txt_title=dialog.findViewById(R.id.txt_title);
+                            TextView txt_alert=dialog.findViewById(R.id.txt_alert);
+                            ImageView img_delete=dialog.findViewById(R.id.img_delete);
+                            img_delete.setVisibility(View.GONE);
+                            txt_alert.setVisibility(View.VISIBLE);
+                            Button yes = dialog.findViewById(R.id.yes);
+                            Button no = dialog.findViewById(R.id.no);
+                            txt_alert.setText("Alert!!!");
+                            txt_title.setText("Are you sure you want to confirm this ticket?");
+
+                            yes.setOnClickListener(v -> {
+                                // Continue with delete operation
+                                if (Utils.isNetwork(SellerTicketListActivity.this)) {
+                                    updateTicketStatus(model.getTicketId(), "1");
+//                                            getFavList(true);
+                                } else {
+//                                            binding.lnrMainLayout.setVisibility(View.GONE);
+                                    Utils.InternetAlertDialog(SellerTicketListActivity.this, getString(R.string.no_internet_title), getString(R.string.no_internet_desc));
+                                }
+                            });
+
+                            no.setOnClickListener(v -> dialog.dismiss());
+
+                            dialog.show();
+/*
                             new AlertDialog.Builder(SellerTicketListActivity.this,R.style.MyDialogTheme)
                                     .setTitle("Alert!!!")
                                     .setMessage("Are you sure you want to confirm this ticket?")
@@ -319,9 +351,42 @@ public class SellerTicketListActivity extends AppCompatActivity {
 
                                     // A null listener allows the button to dismiss the dialog and take no further action.
                                     .setNegativeButton(android.R.string.no, null)
-                                    .show();
+                                    .show();*/
                         } else if (model.getTicketStatus().equals("1")) {
-                            new AlertDialog.Builder(SellerTicketListActivity.this,R.style.MyDialogTheme)
+
+                            Dialog dialog = new Dialog(SellerTicketListActivity.this);
+                            dialog.setContentView(R.layout.delete_popup);
+                            dialog.setCanceledOnTouchOutside(false);
+                            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+
+                            TextView txt_title=dialog.findViewById(R.id.txt_title);
+                            TextView txt_alert=dialog.findViewById(R.id.txt_alert);
+                            ImageView img_delete=dialog.findViewById(R.id.img_delete);
+                            img_delete.setVisibility(View.GONE);
+                            txt_alert.setVisibility(View.VISIBLE);
+                            Button yes = dialog.findViewById(R.id.yes);
+                            Button no = dialog.findViewById(R.id.no);
+                            txt_alert.setText("Alert!!!");
+                            txt_title.setText("Are you sure you want to delivered this ticket?");
+
+                            yes.setOnClickListener(v -> {
+                                // Continue with delete operation
+                                if (Utils.isNetwork(SellerTicketListActivity.this)) {
+                                    updateTicketStatus(model.getTicketId(), "0");
+//                                            getFavList(true);
+                                } else {
+//                                            binding.lnrMainLayout.setVisibility(View.GONE);
+                                    Utils.InternetAlertDialog(SellerTicketListActivity.this, getString(R.string.no_internet_title), getString(R.string.no_internet_desc));
+                                }
+                            });
+
+                            no.setOnClickListener(v -> dialog.dismiss());
+
+                            dialog.show();
+
+
+
+                           /* new AlertDialog.Builder(SellerTicketListActivity.this,R.style.MyDialogTheme)
                                     .setTitle("Alert!!!")
                                     .setMessage("Are you sure you want to delivered this ticket?")
 
@@ -342,7 +407,7 @@ public class SellerTicketListActivity extends AppCompatActivity {
 
                                     // A null listener allows the button to dismiss the dialog and take no further action.
                                     .setNegativeButton(android.R.string.no, null)
-                                    .show();
+                                    .show();*/
                         }
                     }
                 });
@@ -350,7 +415,38 @@ public class SellerTicketListActivity extends AppCompatActivity {
                 layoutBinding.cardReject.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        new AlertDialog.Builder(SellerTicketListActivity.this,R.style.MyDialogTheme)
+                        Dialog dialog = new Dialog(SellerTicketListActivity.this);
+                        dialog.setContentView(R.layout.delete_popup);
+                        dialog.setCanceledOnTouchOutside(false);
+                        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+
+                        TextView txt_title=dialog.findViewById(R.id.txt_title);
+                        TextView txt_alert=dialog.findViewById(R.id.txt_alert);
+                        ImageView img_delete=dialog.findViewById(R.id.img_delete);
+                        img_delete.setVisibility(View.GONE);
+                        txt_alert.setVisibility(View.VISIBLE);
+                        Button yes = dialog.findViewById(R.id.yes);
+                        Button no = dialog.findViewById(R.id.no);
+                        txt_alert.setText("Alert!!!");
+                        txt_title.setText("Are you sure you want to reject this ticket?");
+
+                        yes.setOnClickListener(v -> {
+                            // Continue with delete operation
+                            if (Utils.isNetwork(SellerTicketListActivity.this)) {
+                                updateTicketStatus(model.getTicketId(), "3");
+//                                            getFavList(true);
+                            } else {
+//                                            binding.lnrMainLayout.setVisibility(View.GONE);
+                                Utils.InternetAlertDialog(SellerTicketListActivity.this, getString(R.string.no_internet_title), getString(R.string.no_internet_desc));
+                            }
+                        });
+
+                        no.setOnClickListener(v -> dialog.dismiss());
+
+                        dialog.show();
+
+
+                       /* new AlertDialog.Builder(SellerTicketListActivity.this,R.style.MyDialogTheme)
                                 .setTitle("Alert!!!")
                                 .setMessage("Are you sure you want to reject this ticket?")
 
@@ -371,7 +467,7 @@ public class SellerTicketListActivity extends AppCompatActivity {
 
                                 // A null listener allows the button to dismiss the dialog and take no further action.
                                 .setNegativeButton(android.R.string.no, null)
-                                .show();
+                                .show();*/
                     }
                 });
             }
