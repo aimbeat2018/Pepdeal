@@ -465,7 +465,7 @@ public class HomeFragment extends Fragment {
                                 Toast.makeText(activity, "Shop added in super shop", Toast.LENGTH_SHORT).show();
                                 layoutBinding.imgSuperShop.setImageDrawable(getResources().getDrawable(R.drawable.ic_fav_selected));
 //                                binding.txtFav.setText("Remove Favourite");
-                                getHomeData(false);
+                             //   getHomeData(false);
                             } else {
                                 Toast.makeText(activity, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
                             }
@@ -519,7 +519,7 @@ public class HomeFragment extends Fragment {
                             if (code.equals("200")) {
                                 Toast.makeText(activity, "Shop Removed from Super shop", Toast.LENGTH_SHORT).show();
                                 layoutBinding.imgSuperShop.setImageDrawable(getResources().getDrawable(R.drawable.ic_add_super_shop));
-                                getHomeData(false);
+                             //   getHomeData(false);
 
                             } else {
                                 Toast.makeText(activity, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
@@ -759,9 +759,11 @@ public class HomeFragment extends Fragment {
 
                 layoutBinding.imgAddFav.setOnClickListener(view -> {
                     if (model.getFavouriteStatus().equals("0")) {
+                        model.setFavouriteStatus("1");
                         addFav(model.getProductId());
                     } else {
-                        removeFav(model.getFavouriteId());
+                        model.setFavouriteStatus("0");
+                        removeFav(model.getProductId());
                     }
                 });
 
@@ -811,9 +813,11 @@ public class HomeFragment extends Fragment {
 
                 layoutBinding.imgAddFav.setOnClickListener(view -> {
                     if (model.getFavouriteStatus().equals("0")) {
+                        model.setFavouriteStatus("1");
                         addFav(model.getProductId());
                     } else {
-                        removeFav(model.getFavouriteId());
+                        model.setFavouriteStatus("0");
+                        removeFav(model.getProductId());
                     }
                 });
 
@@ -864,9 +868,11 @@ public class HomeFragment extends Fragment {
 
                 layoutBinding.imgAddFav.setOnClickListener(view -> {
                     if (model.getFavStatus().equals("0")) {
+                        model.setFavId("1");
                         addFav(model.getProductId());
                     } else {
-                        removeFav(model.getFavId());
+                        model.setFavId("0");
+                        removeFav(model.getProductId());
                     }
                 });
 
@@ -898,7 +904,7 @@ public class HomeFragment extends Fragment {
                             }*/
                                 Toast.makeText(activity, "Product Added to favourite", Toast.LENGTH_SHORT).show();
                                 layoutBinding.imgAddFav.setImageDrawable(getResources().getDrawable(R.drawable.ic_fav_selected));
-                                getHomeData(false);
+                              //  getHomeData(false);
 
                             } else {
                                 Toast.makeText(activity, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
@@ -941,10 +947,10 @@ public class HomeFragment extends Fragment {
             private void removeFav(String favId) {
                 UserProfileRequestModel model = new UserProfileRequestModel();
                 model.setUserId(SharedPref.getVal(activity, SharedPref.user_id));
-                model.setFav_id(favId);
+                model.setProduct_id(favId);
 
                 ApiInterface client = ApiClient.createService(ApiInterface.class, "", "");
-                client.favouriteRemove(model).enqueue(new Callback<ResponseBody>() {
+                client.favouriteProductidRemove(model).enqueue(new Callback<ResponseBody>() {
                     @Override
                     public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
                         try {
@@ -964,7 +970,7 @@ public class HomeFragment extends Fragment {
                             }*/
                                 Toast.makeText(activity, "Product Removed from favourite", Toast.LENGTH_SHORT).show();
                                 layoutBinding.imgAddFav.setImageDrawable(getResources().getDrawable(R.drawable.ic_favorite));
-                                getHomeData(false);
+                                // getHomeData(false);
 
                             } else {
                                 Toast.makeText(activity, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();

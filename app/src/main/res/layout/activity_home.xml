@@ -60,7 +60,7 @@
                             android:layout_toRightOf="@+id/iv_menu"
                             android:src="@drawable/grey_small_icon" />
 
-                        <androidx.appcompat.widget.AppCompatImageView
+                     <!--   <androidx.appcompat.widget.AppCompatImageView
                             android:id="@+id/iv_search"
                             android:layout_width="@dimen/margin_40"
                             android:layout_height="@dimen/margin_40"
@@ -69,7 +69,23 @@
                             android:adjustViewBounds="true"
                             android:padding="@dimen/margin_5"
                             android:src="@drawable/ic_baseline_search_24"
-                            android:tint="@color/black" />
+                            android:tint="@color/black" />-->
+
+                        <androidx.appcompat.widget.AppCompatButton
+                            android:id="@+id/iv_search"
+                            android:layout_width="wrap_content"
+                            android:layout_height="@dimen/margin_35"
+                            android:fontFamily="@font/roboto_medium"
+                            android:padding="@dimen/margin_10"
+                            android:layout_alignParentRight="true"
+                            android:text="Search"
+                            android:background="@drawable/button_background_layout"
+                            android:backgroundTint="@color/black"
+                            android:drawableLeft="@drawable/quantum_ic_search_grey600_24"
+                            android:drawableTint="@color/yellow"
+                            android:layout_marginRight="@dimen/margin_10"
+                            android:layout_marginHorizontal="@dimen/margin_5"
+                            android:textColor="@color/yellow" />
 
                     </RelativeLayout>
 

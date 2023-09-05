@@ -113,6 +113,9 @@ public interface ApiInterface {
     @POST("favouriteRemove")
     Call<ResponseBody> favouriteRemove(@Body UserProfileRequestModel model);
 
+    @POST("favoritePrdRemove")
+    Call<ResponseBody> favouriteProductidRemove(@Body UserProfileRequestModel model);
+
     @POST("deleteproduct")
     Call<ResponseBody> deleteproduct(@Body UserProfileRequestModel model);
 
