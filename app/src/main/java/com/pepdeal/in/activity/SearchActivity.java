@@ -97,7 +97,7 @@ public class SearchActivity extends AppCompatActivity {
         getSearchHistoryList(false);
         binding.txtSearch.setOnClickListener(view -> {
             if (Utils.isNetwork(SearchActivity.this)) {
-                if (binding.txtSearch.getText().toString().equals("")) {
+                if (binding.searchView.getText().toString().equals("")) {
                     Toast.makeText(SearchActivity.this, "Enter search keyword", Toast.LENGTH_SHORT).show();
                 }
                 else {
@@ -621,7 +621,15 @@ public class SearchActivity extends AppCompatActivity {
 
         @Override
         public int getItemCount() {
-            return 10;
+            int display_size=0;
+            if(searchHistoryModelArrayList.size()>=10)
+            {
+                display_size=10;
+            }
+            else {
+                display_size=searchHistoryModelArrayList.size();
+            }
+            return display_size;
         }
 
         public class ViewHolder extends RecyclerView.ViewHolder {

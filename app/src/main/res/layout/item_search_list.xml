@@ -70,7 +70,7 @@
             android:layout_alignParentBottom="true"
             android:layout_marginStart="10dp"
             android:layout_toEndOf="@+id/user_image"
-            android:background="@color/gray" />
+            android:background="@color/lightGrayColor" />
 
 
     </androidx.appcompat.widget.LinearLayoutCompat>
