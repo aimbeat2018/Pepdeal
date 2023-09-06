@@ -130,27 +130,56 @@
 
                             <androidx.appcompat.widget.AppCompatImageView
                                 android:id="@+id/img_super_shop"
-                                android:layout_width="@dimen/margin_35"
-                                android:layout_height="@dimen/margin_35"
+                                android:layout_width="@dimen/margin_100"
+                                android:layout_height="@dimen/margin_60"
                                 android:layout_alignParentStart="true"
                                 android:layout_gravity="start"
                                 android:layout_marginEnd="@dimen/margin_5"
                                 android:adjustViewBounds="true"
                                 android:onClick="@{handler::onAddSuperShopClick}"
-                                android:padding="@dimen/margin_5"
-                                android:src="@drawable/super_shop_new" />
+                                android:src="@drawable/super_shop_no" />
 
                             <androidx.appcompat.widget.AppCompatImageView
                                 android:id="@+id/img_message"
-                                android:layout_width="@dimen/margin_35"
-                                android:layout_height="@dimen/margin_35"
+                                android:layout_width="@dimen/margin_100"
+                                android:layout_height="@dimen/margin_60"
                                 android:layout_alignParentEnd="true"
                                 android:layout_gravity="end"
                                 android:layout_marginEnd="@dimen/margin_5"
                                 android:adjustViewBounds="true"
-                                android:padding="@dimen/margin_5"
-                                android:src="@drawable/msg_news" />
+                                android:src="@drawable/message_no" />
                         </RelativeLayout>
+
+
+                        <!--
+                                                <RelativeLayout
+                                                    android:layout_width="match_parent"
+                                                    android:layout_height="wrap_content">
+
+                                                    <androidx.appcompat.widget.AppCompatImageView
+                                                        android:id="@+id/img_super_shop"
+                                                        android:layout_width="@dimen/margin_35"
+                                                        android:layout_height="@dimen/margin_35"
+                                                        android:layout_alignParentStart="true"
+                                                        android:layout_gravity="start"
+                                                        android:layout_marginEnd="@dimen/margin_5"
+                                                        android:adjustViewBounds="true"
+                                                        android:onClick="@{handler::onAddSuperShopClick}"
+                                                        android:padding="@dimen/margin_5"
+                                                        android:src="@drawable/super_shop_new" />
+
+                                                    <androidx.appcompat.widget.AppCompatImageView
+                                                        android:id="@+id/img_message"
+                                                        android:layout_width="@dimen/margin_35"
+                                                        android:layout_height="@dimen/margin_35"
+                                                        android:layout_alignParentEnd="true"
+                                                        android:layout_gravity="end"
+                                                        android:layout_marginEnd="@dimen/margin_5"
+                                                        android:adjustViewBounds="true"
+                                                        android:padding="@dimen/margin_5"
+                                                        android:src="@drawable/msg_news" />
+                                                </RelativeLayout>
+                        -->
 
                     </androidx.appcompat.widget.LinearLayoutCompat>
 

@@ -279,6 +279,7 @@ public class SellerProductListingActivity extends AppCompatActivity {
                                             // Continue with delete operation
                                             if (Utils.isNetwork(SellerProductListingActivity.this)) {
                                                 liveProduct(model.getProductId(), "0");
+                                                dialog.dismiss();
 //                                            getFavList(true);
                                             } else {
 //                                            binding.lnrMainLayout.setVisibility(View.GONE);
@@ -311,6 +312,7 @@ public class SellerProductListingActivity extends AppCompatActivity {
                                 // Continue with delete operation
                                 if (Utils.isNetwork(SellerProductListingActivity.this)) {
                                     liveProduct(model.getProductId(), "1");
+                                    dialog.dismiss();
 //                                            getFavList(true);
                                 } else {
 //                                            binding.lnrMainLayout.setVisibility(View.GONE);
@@ -318,7 +320,10 @@ public class SellerProductListingActivity extends AppCompatActivity {
                                 }
                             });
 
-                            no.setOnClickListener(v -> dialog.dismiss());
+                            no.setOnClickListener(view -> {
+                                layoutBinding.switchLiveStatus.setOn(true);
+                                dialog.dismiss();
+                            } );
 
                             dialog.show();
 /*
@@ -358,6 +363,7 @@ public class SellerProductListingActivity extends AppCompatActivity {
                                 // Continue with delete operation
                                 if (Utils.isNetwork(SellerProductListingActivity.this)) {
                                     deleteProduct(model.getProductId());
+                                    dialog.dismiss();
 //                                            getFavList(true);
                                 } else {
 //                                            binding.lnrMainLayout.setVisibility(View.GONE);

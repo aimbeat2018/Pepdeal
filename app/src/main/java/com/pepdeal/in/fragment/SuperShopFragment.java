@@ -208,7 +208,14 @@ public class SuperShopFragment extends Fragment {
 
             public void bind(SuperShopDataModel model, int position) {
                 layoutBinding.txtName.setText(model.getShopName());
-                layoutBinding.txtName.setTextColor(Color.parseColor(model.getFontColorName()));
+                if(model.getFontColorName().equals(""))
+                {
+                    layoutBinding.txtName.setTextColor(Color.parseColor("#000000"));
+                }
+                else{
+                    layoutBinding.txtName.setTextColor(Color.parseColor(model.getFontColorName()));
+                }
+
 
                 Typeface typeface = null;
                 if (model.getFontStyleId().equals("1")) {

@@ -81,7 +81,7 @@ public class ShopDetailsActivity extends AppCompatActivity {
         binding.setHandler(new ClickHandler());
         shop_id = getIntent().getStringExtra("shop_id");
         // loading Animation from
-        Animation animation = AnimationUtils.loadAnimation(this, R.anim.bouce);
+      /*  Animation animation = AnimationUtils.loadAnimation(this, R.anim.bouce);
         binding.imgMessage.setAnimation(animation);
         binding.imgSuperShop.setAnimation(animation);
 
@@ -90,7 +90,7 @@ public class ShopDetailsActivity extends AppCompatActivity {
             binding.imgMessage.setAnimation(animation);
             binding.imgSuperShop.setAnimation(animation);
 
-        }
+        }*/
         dialog = new ProgressDialog(this);
         dialog.setTitle("Loading");
         dialog.setMessage("Please wait...");
@@ -273,9 +273,9 @@ public class ShopDetailsActivity extends AppCompatActivity {
                             binding.txtName.setTypeface(typeface);
 
                         if (shopDetailsDataModel.getSuperShopTatus().equals("1")) {
-                            Glide.with(ShopDetailsActivity.this).load(R.drawable.shop).into(binding.imgSuperShop);
+                            Glide.with(ShopDetailsActivity.this).load(R.drawable.super_shop_yes).into(binding.imgSuperShop);
                         } else {
-                            Glide.with(ShopDetailsActivity.this).load(R.drawable.super_shop_new).into(binding.imgSuperShop);
+                            Glide.with(ShopDetailsActivity.this).load(R.drawable.super_shop_no).into(binding.imgSuperShop);
                         }
 
                         binding.imgMessage.setOnClickListener(new View.OnClickListener() {
@@ -519,11 +519,14 @@ public class ShopDetailsActivity extends AppCompatActivity {
                     String code = jsonObject.getString("code");
                     if (code.equals("200")) {
                         String status = jsonObject.getString("status");
-                        if (status.equals("0") || status.equals(""))
+                        if (status.equals("0") || status.equals("")) {
+                            Glide.with(ShopDetailsActivity.this).load(R.drawable.message_yes).into(binding.imgMessage);
                             Toast.makeText(ShopDetailsActivity.this, "Interest send successfully", Toast.LENGTH_SHORT).show();
-                        else
+                        } else {
+                            Glide.with(ShopDetailsActivity.this).load(R.drawable.message_yes).into(binding.imgMessage);
                             Toast.makeText(ShopDetailsActivity.this, "Interest already send", Toast.LENGTH_SHORT).show();
-                    } else {
+                        }
+                    }else {
                         Toast.makeText(ShopDetailsActivity.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
                     }
                 } catch (Exception e) {
