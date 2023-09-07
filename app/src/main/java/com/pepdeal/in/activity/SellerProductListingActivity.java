@@ -268,7 +268,39 @@ public class SellerProductListingActivity extends AppCompatActivity {
                     @Override
                     public void onSwitched(LabeledSwitch labeledSwitch, boolean isOn) {
                         if (isOn) {
-                            new AlertDialog.Builder(SellerProductListingActivity.this)
+                            Dialog dialog = new Dialog(SellerProductListingActivity.this);
+                            dialog.setContentView(R.layout.delete_popup);
+                            dialog.setCanceledOnTouchOutside(false);
+                            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+
+                            TextView txt_title=dialog.findViewById(R.id.txt_title);
+                            TextView txt_alert=dialog.findViewById(R.id.txt_alert);
+                            ImageView img_delete=dialog.findViewById(R.id.img_delete);
+                            img_delete.setVisibility(View.GONE);
+                            txt_alert.setVisibility(View.VISIBLE);
+                            Button yes = dialog.findViewById(R.id.yes);
+                            Button no = dialog.findViewById(R.id.no);
+                            txt_alert.setText("Alert!!!");
+                            txt_title.setText("Are you sure you want to do live this product?");
+
+                            yes.setOnClickListener(v -> {
+                                if (Utils.isNetwork(SellerProductListingActivity.this)) {
+                                    liveProduct(model.getProductId(), "0");
+                                    dialog.dismiss();
+//                                            getFavList(true);
+                                } else {
+//                                            binding.lnrMainLayout.setVisibility(View.GONE);
+                                    Utils.InternetAlertDialog(SellerProductListingActivity.this, getString(R.string.no_internet_title), getString(R.string.no_internet_desc));
+                                }
+                            });
+
+                            no.setOnClickListener(view -> {
+                                layoutBinding.switchLiveStatus.setOn(false);
+                                dialog.dismiss();
+                            } );
+
+                            dialog.show();
+                          /*  new AlertDialog.Builder(SellerProductListingActivity.this)
                                     .setTitle("Alert!!!")
                                     .setMessage("Are you sure you want to do live this product?")
 
@@ -290,7 +322,7 @@ public class SellerProductListingActivity extends AppCompatActivity {
 
                                     // A null listener allows the button to dismiss the dialog and take no further action.
                                     .setNegativeButton(android.R.string.no, null)
-                                    .show();
+                                    .show();*/
                         } else {
 
                             Dialog dialog = new Dialog(SellerProductListingActivity.this);
@@ -352,7 +384,44 @@ public class SellerProductListingActivity extends AppCompatActivity {
                         }
                     }
                 });
-                layoutBinding.cardDelete.setOnClickListener(view -> new AlertDialog.Builder(SellerProductListingActivity.this)
+                layoutBinding.cardDelete.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Dialog dialog = new Dialog(SellerProductListingActivity.this);
+                        dialog.setContentView(R.layout.delete_popup);
+                        dialog.setCanceledOnTouchOutside(false);
+                        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+
+                        TextView txt_title=dialog.findViewById(R.id.txt_title);
+                        TextView txt_alert=dialog.findViewById(R.id.txt_alert);
+                        ImageView img_delete=dialog.findViewById(R.id.img_delete);
+                        img_delete.setVisibility(View.GONE);
+                        txt_alert.setVisibility(View.VISIBLE);
+                        Button yes = dialog.findViewById(R.id.yes);
+                        Button no = dialog.findViewById(R.id.no);
+                        txt_alert.setText("Alert!!!");
+                        txt_title.setText("Are you sure you want to delete this product?");
+
+                        yes.setOnClickListener(v -> {
+                            if (Utils.isNetwork(SellerProductListingActivity.this)) {
+                                deleteProduct(model.getProductId());
+                                dialog.dismiss();
+//                                            getFavList(true);
+                            } else {
+//                                            binding.lnrMainLayout.setVisibility(View.GONE);
+                                Utils.InternetAlertDialog(SellerProductListingActivity.this, getString(R.string.no_internet_title), getString(R.string.no_internet_desc));
+                            }
+                        });
+
+                        no.setOnClickListener(view1 -> {
+                            dialog.dismiss();
+                        } );
+
+                        dialog.show();
+                    }
+                });
+              /*  layoutBinding.cardDelete.setOnClickListener(view ->
+                        new AlertDialog.Builder(SellerProductListingActivity.this)
                         .setTitle("Alert!!!")
                         .setMessage("Are you sure you want to delete this product?")
 
@@ -374,7 +443,7 @@ public class SellerProductListingActivity extends AppCompatActivity {
 
                         // A null listener allows the button to dismiss the dialog and take no further action.
                         .setNegativeButton(android.R.string.no, null)
-                        .show());
+                        .show());*/
             }
 
             private void deleteProduct(String productId) {

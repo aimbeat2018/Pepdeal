@@ -281,6 +281,7 @@ public class SuperShopFragment extends Fragment {
                         yes.setOnClickListener(v -> {
                             if (Utils.isNetwork(activity)) {
                                 removeSuperShop(model.getSuperId());
+
 //                                            getFavList(true);
                             } else {
 //                                            binding.lnrMainLayout.setVisibility(View.GONE);

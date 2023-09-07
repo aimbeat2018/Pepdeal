@@ -319,6 +319,7 @@ public class SellerTicketListActivity extends AppCompatActivity {
                                 // Continue with delete operation
                                 if (Utils.isNetwork(SellerTicketListActivity.this)) {
                                     updateTicketStatus(model.getTicketId(), "1");
+                                    dialog.dismiss();
 //                                            getFavList(true);
                                 } else {
 //                                            binding.lnrMainLayout.setVisibility(View.GONE);
@@ -373,6 +374,7 @@ public class SellerTicketListActivity extends AppCompatActivity {
                                 // Continue with delete operation
                                 if (Utils.isNetwork(SellerTicketListActivity.this)) {
                                     updateTicketStatus(model.getTicketId(), "0");
+                                    dialog.dismiss();
 //                                            getFavList(true);
                                 } else {
 //                                            binding.lnrMainLayout.setVisibility(View.GONE);
@@ -434,6 +436,7 @@ public class SellerTicketListActivity extends AppCompatActivity {
                             // Continue with delete operation
                             if (Utils.isNetwork(SellerTicketListActivity.this)) {
                                 updateTicketStatus(model.getTicketId(), "3");
+                                dialog.dismiss();
 //                                            getFavList(true);
                             } else {
 //                                            binding.lnrMainLayout.setVisibility(View.GONE);
