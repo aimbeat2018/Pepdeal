@@ -46,6 +46,7 @@ import org.json.JSONObject;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javax.net.ssl.HttpsURLConnection;
@@ -126,6 +127,7 @@ public class SuperShopFragment extends Fragment {
                         superShopDataModelList.addAll(gson.fromJson(jsonObject.getString("data"), listType));
 
                         if (superShopDataModelList.size() > 0) {
+                            Collections.reverse(superShopDataModelList);
                             binding.recList.setLayoutManager(new LinearLayoutManager(activity));
                             binding.recList.setAdapter(new ShopAdapter());
 

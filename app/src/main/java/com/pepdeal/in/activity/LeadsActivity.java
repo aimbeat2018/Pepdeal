@@ -82,6 +82,18 @@ public class LeadsActivity extends AppCompatActivity {
         dialog = new ProgressDialog(this);
         dialog.setTitle("Loading");
         dialog.setMessage("Please wait...");
+
+        /*if (Utils.isNetwork(LeadsActivity.this)) {
+            if (from.equals("user"))
+                getLeadsForSeller(true);
+            else
+                getLeadsForUser(true);
+
+            updateLeadCount(false);
+        } else {
+            binding.lnrData.setVisibility(View.GONE);
+            Utils.InternetAlertDialog(LeadsActivity.this, getString(R.string.no_internet_title), getString(R.string.no_internet_desc));
+        }*/
     }
 
     public class ClickHandler {
@@ -432,7 +444,6 @@ public class LeadsActivity extends AppCompatActivity {
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
-
                 if (model.getFlag().equals("1")) {
                     layoutBinding.viewStatus.getBackground().setColorFilter(getResources().getColor(R.color.blue1), PorterDuff.Mode.SRC_ATOP);
                     layoutBinding.txtStatus.setText("New");

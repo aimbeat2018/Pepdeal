@@ -51,6 +51,7 @@ import java.lang.reflect.Type;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -137,6 +138,7 @@ public class SellerTicketListActivity extends AppCompatActivity {
                         productDataModelList.addAll(gson.fromJson(jsonObject.getString("Data"), listType));
 
                         if (productDataModelList.size() > 0) {
+                            Collections.reverse(productDataModelList);
                             binding.recList.setLayoutManager(new LinearLayoutManager(SellerTicketListActivity.this));
                             binding.recList.setAdapter(new ProductAdapter());
 
