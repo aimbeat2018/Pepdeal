@@ -166,4 +166,6 @@ Hole.</string>
     <string name="enter_shop_address_for_sign_board">Enter Shop Address For Sign Board</string>
     <string name="sub_category">Sub category</string>
 
+    <string name="photo_access">Photo Access Permission</string>
+    <string name="to_upload_photos_from">App needs to access your photos please tap " Allow " in next step.</string>
 </resources>

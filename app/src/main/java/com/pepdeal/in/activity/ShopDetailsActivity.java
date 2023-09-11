@@ -277,6 +277,11 @@ public class ShopDetailsActivity extends AppCompatActivity {
                         } else {
                             Glide.with(ShopDetailsActivity.this).load(R.drawable.super_shop_no).into(binding.imgSuperShop);
                         }
+                        if (shopDetailsDataModel.getInterestflag().equals("")) {
+                            Glide.with(ShopDetailsActivity.this).load(R.drawable.message_no).into(binding.imgMessage);
+                        } else {
+                            Glide.with(ShopDetailsActivity.this).load(R.drawable.message_yes).into(binding.imgMessage);
+                        }
 
                         binding.imgMessage.setOnClickListener(new View.OnClickListener() {
                             @Override

@@ -1,7 +1,6 @@
 package com.pepdeal.in.activity;
 
 import android.Manifest;
-import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.ClipData;
@@ -35,6 +34,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatSpinner;
 import androidx.core.app.ActivityCompat;
@@ -536,22 +536,89 @@ public class AddProductActivity extends AppCompatActivity {
             }
         }
 
-        @RequiresApi(api = Build.VERSION_CODES.M)
+    //    @RequiresApi(api = Build.VERSION_CODES.M)
         public void onImage1Click(View view) {
             var = 1;
-            checkPermission();
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+
+                if (Utils.checkPermissions(AddProductActivity.this)) {
+
+                    ImagePicker.Companion.with(AddProductActivity.this)
+                            //       .saveDir(directory)
+                          //  .compress(1024)
+                            .start();
+/*
+                    ImagePicker.with(AddProductActivity.this)
+                            .crop(0.5f,0.5f)	    			//Crop image(Optional), Check Customization for more option
+//                    .compress(1024)			//Final image size will be less than 1 MB(Optional)
+//                    .maxResultSize(100, 100)	//Final image resolution will be less than 1080 x 1080(Optional)
+                            .start();*/
+
+                }
+
+            }
+            else {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    checkPermission();
+                }
+            }
         }
 
-        @RequiresApi(api = Build.VERSION_CODES.M)
+   //     @RequiresApi(api = Build.VERSION_CODES.M)
         public void onImage2Click(View view) {
             var = 2;
-            checkPermission();
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+
+                if (Utils.checkPermissions(AddProductActivity.this)) {
+                    ImagePicker.Companion.with(AddProductActivity.this)
+                            //       .saveDir(directory)
+                         //   .compress(1024)
+                            .start();
+/*
+                    ImagePicker.with(AddProductActivity.this)
+                            .crop(0.5f,0.5f)	    			//Crop image(Optional), Check Customization for more option
+//                    .compress(1024)			//Final image size will be less than 1 MB(Optional)
+//                    .maxResultSize(100, 100)	//Final image resolution will be less than 1080 x 1080(Optional)
+                            .start();*/
+
+                }
+
+            }
+            else {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    checkPermission();
+                }
+            }
         }
 
-        @RequiresApi(api = Build.VERSION_CODES.M)
+        //@RequiresApi(api = Build.VERSION_CODES.M)
         public void onImage3Click(View view) {
             var = 3;
-            checkPermission();
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+
+                if (Utils.checkPermissions(AddProductActivity.this)) {
+
+                     ImagePicker.Companion.with(AddProductActivity.this)
+                 //       .saveDir(directory)
+                      //  .compress(1024)
+                        .start();
+
+/*
+                    ImagePicker.with(AddProductActivity.this)
+                            .crop(0.5f,0.5f)	    			//Crop image(Optional), Check Customization for more option
+//                    .compress(1024)			//Final image size will be less than 1 MB(Optional)
+//                    .maxResultSize(100, 100)	//Final image resolution will be less than 1080 x 1080(Optional)
+                            .start();
+*/
+
+                }
+
+            }
+            else {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    checkPermission();
+                }
+            }
         }
     }
 
@@ -1652,6 +1719,82 @@ public class AddProductActivity extends AppCompatActivity {
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
 
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+
+        if(requestCode ==2){
+
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                if(grantResults.length > 0 && grantResults[1] == PackageManager.PERMISSION_GRANTED){
+
+                    if (Utils.checkPermissions(AddProductActivity.this))
+                    {
+
+                    }
+                    else {
+                        Utils.hasPermissions(AddProductActivity.this);
+                    }
+                }
+
+            }else{
+
+                androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(AddProductActivity.this);
+                builder.setMessage("Please allow permission from settings -> Apps -> Pepdeal -> Camera,Photos and Videos");
+                builder.setTitle("Camera,Photos and Videos permission required !");
+
+                builder.setCancelable(false);
+
+                builder.setPositiveButton("Ok", (DialogInterface.OnClickListener) (dialog, which) -> {
+                    finish();
+
+                });
+                AlertDialog alertDialog = builder.create();
+                alertDialog.show();
+                Toast.makeText(this, "Camera & Storage permission required", Toast.LENGTH_SHORT).show();
+            }
+
+        }else{
+
+            if (grantResults.length > 0) {
+                boolean cameraPermission = grantResults[1] == PackageManager.PERMISSION_GRANTED;
+                boolean readExternalFile = grantResults[0] == PackageManager.PERMISSION_GRANTED;
+                boolean writeExternalFile = grantResults[0] == PackageManager.PERMISSION_GRANTED;
+
+                if (cameraPermission && readExternalFile && writeExternalFile) {
+                    // write your logic here
+                    boolean isclick = true;
+                    if (isclick) {
+//                            imgUri = openCameraIntent();
+                        ImagePicker.Companion.with(this)
+                           //     .saveDir(directory)
+                             //   .compress(1024)
+                                .start();
+                        isclick = false;
+                    } else {
+//                            dialog.dismiss();
+                        isclick = true;
+                        isclick = true;
+                    }
+                } else {
+
+                    Snackbar.make(AddProductActivity.this.findViewById(android.R.id.content),
+                            "Please Grant Permissions to upload photo",
+                            Snackbar.LENGTH_INDEFINITE).setAction("ENABLE",
+                            new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                                        requestPermissions(
+                                                new String[]{Manifest.permission
+                                                        .READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA},
+                                                PERMISSIONS_MULTIPLE_REQUEST);
+                                    }
+                                }
+                            }).show();
+                }
+            }
+        }
+/*
         switch (requestCode) {
             case PERMISSIONS_MULTIPLE_REQUEST:
                 if (grantResults.length > 0) {
@@ -1666,10 +1809,12 @@ public class AddProductActivity extends AppCompatActivity {
 //                            imgUri = openCameraIntent();
                             ImagePicker.Companion.with(this)
                                     .start();
-                         /*   ImagePicker.Companion.with(this)
+                         */
+/*   ImagePicker.Companion.with(this)
                                     .saveDir(directory)
                                     .compress(1024)
-                                    .start();*/
+                                    .start();*//*
+
                             isclick = false;
                         } else {
 //                            dialog.dismiss();
@@ -1694,6 +1839,7 @@ public class AddProductActivity extends AppCompatActivity {
                 }
                 break;
         }
+*/
     }
 
 }

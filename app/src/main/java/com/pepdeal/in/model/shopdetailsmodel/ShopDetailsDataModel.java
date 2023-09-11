@@ -61,6 +61,10 @@ public class ShopDetailsDataModel {
     @SerializedName("font_color_id")
     @Expose
     private String fontColorId;
+    @SerializedName("interest_flag")
+    @Expose
+    private String interestflag;
+
 
     public String getShopId() {
         return shopId;
@@ -212,5 +216,13 @@ public class ShopDetailsDataModel {
 
     public void setShopAddress2(String shopAddress2) {
         this.shopAddress2 = shopAddress2;
+    }
+
+    public String getInterestflag() {
+        return interestflag;
+    }
+
+    public void setInterestflag(String interestflag) {
+        this.interestflag = interestflag;
     }
 }

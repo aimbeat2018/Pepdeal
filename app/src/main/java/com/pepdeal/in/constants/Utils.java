@@ -1,13 +1,16 @@
 package com.pepdeal.in.constants;
 
+import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.pm.PackageManager;
 import android.graphics.drawable.ColorDrawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.Build;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.TextPaint;
@@ -16,7 +19,10 @@ import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
 import android.view.View;
 import android.widget.Button;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import androidx.core.app.ActivityCompat;
 
 import com.pepdeal.in.R;
 
@@ -124,5 +130,60 @@ public class Utils {
                 tv.setMovementMethod(LinkMovementMethod.getInstance());
             }
         }
+    }
+    public static boolean checkPermissions(Activity context) {
+//        String[] PERMISSIONS = {
+//                Manifest.permission.READ_EXTERNAL_STORAGE,
+//                Manifest.permission.WRITE_EXTERNAL_STORAGE,
+//        };
+
+        String[] PERMISSIONS;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            PERMISSIONS = new String[]{
+                    Manifest.permission.READ_MEDIA_IMAGES,
+                    Manifest.permission.CAMERA,
+            };
+        }else{
+            PERMISSIONS = new String[]{
+                    Manifest.permission.READ_EXTERNAL_STORAGE,
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE,
+//                    Manifest.permission.CAMERA,
+            };
+        }
+
+        if (!hasPermissions(context, PERMISSIONS)) {
+            Dialog dialog = new Dialog(context);
+            dialog.setCancelable(true);
+            dialog.setContentView(R.layout.item_permission_dialog);
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+
+            final RelativeLayout okBtn = dialog.findViewById(R.id.okBtn);
+
+            okBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                        context.requestPermissions(PERMISSIONS, 2);
+                    }
+                    dialog.cancel();
+                }
+            });
+            dialog.show();
+        } else {
+            return true;
+        }
+
+        return false;
+    }
+
+    public static boolean hasPermissions(Context context, String... permissions) {
+        if (context != null && permissions != null) {
+            for (String permission : permissions) {
+                if (ActivityCompat.checkSelfPermission(context, permission) != PackageManager.PERMISSION_GRANTED) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 }
