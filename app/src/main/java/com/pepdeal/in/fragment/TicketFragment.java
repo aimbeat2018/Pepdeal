@@ -305,7 +305,6 @@ public class TicketFragment extends Fragment {
     }
     private void deleteTicketAPI(String ticketid) {
         showShimmer();
-        String userIdStr = SharedPref.getVal(activity, SharedPref.user_id);
 
         TicketDataModel model = new TicketDataModel();
         model.setUserid(SharedPref.getVal(getActivity(), SharedPref.user_id));
