@@ -7,6 +7,9 @@ public class SellerTicketStatusModel {
     @SerializedName("user_id")
     @Expose
     private String userId;
+    @SerializedName("shop_id")
+    @Expose
+    private String shopId;
     @SerializedName("ticket_id")
     @Expose
     private String ticketId;
@@ -58,5 +61,13 @@ public class SellerTicketStatusModel {
 
     public void setFlag(String flag) {
         this.flag = flag;
+    }
+
+    public String getShopId() {
+        return shopId;
+    }
+
+    public void setShopId(String shopId) {
+        this.shopId = shopId;
     }
 }

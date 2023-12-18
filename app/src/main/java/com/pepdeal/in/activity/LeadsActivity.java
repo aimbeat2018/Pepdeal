@@ -131,7 +131,7 @@ public class LeadsActivity extends AppCompatActivity {
             else
                 getLeadsForUser(true);
 
-            updateLeadCount(false);
+         //   updateLeadCount(false);
         } else {
             binding.lnrData.setVisibility(View.GONE);
             Utils.InternetAlertDialog(LeadsActivity.this, getString(R.string.no_internet_title), getString(R.string.no_internet_desc));
@@ -403,6 +403,7 @@ public class LeadsActivity extends AppCompatActivity {
                     layoutBinding.viewStatus.getBackground().setColorFilter(getResources().getColor(R.color.blue1), PorterDuff.Mode.SRC_ATOP);
                     layoutBinding.txtStatus.setText("New");
                     layoutBinding.txtStatus.setTextColor(getResources().getColor(R.color.blue1));
+                    updateStatus(model.getId(), "2",SharedPref.getVal(LeadsActivity.this, SharedPref.user_id),"", false);
                 } else if (model.getFlag().equals("2")) {
                     layoutBinding.viewStatus.getBackground().setColorFilter(getResources().getColor(R.color.purple_200), PorterDuff.Mode.SRC_ATOP);
                     layoutBinding.txtStatus.setText("Read");
@@ -450,6 +451,8 @@ public class LeadsActivity extends AppCompatActivity {
                     layoutBinding.txtStatus.setTextColor(getResources().getColor(R.color.blue1));
                     layoutBinding.imgMore.setVisibility(View.VISIBLE);
                     layoutBinding.lnrResponse.setVisibility(View.VISIBLE);
+                    updateStatus(model.getId(), "2", "",SharedPref.getVal(LeadsActivity.this, SharedPref.shop_id),false);
+
                 } else if (model.getFlag().equals("2")) {
                     layoutBinding.viewStatus.getBackground().setColorFilter(getResources().getColor(R.color.purple_200), PorterDuff.Mode.SRC_ATOP);
                     layoutBinding.txtStatus.setText("Read");
@@ -487,13 +490,13 @@ public class LeadsActivity extends AppCompatActivity {
                         public boolean onMenuItemClick(MenuItem item) {
                             switch (item.getItemId()) {
                                 case R.id.interested:
-                                    updateStatus(model.getId(), "3", true);
+                                    updateStatus(model.getId(), "3","",SharedPref.getVal(LeadsActivity.this, SharedPref.shop_id), true);
                                     break;
                                 case R.id.notInterested:
-                                    updateStatus(model.getId(), "4", true);
+                                    updateStatus(model.getId(), "4","",SharedPref.getVal(LeadsActivity.this, SharedPref.shop_id), true);
                                     break;
                                 case R.id.dealCompleted:
-                                    updateStatus(model.getId(), "0", true);
+                                    updateStatus(model.getId(), "0","",SharedPref.getVal(LeadsActivity.this, SharedPref.shop_id), true);
                                     break;
                             }
                             return true;
@@ -504,14 +507,14 @@ public class LeadsActivity extends AppCompatActivity {
                 });
 
                 layoutBinding.lnrCall.setOnClickListener(view -> {
-                    updateStatus(model.getId(), "2", false);
+                    updateStatus(model.getId(), "2","",SharedPref.getVal(LeadsActivity.this, SharedPref.shop_id), false);
 
                     Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + model.getMobileNo()));
                     startActivity(intent);
                 });
                 layoutBinding.lnrMessage.setOnClickListener(view -> showMessageDialog(model.getId(), model.getMobileNo()));
                 layoutBinding.lnrEmail.setOnClickListener(view -> {
-                    updateStatus(model.getId(), "2", false);
+                    updateStatus(model.getId(), "2","",SharedPref.getVal(LeadsActivity.this, SharedPref.shop_id), false);
 
                     Intent intent = new Intent(Intent.ACTION_SENDTO);
                     intent.putExtra(Intent.EXTRA_EMAIL, new String[]{model.getEmailId()});
@@ -531,12 +534,15 @@ public class LeadsActivity extends AppCompatActivity {
 
             }
 
-            private void updateStatus(String id, String status, boolean isLoading) {
+            private void updateStatus(String id, String status,String userid,String shopid, boolean isLoading) {
                 if (isLoading)
                     dialog.show();
                 SellerTicketStatusModel model = new SellerTicketStatusModel();
                 model.setId(id);
                 model.setFlag(status);
+                model.setUserId(userid);
+                model.setShopId(shopid);
+
 
                 ApiInterface client = ApiClient.createService(ApiInterface.class, "", "");
                 client.userstatusChange(model).enqueue(new Callback<ResponseBody>() {
@@ -627,7 +633,7 @@ public class LeadsActivity extends AppCompatActivity {
                 lnr_whatsapp = dialog1.findViewById(R.id.lnr_whatsapp);
 
                 lnr_sms.setOnClickListener(view -> {
-                    updateStatus(id, "2", false);
+                    updateStatus(id, "2","",SharedPref.getVal(LeadsActivity.this, SharedPref.shop_id), false);
                     Intent sendIntent = new Intent(Intent.ACTION_VIEW);
                     sendIntent.setData(Uri.parse("sms:" + number));
 //                    sendIntent.putExtra("address", number);
@@ -636,7 +642,7 @@ public class LeadsActivity extends AppCompatActivity {
 
                 lnr_whatsapp.setOnClickListener(view -> {
                     try {
-                        updateStatus(id, "2", false);
+                        updateStatus(id, "2","",SharedPref.getVal(LeadsActivity.this, SharedPref.shop_id), false);
                         Intent intent = new Intent(Intent.ACTION_VIEW);
                         //  intent.setData(Uri.parse("http://api.whatsapp.com/send?phone=+91" + usernumber + "&text=" + wpmsg));
                         intent.setData(Uri.parse("http://api.whatsapp.com/send?phone=+91" + number));

@@ -205,6 +205,7 @@ public class HomeActivity extends AppCompatActivity implements LocationListener/
                 })
                 .show();*/
     }
+
     private void showSearchDialog() {
         Dialog dialog = new Dialog(HomeActivity.this);
         dialog.setContentView(R.layout.search_item_layout);
@@ -236,6 +237,7 @@ public class HomeActivity extends AppCompatActivity implements LocationListener/
 
         dialog.show();
     }
+
     @Override
     protected void onResume() {
         super.onResume();
@@ -370,8 +372,8 @@ public class HomeActivity extends AppCompatActivity implements LocationListener/
                     dialog.setCanceledOnTouchOutside(false);
                     dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
 
-                    TextView txt_title=dialog.findViewById(R.id.txt_title);
-                    TextView txt_alert=dialog.findViewById(R.id.txt_alert);
+                    TextView txt_title = dialog.findViewById(R.id.txt_title);
+                    TextView txt_alert = dialog.findViewById(R.id.txt_alert);
                     txt_alert.setVisibility(View.VISIBLE);
                     Button yes = dialog.findViewById(R.id.btn_ok);
                     txt_title.setText("Waiting for approval.");
@@ -431,8 +433,8 @@ public class HomeActivity extends AppCompatActivity implements LocationListener/
                     dialog.setCanceledOnTouchOutside(false);
                     dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
 
-                    TextView txt_title=dialog.findViewById(R.id.txt_title);
-                    TextView txt_alert=dialog.findViewById(R.id.txt_alert);
+                    TextView txt_title = dialog.findViewById(R.id.txt_title);
+                    TextView txt_alert = dialog.findViewById(R.id.txt_alert);
                     txt_alert.setVisibility(View.VISIBLE);
                     Button yes = dialog.findViewById(R.id.btn_ok);
                     txt_title.setText("Waiting for approval.");
@@ -471,9 +473,9 @@ public class HomeActivity extends AppCompatActivity implements LocationListener/
             dialog.setCanceledOnTouchOutside(false);
             dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
 
-            TextView txt_title=dialog.findViewById(R.id.txt_title);
-            TextView txt_alert=dialog.findViewById(R.id.txt_alert);
-            ImageView img_delete=dialog.findViewById(R.id.img_delete);
+            TextView txt_title = dialog.findViewById(R.id.txt_title);
+            TextView txt_alert = dialog.findViewById(R.id.txt_alert);
+            ImageView img_delete = dialog.findViewById(R.id.img_delete);
             img_delete.setVisibility(View.GONE);
             txt_alert.setVisibility(View.VISIBLE);
             Button yes = dialog.findViewById(R.id.yes);
@@ -550,8 +552,8 @@ public class HomeActivity extends AppCompatActivity implements LocationListener/
                     dialog.setCanceledOnTouchOutside(false);
                     dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
 
-                    TextView txt_title=dialog.findViewById(R.id.txt_title);
-                    TextView txt_alert=dialog.findViewById(R.id.txt_alert);
+                    TextView txt_title = dialog.findViewById(R.id.txt_title);
+                    TextView txt_alert = dialog.findViewById(R.id.txt_alert);
                     txt_alert.setVisibility(View.VISIBLE);
                     Button yes = dialog.findViewById(R.id.btn_ok);
                     txt_title.setText("Waiting for approval.");
@@ -754,16 +756,24 @@ public class HomeActivity extends AppCompatActivity implements LocationListener/
                         if (from.equals("user")) {
 //                                newLeadCount = jsonObject.getString("count");
 //                                if (!newLeadCount.equals("")) {
-                            if (!jsonObject.getString("status").equals("")) {
+                          /*  if (!jsonObject.getString("status").equals("")) {//status -deal complted
                                 binding.cardNewMessage.setVisibility(View.VISIBLE);
                             }
                             else{
+                                binding.cardNewMessage.setVisibility(View.GONE);
+                            }*/
+                            if (Integer.parseInt(jsonObject.getString("count")) > 0) {
+                                binding.cardNewMessage.setVisibility(View.VISIBLE);
+                            } else {
                                 binding.cardNewMessage.setVisibility(View.GONE);
                             }
 //                                }
                         } else {
                             if (Integer.parseInt(jsonObject.getString("count")) > 0) {
                                 binding.includeLayout.txtNewMessage.setVisibility(View.VISIBLE);
+                            }
+                            else {
+                                binding.cardNewMessage.setVisibility(View.GONE);
                             }
                         }
                     } else {
