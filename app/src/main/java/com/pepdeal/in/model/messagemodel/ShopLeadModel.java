@@ -41,6 +41,9 @@ public class ShopLeadModel {
     @SerializedName("shop_flag")
     @Expose
     private String shopFlag;
+    @SerializedName("seller_flag")
+    @Expose
+    private String seller_flag;
     @SerializedName("state_name")
     @Expose
     private String stateName;
@@ -77,7 +80,13 @@ public class ShopLeadModel {
         this.flag = flag;
     }
 
+    public String getSeller_flag() {
+        return seller_flag;
+    }
 
+    public void setSeller_flag(String seller_flag) {
+        this.seller_flag = seller_flag;
+    }
 
     public String getUpdatedAt() {
         return updatedAt;

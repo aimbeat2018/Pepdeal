@@ -404,19 +404,24 @@ public class LeadsActivity extends AppCompatActivity {
                     layoutBinding.txtStatus.setText("New");
                     layoutBinding.txtStatus.setTextColor(getResources().getColor(R.color.blue1));
                     updateStatus(model.getId(), "2",SharedPref.getVal(LeadsActivity.this, SharedPref.user_id),"", false);
-                } else if (model.getFlag().equals("2")) {
+                } else if (model.getSeller_flag().equals("1")) {
                     layoutBinding.viewStatus.getBackground().setColorFilter(getResources().getColor(R.color.purple_200), PorterDuff.Mode.SRC_ATOP);
                     layoutBinding.txtStatus.setText("Read");
                     layoutBinding.txtStatus.setTextColor(getResources().getColor(R.color.purple_200));
-                } else if (model.getFlag().equals("3")) {
+                }
+                else if (model.getSeller_flag().equals("2")) {
+                    layoutBinding.viewStatus.getBackground().setColorFilter(getResources().getColor(R.color.purple_200), PorterDuff.Mode.SRC_ATOP);
+                    layoutBinding.txtStatus.setText("Read");
+                    layoutBinding.txtStatus.setTextColor(getResources().getColor(R.color.purple_200));
+                } else if (model.getSeller_flag().equals("3")) {
                     layoutBinding.viewStatus.getBackground().setColorFilter(getResources().getColor(R.color.green_light), PorterDuff.Mode.SRC_ATOP);
                     layoutBinding.txtStatus.setText("Interested");
                     layoutBinding.txtStatus.setTextColor(getResources().getColor(R.color.green_light));
-                } else if (model.getFlag().equals("4")) {
+                } else if (model.getSeller_flag().equals("4")) {
                     layoutBinding.viewStatus.getBackground().setColorFilter(getResources().getColor(R.color.errorColor), PorterDuff.Mode.SRC_ATOP);
                     layoutBinding.txtStatus.setText("Not Interested");
                     layoutBinding.txtStatus.setTextColor(getResources().getColor(R.color.errorColor));
-                } else if (model.getFlag().equals("0")) {
+                } else if (model.getSeller_flag().equals("0")) {
                     layoutBinding.viewStatus.getBackground().setColorFilter(getResources().getColor(R.color.green), PorterDuff.Mode.SRC_ATOP);
                     layoutBinding.txtStatus.setText("Completed");
                     layoutBinding.txtStatus.setTextColor(getResources().getColor(R.color.green));
@@ -445,7 +450,7 @@ public class LeadsActivity extends AppCompatActivity {
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
-                if (model.getFlag().equals("1")) {
+                if (model.getSeller_flag().equals("1")) {
                     layoutBinding.viewStatus.getBackground().setColorFilter(getResources().getColor(R.color.blue1), PorterDuff.Mode.SRC_ATOP);
                     layoutBinding.txtStatus.setText("New");
                     layoutBinding.txtStatus.setTextColor(getResources().getColor(R.color.blue1));
@@ -453,25 +458,25 @@ public class LeadsActivity extends AppCompatActivity {
                     layoutBinding.lnrResponse.setVisibility(View.VISIBLE);
                     updateStatus(model.getId(), "2", "",SharedPref.getVal(LeadsActivity.this, SharedPref.shop_id),false);
 
-                } else if (model.getFlag().equals("2")) {
+                } else if (model.getSeller_flag().equals("2")) {
                     layoutBinding.viewStatus.getBackground().setColorFilter(getResources().getColor(R.color.purple_200), PorterDuff.Mode.SRC_ATOP);
                     layoutBinding.txtStatus.setText("Read");
                     layoutBinding.txtStatus.setTextColor(getResources().getColor(R.color.purple_200));
                     layoutBinding.imgMore.setVisibility(View.VISIBLE);
                     layoutBinding.lnrResponse.setVisibility(View.VISIBLE);
-                } else if (model.getFlag().equals("3")) {
+                } else if (model.getSeller_flag().equals("3")) {
                     layoutBinding.viewStatus.getBackground().setColorFilter(getResources().getColor(R.color.green_light), PorterDuff.Mode.SRC_ATOP);
                     layoutBinding.txtStatus.setText("Interested");
                     layoutBinding.txtStatus.setTextColor(getResources().getColor(R.color.green_light));
                     layoutBinding.imgMore.setVisibility(View.VISIBLE);
                     layoutBinding.lnrResponse.setVisibility(View.VISIBLE);
-                } else if (model.getFlag().equals("4")) {
+                } else if (model.getSeller_flag().equals("4")) {
                     layoutBinding.viewStatus.getBackground().setColorFilter(getResources().getColor(R.color.errorColor), PorterDuff.Mode.SRC_ATOP);
                     layoutBinding.txtStatus.setText("Not Interested");
                     layoutBinding.txtStatus.setTextColor(getResources().getColor(R.color.errorColor));
                     layoutBinding.imgMore.setVisibility(View.VISIBLE);
                     layoutBinding.lnrResponse.setVisibility(View.VISIBLE);
-                } else if (model.getFlag().equals("0")) {
+                } else if (model.getSeller_flag().equals("0")) {
                     layoutBinding.viewStatus.getBackground().setColorFilter(getResources().getColor(R.color.green), PorterDuff.Mode.SRC_ATOP);
                     layoutBinding.txtStatus.setText("Completed");
                     layoutBinding.txtStatus.setTextColor(getResources().getColor(R.color.green));
