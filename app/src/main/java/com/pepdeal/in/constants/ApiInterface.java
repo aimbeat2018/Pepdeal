@@ -257,4 +257,7 @@ public interface ApiInterface {
 
     @POST("msgscountStatuschange")
     Call<ResponseBody> msgscountStatuschange(@Body UserProfileRequestModel model);
+
+    @POST("userFlagUpdate")
+    Call<ResponseBody> userFlagUpdate(@Body UserProfileRequestModel model);
 }

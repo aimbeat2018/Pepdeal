@@ -83,17 +83,18 @@ public class LeadsActivity extends AppCompatActivity {
         dialog.setTitle("Loading");
         dialog.setMessage("Please wait...");
 
-        /*if (Utils.isNetwork(LeadsActivity.this)) {
-            if (from.equals("user"))
+        if (Utils.isNetwork(LeadsActivity.this)) {
+            userFlagUpdate(false);
+           /* if (from.equals("user"))
                 getLeadsForSeller(true);
             else
-                getLeadsForUser(true);
+                getLeadsForUser(true);*/
 
-            updateLeadCount(false);
+            //   updateLeadCount(false);
         } else {
             binding.lnrData.setVisibility(View.GONE);
             Utils.InternetAlertDialog(LeadsActivity.this, getString(R.string.no_internet_title), getString(R.string.no_internet_desc));
-        }*/
+        }
     }
 
     public class ClickHandler {
@@ -126,12 +127,13 @@ public class LeadsActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         if (Utils.isNetwork(LeadsActivity.this)) {
-            if (from.equals("user"))
+            userFlagUpdate(false);
+           /* if (from.equals("user"))
                 getLeadsForSeller(true);
             else
-                getLeadsForUser(true);
+                getLeadsForUser(true);*/
 
-         //   updateLeadCount(false);
+            //   updateLeadCount(false);
         } else {
             binding.lnrData.setVisibility(View.GONE);
             Utils.InternetAlertDialog(LeadsActivity.this, getString(R.string.no_internet_title), getString(R.string.no_internet_desc));
@@ -158,7 +160,7 @@ public class LeadsActivity extends AppCompatActivity {
                         }.getType();
                         userLeadModelList = new ArrayList<>();
                         userLeadModelList.addAll(gson.fromJson(jsonObject.getString("data"), listType));
-                      //  Collections.reverse(userLeadModelList);
+                        //  Collections.reverse(userLeadModelList);
                         if (userLeadModelList.size() > 0) {
                             binding.recList.setLayoutManager(new LinearLayoutManager(LeadsActivity.this));
                             binding.recList.setAdapter(new LeadsAdapter("shop"));
@@ -285,7 +287,7 @@ public class LeadsActivity extends AppCompatActivity {
                         }.getType();
                         sellerLeadModelList = new ArrayList<>();
                         sellerLeadModelList.addAll(gson.fromJson(jsonObject.getString("data"), listType));
-                       // Collections.reverse(sellerLeadModelList);
+                        // Collections.reverse(sellerLeadModelList);
                         if (sellerLeadModelList.size() > 0) {
                             binding.recList.setLayoutManager(new LinearLayoutManager(LeadsActivity.this));
                             binding.recList.setAdapter(new LeadsAdapter("user"));
@@ -336,6 +338,71 @@ public class LeadsActivity extends AppCompatActivity {
             }
         });
     }
+
+    private void userFlagUpdate(boolean isLoading) {
+        if (isLoading)
+            showShimmer();
+        UserProfileRequestModel model = new UserProfileRequestModel();
+        if (from.equals("user")) {
+            model.setUserId(SharedPref.getVal(LeadsActivity.this, SharedPref.user_id));
+            model.setShop_id("");
+        } else {
+            model.setUserId("");
+            model.setShop_id(SharedPref.getVal(LeadsActivity.this, SharedPref.shop_id));
+        }
+
+        ApiInterface client = ApiClient.createService(ApiInterface.class, "", "");
+        client.userFlagUpdate(model).enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
+                try {
+                    JSONObject jsonObject = new JSONObject(response.body().string());
+                    String code = jsonObject.getString("code");
+                    if (Utils.isNetwork(LeadsActivity.this)) {
+                        if (from.equals("user"))
+                            getLeadsForSeller(true);
+                        else
+                            getLeadsForUser(true);
+                    } else {
+                        binding.lnrData.setVisibility(View.GONE);
+                        Utils.InternetAlertDialog(LeadsActivity.this, getString(R.string.no_internet_title), getString(R.string.no_internet_desc));
+                    }
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+                hideShimmer();
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<ResponseBody> call, @NonNull Throwable error) {
+                hideShimmer();
+                error.printStackTrace();
+                if (error instanceof HttpException) {
+                    switch (((HttpException) error).code()) {
+                        case HttpsURLConnection.HTTP_UNAUTHORIZED:
+                            Toast.makeText(LeadsActivity.this, getString(R.string.unauthorised_user), Toast.LENGTH_SHORT).show();
+                            break;
+                        case HttpsURLConnection.HTTP_FORBIDDEN:
+                            Toast.makeText(LeadsActivity.this, getString(R.string.forbidden), Toast.LENGTH_SHORT).show();
+                            break;
+                        case HttpsURLConnection.HTTP_INTERNAL_ERROR:
+                            Toast.makeText(LeadsActivity.this, getString(R.string.internal_server_error), Toast.LENGTH_SHORT).show();
+                            break;
+                        case HttpsURLConnection.HTTP_BAD_REQUEST:
+                            Toast.makeText(LeadsActivity.this, getString(R.string.bad_request), Toast.LENGTH_SHORT).show();
+                            break;
+                        default:
+                            Toast.makeText(LeadsActivity.this, error.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    Toast.makeText(LeadsActivity.this, getString(R.string.something_went_wrong), Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
+
 
     public class LeadsAdapter extends RecyclerView.Adapter<LeadsAdapter.ViewHolder> {
         String from;
@@ -403,13 +470,12 @@ public class LeadsActivity extends AppCompatActivity {
                     layoutBinding.viewStatus.getBackground().setColorFilter(getResources().getColor(R.color.blue1), PorterDuff.Mode.SRC_ATOP);
                     layoutBinding.txtStatus.setText("New");
                     layoutBinding.txtStatus.setTextColor(getResources().getColor(R.color.blue1));
-                    updateStatus(model.getId(), "2",SharedPref.getVal(LeadsActivity.this, SharedPref.user_id),"", false);
+                    updateStatus(model.getId(), "2", SharedPref.getVal(LeadsActivity.this, SharedPref.user_id), "", false);
                 } else if (model.getSeller_flag().equals("1")) {
                     layoutBinding.viewStatus.getBackground().setColorFilter(getResources().getColor(R.color.purple_200), PorterDuff.Mode.SRC_ATOP);
                     layoutBinding.txtStatus.setText("Read");
                     layoutBinding.txtStatus.setTextColor(getResources().getColor(R.color.purple_200));
-                }
-                else if (model.getSeller_flag().equals("2")) {
+                } else if (model.getSeller_flag().equals("2")) {
                     layoutBinding.viewStatus.getBackground().setColorFilter(getResources().getColor(R.color.purple_200), PorterDuff.Mode.SRC_ATOP);
                     layoutBinding.txtStatus.setText("Read");
                     layoutBinding.txtStatus.setTextColor(getResources().getColor(R.color.purple_200));
@@ -456,7 +522,7 @@ public class LeadsActivity extends AppCompatActivity {
                     layoutBinding.txtStatus.setTextColor(getResources().getColor(R.color.blue1));
                     layoutBinding.imgMore.setVisibility(View.VISIBLE);
                     layoutBinding.lnrResponse.setVisibility(View.VISIBLE);
-                    updateStatus(model.getId(), "2", "",SharedPref.getVal(LeadsActivity.this, SharedPref.shop_id),false);
+                    updateStatus(model.getId(), "2", "", SharedPref.getVal(LeadsActivity.this, SharedPref.shop_id), false);
 
                 } else if (model.getSeller_flag().equals("2")) {
                     layoutBinding.viewStatus.getBackground().setColorFilter(getResources().getColor(R.color.purple_200), PorterDuff.Mode.SRC_ATOP);
@@ -495,13 +561,13 @@ public class LeadsActivity extends AppCompatActivity {
                         public boolean onMenuItemClick(MenuItem item) {
                             switch (item.getItemId()) {
                                 case R.id.interested:
-                                    updateStatus(model.getId(), "3","",SharedPref.getVal(LeadsActivity.this, SharedPref.shop_id), true);
+                                    updateStatus(model.getId(), "3", "", SharedPref.getVal(LeadsActivity.this, SharedPref.shop_id), true);
                                     break;
                                 case R.id.notInterested:
-                                    updateStatus(model.getId(), "4","",SharedPref.getVal(LeadsActivity.this, SharedPref.shop_id), true);
+                                    updateStatus(model.getId(), "4", "", SharedPref.getVal(LeadsActivity.this, SharedPref.shop_id), true);
                                     break;
                                 case R.id.dealCompleted:
-                                    updateStatus(model.getId(), "0","",SharedPref.getVal(LeadsActivity.this, SharedPref.shop_id), true);
+                                    updateStatus(model.getId(), "0", "", SharedPref.getVal(LeadsActivity.this, SharedPref.shop_id), true);
                                     break;
                             }
                             return true;
@@ -512,14 +578,14 @@ public class LeadsActivity extends AppCompatActivity {
                 });
 
                 layoutBinding.lnrCall.setOnClickListener(view -> {
-                    updateStatus(model.getId(), "2","",SharedPref.getVal(LeadsActivity.this, SharedPref.shop_id), false);
+                    updateStatus(model.getId(), "2", "", SharedPref.getVal(LeadsActivity.this, SharedPref.shop_id), false);
 
                     Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + model.getMobileNo()));
                     startActivity(intent);
                 });
                 layoutBinding.lnrMessage.setOnClickListener(view -> showMessageDialog(model.getId(), model.getMobileNo()));
                 layoutBinding.lnrEmail.setOnClickListener(view -> {
-                    updateStatus(model.getId(), "2","",SharedPref.getVal(LeadsActivity.this, SharedPref.shop_id), false);
+                    updateStatus(model.getId(), "2", "", SharedPref.getVal(LeadsActivity.this, SharedPref.shop_id), false);
 
                     Intent intent = new Intent(Intent.ACTION_SENDTO);
                     intent.putExtra(Intent.EXTRA_EMAIL, new String[]{model.getEmailId()});
@@ -539,7 +605,7 @@ public class LeadsActivity extends AppCompatActivity {
 
             }
 
-            private void updateStatus(String id, String status,String userid,String shopid, boolean isLoading) {
+            private void updateStatus(String id, String status, String userid, String shopid, boolean isLoading) {
                 if (isLoading)
                     dialog.show();
                 SellerTicketStatusModel model = new SellerTicketStatusModel();
@@ -601,6 +667,7 @@ public class LeadsActivity extends AppCompatActivity {
                     }
                 });
             }
+
             private void showDeleteDialog(String id) {
                 Dialog dialog = new Dialog(LeadsActivity.this);
                 dialog.setContentView(R.layout.delete_popup);
@@ -638,7 +705,7 @@ public class LeadsActivity extends AppCompatActivity {
                 lnr_whatsapp = dialog1.findViewById(R.id.lnr_whatsapp);
 
                 lnr_sms.setOnClickListener(view -> {
-                    updateStatus(id, "2","",SharedPref.getVal(LeadsActivity.this, SharedPref.shop_id), false);
+                    updateStatus(id, "2", "", SharedPref.getVal(LeadsActivity.this, SharedPref.shop_id), false);
                     Intent sendIntent = new Intent(Intent.ACTION_VIEW);
                     sendIntent.setData(Uri.parse("sms:" + number));
 //                    sendIntent.putExtra("address", number);
@@ -647,7 +714,7 @@ public class LeadsActivity extends AppCompatActivity {
 
                 lnr_whatsapp.setOnClickListener(view -> {
                     try {
-                        updateStatus(id, "2","",SharedPref.getVal(LeadsActivity.this, SharedPref.shop_id), false);
+                        updateStatus(id, "2", "", SharedPref.getVal(LeadsActivity.this, SharedPref.shop_id), false);
                         Intent intent = new Intent(Intent.ACTION_VIEW);
                         //  intent.setData(Uri.parse("http://api.whatsapp.com/send?phone=+91" + usernumber + "&text=" + wpmsg));
                         intent.setData(Uri.parse("http://api.whatsapp.com/send?phone=+91" + number));
@@ -671,7 +738,7 @@ public class LeadsActivity extends AppCompatActivity {
             showShimmer();
 
             UserLeadModel model = new UserLeadModel();
-         //   model.setUserId(SharedPref.getVal(LeadsActivity.this, SharedPref.user_id));
+            //   model.setUserId(SharedPref.getVal(LeadsActivity.this, SharedPref.user_id));
             model.setId(msgid);
 
             ApiInterface client = ApiClient.createService(ApiInterface.class, "", "");
@@ -682,14 +749,14 @@ public class LeadsActivity extends AppCompatActivity {
                         JSONObject jsonObject = new JSONObject(response.body().string());
                         String code = jsonObject.getString("code");
                         if (code.equals("200")) {
-                            Toast.makeText(LeadsActivity.this,jsonObject.getString("message"),Toast.LENGTH_SHORT).show();
+                            Toast.makeText(LeadsActivity.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
                             finish();
                             /*  if (from.equals("user"))
                                 getLeadsForSeller(true);
                             else
                                 getLeadsForUser(true);*/
                         } else {
-                            Toast.makeText(LeadsActivity.this,jsonObject.getString("message"),Toast.LENGTH_SHORT).show();
+                            Toast.makeText(LeadsActivity.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
                         }
                     } catch (Exception e) {
                         hideShimmer();
