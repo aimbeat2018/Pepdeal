@@ -218,7 +218,6 @@ public class SuperShopFragment extends Fragment {
                     layoutBinding.txtName.setTextColor(Color.parseColor(model.getFontColorName()));
                 }
 
-
                 Typeface typeface = null;
                 if (model.getFontStyleId().equals("1")) {
                     typeface = ResourcesCompat.getFont(activity, R.font.anton_regular);
@@ -244,7 +243,11 @@ public class SuperShopFragment extends Fragment {
                     typeface = ResourcesCompat.getFont(activity, R.font.quicksand_bold);
                 } else if (model.getFontStyleId().equals("12")) {
                     typeface = ResourcesCompat.getFont(activity, R.font.yesevaone_regular);
-                } /*else if (model.getFontStyleId().equals("13")) {
+                } else if (model.getFontStyleId().equals("13")) {
+                    typeface = ResourcesCompat.getFont(activity, R.font.sailors);
+                } else if (model.getFontStyleId().equals("14")) {
+                    typeface = ResourcesCompat.getFont(activity, R.font.fredoka_one);
+                }  /*else if (model.getFontStyleId().equals("13")) {
                             typeface = ResourcesCompat.getFont(activity, R.font.roboto_mediumitalic);
                         } else if (model.getFontStyleId().equals("14")) {
                             typeface = ResourcesCompat.getFont(activity, R.font.roboto_regular);
