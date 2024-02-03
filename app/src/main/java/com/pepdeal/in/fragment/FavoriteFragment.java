@@ -47,6 +47,7 @@ import java.lang.reflect.Type;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -121,7 +122,7 @@ public class FavoriteFragment extends Fragment {
                         }.getType();
                         favDataModelList = new ArrayList<>();
                         favDataModelList.addAll(gson.fromJson(jsonObject.getString("data"), listType));
-
+                        Collections.reverse(favDataModelList);
                         if (favDataModelList.size() > 0) {
                             binding.recList.setLayoutManager(new LinearLayoutManager(activity));
                             binding.recList.setAdapter(new ProductAdapter());

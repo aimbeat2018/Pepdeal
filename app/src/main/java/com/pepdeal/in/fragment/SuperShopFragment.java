@@ -125,7 +125,7 @@ public class SuperShopFragment extends Fragment {
                         }.getType();
                         superShopDataModelList = new ArrayList<>();
                         superShopDataModelList.addAll(gson.fromJson(jsonObject.getString("data"), listType));
-
+//                        Collections.reverse(superShopDataModelList);
                         if (superShopDataModelList.size() > 0) {
                             Collections.reverse(superShopDataModelList);
                             binding.recList.setLayoutManager(new LinearLayoutManager(activity));
@@ -210,11 +210,9 @@ public class SuperShopFragment extends Fragment {
 
             public void bind(SuperShopDataModel model, int position) {
                 layoutBinding.txtName.setText(model.getShopName());
-                if(model.getFontColorName().equals(""))
-                {
+                if (model.getFontColorName().equals("")) {
                     layoutBinding.txtName.setTextColor(Color.parseColor("#000000"));
-                }
-                else{
+                } else {
                     layoutBinding.txtName.setTextColor(Color.parseColor(model.getFontColorName()));
                 }
 
@@ -278,7 +276,7 @@ public class SuperShopFragment extends Fragment {
                         dialog.setCanceledOnTouchOutside(false);
                         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
 
-                        TextView txt_title=dialog.findViewById(R.id.txt_title);
+                        TextView txt_title = dialog.findViewById(R.id.txt_title);
                         Button yes = dialog.findViewById(R.id.yes);
                         Button no = dialog.findViewById(R.id.no);
                         txt_title.setText("Are you sure you want to remove shop from super shop?");
