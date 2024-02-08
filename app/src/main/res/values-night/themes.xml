@@ -15,8 +15,5 @@
         <!-- Customize your theme here. -->
 
     </style>
-    <style name="MyDialogTheme" parent="Theme.AppCompat.Light.Dialog.Alert">
-        <item name="android:background">@color/dialog_yellow</item>
-    </style>
 
 </resources>

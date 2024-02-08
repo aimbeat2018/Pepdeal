@@ -38,7 +38,6 @@ import com.pepdeal.in.constants.Utils;
 import com.pepdeal.in.databinding.ActivitySellerProductListingBinding;
 import com.pepdeal.in.databinding.ActivityShopDetailsBinding;
 import com.pepdeal.in.databinding.ItemSellerProductListingLayoutBinding;
-import com.pepdeal.in.databinding.ItemServiceAvaliableLayoutBinding;
 import com.pepdeal.in.model.UsersHomeTabModel;
 import com.pepdeal.in.model.productlistmodel.ProductDataModel;
 import com.pepdeal.in.model.requestModel.AddProductCategoryResponseModel;

@@ -27,7 +27,6 @@ import com.pepdeal.in.constants.SharedPref;
 import com.pepdeal.in.constants.Utils;
 import com.pepdeal.in.databinding.ActivitySellerShopServicesListBinding;
 import com.pepdeal.in.databinding.ItemCategoryHomeLayoutBinding;
-import com.pepdeal.in.databinding.ItemSellerShopServiceLayoutBinding;
 import com.pepdeal.in.fragment.FavoriteFragment;
 import com.pepdeal.in.fragment.SuperShopFragment;
 import com.pepdeal.in.fragment.TicketFragment;

@@ -37,7 +37,6 @@
     <string name="notification">Notification</string>
     <string name="contact_us">Contact us</string>
     <string name="about_us">About us</string>
-    <string name="faq">FAQ</string>
     <string name="legal">Legal</string>
     <string name="product_details">Product Description</string>
     <string name="product_details11">Product Description 1</string>
@@ -48,15 +47,12 @@
     <string name="enter_product_name">Enter Product Name</string>
     <string name="enter_brand_name">Enter Brand Name</string>
     <string name="brand_name">Brand Name</string>
-    <string name="select_brand_name">Select Brand Name</string>
     <string name="description">Description</string>
     <string name="description1">Description 1</string>
     <string name="specification">Specification</string>
     <string name="enter_text">Enter text</string>
-    <string name="select_category">Select Category</string>
     <string name="warranty">Warranty</string>
     <string name="enter_warranty">Enter warranty</string>
-    <string name="enter_size">Enter size</string>
     <string name="size">Size</string>
     <string name="colour">Colour</string>
     <string name="search_tag">Search Tag</string>
@@ -82,7 +78,6 @@
     <string name="about_Shop">About Shop</string>
     <string name="shop_state">Shop State</string>
     <string name="enter_shop_name">Enter Shop Name</string>
-    <string name="enter_shop_address">Enter Shop Address</string>
     <string name="enter_shop_city">Enter Shop City</string>
     <string name="enter_shop_area">Enter Shop Area</string>
     <string name="enter_about_shop">Enter About Shop</string>
@@ -91,23 +86,8 @@
     <string name="board_sign_color">Shop Board Background</string>
     <string name="board_sign_font_style">Shop Board Font Style</string>
     <string name="board_sign_font_color">Shop Board Font Color</string>
-    <string name="query">Query</string>
     <string name="enter_query">Enter Query</string>
-    <string name="product_details1">This metal planter with a foliage pattern is perfect to add a
-tropical feel to your home. The piece is hand-crafted with a
-lacquered finish on the outside and an elegant gold
-inside.The design is ideal for centre tables &amp; corner tables
-and can also be used as a vase for flowers. No Drainage
-Hole.\n\nThis metal planter with a foliage pattern is perfect to add a
-tropical feel to your home. The piece is hand-crafted with a
-lacquered finish on the outside and an elegant gold
-inside.The design is ideal for centre tables &amp; corner tables
-and can also be used as a vase for flowers. No Drainage
-Hole.</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="alert">Alert!!!</string>
-    <string name="blocked_msg">Your account has been blocked by administrator.Contact to our team for further queries.</string>
 
     <string name="unauthorised_user">Unauthorised User</string>
     <string name="forbidden">Forbidden</string>
@@ -134,19 +114,12 @@ Hole.</string>
     <string name="no_product_added_message">Looks like the seller not added any product yet.</string>
     <string name="no_fav_added_message">Looks like the you have\'t added any product yet.</string>
     <string name="no_message">Looks like the you have\'t send any message yet.</string>
-    <string name="title_activity_message_chat">MessageChatActivity</string>
     <!-- Strings used for fragments for navigation -->
-    <string name="first_fragment_label">First Fragment</string>
-    <string name="second_fragment_label">Second Fragment</string>
-    <string name="next">Next</string>
-    <string name="previous">Previous</string>
     <string name="privacy_policy">Privacy Policy</string>
     <string name="terms_condition">Terms &amp; Condition</string>
     <string name="shop_adding_msg">Note : When adding shop make sure you will be in your shop as we are relocating your shop to serve you better.</string>
 
 
-    <string name="hello_first_fragment">Hello first fragment</string>
-    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="state_list">Select State</string>
     <string name="city_list">Select City</string>
     <!--    <string name="txt_accept_terms_conditions">You agree to our <a href="http://captureandtalk.com/capturetalk/index.php/termandcondition">Terms &amp; Condition</a> of use and <a href="http://captureandtalk.com/capturetalk/index.php/privacypolicy">Privacy Policy</a>.</string>-->

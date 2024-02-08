@@ -97,7 +97,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/margin_10"
-            android:drawableLeft="@drawable/ic_baseline_gps_fixed_24"
+            app:drawableLeftCompat="@drawable/ic_baseline_gps_fixed_24"
             android:drawablePadding="5dp"
             android:text="Select your current Location"
             android:textColor="@color/blue"
