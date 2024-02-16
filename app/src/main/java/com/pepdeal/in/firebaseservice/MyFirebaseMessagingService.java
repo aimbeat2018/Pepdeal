@@ -45,14 +45,11 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
         if (remoteMessage == null)
             return;
-
-
         // Check if message contains a notification payload.
         if (remoteMessage.getNotification() != null) {
             Log.e(TAG, "Notification Body: " + remoteMessage.getNotification().getBody());
             handleNotification(remoteMessage.getNotification().getBody());
         }
-
         // Check if message contains a data payload.
         if (remoteMessage.getData().size() > 0) {
             Log.e(TAG, "Data Payload: " + remoteMessage.getData().toString());
@@ -144,7 +141,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 //            }
 
             if (imageUrl != null) {
-                notificationHelper.createNotification(title, message, R.drawable.ic_launcher_foreground, imageUrl, timestamp, intent);
+                notificationHelper.createNotification(title, message, R.drawable.main_logo, imageUrl, timestamp, intent);
             } else {
                 notificationHelper.createNotification(title, message, timestamp, intent);
             }

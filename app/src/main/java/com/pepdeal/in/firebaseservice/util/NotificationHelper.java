@@ -84,7 +84,7 @@ public class NotificationHelper {
 
 
         mBuilder = new NotificationCompat.Builder(mContext);
-        mBuilder.setSmallIcon(R.drawable.ic_launcher_foreground);
+        mBuilder.setSmallIcon(R.drawable.main_logo);
         mBuilder.setContentTitle(title)
                 .setContentText(message)
                 .setAutoCancel(false)

@@ -126,6 +126,11 @@ public class HomeActivity extends AppCompatActivity implements LocationListener/
         gpsTracker = new GPSTracker(this);
         mLocationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
 
+        if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.TIRAMISU)
+        {
+            checkNotificationPermission();
+        }
+
         setHomeTabData();
         navigationDrawer();
         // binding.setHandler(new HomeActivity.ClickHandler(this));
@@ -170,6 +175,28 @@ public class HomeActivity extends AppCompatActivity implements LocationListener/
         /*By Default Home fragment load*/
         pos = 1;
         loadFragment(new HomeFragment());
+
+
+    }
+
+    private boolean checkNotificationPermission() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (checkSelfPermission(android.Manifest.permission.POST_NOTIFICATIONS) == PackageManager.PERMISSION_GRANTED/*
+                    && checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED*/) {
+
+//                Log.v(TAG, "Permission is granted");
+                return true;
+
+            } else {
+//                Log.v(TAG, "Permission is revoked");
+                ActivityCompat.requestPermissions(this, new String[]{
+                        Manifest.permission.POST_NOTIFICATIONS}, 1);
+                return false;
+            }
+        } else { //permission is automatically granted on sdk<23 upon installation
+//            Log.v(TAG, "Permission is granted");
+            return true;
+        }
 
 
     }

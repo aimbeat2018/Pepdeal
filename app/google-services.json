@@ -1,36 +1,26 @@
 {
   "project_info": {
-    "project_number": "463960456085",
-    "project_id": "pepdealandroid",
-    "storage_bucket": "pepdealandroid.appspot.com"
+    "project_number": "83480925088",
+    "project_id": "pepdeal-15b60",
+    "storage_bucket": "pepdeal-15b60.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:463960456085:android:0213b88e815bd804e7549c",
+        "mobilesdk_app_id": "1:83480925088:android:0641d3f6b23da9b3aa0ac5",
         "android_client_info": {
           "package_name": "com.pepdeal.in"
         }
       },
-      "oauth_client": [
-        {
-          "client_id": "463960456085-qcgiftn4d2mp8p3geu1162m8r3tvcl5j.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
+      "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyDRjpYHzSQlEYE9z8wZXi7ihOa8KU3vXsQ"
+          "current_key": "AIzaSyBKIiSvX8FZDLHzonnXaxtaWpSivk1dZdQ"
         }
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "463960456085-qcgiftn4d2mp8p3geu1162m8r3tvcl5j.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
+          "other_platform_oauth_client": []
         }
       }
     }
