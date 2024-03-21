@@ -1236,6 +1236,7 @@ public class HomeActivity extends AppCompatActivity implements LocationListener/
                 binding.txtLocation.setText(address);
                 latitude = Double.parseDouble(data.getStringExtra("lat"));
                 longitude = Double.parseDouble(data.getStringExtra("long"));
+                loadFragment(new HomeFragment());
             }
 
         }
