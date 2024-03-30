@@ -227,8 +227,12 @@ public class ShopDetailsActivity extends AppCompatActivity {
                         binding.txtAddress.setText(shopDetailsDataModel.getShopAddress2());
                         binding.txtMobile.setText(shopDetailsDataModel.getShopMobileNo());
 
-                        binding.lnrBack.setBackgroundColor(Color.parseColor(shopDetailsDataModel.getBgcolorName()));
-                        binding.txtName.setTextColor(Color.parseColor(shopDetailsDataModel.getFontColorName()));
+                        if(!shopDetailsDataModel.getBgcolorName().equals("")) {
+                            binding.lnrBack.setBackgroundColor(Color.parseColor(shopDetailsDataModel.getBgcolorName()));
+                        }
+                        if(!shopDetailsDataModel.getFontColorName().equals("")) {
+                            binding.txtName.setTextColor(Color.parseColor(shopDetailsDataModel.getFontColorName()));
+                        }
 
                         Typeface typeface = null;
                         if (shopDetailsDataModel.getFontStyleId().equals("1")) {
