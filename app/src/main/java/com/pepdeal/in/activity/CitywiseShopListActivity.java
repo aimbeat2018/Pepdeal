@@ -13,6 +13,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Typeface;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -249,6 +250,15 @@ public class CitywiseShopListActivity extends AppCompatActivity {
 
                 String address = model.getCity() + ", " + model.getState();
                 layoutBinding.txtAddress.setText(address);
+                layoutBinding.txtAddress.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                                String map = "http://maps.google.co.in/maps?q=" + model.getShopAddress2();
+                                // String uri = String.format(Locale.ENGLISH, "geo:%f,%f", latitude, longitude);
+                                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(map));
+                                startActivity(intent);
+                    }
+                });
                 layoutBinding.txtMobile.setText(model.getShopMobileNo());
 
                 layoutBinding.lnrBack.setBackgroundColor(Color.parseColor(model.getBgcolorName()));

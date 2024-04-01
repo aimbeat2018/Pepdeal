@@ -393,6 +393,15 @@ public class HomeFragment extends Fragment {
                     }
                     String address = model.getCity() + ", " + model.getState();
                     layoutBinding.txtAddress.setText(model.getShopAddress2());
+                    layoutBinding.txtAddress.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            String map = "http://maps.google.co.in/maps?q=" + model.getShopAddress2();
+                           // String uri = String.format(Locale.ENGLISH, "geo:%f,%f", latitude, longitude);
+                            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(map));
+                            startActivity(intent);
+                        }
+                    });
                     layoutBinding.txtMobile.setText(model.getShopMobileNo());
 
                     try {

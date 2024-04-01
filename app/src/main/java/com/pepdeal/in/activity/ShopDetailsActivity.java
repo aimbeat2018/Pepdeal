@@ -225,6 +225,15 @@ public class ShopDetailsActivity extends AppCompatActivity {
 //                                shopDetailsDataModel.getCity() + "," + shopDetailsDataModel.getState());
 
                         binding.txtAddress.setText(shopDetailsDataModel.getShopAddress2());
+                        binding.txtAddress.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                String map = "http://maps.google.co.in/maps?q=" + shopDetailsDataModel.getShopAddress2();
+                                // String uri = String.format(Locale.ENGLISH, "geo:%f,%f", latitude, longitude);
+                                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(map));
+                                startActivity(intent);
+                            }
+                        });
                         binding.txtMobile.setText(shopDetailsDataModel.getShopMobileNo());
 
                         if(!shopDetailsDataModel.getBgcolorName().equals("")) {

@@ -13,6 +13,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -417,6 +418,15 @@ public class ShopSignBoardActivity extends AppCompatActivity {
                         binding.txtName.setText(shopDetailsDataModel.getShopName());
 
                         binding.txtAddress.setText(shopDetailsDataModel.getShopAddress2());
+                        binding.txtAddress.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                String map = "http://maps.google.co.in/maps?q=" + shopDetailsDataModel.getShopAddress2();
+                                // String uri = String.format(Locale.ENGLISH, "geo:%f,%f", latitude, longitude);
+                                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(map));
+                                startActivity(intent);
+                            }
+                        });
                         binding.txtMobile.setText(shopDetailsDataModel.getShopMobileNo());
 
                         binding.lnrBack.setBackgroundColor(Color.parseColor(shopDetailsDataModel.getBgcolorName()));

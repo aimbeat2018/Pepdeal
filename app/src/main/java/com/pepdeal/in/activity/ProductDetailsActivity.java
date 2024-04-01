@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Typeface;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
@@ -308,6 +309,15 @@ public class ProductDetailsActivity extends AppCompatActivity {
         binding.txtName.setText(shopDetailsDataModel.getShopName());
 //        binding.txtAddress.setText(shopDetailsDataModel.getCity() + "," + shopDetailsDataModel.getState());
         binding.txtAddress.setText(shopDetailsDataModel.getShopAddress2());
+        binding.txtAddress.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String map = "http://maps.google.co.in/maps?q=" + shopDetailsDataModel.getShopAddress2();
+                // String uri = String.format(Locale.ENGLISH, "geo:%f,%f", latitude, longitude);
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(map));
+                startActivity(intent);
+            }
+        });
         binding.txtMobile.setText(shopDetailsDataModel.getShopMobileNo());
         String bgColorName = shopDetailsDataModel.getBgColorName();
         binding.lnrBack.setBackgroundColor(Color.parseColor(bgColorName));
