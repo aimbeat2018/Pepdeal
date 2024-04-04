@@ -499,6 +499,14 @@ public class LeadsActivity extends AppCompatActivity {
                         return true;
                     }
                 });
+                layoutBinding.txtDate.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        String map_url = "http://maps.google.co.in/maps?q=" + model.getShopAddress2();
+                        Intent intent=new Intent(Intent.ACTION_VIEW, Uri.parse(map_url));
+                        startActivity(intent);
+                    }
+                });
 
             }
 
