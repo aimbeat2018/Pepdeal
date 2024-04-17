@@ -49,7 +49,7 @@ public class ProductDetailsActivity extends AppCompatActivity {
 
     ActivityProductDetailsBinding binding;
     List<ProductDetailsDataModel> productDataModelList = new ArrayList<>();
-    String productId = "";
+    String productId = "",shopId="";
     ProgressDialog dialog;
     ShopDetailsModel shopDetailsDataModel;
 
@@ -69,6 +69,12 @@ public class ProductDetailsActivity extends AppCompatActivity {
             binding.lnrMainLayout.setVisibility(View.GONE);
             Utils.InternetAlertDialog(ProductDetailsActivity.this, getString(R.string.no_internet_title), getString(R.string.no_internet_desc));
         }
+        binding.lnrBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(ProductDetailsActivity.this, ShopDetailsActivity.class).putExtra("shop_id", shopId));
+            }
+        });
     }
 
     public class ClickHandler {
@@ -177,6 +183,7 @@ public class ProductDetailsActivity extends AppCompatActivity {
 
     private void setData() {
         ProductDetailsDataModel model = productDataModelList.get(0);
+        shopId=model.getShopId();
 
         Glide.with(ProductDetailsActivity.this).load(model.getProductImages().get(0).getProductImage())
                 .error(R.drawable.loader).placeholder(R.drawable.loader).into(binding.imgImage1);
