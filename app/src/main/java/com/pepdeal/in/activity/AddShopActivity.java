@@ -198,87 +198,45 @@ public class AddShopActivity extends AppCompatActivity implements
         model0.setFontStyleName(getString(R.string.board_sign_font_style));
         model0.setFontStyle(R.string.board_sign_font_style);
         shopFontModelList.add(model0);
+
         ShopFontStyleModel model = new ShopFontStyleModel();
         model.setFontStyleId("1");
         model.setFontStyleName("Gagalin");
         model.setFontStyle(R.font.gagalin);
         shopFontModelList.add(model);
-        ShopFontStyleModel model1 = new ShopFontStyleModel();
-        model1.setFontStyleId("2");
-        model1.setFontStyleName("Anahaw");
-        model1.setFontStyle(R.font.anahaw);
-        shopFontModelList.add(model1);
+
         ShopFontStyleModel model2 = new ShopFontStyleModel();
         model2.setFontStyleId("3");
         model2.setFontStyleName("Quicksand");
         model2.setFontStyle(R.font.quicksand);
         shopFontModelList.add(model2);
+
         ShopFontStyleModel model3 = new ShopFontStyleModel();
         model3.setFontStyleId("4");
         model3.setFontStyleName("Open sans Extra");
         model3.setFontStyle(R.font.open_sans_extra);
         shopFontModelList.add(model3);
+
         ShopFontStyleModel model4 = new ShopFontStyleModel();
         model4.setFontStyleId("5");
         model4.setFontStyleName("Lovelo");
         model4.setFontStyle(R.font.lovelo);
         shopFontModelList.add(model4);
-        ShopFontStyleModel model5 = new ShopFontStyleModel();
-        model5.setFontStyleId("6");
-        model5.setFontStyleName("League spartan");
-        model5.setFontStyle(R.font.league_spartan);
-        shopFontModelList.add(model5);
-        ShopFontStyleModel model6 = new ShopFontStyleModel();
-        model6.setFontStyleId("7");
-        model6.setFontStyleName("Lato");
-        model6.setFontStyle(R.font.lato);
-        shopFontModelList.add(model6);
+
+
         ShopFontStyleModel model7 = new ShopFontStyleModel();
         model7.setFontStyleId("8");
         model7.setFontStyleName("Yeseva one");
         model7.setFontStyle(R.font.yeseva_one);
         shopFontModelList.add(model7);
-        ShopFontStyleModel model8 = new ShopFontStyleModel();
-        model8.setFontStyleId("9");
-        model8.setFontStyleName("Quando");
-        model8.setFontStyle(R.font.quando);
-        shopFontModelList.add(model8);
-        ShopFontStyleModel model9 = new ShopFontStyleModel();
-        model9.setFontStyleId("10");
-        model9.setFontStyleName("Roboto");
-        model9.setFontStyle(R.font.roboto);
-        shopFontModelList.add(model9);
-        ShopFontStyleModel model10 = new ShopFontStyleModel();
-        model10.setFontStyleId("11");
-        model10.setFontStyleName("Muli");
-        model10.setFontStyle(R.font.muli);
-        shopFontModelList.add(model10);
+
+
+
         ShopFontStyleModel model11 = new ShopFontStyleModel();
         model11.setFontStyleId("12");
         model11.setFontStyleName("Kollektif");
         model11.setFontStyle(R.font.kollektif);
         shopFontModelList.add(model11);
-        ShopFontStyleModel model12 = new ShopFontStyleModel();
-        model12.setFontStyleId("13");
-        model12.setFontStyleName("Sailors");
-        model12.setFontStyle(R.font.sailors);
-        shopFontModelList.add(model12);
-        ShopFontStyleModel model13 = new ShopFontStyleModel();
-        model13.setFontStyleId("14");
-        model13.setFontStyleName("Fredoka one");
-        model13.setFontStyle(R.font.fredoka_one);
-        shopFontModelList.add(model13);
-
-     /*   ShopFontStyleModel model14 = new ShopFontStyleModel();
-        model14.setFontStyleId("15");
-        model14.setFontStyleName("Roboto Thin");
-        model14.setFontStyle(R.font.roboto_thin);
-        shopFontModelList.add(model14);
-        ShopFontStyleModel model15 = new ShopFontStyleModel();
-        model15.setFontStyleId("16");
-        model15.setFontStyleName("Roboto Thin Italic");
-        model15.setFontStyle(R.font.roboto_thinitalic);
-        shopFontModelList.add(model15);*/
 
         setShopFontStyle(shopFontModelList, binding.spinFontStyle);
     }

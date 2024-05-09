@@ -24,7 +24,7 @@ public class SplashActivity extends AppCompatActivity {
         imageView = findViewById(R.id.img_view);
 
         // Adding the gif here using glide library
-        Glide.with(this).load(R.drawable.artboard2).into(imageView);
+       // Glide.with(this).load(R.drawable.artboard2).into(imageView);
 
         new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
             @Override
@@ -40,6 +40,6 @@ public class SplashActivity extends AppCompatActivity {
                /* startActivity(new Intent(SplashActivity.this, HomeActivity.class));
                 finish();*/
             }
-        }, 2000);
+        }, 1000);
     }
 }

@@ -107,7 +107,8 @@ public class AddProductActivity extends AppCompatActivity {
     public String IMAGE_FILE_PATH;
     String encodedImage;
     File fileImage1, fileImage2, fileImage3;
-    int var = 0;
+  //  int var = 0;
+    public static int var = 0;
     List<File> fileArrayList = new ArrayList<>();
     String productId = "", from = "";
     List<ProductDetailsDataModel> productDataModelList = new ArrayList<>();
