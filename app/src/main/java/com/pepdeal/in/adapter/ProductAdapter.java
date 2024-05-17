@@ -196,9 +196,11 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
 
             layoutBinding.imgAddFav.setOnClickListener(view -> {
                 if (model.getFavouriteStatus().equals("0")) {
+                    model.setFavouriteStatus("1");
                     addFav(model.getProductId());
                 } else {
-                    removeFav(model.getFavouriteId());
+                    model.setFavouriteStatus("0");
+                    removeFav(model.getProductId());
                 }
             });
 
@@ -261,9 +263,11 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
 
             layoutBinding.imgAddFav.setOnClickListener(view -> {
                 if (model.getFavouriteStatus().equals("0")) {
+                    model.setFavouriteStatus("1");
                     addFav(model.getProductId());
                 } else {
-                    removeFav(model.getFavouriteId());
+                    model.setFavouriteStatus("0");
+                    removeFav(model.getProductId());
                 }
             });
 
@@ -311,7 +315,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
                 activity.startActivity(intent);
             });
 
-            if (model.getFavStatus().equals("1")) {
+            if (model.getFavStatus()==1) {
                 layoutBinding.imgAddFav.setImageDrawable(activity.getResources().getDrawable(R.drawable.ic_fav_selected));
             } else {
                 layoutBinding.imgAddFav.setImageDrawable(activity.getResources().getDrawable(R.drawable.ic_favorite));
@@ -319,16 +323,19 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
 
 
             layoutBinding.imgAddFav.setOnClickListener(view -> {
-                if (model.getFavStatus().equals("0")) {
+                if (model.getFavStatus()==0) {
+                    model.setFavStatus(1);
                     addFav(model.getProductId());
                 } else {
-                    removeFav(model.getFavId());
+                    model.setFavStatus(0);
+                    removeFav(model.getProductId());
                 }
             });
 
         }
 
         private void addFav(String productId) {
+            layoutBinding.imgAddFav.setImageDrawable(activity.getResources().getDrawable(R.drawable.ic_loader));
             UserProfileRequestModel model = new UserProfileRequestModel();
             model.setUserId(SharedPref.getVal(activity, SharedPref.user_id));
             model.setProduct_id(productId);
@@ -396,12 +403,13 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
         }
 
         private void removeFav(String favId) {
+            layoutBinding.imgAddFav.setImageDrawable(activity.getResources().getDrawable(R.drawable.ic_loader));
             UserProfileRequestModel model = new UserProfileRequestModel();
             model.setUserId(SharedPref.getVal(activity, SharedPref.user_id));
-            model.setFav_id(favId);
+            model.setProduct_id(favId);
 
             ApiInterface client = ApiClient.createService(ApiInterface.class, "", "");
-            client.favouriteRemove(model).enqueue(new Callback<ResponseBody>() {
+            client.favouriteProductidRemove(model).enqueue(new Callback<ResponseBody>() {
                 @Override
                 public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
                     try {
@@ -419,6 +427,76 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
 
                                 vibrator.vibrate(vibrationEffect2);
                             }*/
+                            Toast.makeText(activity, "Product Removed from favourite", Toast.LENGTH_SHORT).show();
+                            layoutBinding.imgAddFav.setImageDrawable(activity.getResources().getDrawable(R.drawable.ic_favorite));
+                            // getHomeData(false);
+
+                        } else {
+                            Toast.makeText(activity, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+//                    dismissDialog();
+                }
+
+                @Override
+                public void onFailure(@NonNull Call<ResponseBody> call, @NonNull Throwable error) {
+                    // binding.recProductlist.hideShimmer();
+//                    dismissDialog();
+                    error.printStackTrace();
+                    if (error instanceof HttpException) {
+                        switch (((HttpException) error).code()) {
+                            case HttpsURLConnection.HTTP_UNAUTHORIZED:
+                                Toast.makeText(activity, activity.getString(R.string.unauthorised_user), Toast.LENGTH_SHORT).show();
+                                break;
+                            case HttpsURLConnection.HTTP_FORBIDDEN:
+                                Toast.makeText(activity, activity.getString(R.string.forbidden), Toast.LENGTH_SHORT).show();
+                                break;
+                            case HttpsURLConnection.HTTP_INTERNAL_ERROR:
+                                Toast.makeText(activity, activity.getString(R.string.internal_server_error), Toast.LENGTH_SHORT).show();
+                                break;
+                            case HttpsURLConnection.HTTP_BAD_REQUEST:
+                                Toast.makeText(activity, activity.getString(R.string.bad_request), Toast.LENGTH_SHORT).show();
+                                break;
+                            default:
+                                Toast.makeText(activity, error.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    } else {
+                        Toast.makeText(activity, activity.getString(R.string.something_went_wrong), Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+        }
+
+/*
+        private void removeFav(String favId) {
+            layoutBinding.imgAddFav.setImageDrawable(activity.getResources().getDrawable(R.drawable.ic_loader));
+            UserProfileRequestModel model = new UserProfileRequestModel();
+            model.setUserId(SharedPref.getVal(activity, SharedPref.user_id));
+            model.setFav_id(favId);
+
+            ApiInterface client = ApiClient.createService(ApiInterface.class, "", "");
+            client.favouriteRemove(model).enqueue(new Callback<ResponseBody>() {
+                @Override
+                public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
+                    try {
+                        JSONObject jsonObject = new JSONObject(response.body().string());
+                        String code = jsonObject.getString("code");
+                        if (code.equals("200")) {
+                          */
+/*  final VibrationEffect vibrationEffect2;
+                            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.Q) {
+                                final Vibrator vibrator = (Vibrator) activity.getSystemService(Context.VIBRATOR_SERVICE);
+                                // create vibrator effect with the constant EFFECT_TICK
+                                vibrationEffect2 = VibrationEffect.createPredefined(VibrationEffect.EFFECT_TICK);
+
+                                // it is safe to cancel other vibrations currently taking place
+                                vibrator.cancel();
+
+                                vibrator.vibrate(vibrationEffect2);
+                            }*//*
+
                             Toast.makeText(activity, "Product Removed from favourite", Toast.LENGTH_SHORT).show();
 
                             layoutBinding.imgAddFav.setImageDrawable(activity.getResources().getDrawable(R.drawable.ic_favorite));
@@ -461,5 +539,6 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
                 }
             });
         }
+*/
     }
 }

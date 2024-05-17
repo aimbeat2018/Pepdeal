@@ -745,11 +745,11 @@ public class HomeFragment extends Fragment {
                 layoutBinding.imgAddFav.setOnClickListener(view -> {
                     if (model.getFavouriteStatus().equals("0")) {
                         model.setFavouriteStatus("1");
-                        model.setIsLoading("1");
+                       // model.setIsLoading("1");
                         addFav(model.getProductId());
                     } else {
                         model.setFavouriteStatus("0");
-                        model.setIsLoading("1");
+                     //   model.setIsLoading("1");
                         removeFav(model.getProductId());
                     }
                 });
