@@ -103,6 +103,7 @@ public class ShopDetailsActivity extends AppCompatActivity {
         public void onAddSuperShopClick(View view) {
             if (Utils.isNetwork(ShopDetailsActivity.this)) {
                 if (shopDetailsDataModel.getSuperShopTatus().equals("1")) {
+
                     removeSuperShop(shopDetailsDataModel.getSuperShopId());
                 } else {
                     addSuperShop(shop_id);
@@ -385,7 +386,7 @@ public class ShopDetailsActivity extends AppCompatActivity {
     }
 
     private void addSuperShop(String shopId) {
-//        dialog.show();
+        dialog.show();
         UserProfileRequestModel model = new UserProfileRequestModel();
         model.setUserId(SharedPref.getVal(ShopDetailsActivity.this, SharedPref.user_id));
         model.setShop_id(shopId);
@@ -441,6 +442,7 @@ public class ShopDetailsActivity extends AppCompatActivity {
     }
 
     private void removeSuperShop(String superShopId) {
+        dialog.show();
         UserProfileRequestModel model = new UserProfileRequestModel();
         model.setUserId(SharedPref.getVal(ShopDetailsActivity.this, SharedPref.user_id));
         model.setSuper_id(superShopId);
@@ -464,13 +466,13 @@ public class ShopDetailsActivity extends AppCompatActivity {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-//                    dismissDialog();
+                  dismissDialog();
             }
 
             @Override
             public void onFailure(@NonNull Call<ResponseBody> call, @NonNull Throwable error) {
                 // binding.recProductlist.hideShimmer();
-//                    dismissDialog();
+                dismissDialog();
                 error.printStackTrace();
                 if (error instanceof HttpException) {
                     switch (((HttpException) error).code()) {

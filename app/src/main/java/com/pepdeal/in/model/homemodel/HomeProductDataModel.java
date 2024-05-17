@@ -73,8 +73,17 @@ public class HomeProductDataModel {
     @SerializedName("on_call")
     @Expose
     private String onCall;
+    @SerializedName("is_loading")
+    @Expose
+    private String isLoading;
 
+    public String getIsLoading() {
+        return isLoading;
+    }
 
+    public void setIsLoading(String isLoading) {
+        this.isLoading = isLoading;
+    }
 
     public String getProductId() {
         return productId;

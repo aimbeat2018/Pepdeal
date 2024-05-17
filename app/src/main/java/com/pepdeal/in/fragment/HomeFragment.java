@@ -745,9 +745,11 @@ public class HomeFragment extends Fragment {
                 layoutBinding.imgAddFav.setOnClickListener(view -> {
                     if (model.getFavouriteStatus().equals("0")) {
                         model.setFavouriteStatus("1");
+                        model.setIsLoading("1");
                         addFav(model.getProductId());
                     } else {
                         model.setFavouriteStatus("0");
+                        model.setIsLoading("1");
                         removeFav(model.getProductId());
                     }
                 });
@@ -864,6 +866,7 @@ public class HomeFragment extends Fragment {
             }
 
             private void addFav(String productId) {
+                layoutBinding.imgAddFav.setImageDrawable(getResources().getDrawable(R.drawable.ic_loader));
                 UserProfileRequestModel model = new UserProfileRequestModel();
                 model.setUserId(SharedPref.getVal(activity, SharedPref.user_id));
                 model.setProduct_id(productId);
@@ -930,6 +933,7 @@ public class HomeFragment extends Fragment {
             }
 
             private void removeFav(String favId) {
+                layoutBinding.imgAddFav.setImageDrawable(getResources().getDrawable(R.drawable.ic_loader));
                 UserProfileRequestModel model = new UserProfileRequestModel();
                 model.setUserId(SharedPref.getVal(activity, SharedPref.user_id));
                 model.setProduct_id(favId);
