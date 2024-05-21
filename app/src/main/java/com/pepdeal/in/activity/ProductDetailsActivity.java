@@ -49,9 +49,10 @@ public class ProductDetailsActivity extends AppCompatActivity {
 
     ActivityProductDetailsBinding binding;
     List<ProductDetailsDataModel> productDataModelList = new ArrayList<>();
-    String productId = "",shopId="";
+    String productId = "", shopId = "";
     ProgressDialog dialog;
     ShopDetailsModel shopDetailsDataModel;
+    ProductDetailsDataModel productDetailsDataModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -138,6 +139,7 @@ public class ProductDetailsActivity extends AppCompatActivity {
                         }.getType();
                         productDataModelList = new ArrayList<>();
                         productDataModelList.addAll(gson.fromJson(jsonObject.getString("product Detail"), listType));
+                        productDetailsDataModel = productDataModelList.get(0);
 
                         /*Shop Details json*/
                         Gson gson2 = new Gson();
@@ -182,104 +184,103 @@ public class ProductDetailsActivity extends AppCompatActivity {
     }
 
     private void setData() {
-        ProductDetailsDataModel model = productDataModelList.get(0);
-        shopId=model.getShopId();
+        // ProductDetailsDataModel model = productDataModelList.get(0);
+        shopId = productDetailsDataModel.getShopId();
 
-        Glide.with(ProductDetailsActivity.this).load(model.getProductImages().get(0).getProductImage())
+        Glide.with(ProductDetailsActivity.this).load(productDetailsDataModel.getProductImages().get(0).getProductImage())
                 .error(R.drawable.loader).placeholder(R.drawable.loader).into(binding.imgImage1);
-        binding.txtDesc.setText(model.getDescription());
+        binding.txtDesc.setText(productDetailsDataModel.getDescription());
 
-        if (model.getProductImages().get(1).getProductImage().equals("") || model.getProductImages().get(1).getProductImage() == null) {
+        if (productDetailsDataModel.getProductImages().get(1).getProductImage().equals("") || productDetailsDataModel.getProductImages().get(1).getProductImage() == null) {
             binding.imgImage2.setVisibility(View.GONE);
         } else {
             binding.imgImage2.setVisibility(View.VISIBLE);
-            Glide.with(ProductDetailsActivity.this).load(model.getProductImages().get(1).getProductImage())
+            Glide.with(ProductDetailsActivity.this).load(productDetailsDataModel.getProductImages().get(1).getProductImage())
                     .error(R.drawable.loader).placeholder(R.drawable.loader).into(binding.imgImage2);
         }
 
-        if (model.getDescription2().equals("") || model.getDescription2() == null) {
+        if (productDetailsDataModel.getDescription2().equals("") || productDetailsDataModel.getDescription2() == null) {
             binding.lnrDesc1.setVisibility(View.GONE);
         } else {
             binding.lnrDesc1.setVisibility(View.VISIBLE);
-            binding.txtDesc1.setText(model.getDescription2());
+            binding.txtDesc1.setText(productDetailsDataModel.getDescription2());
         }
 
-        if (model.getProductImages().get(2).getProductImage().equals("") || model.getProductImages().get(2).getProductImage() == null) {
+        if (productDetailsDataModel.getProductImages().get(2).getProductImage().equals("") || productDetailsDataModel.getProductImages().get(2).getProductImage() == null) {
             binding.imgImage3.setVisibility(View.GONE);
         } else {
             binding.imgImage3.setVisibility(View.VISIBLE);
-            Glide.with(ProductDetailsActivity.this).load(model.getProductImages().get(2).getProductImage())
+            Glide.with(ProductDetailsActivity.this).load(productDetailsDataModel.getProductImages().get(2).getProductImage())
                     .error(R.drawable.loader).placeholder(R.drawable.loader).into(binding.imgImage3);
         }
 
-        binding.txtProductName.setText(model.getProductName());
-        binding.txtCategory.setText("Category : " + model.getCategoryName());
+        binding.txtProductName.setText(productDetailsDataModel.getProductName());
+        binding.txtCategory.setText("Category : " + productDetailsDataModel.getCategoryName());
 
-        if (model.getBrandName().equals("") || model.getBrandName() == null) {
+        if (productDetailsDataModel.getBrandName().equals("") || productDetailsDataModel.getBrandName() == null) {
             binding.txtBrand.setVisibility(View.GONE);
         } else {
             binding.txtBrand.setVisibility(View.VISIBLE);
-            binding.txtBrand.setText("Brand : " + model.getBrandName());
+            binding.txtBrand.setText("Brand : " + productDetailsDataModel.getBrandName());
         }
 
-        if (model.getColor().equals("") || model.getColor() == null) {
+        if (productDetailsDataModel.getColor().equals("") || productDetailsDataModel.getColor() == null) {
             binding.txtColor.setVisibility(View.GONE);
         } else {
             binding.txtColor.setVisibility(View.VISIBLE);
-            binding.txtColor.setText("Color : " + model.getColor());
+            binding.txtColor.setText("Color : " + productDetailsDataModel.getColor());
         }
-        if (model.getSizeName().equals("") || model.getSizeName() == null) {
+        if (productDetailsDataModel.getSizeName().equals("") || productDetailsDataModel.getSizeName() == null) {
             binding.txtSize.setVisibility(View.GONE);
         } else {
             binding.txtSize.setVisibility(View.VISIBLE);
-            binding.txtSize.setText("Size : " + model.getSizeName());
+            binding.txtSize.setText("Size : " + productDetailsDataModel.getSizeName());
         }
-        if(model.getOnCall().equalsIgnoreCase("1")) {
+        if (productDetailsDataModel.getOnCall().equalsIgnoreCase("1")) {
             binding.txtOff.setVisibility(View.GONE);
             binding.txtActualPrice.setText("On call");
 
-         //   binding.txtActualPrice.setVisibility(View.GONE);
+            //   binding.txtActualPrice.setVisibility(View.GONE);
             binding.txtDiscountPrice.setVisibility(View.GONE);
-        }
-        else {
-            if (model.getDiscountMrp().equals("0") || model.getDiscountMrp().equals("") || model.getDiscountMrp() == null) {
+        } else {
+            if (productDetailsDataModel.getDiscountMrp().equals("0") || productDetailsDataModel.getDiscountMrp().equals("") || productDetailsDataModel.getDiscountMrp() == null) {
                 binding.txtOff.setVisibility(View.GONE);
                 binding.txtActualPrice.setVisibility(View.GONE);
-                binding.txtDiscountPrice.setText("₹ " + model.getMrp());
+                binding.txtDiscountPrice.setText("₹ " + productDetailsDataModel.getMrp());
             } else {
                 binding.txtOff.setVisibility(View.VISIBLE);
                 binding.txtActualPrice.setVisibility(View.VISIBLE);
 
-                binding.txtActualPrice.setText("₹ " + model.getMrp());
+                binding.txtActualPrice.setText("₹ " + productDetailsDataModel.getMrp());
                 binding.txtActualPrice.setPaintFlags(binding.txtActualPrice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-                binding.txtDiscountPrice.setText("₹ " + model.getSellingPrice());
+                binding.txtDiscountPrice.setText("₹ " + productDetailsDataModel.getSellingPrice());
 
-                binding.txtOff.setText(model.getDiscountMrp() + "% OFF");
+                binding.txtOff.setText(productDetailsDataModel.getDiscountMrp() + "% OFF");
             }
         }
 
-        if (model.getSpecification().equals("") || model.getSpecification() == null) {
+        if (productDetailsDataModel.getSpecification().equals("") || productDetailsDataModel.getSpecification() == null) {
             binding.lnrSpecification.setVisibility(View.GONE);
         } else {
             binding.lnrSpecification.setVisibility(View.VISIBLE);
-            binding.txtSpecification.setText(model.getSpecification());
+            binding.txtSpecification.setText(productDetailsDataModel.getSpecification());
         }
 
         /*Ticket Status 0 = Delivered , 1 = Approved , 2 = Waiting ,3 =Rejected*/
-        if (model.getTicketStatus().equals("") || model.getTicketStatus().equals("0") ||
-                model.getTicketStatus().equals("1") || model.getTicketStatus().equals("3")) {
-         //   binding.cardTicket.setCardBackgroundColor(getResources().getColor(R.color.blue));
+        if (productDetailsDataModel.getTicketStatus().equals("") || productDetailsDataModel.getTicketStatus().equals("0") ||
+                productDetailsDataModel.getTicketStatus().equals("1") || productDetailsDataModel.getTicketStatus().equals("3")) {
+            //   binding.cardTicket.setCardBackgroundColor(getResources().getColor(R.color.blue));
             binding.cardTicket.setCardBackgroundColor(getResources().getColor(R.color.black));
             binding.txtTicket.setTextColor(getResources().getColor(R.color.yellow));
 
         } else {
-           // binding.cardTicket.setCardBackgroundColor(getResources().getColor(R.color.bluelight));
+            // binding.cardTicket.setCardBackgroundColor(getResources().getColor(R.color.bluelight));
             binding.cardTicket.setCardBackgroundColor(getResources().getColor(R.color.white));
             binding.txtTicket.setTextColor(getResources().getColor(R.color.black));
         }
 
         /*Fav Status 0 = Not in fav , 1 = In Fav*/
-        if (model.getFavouriteStatus().equals("0")) {
+        if (productDetailsDataModel.getFavouriteStatus().equals("0")) {
 //            binding.cardTicket.setCardBackgroundColor(getResources().getColor(R.color.blue));
             binding.txtFav.setText("Add To Favourite");
         } else {
@@ -290,9 +291,9 @@ public class ProductDetailsActivity extends AppCompatActivity {
         binding.cardFav.setOnClickListener(view -> {
             if (Utils.isNetwork(ProductDetailsActivity.this)) {
                 if (binding.txtFav.getText().toString().equals("Add To Favourite"))
-                    addFav(model.getProductId());
+                    addFav(productDetailsDataModel.getProductId());
                 else
-                    removeFav(model.getFavouriteId());
+                    removeFav(productDetailsDataModel.getFavouriteId());
             } else {
 //                    binding.lnrMainLayout.setVisibility(View.GONE);
                 Utils.InternetAlertDialog(ProductDetailsActivity.this, getString(R.string.no_internet_title), getString(R.string.no_internet_desc));
@@ -301,16 +302,19 @@ public class ProductDetailsActivity extends AppCompatActivity {
         });
 
         binding.cardTicket.setOnClickListener(view -> {
-            if (model.getTicketStatus().equals("") || model.getTicketStatus().equals("0") ||
-                    model.getTicketStatus().equals("1") || model.getTicketStatus().equals("3"))
+            if (productDetailsDataModel.getTicketStatus().equals("") || productDetailsDataModel.getTicketStatus().equals("0") ||
+                    productDetailsDataModel.getTicketStatus().equals("1") || productDetailsDataModel.getTicketStatus().equals("3")) {
                 if (Utils.isNetwork(ProductDetailsActivity.this)) {
-                    raiseTicket(model.getProductId(), model.getShopId());
+                    productDetailsDataModel.setTicketStatus("2");
+                    raiseTicket(productDetailsDataModel.getProductId(), productDetailsDataModel.getShopId());
                 } else {
 //                    binding.lnrMainLayout.setVisibility(View.GONE);
                     Utils.InternetAlertDialog(ProductDetailsActivity.this, getString(R.string.no_internet_title), getString(R.string.no_internet_desc));
                 }
-            else
+            } else {
                 Toast.makeText(ProductDetailsActivity.this, "Ticket already raised for this product", Toast.LENGTH_SHORT).show();
+
+            }
         });
 
         binding.txtName.setText(shopDetailsDataModel.getShopName());
@@ -362,8 +366,11 @@ public class ProductDetailsActivity extends AppCompatActivity {
                     JSONObject jsonObject = new JSONObject(response.body().string());
                     String code = jsonObject.getString("code");
                     if (code.equals("200")) {
+                        productDetailsDataModel.setTicketStatus("2");
                         Toast.makeText(ProductDetailsActivity.this, "Ticket Raised Successfully", Toast.LENGTH_SHORT).show();
-                        getProductDetails(false);
+                        binding.cardTicket.setCardBackgroundColor(getResources().getColor(R.color.white));
+                        binding.txtTicket.setTextColor(getResources().getColor(R.color.black));
+                        // getProductDetails(false);
                     } else {
                         Toast.makeText(ProductDetailsActivity.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
                     }
