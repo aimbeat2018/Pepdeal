@@ -236,7 +236,7 @@ public class HomeActivity extends AppCompatActivity implements LocationListener/
     private void showSearchDialog() {
         Dialog dialog = new Dialog(HomeActivity.this);
         dialog.setContentView(R.layout.search_item_layout);
-        dialog.setCanceledOnTouchOutside(false);
+      //  dialog.setCanceledOnTouchOutside(false);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
 
 
